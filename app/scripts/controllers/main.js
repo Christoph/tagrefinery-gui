@@ -2,16 +2,16 @@
 
 /**
  * @ngdoc function
- * @name tagrefineryGuiApp.controller:MainCtrl
+ * @name tagrefineryGuiApp.thatroller:MainCtrl
  * @description
  * # MainCtrl
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
    .controller('MainCtrl', function ($http, uiGridConstants) {
-   var cont = this;
+   var that = this;
 
-    cont.overviewGrid = {
+    that.overviewGrid = {
         enableFiltering: true,
         showGridFooter: true,
         fastWatch: true,
@@ -30,7 +30,7 @@ angular.module('tagrefineryGuiApp')
         ]
     };
 
-    cont.historyGrid = {
+    that.historyGrid = {
         columnDefs: [
         { field: 'Origin'},
         { field: 'Step 1'},
@@ -39,24 +39,25 @@ angular.module('tagrefineryGuiApp')
         ]
     };
 
-    cont.wordGrid = {
+    that.wordGrid = {
         columnsDef: [
         { field: 'key' },
         { field: 'value', cellFilter: 'number:6' }
         ]
-    }
+    };
 
-    cont.simGrid = {
+    that.simGrid = {
         columnDefs: [
         { field: 'Tag' },
         { field: 'Similarity' }
         ]
-    }
+    };
 
     $http.get('./../../data/data.json')
         .success(function(data) {
-            cont.overviewGrid.data = data;
-            cont.wordGrid.data = data;
+            that.data = data;
+            that.overviewGrid.data = data;
+            that.wordGrid.data = data;
         });
 
  });
