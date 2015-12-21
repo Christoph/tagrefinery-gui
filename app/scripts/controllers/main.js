@@ -11,6 +11,8 @@ angular.module('tagrefineryGuiApp')
    .controller('MainCtrl', function ($http, uiGridConstants) {
    var that = this;
 
+   that.data = [];
+
     that.overviewGrid = {
         enableFiltering: true,
         showGridFooter: true,
