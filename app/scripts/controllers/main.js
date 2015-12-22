@@ -13,6 +13,14 @@ angular.module('tagrefineryGuiApp')
 
    that.data = [];
 
+      // hard-code data
+      that.tempdata = [
+        {name: 'Greg', score: 98},
+        {name: 'Ari', score: 96},
+        {name: 'Q', score: 75},
+        {name: 'Loser', score: 48}
+      ];
+
     that.overviewGrid = {
         enableFiltering: true,
         showGridFooter: true,
