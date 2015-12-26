@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-   .controller('MainCtrl', function ($http, uiGridConstants) {
+   .controller('MainCtrl', function ($scope, $http, uiGridConstants) {
    var that = this;
 
    that.data = [];
@@ -20,6 +20,14 @@ angular.module('tagrefineryGuiApp')
         {name: 'Q', score: 75},
         {name: 'Loser', score: 48}
       ];
+
+      that.addData = function() {
+          that.tempdata.push({
+              name: 'Added',
+              score: 50
+          });
+          console.log(that.tempdata)
+      };
 
     that.overviewGrid = {
         enableFiltering: true,

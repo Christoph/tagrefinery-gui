@@ -15,6 +15,9 @@ angular.module('tagrefineryGuiApp')
             // width
             width = d3.select(element[0]).node().offsetWidth - margin;
 
+            // calculate the height
+            height = data.length * (barHeight + barPadding);
+
             // x-scale
             xScale = d3.scale.linear()
                 .domain([0, d3.max(data, function(d) {
@@ -76,10 +79,6 @@ angular.module('tagrefineryGuiApp')
                 barHeight = parseInt(attrs.barHeight) || 20;
                 barPadding = parseInt(attrs.barPadding) || 5;
                 
-                // calculate the height
-                width = 300;
-                //height = scope.data.length * (barHeight + barPadding);
-                height = 200;
                 // Use the category20() scale function for multicolor support
                 color = d3.scale.category20();
 
@@ -100,12 +99,12 @@ angular.module('tagrefineryGuiApp')
                 });
 
                 // Watch for data changes and re-render
-                scope.$watchCollection('data.children', function(newVals) {
+                scope.$watch('data', function(newVals) {
                     if(newVals)
                     {
                         render(svg, element, scope.data);
                     }
-                });
+                },true);
             }
         };
 }]);
