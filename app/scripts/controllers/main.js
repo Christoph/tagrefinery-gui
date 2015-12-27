@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-   .controller('MainCtrl', function ($scope, $http, uiGridConstants) {
+   .controller('MainCtrl', ["$scope", "httpLoader", "uiGridConstants", function ($scope, httpLoader, uiGridConstants) {
    var that = this;
 
    that.data = [];
@@ -71,11 +71,11 @@ angular.module('tagrefineryGuiApp')
         ]
     };
 
-    $http.get('./../../data/data.json')
+    httpLoader('./../../data/data.json')
         .success(function(data) {
             that.data = data;
             that.overviewGrid.data = data;
             that.wordGrid.data = data;
         });
 
- });
+ }]);
