@@ -8,10 +8,19 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-   .controller('MainCtrl', ["$scope", "httpLoader", "uiGridConstants", function ($scope, httpLoader, uiGridConstants) {
+   .controller('MainCtrl', ["$scope", "httpLoader", "socket", "uiGridConstants", function ($scope, httpLoader, socket, uiGridConstants) {
    var that = this;
 
    that.data = [];
+
+   // Socket functions
+   socket.on('connect', function(data) {
+       console.log("connected")
+   });
+
+   socket.on('data', function(data) {
+       console.log("data:"+data)
+   });
 
       // hard-code data
       that.tempdata = [
@@ -22,11 +31,11 @@ angular.module('tagrefineryGuiApp')
       ];
 
       that.addData = function() {
+          socket.emit("initialize","test")
           that.tempdata.push({
               name: 'Added',
               score: 50
           });
-          console.log(that.tempdata)
       };
 
     that.overviewGrid = {
