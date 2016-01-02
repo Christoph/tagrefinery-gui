@@ -67,6 +67,17 @@ angular.module('tagrefineryGuiApp')
     };
 
     that.wordGrid = {
+        multiSelect: false,
+        enableRowHeaderSelection: false,
+        enableRowSelection: true,
+        enableFullRowSelection: true,
+        onRegisterApi: function(gridApi) {
+            that.wordGroupApi = gridApi;
+
+            gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+                console.log('row changed'+row.entity.key);
+            })
+        },
         columnsDef: [
         { field: 'key' },
         { field: 'value', cellFilter: 'number:6' }
