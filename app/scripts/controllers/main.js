@@ -12,8 +12,11 @@ angular.module('tagrefineryGuiApp')
    var that = this;
 
    that.data = [];
+   that.history = [];
 
+   ////////////////////////////////////////////////
    // Socket functions
+   ////////////////////////////////////////////////
    socket.on('connect', function(data) {
        console.log("connected")
    });
@@ -38,13 +41,27 @@ angular.module('tagrefineryGuiApp')
           });
       };
 
-    that.overviewGrid = {
+   ////////////////////////////////////////////////
+   // Overview Grid
+   ////////////////////////////////////////////////
+   
+   that.overviewGrid = {
         enableFiltering: true,
         showGridFooter: true,
         fastWatch: true,
+        enableFullRowSelection: true,
+        onRegisterApi: function(gridApi) {
+            that.overviewGridApi = gridApi;
+
+            gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+                console.log(history)
+                that.historyGrid.data = that.history;
+            })
+        },
         columnDefs: [
-        { field: 'key'},
-        { field: 'value', cellFilter: 'number:6', filters: [
+        { field: 'tag'},
+        { field: 'carrier'},
+        { field: 'importance', cellFilter: 'number:6', filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,
               placeholder: 'greater than'
@@ -57,15 +74,25 @@ angular.module('tagrefineryGuiApp')
         ]
     };
 
+
+   ////////////////////////////////////////////////
+   // History Grid
+   ////////////////////////////////////////////////
+   
     that.historyGrid = {
         columnDefs: [
-        { field: 'Origin'},
-        { field: 'Step 1'},
-        { field: 'Step 2'},
-        { field: 'Step 3'}
+        { field: 'origin'},
+        { field: 'pre'},
+        { field: 'composite'},
+        { field: 'post'}
         ]
     };
 
+
+   ////////////////////////////////////////////////
+   // Word Grid
+   ////////////////////////////////////////////////
+   
     that.wordGrid = {
         multiSelect: false,
         enableRowHeaderSelection: false,
@@ -75,7 +102,7 @@ angular.module('tagrefineryGuiApp')
             that.wordGroupApi = gridApi;
 
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                console.log('row changed'+row.entity.key);
+                console.log('row changed'+row.entity[0]);
             })
         },
         columnsDef: [
@@ -84,6 +111,11 @@ angular.module('tagrefineryGuiApp')
         ]
     };
 
+
+   ////////////////////////////////////////////////
+   // Similarity Grid
+   ////////////////////////////////////////////////
+   
     that.simGrid = {
         columnDefs: [
         { field: 'Tag' },
@@ -95,7 +127,11 @@ angular.module('tagrefineryGuiApp')
         .success(function(data) {
             that.data = data;
             that.overviewGrid.data = data;
-            that.wordGrid.data = data;
+        });
+
+    httpLoader('./../../data/history.json')
+        .success(function(data) {
+            that.history = data;
         });
 
  }]);
