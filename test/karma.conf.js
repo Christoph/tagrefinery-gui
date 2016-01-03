@@ -30,6 +30,7 @@ module.exports = function(config) {
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/d3/d3.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/lodash/lodash.js',
       // endbower
       "app/scripts/**/*.js",
       //"test/mock/**/*.js",

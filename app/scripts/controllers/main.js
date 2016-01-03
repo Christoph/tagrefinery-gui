@@ -11,7 +11,7 @@ angular.module('tagrefineryGuiApp')
    .controller('MainCtrl', ["$scope", "httpLoader", "socket", "uiGridConstants", function ($scope, httpLoader, socket, uiGridConstants) {
    var that = this;
 
-   that.data = [];
+   that.overview = [];
    that.history = [];
 
    ////////////////////////////////////////////////
@@ -21,9 +21,19 @@ angular.module('tagrefineryGuiApp')
        console.log("connected")
    });
 
-   socket.on('data', function(data) {
-       console.log("data:"+data)
+   socket.on('initalized', function(data) {
+       that.overviewGrid.data = JSON.parse(data);
+       console.log("initialized");
    });
+
+   socket.on('history', function(data) {
+       that.historyGrid.data = JSON.parse(data);
+       console.log(JSON.parse(data))
+   });
+
+   ////////////////////////////////////////////////
+   // D3 functions
+   ////////////////////////////////////////////////
 
       // hard-code data
       that.tempdata = [
@@ -53,11 +63,11 @@ angular.module('tagrefineryGuiApp')
         onRegisterApi: function(gridApi) {
             that.overviewGridApi = gridApi;
 
+            // Update History grid
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                console.log(history)
-                that.historyGrid.data = that.history;
+                getHistory(gridApi.selection.getSelectedGridRows())
             })
-        },
+        }, 
         columnDefs: [
         { field: 'tag'},
         { field: 'carrier'},
@@ -74,6 +84,17 @@ angular.module('tagrefineryGuiApp')
         ]
     };
 
+   // Helper functions
+   
+   // Update History grid
+   function getHistory(gridList)
+   {
+       var ids = [];
+
+       ids = _.map(_.map(gridList, 'entity'),'id');
+        
+       socket.emit("getHistory",ids.join());
+   }
 
    ////////////////////////////////////////////////
    // History Grid
@@ -81,7 +102,7 @@ angular.module('tagrefineryGuiApp')
    
     that.historyGrid = {
         columnDefs: [
-        { field: 'origin'},
+        { field: 'original'},
         { field: 'pre'},
         { field: 'composite'},
         { field: 'post'}
@@ -122,16 +143,5 @@ angular.module('tagrefineryGuiApp')
         { field: 'Similarity' }
         ]
     };
-
-    httpLoader('./../../data/data.json')
-        .success(function(data) {
-            that.data = data;
-            that.overviewGrid.data = data;
-        });
-
-    httpLoader('./../../data/history.json')
-        .success(function(data) {
-            that.history = data;
-        });
 
  }]);
