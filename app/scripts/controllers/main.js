@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-   .controller('MainCtrl', ["$scope", "httpLoader", "socket", "uiGridConstants", function ($scope, httpLoader, socket, uiGridConstants) {
+   .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
    var that = this;
 
    that.overview = [];
@@ -28,7 +28,6 @@ angular.module('tagrefineryGuiApp')
 
    socket.on('history', function(data) {
        that.historyGrid.data = JSON.parse(data);
-       console.log(JSON.parse(data))
    });
 
    ////////////////////////////////////////////////

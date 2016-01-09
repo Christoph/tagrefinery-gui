@@ -22,13 +22,12 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container-fluid" ng-controller="MainCtrl as mc">
-          <h2 style="position:relative; left:50%">Tag Refinery</h2>
+    <div class="container-fluid">
           <div class="row">
               <div class="col-sm-8">
                   <uib-tabset justified="true">
                       <uib-tab heading="Preprocessing">
-                          <div class="container-fluid">
+                          <div class="container-fluid" ng-controller="MainCtrl as mc">
                              <div class="row">
                                  <div class="col-sm-6">
                                     <div ui-grid="mc.wordGrid" ui-grid-selection ></div>
@@ -42,11 +41,23 @@
                              <div d3-bars data="mc.tempdata" bar-height="20" bar-padding="5" margin="10"></div>
                           </div>
                         </uib-tab>
-                        <uib-tab heading="Composites">Short Labeled Justified content</uib-tab>
+                        <uib-tab heading="Composites">
+                             <div class="row" ng-controller="CompositeCtrl as cc">
+                            <button type="button" class="btn btn-primary btn-block" ng-click="cc.grouping()">Grouping</button>
+                                 <div class="col-sm-6">
+                                     <h4 style="position:relative; left:25%">Unique Groups: {{cc.uniqueThreshold}}</h4>
+                                    <div ui-grid="cc.uniqueGrid" ui-grid-selection ></div>
+                                 </div>
+                                 <div class="col-sm-6">
+                                     <h4 style="position:relative; left:25%">Frequent Groupsi: {{cc.frequentThreshold}}</h4>
+                                    <div ui-grid="cc.frequentGrid" ui-grid-selection ></div>
+                                 </div>
+                             </div>
+                        </uib-tab>
                         <uib-tab heading="Postprocessing">Long Labeled Justified content</uib-tab>
                   </uib-tabset>      
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-4" ng-controller="MainCtrl as mc">
                   <h4 style="position:relative; left:50%">Statistics</h4>
                   <hr />
                   <span>Replacements: 123</span></br>
@@ -85,6 +96,7 @@
         <script src="scripts/services/d3.js"></script>
         <script src="scripts/services/httploader.js"></script>
         <script src="scripts/services/socket.js"></script>
+        <script src="scripts/controllers/composite.js"></script>
         <!-- endbuild -->
 </body>
 </html>
