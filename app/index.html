@@ -45,11 +45,11 @@
                              <div class="row" ng-controller="CompositeCtrl as cc">
                             <button type="button" class="btn btn-primary btn-block" ng-click="cc.grouping()">Grouping</button>
                                  <div class="col-sm-6">
-                                     <h4 style="position:relative; left:25%">Unique Groups: {{cc.uniqueThreshold}}</h4>
+                                     <h4 style="position:relative; left:25%">Unique Groups: {{cc.uniqueThreshold | number:3}}</h4>
                                     <div ui-grid="cc.uniqueGrid" ui-grid-selection ></div>
                                  </div>
                                  <div class="col-sm-6">
-                                     <h4 style="position:relative; left:25%">Frequent Groupsi: {{cc.frequentThreshold}}</h4>
+                                     <h4 style="position:relative; left:25%">Frequent Groups: {{cc.frequentThreshold | number:3}}</h4>
                                     <div ui-grid="cc.frequentGrid" ui-grid-selection ></div>
                                  </div>
                              </div>

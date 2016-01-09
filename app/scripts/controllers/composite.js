@@ -19,12 +19,10 @@ angular.module('tagrefineryGuiApp')
    ////////////////////////////////////////////////
 
    socket.on('uniqueGroups', function(data) {
-       console.log(JSON.parse(data))
        that.uniqueGrid.data = JSON.parse(data);
    });
 
    socket.on('frequentGroups', function(data) {
-       console.log(JSON.parse(data))
        that.frequentGrid.data = JSON.parse(data);
    });
 
@@ -50,7 +48,7 @@ angular.module('tagrefineryGuiApp')
 
             // Set unique threshold
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                that.uniqueThreshold = gridApi.selection.getSelectedGridRows()
+                that.uniqueThreshold = gridApi.selection.getSelectedGridRows()[0]
                     .entity.strength;
             })
         }, 
@@ -86,7 +84,7 @@ angular.module('tagrefineryGuiApp')
 
             // Set frequent threshold
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                that.frequentThreshold = gridApi.selection.getSelectedGridRows()
+                that.frequentThreshold = gridApi.selection.getSelectedGridRows()[0]
                     .entity.strength;
             })
         }, 
