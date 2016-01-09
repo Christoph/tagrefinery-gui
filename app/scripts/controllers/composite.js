@@ -11,8 +11,8 @@ angular.module('tagrefineryGuiApp')
   .controller('CompositeCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
 
    var that = this;
-   that.uniqueThreshold = 0;
-   that.frequentThreshold = 0;
+   that.uniqueThreshold = 0.7;
+   that.frequentThreshold = 0.3;
    
    ////////////////////////////////////////////////
    // Socket functions
@@ -29,7 +29,12 @@ angular.module('tagrefineryGuiApp')
    that.grouping = function()
    {
        socket.emit("getGroups","3");
-   }
+   };
+
+   that.apply = function() 
+   {
+       socket.emit("applyGroups","");
+   };
 
    ////////////////////////////////////////////////
    // Overview Grid
@@ -48,9 +53,8 @@ angular.module('tagrefineryGuiApp')
 
             // Set unique threshold
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                that.uniqueThreshold = gridApi.selection.getSelectedGridRows()[0]
-                    .entity.strength;
-            })
+                that.uniqueThreshold = row.entity.strength;
+            });
         }, 
         columnDefs: [
         { field: 'group'},
@@ -84,9 +88,8 @@ angular.module('tagrefineryGuiApp')
 
             // Set frequent threshold
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                that.frequentThreshold = gridApi.selection.getSelectedGridRows()[0]
-                    .entity.strength;
-            })
+                that.frequentThreshold = row.entity.strength;
+            });
         }, 
         columnDefs: [
         { field: 'group'},

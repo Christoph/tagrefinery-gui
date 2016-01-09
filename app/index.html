@@ -30,31 +30,36 @@
                           <div class="container-fluid" ng-controller="PreprocessingCtrl as pc">
                              <div class="row">
                                  <div class="col-sm-6">
-                                    <div ui-grid="pc.wordGrid" ui-grid-selection ></div>
+                                    <div ui-grid="pc.vocabGrid" ui-grid-selection ></div>
                                  </div>
                                  <div class="col-sm-6">
                                     <div ui-grid="pc.simGrid"></div>
                                  </div>
                              </div>
-                              <h4 style="position:relative; left:50%">Placeholder D3 plot</h4>
-                             <button ng-click="pc.addData()">Toggle</button>
-                             <div d3-bars data="pc.tempdata" bar-height="20" bar-padding="5" margin="10"></div>
                           </div>
                         </uib-tab>
                         <uib-tab heading="Composites">
                              <div class="row" ng-controller="CompositeCtrl as cc">
-                            <button type="button" class="btn btn-primary btn-block" ng-click="cc.grouping()">Grouping</button>
+                                <button type="button" class="btn btn-default btn-block" ng-click="cc.apply()">Apply Group Thresholds</button>
                                  <div class="col-sm-6">
-                                     <h4 style="position:relative; left:25%">Unique Groups: {{cc.uniqueThreshold | number:3}}</h4>
+                                     <h4 style="position:relative; left:25%">Unique Groups</h4>
+                                     <h5>Threshold: {{cc.uniqueThreshold | number:3}}</h5>
                                     <div ui-grid="cc.uniqueGrid" ui-grid-selection ></div>
                                  </div>
                                  <div class="col-sm-6">
-                                     <h4 style="position:relative; left:25%">Frequent Groups: {{cc.frequentThreshold | number:3}}</h4>
+                                     <h4 style="position:relative; left:25%">Frequent Groups</h4>
+                                     <h5>Threshold: {{cc.frequentThreshold | number:3}}</h5>
                                     <div ui-grid="cc.frequentGrid" ui-grid-selection ></div>
                                  </div>
                              </div>
                         </uib-tab>
-                        <uib-tab heading="Postprocessing">Long Labeled Justified content</uib-tab>
+                        <uib-tab heading="Postprocessing">
+                            <div class="row" ng-controller="PostprocessingCtrl as pc">
+                                <h4 style="position:relative; left:50%">Placeholder D3 plot</h4>
+                                <button ng-click="pc.addData()">Toggle</button>
+                                <!--<div d3-bars data="pc.tempdata" bar-height="20" bar-padding="5" margin="10"></div>-->
+                            </div>
+                        </uib-tab>
                   </uib-tabset>      
               </div>
               <div class="col-sm-4" ng-controller="MainCtrl as mc">
@@ -98,6 +103,7 @@
         <script src="scripts/services/socket.js"></script>
         <script src="scripts/controllers/composite.js"></script>
         <script src="scripts/controllers/preprocessing.js"></script>
+        <script src="scripts/controllers/postprocessing.js"></script>
         <!-- endbuild -->
 </body>
 </html>

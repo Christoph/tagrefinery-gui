@@ -1,4 +1,5 @@
 'use strict';
+/* jshint -W117 */
 
 /**
  * @ngdoc function
@@ -8,14 +9,14 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-   .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
+  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
    var that = this;
 
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////
-   socket.on('connect', function(data) {
-       console.log("connected")
+   socket.on('connect', function() {
+       console.log("connected");
    });
 
    socket.on('initalized', function(data) {
@@ -25,6 +26,10 @@ angular.module('tagrefineryGuiApp')
 
    socket.on('history', function(data) {
        that.historyGrid.data = JSON.parse(data);
+   });
+
+   socket.on('overview', function(data) {
+       that.overviewGrid.data = JSON.parse(data);
    });
 
    ////////////////////////////////////////////////
@@ -40,9 +45,9 @@ angular.module('tagrefineryGuiApp')
             that.overviewGridApi = gridApi;
 
             // Update History grid
-            gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                getHistory(gridApi.selection.getSelectedGridRows())
-            })
+            gridApi.selection.on.rowSelectionChanged($scope, function() {
+                getHistory(gridApi.selection.getSelectedGridRows());
+            });
         }, 
         columnDefs: [
         { field: 'tag'},
