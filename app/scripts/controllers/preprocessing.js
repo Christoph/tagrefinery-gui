@@ -19,14 +19,18 @@ angular.module('tagrefineryGuiApp')
        that.vocabGrid.data = JSON.parse(data);
    });
 
-   socket.on('simGrid', function(data) {
-       console.log(data);
+   socket.on('cluster', function(data) {
        that.simGrid.data = JSON.parse(data);
    });
 
-   that.grouping = function()
+   that.clustering = function()
    {
-       //socket.emit("getGroups","3");
+       socket.emit("clustering","3");
+   };
+
+   that.apply = function()
+   {
+       socket.emit("applyClustering","0.65");
    };
 
    ////////////////////////////////////////////////
@@ -45,8 +49,7 @@ angular.module('tagrefineryGuiApp')
             that.vocabGridApi = gridApi;
 
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                console.log(row.entity);
-                that.getSimWords(row);
+                that.getSimWords(row.entity.tag);
             });
         },
         columnDefs: [
@@ -66,9 +69,9 @@ angular.module('tagrefineryGuiApp')
 
     // Helper functions
     
-    that.getSimWords = function(row)
+    that.getSimWords = function(tag)
     {
-        
+        socket.emit("getCluster", tag);
     };
 
 

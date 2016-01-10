@@ -28,6 +28,7 @@
                   <uib-tabset justified="true">
                       <uib-tab heading="Preprocessing">
                           <div class="container-fluid" ng-controller="PreprocessingCtrl as pc">
+                            <button type="button" class="btn btn-default btn-block" ng-click="pc.clustering()">clustering</button>
                              <div class="row">
                                  <div class="col-sm-6">
                                     <div ui-grid="pc.vocabGrid" ui-grid-selection ></div>
