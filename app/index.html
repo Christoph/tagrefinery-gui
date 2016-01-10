@@ -28,13 +28,15 @@
                   <uib-tabset justified="true">
                       <uib-tab heading="Preprocessing">
                           <div class="container-fluid" ng-controller="PreprocessingCtrl as pc">
-                            <button type="button" class="btn btn-default btn-block" ng-click="pc.clustering()">clustering</button>
+                              <button type="button" class="btn btn-default btn-block" ng-click="pc.apply()">Cluster words with new similarity</button>
                              <div class="row">
                                  <div class="col-sm-6">
+                                     <h5>Current Similarity Value: {{pc.threshold | number:6}}</h5>
                                     <div ui-grid="pc.vocabGrid" ui-grid-selection ></div>
                                  </div>
                                  <div class="col-sm-6">
-                                    <div ui-grid="pc.simGrid"></div>
+                                     <h5>New Similarity Value: {{pc.newThreshold | number:6}}</h5>
+                                    <div ui-grid="pc.simGrid" ui-grid-selection ></div>
                                  </div>
                              </div>
                           </div>
@@ -71,7 +73,7 @@
                   <span>Bla: 123</span></br>
                   <h4 style="position:relative; left:50%">Data</h4>
                   <hr />
-                  <div ui-grid="mc.overviewGrid" ui-grid-selection ui-grid-resize-columns class="overviewGrid"></div>
+                  <div ui-grid="mc.overviewGrid" ui-grid-selection ui-grid-resize-columns></div>
                   <h4 style="position:relative; left:50%">History</h4>
                   <hr />
                   <div ui-grid="mc.historyGrid" ui-grid-resize-columns></div>

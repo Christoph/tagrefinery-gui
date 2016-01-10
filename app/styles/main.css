@@ -81,3 +81,23 @@ body {
     border-bottom: 0;
   }
 }
+
+.overviewGrid {
+    width: 100%;
+    height: 25%;
+}
+
+.current {
+    color: steelblue;
+    font-weight: bold;
+}
+
+.more {
+    color: green;
+    font-weight: bold;
+}
+
+.less {
+    color: orange;
+    font-weight: bold;
+}

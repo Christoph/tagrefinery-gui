@@ -9,7 +9,10 @@
  */
 angular.module('tagrefineryGuiApp')
   .controller('PreprocessingCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
+
    var that = this;
+   that.threshold = 0.65;
+   that.newThreshold = 0.65;
    
    ////////////////////////////////////////////////
    // Socket functions
@@ -20,7 +23,11 @@ angular.module('tagrefineryGuiApp')
    });
 
    socket.on('cluster', function(data) {
-       that.simGrid.data = JSON.parse(data);
+       var cluster = JSON.parse(data);
+
+       if(cluster.length < 1) cluster.push({tag:"No cluster", similarity: 0});
+
+       that.simGrid.data = cluster;
    });
 
    that.clustering = function()
@@ -30,7 +37,13 @@ angular.module('tagrefineryGuiApp')
 
    that.apply = function()
    {
-       socket.emit("applyClustering","0.65");
+       if(that.threshold != that.newThreshold)
+       {
+           console.log("clusterning")
+           that.threshold = that.newThreshold;
+
+           socket.emit("applyClustering",""+that.threshold);
+       }
    };
 
    ////////////////////////////////////////////////
@@ -53,8 +66,9 @@ angular.module('tagrefineryGuiApp')
             });
         },
         columnDefs: [
-        { field: 'tag'},
-        { field: 'importance', cellFilter: 'number:6', filters: [
+        { field: 'tag' }, 
+        { field: 'importance', 
+            cellFilter: 'number:6', filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,
               placeholder: 'greater than'
@@ -80,10 +94,32 @@ angular.module('tagrefineryGuiApp')
    ////////////////////////////////////////////////
    
     that.simGrid = {
+        multiSelect: false,
+        showGridFooter: true,
+        enableRowHeaderSelection: false,
+        enableRowSelection: true,
+        enableFullRowSelection: true,
+        onRegisterApi: function(gridApi) {
+            that.simGridApi = gridApi;
+
+            gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+                if(row.entity.similarity > 0) that.newThreshold = row.entity.similarity;
+
+                // Tells the grid to redraw after click
+                gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+            });
+        },
         columnDefs: [
         { field: 'tag' },
-        { field: 'similarity' }
-        ]
+        { field: 'similarity', 
+            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) 
+            { 
+                var sim = grid.getCellValue(row,col);
+                if(sim >= that.threshold) return 'current';
+                if(sim >= that.newThreshold && sim < that.threshold) return 'more';
+                if(sim < that.newThreshold && sim >= that.threshold) return 'less';
+            }
+        }]
     };
     
   }]);
