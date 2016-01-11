@@ -12,6 +12,18 @@ angular.module('tagrefineryGuiApp')
   .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
    var that = this;
 
+   $scope.history = {
+       original: "asd",
+       pre: "",
+       composite: "",
+       post: ""
+   };
+
+   $scope.templateUrl = 'popoverTemplateInline.html';
+
+   // tabindex="0" makes the popover use focus as trigger
+   that.popover = '<div tabindex="0" popover-append-to-body="true" class="ui-grid-cell-contents" popover-placement="left" uib-popover="asdasd" popover-trigger="focus">{{row.entity.tag}}</div>';
+
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////
@@ -26,6 +38,8 @@ angular.module('tagrefineryGuiApp')
 
    socket.on('history', function(data) {
        that.historyGrid.data = JSON.parse(data);
+
+       $scope.history = JSON.parse(data);
    });
 
    socket.on('overview', function(data) {
@@ -38,6 +52,8 @@ angular.module('tagrefineryGuiApp')
    
    that.overviewGrid = {
         enableFiltering: true,
+        multiSelect: false,
+        enableRowHeaderSelection: false,
         showGridFooter: true,
         fastWatch: true,
         enableFullRowSelection: true,
@@ -50,7 +66,7 @@ angular.module('tagrefineryGuiApp')
             });
         }, 
         columnDefs: [
-        { field: 'tag'},
+        { field: 'tag', cellTemplate: that.popover, cellClass: 'cellPopover'},
         { field: 'carrier'},
         { field: 'importance', cellFilter: 'number:6', filters: [
             {
@@ -89,5 +105,15 @@ angular.module('tagrefineryGuiApp')
         { field: 'post'}
         ]
     };
+
+    $scope.grid = {
+        columnDefs: [
+        { field: 'original'},
+        { field: 'pre'},
+        { field: 'composite'},
+        { field: 'post'}
+        ]
+    };
+
 
  }]);
