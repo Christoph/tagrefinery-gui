@@ -95,6 +95,7 @@ angular.module('tagrefineryGuiApp')
    
     that.simGrid = {
         multiSelect: false,
+        enableFiltering: true,
         showGridFooter: true,
         enableRowHeaderSelection: false,
         enableRowSelection: true,
@@ -111,11 +112,29 @@ angular.module('tagrefineryGuiApp')
         },
         columnDefs: [
         { field: 'tag' },
-        { field: 'similarity', 
+        { field: 'similarity',
+            cellFilter: 'number:6', filters: [
+            {
+              condition: uiGridConstants.filter.GREATER_THAN,
+              placeholder: 'greater than'
+            },
+            {
+              condition: uiGridConstants.filter.LESS_THAN,
+              placeholder: 'less than'
+            }
+            ],
             cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) 
             { 
                 var sim = grid.getCellValue(row,col);
-                if(sim >= that.threshold) return 'current';
+
+                if(that.newThreshold > that.threshold)
+                {
+                   if(sim >= that.newThreshold) return 'current'; 
+                }
+                else
+                {
+                    if(sim >= that.threshold) return 'current';
+                }
                 if(sim >= that.newThreshold && sim < that.threshold) return 'more';
                 if(sim < that.newThreshold && sim >= that.threshold) return 'less';
             }

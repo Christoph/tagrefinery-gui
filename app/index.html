@@ -27,23 +27,23 @@
               <div class="col-sm-8">
                   <uib-tabset justified="true">
                       <uib-tab heading="Preprocessing">
-                          <div class="container-fluid" ng-controller="PreprocessingCtrl as pc">
-                              <button type="button" class="btn btn-default btn-block" ng-click="pc.apply()">Cluster words with new similarity</button>
-                             <div class="row">
-                                 <div class="col-sm-6">
-                                     <h5>Current Similarity Value: {{pc.threshold | number:6}}</h5>
-                                    <div ui-grid="pc.vocabGrid" ui-grid-selection ></div>
-                                 </div>
-                                 <div class="col-sm-6">
-                                     <h5>New Similarity Value: {{pc.newThreshold | number:6}}</h5>
-                                    <div ui-grid="pc.simGrid" ui-grid-selection ></div>
-                                 </div>
+                          <div class="row" ng-controller="PreprocessingCtrl as pc">
+                             <button type="button" class="btn btn-primary btn-block" ng-click="pc.apply()">Cluster words with new similarity</button>
+                             <div class="col-sm-6">
+                                 <h4 style="position:relative; left:25%">Vocab</h4>
+                                 <h5>Current Similarity Value: {{pc.threshold | number:6}}</h5>
+                                <div ui-grid="pc.vocabGrid" ui-grid-selection ></div>
+                             </div>
+                             <div class="col-sm-6">
+                                 <h4 style="position:relative; left:25%">Cluster</h4>
+                                 <h5>New Similarity Value: {{pc.newThreshold | number:6}}</h5>
+                                <div ui-grid="pc.simGrid" ui-grid-selection ></div>
                              </div>
                           </div>
                         </uib-tab>
                         <uib-tab heading="Composites">
                              <div class="row" ng-controller="CompositeCtrl as cc">
-                                <button type="button" class="btn btn-default btn-block" ng-click="cc.apply()">Apply Group Thresholds</button>
+                                <button type="button" class="btn btn-primary btn-block" ng-click="cc.apply()">Apply Group Thresholds</button>
                                  <div class="col-sm-6">
                                      <h4 style="position:relative; left:25%">Unique Groups</h4>
                                      <h5>Threshold: {{cc.uniqueThreshold | number:3}}</h5>
