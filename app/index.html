@@ -32,12 +32,12 @@
                              <div class="col-sm-6">
                                  <h4 style="position:relative; left:25%">Vocab</h4>
                                  <h5>Current Similarity Value: {{pc.threshold | number:6}}</h5>
-                                <div ui-grid="pc.vocabGrid" ui-grid-selection ></div>
+                                <div ui-grid="pc.vocabGrid" ui-grid-selection ui-grid-resize-columns></div>
                              </div>
                              <div class="col-sm-6">
                                  <h4 style="position:relative; left:25%">Cluster</h4>
                                  <h5>New Similarity Value: {{pc.newThreshold | number:6}}</h5>
-                                <div ui-grid="pc.simGrid" ui-grid-selection ></div>
+                                <div ui-grid="pc.simGrid" ui-grid-selection ui-grid-resize-columns></div>
                              </div>
                           </div>
                         </uib-tab>
@@ -47,12 +47,12 @@
                                  <div class="col-sm-6">
                                      <h4 style="position:relative; left:25%">Unique Groups</h4>
                                      <h5>Threshold: {{cc.uniqueThreshold | number:3}}</h5>
-                                    <div ui-grid="cc.uniqueGrid" ui-grid-selection ></div>
+                                    <div ui-grid="cc.uniqueGrid" ui-grid-selection ui-grid-resize-columns></div>
                                  </div>
                                  <div class="col-sm-6">
                                      <h4 style="position:relative; left:25%">Frequent Groups</h4>
                                      <h5>Threshold: {{cc.frequentThreshold | number:3}}</h5>
-                                    <div ui-grid="cc.frequentGrid" ui-grid-selection ></div>
+                                    <div ui-grid="cc.frequentGrid" ui-grid-selection ui-grid-resize-columns></div>
                                  </div>
                              </div>
                         </uib-tab>

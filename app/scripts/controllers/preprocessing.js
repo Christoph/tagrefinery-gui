@@ -66,8 +66,8 @@ angular.module('tagrefineryGuiApp')
             });
         },
         columnDefs: [
-        { field: 'tag' }, 
-        { field: 'importance', 
+        { field: 'tag', minWidth: 100, width: "*"}, 
+        { field: 'importance', minWidth: 100, width: "*", 
             cellFilter: 'number:6', filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,
@@ -111,8 +111,8 @@ angular.module('tagrefineryGuiApp')
             });
         },
         columnDefs: [
-        { field: 'tag' },
-        { field: 'similarity',
+        { field: 'tag', minWidth: 100, width: "*" },
+        { field: 'similarity', minWidth: 100, width: "*",
             cellFilter: 'number:6', filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,

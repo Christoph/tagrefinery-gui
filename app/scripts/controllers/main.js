@@ -66,9 +66,9 @@ angular.module('tagrefineryGuiApp')
             });
         }, 
         columnDefs: [
-        { field: 'tag', cellTemplate: that.popover, cellClass: 'cellPopover'},
-        { field: 'carrier'},
-        { field: 'importance', cellFilter: 'number:6', filters: [
+        { field: 'tag', cellTemplate: that.popover, cellClass: 'cellPopover', minWidth: 100},
+        { field: 'carrier', minWidth: 100, width: "*"},
+        { field: 'importance', minWidth: 100, width: "*", cellFilter: 'number:6', filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,
               placeholder: 'greater than'

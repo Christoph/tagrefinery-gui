@@ -57,8 +57,8 @@ angular.module('tagrefineryGuiApp')
             });
         }, 
         columnDefs: [
-        { field: 'group'},
-        { field: 'strength', cellFilter: 'number:3', filters: [
+        { field: 'group', minWidth: 100, width: "*"},
+        { field: 'strength', minWidth: 100, width: "*", cellFilter: 'number:3', filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,
               placeholder: 'greater than'
@@ -92,8 +92,8 @@ angular.module('tagrefineryGuiApp')
             });
         }, 
         columnDefs: [
-        { field: 'group'},
-        { field: 'strength', cellFilter: 'number:3', filters: [
+        { field: 'group', minWidth: 100, width: "*"},
+        { field: 'strength', minWidth: 100, width: "*", cellFilter: 'number:3', filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,
               placeholder: 'greater than'
