@@ -9,20 +9,20 @@
 angular.module('tagrefineryGuiApp')
     .directive('d3Bars', ["d3", function (d3) {
         var margin, barHeight, barPadding;
-        var width, height, color, xScale;
+        var width, height, color, xScale, yScale;
 
         var render = function(svg, element, data) {
             // width
             width = d3.select(element[0]).node().offsetWidth - margin;
+            //width = 200;
 
             // calculate the height
-            height = data.length * (barHeight + barPadding);
+            //height = data.length * (barHeight + barPadding);
+            height = 100 - (margin);
 
             // x-scale
             xScale = d3.scale.linear()
-                .domain([0, d3.max(data, function(d) {
-                    return d.score;
-                })])
+                .domain([0,d3.max(data, function(d) { return d.score; })]).nice()
                 .range([0, width]);
 
             // If we don't pass any data, return out of the element
@@ -32,29 +32,46 @@ angular.module('tagrefineryGuiApp')
                 return;
             }
 
+            var hist = d3.layout.histogram()
+                .bins(5)
+                (data.map(function(d) { return d.score; }));
+
+            // y-scale
+            yScale = d3.scale.linear()
+                .domain([0, d3.max(hist, function(d) { return d.y; })])
+                .range([height,0]);
+
             // set the height based on the calculations above
             svg.attr('height', height);
 
-            // Add new data points
-            svg.select('.data')
-                .selectAll('rect').data(data)
+            // Enter
+            var bar = svg.selectAll(".bar")
+                .data(hist)
                 .enter()
-                .append('rect')
-                .attr('fill', function(d) { return color(d.score); })
-                .attr('x', Math.round(margin/2))
-                .attr('y', function(d,i) {
-                    return i * (barHeight + barPadding);
-                })
-                .attr('width', 0)
-                .attr('height', barHeight);
+                .append("g")
+                .attr("class","bar")
+                .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; });
 
-            svg.select('.data')
-                .selectAll('rect').data(data)
+            bar.append("rect");
+
+            // Update
+            var bar2 = svg.selectAll(".bar")
+                .data(hist)
                 .transition()
-                .duration(1000)
-                .attr('width', function(d) {
-                    return xScale(d.score);
-                });
+                .duration(500)
+                .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; });
+
+            bar2.select("rect")
+                .attr("x",1)
+                .attr("width", xScale(hist[0].dx) - 1)
+                .attr("height", function(d) { return height - yScale(d.y); });
+
+            // Exit
+            svg.selectAll(".bar")
+                .data(hist)
+                .exit()
+                .remove();
+
         };
 
         return {
@@ -70,7 +87,6 @@ angular.module('tagrefineryGuiApp')
                     .style('width', '100%');
 
                 // Create groups
-                svg.append('g').attr('class', 'data');
                 svg.append('g').attr('class', 'x-axis axis');
                 svg.append('g').attr('class', 'y-axis axis');
 
@@ -79,9 +95,6 @@ angular.module('tagrefineryGuiApp')
                 barHeight = parseInt(attrs.barHeight) || 20;
                 barPadding = parseInt(attrs.barPadding) || 5;
                 
-                // Use the category20() scale function for multicolor support
-                color = d3.scale.category20();
-
                 // Render after page loading
                 window.onload = function() {
                     render(svg, element, scope.data);
@@ -93,8 +106,7 @@ angular.module('tagrefineryGuiApp')
                     }, function(newVals) {
                     if(newVals)
                     {
-                        // Generates a lot of warnings
-                        //render(svg, element, scope.data);
+                        render(svg, element, scope.data);
                     }
                 });
 

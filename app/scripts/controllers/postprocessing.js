@@ -40,6 +40,8 @@ angular.module('tagrefineryGuiApp')
         {name: 'Greg', score: 98},
         {name: 'Ari', score: 96},
         {name: 'Q', score: 75},
+        {name: 'Adari', score: 40},
+        {name: 'Qdask', score: 2},
         {name: 'Loser', score: 48}
     ];
 

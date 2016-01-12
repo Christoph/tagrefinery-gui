@@ -60,15 +60,12 @@
                             <div class="row" ng-controller="PostprocessingCtrl as pc">
                                 <h4 style="position:relative; left:50%">Placeholder D3 plot</h4>
                                 <button ng-click="pc.addData()">Toggle</button>
-                                <!--<div d3-bars data="pc.tempdata" bar-height="20" bar-padding="5" margin="10"></div>-->
+                                <div d3-bars data="pc.tempdata" bar-height="20" bar-padding="5" margin="10"></div>
                             </div>
                         </uib-tab>
                   </uib-tabset>      
               </div>
               <div class="col-sm-4" ng-controller="MainCtrl as mc">
-                    <script type="text/ng-template" id="popoverTemplateInline.html">
-                        <div>Test</div>
-                    </script>
                   <h4 style="position:relative; left:50%">Statistics</h4>
                   <hr />
                   <span>Replacements: 123</span></br>
@@ -83,10 +80,6 @@
               </div>
           </div>
       </div>
-
-    <script type="text/ng-template" id="popoverTemplate.html">
-        <div>Test</div>
-    </script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <script src="bower_components/socket.io/socket.io.js"></script>
