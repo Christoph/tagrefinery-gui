@@ -7,34 +7,32 @@
  * # d3Bars
  */
 angular.module('tagrefineryGuiApp')
-    .directive('d3Bars', ["d3", function (d3) {
-        var margin, barHeight, barPadding;
+    .directive('d3Bars', ["d3", "$timeout", function (d3, $timeout) {
+        var margin, barHeight, barPadding, isActive;
         var width, height, color, xScale, yScale;
 
         var render = function(svg, element, data) {
             // width
             width = d3.select(element[0]).node().offsetWidth - margin;
-            //width = 200;
 
             // calculate the height
-            //height = data.length * (barHeight + barPadding);
-            height = 100 - (margin);
+            height = 200 - (margin);
 
             // x-scale
             xScale = d3.scale.linear()
-                .domain([0,d3.max(data, function(d) { return d.score; })]).nice()
+                .domain([0,d3.max(data, function(d) { return d.importance; })]).nice()
                 .range([0, width]);
 
             // If we don't pass any data, return out of the element
-            if (!data) 
+            if (!data.length) 
             {
                 console.log("No data");
                 return;
             }
 
             var hist = d3.layout.histogram()
-                .bins(5)
-                (data.map(function(d) { return d.score; }));
+                .bins(20)
+                (data.map(function(d) { return d.importance; }));
 
             // y-scale
             yScale = d3.scale.linear()
@@ -94,29 +92,32 @@ angular.module('tagrefineryGuiApp')
                 margin = parseInt(attrs.margin) || 20;
                 barHeight = parseInt(attrs.barHeight) || 20;
                 barPadding = parseInt(attrs.barPadding) || 5;
-                
-                // Render after page loading
-                window.onload = function() {
-                    render(svg, element, scope.data);
-                };
-                
-                // Watch for resize event
-                scope.$watch(function() {
-                    return angular.element(window)[0].innerWidth;
-                    }, function(newVals) {
-                    if(newVals)
-                    {
-                        render(svg, element, scope.data);
-                    }
-                });
+                isActive = attrs.tabs || false;
 
-                // Watch for data changes and re-render
-                scope.$watch('data', function(newVals) {
-                    if(newVals)
-                    {
+                $timeout(function() {
+                    // Render after page loading
+                    if(isActive) {
                         render(svg, element, scope.data);
-                    }
-                },true);
+                    };
+                    
+                    // Watch for resize event
+                    scope.$watch(function() {
+                        return angular.element(window)[0].innerWidth;
+                        }, function(newVals) {
+                        if(newVals)
+                        {
+                            render(svg, element, scope.data);
+                        }
+                    });
+
+                    // Watch for data changes and re-render
+                    scope.$watch('data', function(newVals) {
+                        if(newVals)
+                        {
+                            render(svg, element, scope.data);
+                        }
+                    },true);
+                }, 1);
             }
         };
 }]);
