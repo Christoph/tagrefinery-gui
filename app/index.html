@@ -26,41 +26,41 @@
           <div class="row">
               <div class="col-sm-8">
                   <uib-tabset justified="true">
-                      <uib-tab heading="Preprocessing">
+                      <uib-tab heading="Preprocessing" active="activeTabs[0]">
                           <div class="row" ng-controller="PreprocessingCtrl as pc">
                              <button type="button" class="btn btn-primary btn-block" ng-click="pc.apply()">Cluster words with new similarity</button>
-                             <div class="col-sm-6">
+                             <div class="col-sm-6" ng-if="activeTabs[0]">
                                  <h4 style="position:relative; left:25%">Vocab</h4>
                                  <h5>Current Similarity Value: {{pc.threshold | number:6}}</h5>
                                 <div ui-grid="pc.vocabGrid" ui-grid-selection ui-grid-resize-columns></div>
                              </div>
-                             <div class="col-sm-6">
+                             <div class="col-sm-6" ng-if="activeTabs[0]">
                                  <h4 style="position:relative; left:25%">Cluster</h4>
                                  <h5>New Similarity Value: {{pc.newThreshold | number:6}}</h5>
                                 <div ui-grid="pc.simGrid" ui-grid-selection ui-grid-resize-columns></div>
                              </div>
                           </div>
                         </uib-tab>
-                        <uib-tab heading="Composites">
-                             <div class="row" ng-controller="CompositeCtrl as cc">
+                        <uib-tab heading="Composites" active="activeTabs[1]">
+                             <div class="row" ng-controller="CompositeCtrl as cc" >
                                 <button type="button" class="btn btn-primary btn-block" ng-click="cc.apply()">Apply Group Thresholds</button>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-6" ng-if="activeTabs[1]">
                                      <h4 style="position:relative; left:25%">Unique Groups</h4>
                                      <h5>Threshold: {{cc.uniqueThreshold | number:3}}</h5>
                                     <div ui-grid="cc.uniqueGrid" ui-grid-selection ui-grid-resize-columns></div>
                                  </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-6" ng-if="activeTabs[1]">
                                      <h4 style="position:relative; left:25%">Frequent Groups</h4>
                                      <h5>Threshold: {{cc.frequentThreshold | number:3}}</h5>
                                     <div ui-grid="cc.frequentGrid" ui-grid-selection ui-grid-resize-columns></div>
                                  </div>
                              </div>
                         </uib-tab>
-                        <uib-tab heading="Postprocessing">
+                        <uib-tab heading="Postprocessing" active="activeTabs[2]">
                             <div class="row" ng-controller="PostprocessingCtrl as pc">
                                 <h4 style="position:relative; left:50%">Placeholder D3 plot</h4>
                                 <button ng-click="pc.addData()">Toggle</button>
-                                <div d3-bars data="pc.tempdata" bar-height="20" bar-padding="5" margin="10"></div>
+                                <div d3-bars data="pc.data" tabs={{$parent.activeTabs[2]}} ng-if="activeTabs[2]"></div>
                             </div>
                         </uib-tab>
                   </uib-tabset>      

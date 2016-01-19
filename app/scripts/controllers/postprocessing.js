@@ -11,14 +11,14 @@ angular.module('tagrefineryGuiApp')
   .controller('PostprocessingCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
 
     var that = this;
+    that.data = [];
 
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////
 
-   socket.on('vocabGrid', function(data) {
-       console.log(data);
-       //that.uniqueGrid.data = JSON.parse(data);
+   socket.on('postVocab', function(data) {
+       that.data = JSON.parse(data);
    });
 
    socket.on('simGrid', function(data) {
@@ -26,31 +26,17 @@ angular.module('tagrefineryGuiApp')
        //that.frequentGrid.data = JSON.parse(data);
    });
 
-   that.grouping = function()
+   that.getImportantWords = function()
    {
-       //socket.emit("getGroups","3");
+       socket.emit("getPostVocab","0");
    };
 
     ////////////////////////////////////////////////
     // D3 functions
     ////////////////////////////////////////////////
 
-    // hard-code data
-    that.tempdata = [
-        {name: 'Greg', score: 98},
-        {name: 'Ari', score: 96},
-        {name: 'Q', score: 75},
-        {name: 'Adari', score: 40},
-        {name: 'Qdask', score: 2},
-        {name: 'Loser', score: 48}
-    ];
-
     that.addData = function() {
-        socket.emit("initialize","test");
-        that.tempdata.push({
-            name: 'Added',
-            score: 50
-        });
+        socket.emit("getPostVocab","0");
     };
 
   }]);

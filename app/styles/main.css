@@ -102,13 +102,75 @@ body {
     font-weight: bold;
 }
 
-.bar rect {
-    fill: steelblue;
-    shape-rendering: crispEdges;
+.axis path,
+.axis line {
+	fill: none;
+	stroke: black;
+    stroke-opacity: .75;
+	shape-rendering: crispEdges;
 }
 
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
+.tick {
+	font-size: 9pt;
+	fill: #000;
+}
+
+.x.label {
+	font-size: 9pt;
+	fill: #000
+}
+
+.y.label {
+	font-size: 9pt;
+	fill: #000;
+}
+
+.title {
+	font-size: 10pt;
+	fill: #000;
+}
+
+rect.bar {
+  fill: red;
   shape-rendering: crispEdges;
+  stroke: none;
+}
+
+.hist.highlight {
+    stroke: black;
+    stroke-width: 5;
+    stroke-opacity: 0.3;
+}
+
+.text._0.highlight {
+    font-size: 20px;
+    stroke: darkblue;
+    stroke-width: 3px;
+}
+
+.bar rect{
+  fill: #535f6c;
+  shape-rendering: crispEdges;
+}
+
+.bar text{
+	font-size: 9pt;
+    fill: black;
+}
+
+.hexagon path {
+  fill: none;
+  stroke: white;
+  stroke-width: .5px;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+.brush .resize path {
+  fill: #eee;
+  stroke: #666;
 }
