@@ -38,7 +38,7 @@ angular.module('tagrefineryGuiApp')
     $scope.onClick = function(item)
     {
         $scope.$apply(function() {
-            alert("Clicked"+item);
+            //alert("Clicked"+item.y);
         });
     };
 

@@ -130,12 +130,6 @@ body {
 	fill: #000;
 }
 
-rect.bar {
-  fill: red;
-  shape-rendering: crispEdges;
-  stroke: none;
-}
-
 .hist.highlight {
     stroke: black;
     stroke-width: 5;
@@ -150,6 +144,11 @@ rect.bar {
 
 .bar rect{
   fill: #535f6c;
+  shape-rendering: crispEdges;
+}
+
+.bar.select rect{
+  fill: steelblue;
   shape-rendering: crispEdges;
 }
 

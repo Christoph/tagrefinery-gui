@@ -25,7 +25,10 @@ angular.module('tagrefineryGuiApp')
    socket.on('cluster', function(data) {
        var cluster = JSON.parse(data);
 
-       if(cluster.length < 1) cluster.push({tag:"No cluster", similarity: 0});
+       if(cluster.length < 1) 
+       {
+            cluster.push({tag:"No cluster", similarity: 0});
+       }
 
        that.simGrid.data = cluster;
    });
@@ -37,9 +40,8 @@ angular.module('tagrefineryGuiApp')
 
    that.apply = function()
    {
-       if(that.threshold != that.newThreshold)
+       if(that.threshold !== that.newThreshold)
        {
-           console.log("clusterning")
            that.threshold = that.newThreshold;
 
            socket.emit("applyClustering",""+that.threshold);
@@ -104,7 +106,10 @@ angular.module('tagrefineryGuiApp')
             that.simGridApi = gridApi;
 
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                if(row.entity.similarity > 0) that.newThreshold = row.entity.similarity;
+                if(row.entity.similarity > 0) 
+                {
+                    that.newThreshold = row.entity.similarity;
+                }
 
                 // Tells the grid to redraw after click
                 gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
@@ -123,20 +128,32 @@ angular.module('tagrefineryGuiApp')
               placeholder: 'less than'
             }
             ],
-            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) 
+            cellClass: function(grid, row, col) 
             { 
                 var sim = grid.getCellValue(row,col);
 
                 if(that.newThreshold > that.threshold)
                 {
-                   if(sim >= that.newThreshold) return 'current'; 
+                   if(sim >= that.newThreshold) 
+                   {
+                        return 'current';    
+                   }
                 }
                 else
                 {
-                    if(sim >= that.threshold) return 'current';
+                    if(sim >= that.threshold) 
+                    {
+                        return 'current';
+                    }
                 }
-                if(sim >= that.newThreshold && sim < that.threshold) return 'more';
-                if(sim < that.newThreshold && sim >= that.threshold) return 'less';
+                if(sim >= that.newThreshold && sim < that.threshold)
+                {
+                    return 'more';  
+                } 
+                if(sim < that.newThreshold && sim >= that.threshold)
+                {
+                    return 'less';
+                } 
             }
         }]
     };

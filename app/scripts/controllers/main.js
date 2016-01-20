@@ -50,6 +50,20 @@ angular.module('tagrefineryGuiApp')
    // Overview Grid
    ////////////////////////////////////////////////
    
+   // Helper functions
+   
+   // Update History grid
+   function getHistory(gridList)
+   {
+       var ids = [];
+
+       ids = _.map(_.map(gridList, 'entity'),'id');
+        
+       socket.emit("getHistory",ids.join());
+   }
+
+   // Grid
+
    that.overviewGrid = {
         enableFiltering: true,
         multiSelect: false,
@@ -80,18 +94,6 @@ angular.module('tagrefineryGuiApp')
         ]}
         ]
     };
-
-   // Helper functions
-   
-   // Update History grid
-   function getHistory(gridList)
-   {
-       var ids = [];
-
-       ids = _.map(_.map(gridList, 'entity'),'id');
-        
-       socket.emit("getHistory",ids.join());
-   }
 
    ////////////////////////////////////////////////
    // History Grid

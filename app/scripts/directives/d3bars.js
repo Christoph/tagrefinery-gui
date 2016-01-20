@@ -9,12 +9,22 @@
 angular.module('tagrefineryGuiApp')
     .directive('d3Bars', ["d3", "$timeout", function (d3, $timeout) {
         var margin, marginLeft, isActive;
-        var width, height, color, xScale, yScale, xAxis, yAxis;
+        var width, height, xScale, yScale, xAxis, yAxis;
         var quadrantWidth, quadrantHeight;
         var hist, svg, bodyG;
         var xName, yName;
 
         var formatCount = d3.format(",.0f");
+
+        var toggleClass = function(element, className) {
+            bodyG.selectAll(".bar.select")
+                .classed(className, false);
+                
+            d3.select(element)
+                .classed(className, function () {
+                    return !d3.select(element).classed(className);
+                });
+        };
 
         var definitions = function(data)
         {
@@ -48,7 +58,7 @@ angular.module('tagrefineryGuiApp')
 
         };
 
-        var skeleton = function(element,data)
+        var skeleton = function(element)
         {
             var padding = 5;
 
@@ -58,7 +68,6 @@ angular.module('tagrefineryGuiApp')
                 .attr("width", '100%')
                 .style("background-color", "white")
                 .attr("class", "chart");
-                //.on("brush", _reloadAll);
 
             // title
             svg.append("text")
@@ -115,36 +124,11 @@ angular.module('tagrefineryGuiApp')
             // create chart body
             bodyG = svg.append("g")
                     .attr("class", "body")
-                    .attr("transform", "translate(" 
-                            + marginLeft 
-                            + "," 
-                            + margin + ")")
+                    .attr("transform", "translate(" + marginLeft + "," + margin + ")")
                     .attr("clip-path", "url(#body-clip)");
-            
-                       
-            // create brush
-            /*
-            _brush = d3.svg.brush()
-                .x(_x)
-                .on("brush", brushing)
-                .on("brushend", brushended);
-
-            _gBrush = _bodyG.append("g")
-                .attr("class", "brush")
-                .call(_brush)
-                .call(_brush.event);
-
-            _gBrush.selectAll("rect")
-                .attr("rx", 5)
-                .attr("height", quadrantHeight())
-                .attr("y", 1);
-
-            _gBrush.selectAll(".resize").append("path").attr("d", resizePath);
-            */
-
         };
 
-        var renderBars = function(scope, element, data) {
+        var renderBars = function(scope) {
             // Enter
             var bar = bodyG.selectAll(".bar")
                 .data(hist)
@@ -152,8 +136,9 @@ angular.module('tagrefineryGuiApp')
                 .append("g")
                 .attr("class","bar")
                 .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; })
-                .on('click', function(d,i) {
-                    return scope.onClick({item: d.y});
+                .on('click', function(d) {
+                    toggleClass(this,"select");
+                    return scope.onClick({item: d});
                 });
 
             bar.append("rect");
@@ -201,12 +186,12 @@ angular.module('tagrefineryGuiApp')
                 definitions(data);
 
                 // Basic skeleton
-                skeleton(element[0],data);
+                skeleton(element[0]);
             }
 
             // Render data
-            renderBars(scope, element, data);
-        }
+            renderBars(scope);
+        };
 
         return {
             restrict: 'EA',
@@ -231,7 +216,7 @@ angular.module('tagrefineryGuiApp')
                     // Render after page loading
                     if(isActive) {
                         render(scope, element, scope.data);
-                    };
+                    }
                     
                     // Watch for resize event
                     scope.$watch(function() {
