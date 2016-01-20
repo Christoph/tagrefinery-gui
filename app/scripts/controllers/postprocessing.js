@@ -35,6 +35,13 @@ angular.module('tagrefineryGuiApp')
     // D3 functions
     ////////////////////////////////////////////////
 
+    $scope.onClick = function(item)
+    {
+        $scope.$apply(function() {
+            alert("Clicked"+item);
+        });
+    };
+
     that.addData = function() {
         socket.emit("getPostVocab","0");
     };

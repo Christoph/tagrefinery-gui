@@ -144,14 +144,17 @@ angular.module('tagrefineryGuiApp')
 
         };
 
-        var renderBars = function(element, data) {
+        var renderBars = function(scope, element, data) {
             // Enter
             var bar = bodyG.selectAll(".bar")
                 .data(hist)
                 .enter()
                 .append("g")
                 .attr("class","bar")
-                .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; });
+                .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; })
+                .on('click', function(d,i) {
+                    return scope.onClick({item: d.y});
+                });
 
             bar.append("rect");
 
@@ -183,7 +186,7 @@ angular.module('tagrefineryGuiApp')
                 .remove();
         };
 
-        var render = function(element, data)
+        var render = function(scope, element, data)
         {
             // If we don't pass any data, return out of the element
             if (!data.length) 
@@ -202,7 +205,7 @@ angular.module('tagrefineryGuiApp')
             }
 
             // Render data
-            renderBars(element, data);
+            renderBars(scope, element, data);
         }
 
         return {
@@ -227,7 +230,7 @@ angular.module('tagrefineryGuiApp')
                     // Listeners
                     // Render after page loading
                     if(isActive) {
-                        render(element, scope.data);
+                        render(scope, element, scope.data);
                     };
                     
                     // Watch for resize event
@@ -236,7 +239,7 @@ angular.module('tagrefineryGuiApp')
                         }, function(newVals) {
                         if(newVals)
                         {
-                            render(element, scope.data);
+                            render(scope, element, scope.data);
                         }
                     });
 
@@ -245,7 +248,7 @@ angular.module('tagrefineryGuiApp')
                         if(newVals)
                         {
                             //definitions(scope.data);
-                            render(element, scope.data);
+                            render(scope, element, scope.data);
                         }
                     },true);
                 }, 1);
