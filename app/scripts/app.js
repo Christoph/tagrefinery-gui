@@ -9,4 +9,4 @@
  * Main module of the application.
  */
 angular
-  .module('tagrefineryGuiApp', ['ui.bootstrap','ui.grid','ui.grid.selection','ui.grid.resizeColumns']);
+  .module('tagrefineryGuiApp', ['ui.bootstrap','ui.grid','ui.grid.selection','ui.grid.resizeColumns','ui.grid.exporter']);

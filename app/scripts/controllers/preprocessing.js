@@ -52,6 +52,15 @@ angular.module('tagrefineryGuiApp')
    // Vocab Grid
    ////////////////////////////////////////////////
    
+    // Helper functions
+    
+    that.getSimWords = function(tag)
+    {
+        socket.emit("getCluster", tag);
+    };
+
+    // Grid
+    
     that.vocabGrid = {
         enableFiltering: true,
         showGridFooter: true,
@@ -83,18 +92,26 @@ angular.module('tagrefineryGuiApp')
         ]
     };
 
-    // Helper functions
+    // Export
     
-    that.getSimWords = function(tag)
-    {
-        socket.emit("getCluster", tag);
-    };
+    that.exportVocab = function() {
+        var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
 
+        that.vocabGridApi.exporter.csvExport("all","all",myElement);
+    };
 
    ////////////////////////////////////////////////
    // Similarity Grid
    ////////////////////////////////////////////////
    
+    // Helper 
+    
+    that.exportCluster = function() {
+        var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+
+        that.simGridApi.exporter.csvExport("all","all", myElement);
+    };
+
     that.simGrid = {
         multiSelect: false,
         enableFiltering: true,
