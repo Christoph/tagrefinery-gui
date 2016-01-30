@@ -8,11 +8,11 @@
  */
 angular.module('tagrefineryGuiApp')
     .directive('d3Bars', ["d3", "$timeout", function (d3, $timeout) {
-        var margin, marginLeft, isActive;
+        var margin, marginLeft;
         var width, height, xScale, yScale, xAxis, yAxis;
         var quadrantWidth, quadrantHeight;
         var hist, svg, bodyG;
-        var xName, yName;
+        var xLabel, yLabel, title;
 
         var formatCount = d3.format(",.0f");
 
@@ -75,7 +75,7 @@ angular.module('tagrefineryGuiApp')
                 .attr("text-anchor", "middle")
                 .attr("x",(width/2))
                 .attr("y", 20)
-                .text("Title");
+                .text(title);
 
             // x axis
             svg.append("g")
@@ -91,7 +91,7 @@ angular.module('tagrefineryGuiApp')
                 .attr("text-anchor", "middle")
                 .attr("x",(width/2))
                 .attr("y", height - 2)
-                .text("["+xName+"]");
+                .text("["+xLabel+"]");
 
             // y axis
             svg.append("g")
@@ -109,7 +109,7 @@ angular.module('tagrefineryGuiApp')
                 .attr("y", 5)
                 .attr("dy", ".75em")
                 .attr("transform", "rotate(-90)")
-                .text("["+yName+"]");
+                .text("["+yLabel+"]");
             
             // body clip
             svg.append("defs")
@@ -204,19 +204,15 @@ angular.module('tagrefineryGuiApp')
                 margin = parseInt(attrs.margin) || 30;
                 marginLeft = parseInt(attrs.marginLeft) || 70;
                 height = parseInt(attrs.svgHeight) || 200;
-                xName = attrs.xName || "X";
-                yName = attrs.yName || "Y";
-                isActive = attrs.tabs || false;
+                xLabel = attrs.xLabel || "X";
+                yLabel = attrs.yLabel || "Y";
+                title = attrs.title || "title";
 
                 $timeout(function() {
                     // width
                     width = d3.select(element[0]).node().offsetWidth;
 
                     // Listeners
-                    // Render after page loading
-                    if(isActive) {
-                        render(scope, element, scope.data);
-                    }
                     
                     // Watch for resize event
                     scope.$watch(function() {

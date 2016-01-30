@@ -13,6 +13,7 @@ angular.module('tagrefineryGuiApp')
    var that = this;
    that.threshold = 0.65;
    that.newThreshold = 0.65;
+   that.data = [];
    
    ////////////////////////////////////////////////
    // Socket functions
@@ -20,6 +21,7 @@ angular.module('tagrefineryGuiApp')
 
    socket.on('vocab', function(data) {
        that.vocabGrid.data = JSON.parse(data);
+       that.data = JSON.parse(data);
    });
 
    socket.on('cluster', function(data) {
