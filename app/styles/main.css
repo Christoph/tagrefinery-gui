@@ -173,3 +173,9 @@ body {
   fill: #eee;
   stroke: #666;
 }
+
+.tabheader {
+    float: right;
+    position: relative;
+    bottom: 5px;
+}

@@ -14,7 +14,10 @@ angular.module('tagrefineryGuiApp')
    that.threshold = 0.65;
    that.newThreshold = 0.65;
    that.data = [];
-   
+
+   // Start in simple mode
+   $scope.$parent.mode = 0;
+
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////
