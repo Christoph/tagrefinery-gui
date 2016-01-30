@@ -13,6 +13,7 @@ angular.module('tagrefineryGuiApp')
         var quadrantWidth, quadrantHeight;
         var hist, svg, bodyG;
         var xLabel, yLabel, title;
+        var initialized = false;
 
         var formatCount = d3.format(",.0f");
 
@@ -173,6 +174,15 @@ angular.module('tagrefineryGuiApp')
 
         var render = function(scope, element, data)
         {
+            if(initialized)
+            {
+                // Render data
+                renderBars(scope);
+            }
+        };
+
+        var init = function(scope, element, data)
+        {
             // If we don't pass any data, return out of the element
             if (!data.length) 
             {
@@ -180,17 +190,16 @@ angular.module('tagrefineryGuiApp')
                 return;
             }
 
-            if(!svg)
-            {
-                // Basic definitions
-                definitions(data);
+            // Basic definitions
+            definitions(data);
 
-                // Basic skeleton
-                skeleton(element[0]);
-            }
-
+            // Basic skeleton
+            skeleton(element[0]);
+            
             // Render data
             renderBars(scope);
+
+            initialized = true;
         };
 
         return {
@@ -212,8 +221,10 @@ angular.module('tagrefineryGuiApp')
                     // width
                     width = d3.select(element[0]).node().offsetWidth;
 
+                    // Initial drawing
+                    init(scope, element, scope.data);
+
                     // Listeners
-                    
                     // Watch for resize event
                     scope.$watch(function() {
                         return angular.element(window)[0].innerWidth;
@@ -232,7 +243,7 @@ angular.module('tagrefineryGuiApp')
                             render(scope, element, scope.data);
                         }
                     },true);
-                }, 1);
+                }, 100);
             }
         };
 }]);
