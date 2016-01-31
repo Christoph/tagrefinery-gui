@@ -12,7 +12,7 @@ angular.module('tagrefineryGuiApp')
         var width, height, xScale, yScale, xAxis, yAxis;
         var quadrantWidth, quadrantHeight;
         var hist, svg, bodyG;
-        var xLabel, yLabel, title, binCount;
+        var xLabel, yLabel, title, binCount, attribute;
         var initialized = false;
 
         var formatCount = d3.format(",.0f");
@@ -34,7 +34,7 @@ angular.module('tagrefineryGuiApp')
 
             // x-scale and axis
             xScale = d3.scale.linear()
-                .domain([0,d3.max(data, function(d) { return d.importance; })]).nice()
+                .domain([0,d3.max(data, function(d) { return d[attribute]; })]).nice()
                 .range([0, quadrantWidth]);
 
             xAxis = d3.svg.axis()
@@ -44,7 +44,9 @@ angular.module('tagrefineryGuiApp')
             // hist data
             hist = d3.layout.histogram()
                 .bins(binCount)
-                (data.map(function(d) { return d.importance; }));
+                (data.map(function(d) { return d[attribute]; }));
+
+            console.log(hist)
 
             // y-scale and axis
             var m = d3.max(hist, function(d) { return d.y; });
@@ -216,6 +218,7 @@ angular.module('tagrefineryGuiApp')
                 xLabel = attrs.typeLabel || "x";
                 yLabel = attrs.yLabel || "y";
                 title = attrs.title || "";
+                attribute = attrs.attribute || "";
                 binCount = parseInt(attrs.bins) || 30;
 
                 $timeout(function() {

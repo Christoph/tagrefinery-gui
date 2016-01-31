@@ -1,3 +1,7 @@
- <button type="button" class="btn btn-primary btn-block" ng-click="pc.apply()">Cluster words with new similarity</button>
-    <div d3-bars data="pc.data" ng-if="activeTabs[0]" bins="20" svg-height="300" type-label="Importance" y-label="Count" on-click="onClick(lower, upper)"></div>
-<div ui-slider min="0" max="200" ng-model="pc.current"></div>
+<button type="button" class="btn btn-primary btn-block" ng-click="pc.apply()">Cluster words with new similarity <span class="label label-success">{{pc.current}}</span></button>
+    <div d3-bars data="pc.data" ng-if="activeTabs[0]" attribute="importance" bins="20" svg-height="300" type-label="Importance" y-label="Count" on-click="onClick(lower, upper)"></div>
+<div class="slider well" ng-if="pc.showSlider">
+    <div ui-slider min="{{pc.lower}}" max="{{pc.upper}}" step="0.001" use-decimals data-tip ng-model="pc.current"></div>
+    <span style="float:right">{{pc.upper | number:2}}</span>
+    <span style="float:left">{{pc.lower | number:2}}</span>
+</div>
