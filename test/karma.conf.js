@@ -23,10 +23,12 @@ module.exports = function(config) {
     files: [
       // bower:js
       'bower_components/jquery/dist/jquery.js',
+      'bower_components/jquery-ui/ui/jquery-ui.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-ui-grid/ui-grid.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/angular-ui-slider/src/slider.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/d3/d3.js',
       'bower_components/angular-mocks/angular-mocks.js',

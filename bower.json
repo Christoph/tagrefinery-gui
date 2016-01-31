@@ -2,10 +2,12 @@
   "name": "tagrefinery-gui",
   "version": "0.0.1",
   "dependencies": {
+    "jquery-ui": "^1.11.4",
     "angular": "1.4.8",
     "angular-resource": "1.4.8",
     "angular-ui-grid": "3.0.7",
     "angular-bootstrap": "0.14.3",
+    "angular-ui-slider": "^0.2.0",
     "bootstrap": "^3.2.0",
     "d3": "3.5.9",
     "angular-mocks": "~1.4.8",
@@ -23,6 +25,15 @@
         "dist/css/bootstrap.css",
         "dist/js/bootstrap.js"
       ]
+    },
+    "jquery-ui": {
+      "main": [
+        "themes/smoothness/jquery-ui.css",
+        "ui/jquery-ui.js"
+      ]
     }
+  },
+  "resolutions": {
+    "jquery-ui": "~1.10.x"
   }
 }

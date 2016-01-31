@@ -18,6 +18,20 @@ angular.module('tagrefineryGuiApp')
    // Start in simple mode
    $scope.$parent.mode = 0;
 
+   // Slider
+   that.current = 10;
+    
+   ////////////////////////////////////////////////
+   // D3 functions
+   ////////////////////////////////////////////////
+
+    $scope.onClick = function(lower, upper)
+    {
+        $scope.$apply(function() {
+            console.log(lower+":"+upper)
+        });
+    };
+
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////

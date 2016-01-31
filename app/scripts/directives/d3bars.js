@@ -137,9 +137,9 @@ angular.module('tagrefineryGuiApp')
                 .append("g")
                 .attr("class","bar")
                 .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; })
-                .on('click', function(d) {
+                .on('click', function(d, i) {
                     toggleClass(this,"select");
-                    return scope.onClick({item: d});
+                    return scope.onClick({lower: hist[i].x, upper: hist[i].x + hist[i].dx});
                 });
 
             bar.append("rect");
