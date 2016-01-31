@@ -1,2 +1,2 @@
  <button type="button" class="btn btn-primary btn-block" ng-click="pc.apply()">Cluster words with new similarity</button>
-    <div d3-bars data="pc.data" ng-if="activeTabs[0]" title="Importance Histogram" xLabel="Importance" yLabel="Count"></div>
+    <div d3-bars data="pc.data" ng-if="activeTabs[0]" bins="20" svg-height="300" type-label="Importance" y-label="Count"></div>

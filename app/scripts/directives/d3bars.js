@@ -12,7 +12,7 @@ angular.module('tagrefineryGuiApp')
         var width, height, xScale, yScale, xAxis, yAxis;
         var quadrantWidth, quadrantHeight;
         var hist, svg, bodyG;
-        var xLabel, yLabel, title;
+        var xLabel, yLabel, title, binCount;
         var initialized = false;
 
         var formatCount = d3.format(",.0f");
@@ -43,7 +43,7 @@ angular.module('tagrefineryGuiApp')
             
             // hist data
             hist = d3.layout.histogram()
-                .bins(20)
+                .bins(binCount)
                 (data.map(function(d) { return d.importance; }));
 
             // y-scale and axis
@@ -213,9 +213,10 @@ angular.module('tagrefineryGuiApp')
                 margin = parseInt(attrs.margin) || 30;
                 marginLeft = parseInt(attrs.marginLeft) || 70;
                 height = parseInt(attrs.svgHeight) || 200;
-                xLabel = attrs.xLabel || "X";
-                yLabel = attrs.yLabel || "Y";
-                title = attrs.title || "title";
+                xLabel = attrs.typeLabel || "x";
+                yLabel = attrs.yLabel || "y";
+                title = attrs.title || "";
+                binCount = parseInt(attrs.bins) || 30;
 
                 $timeout(function() {
                     // width
@@ -243,7 +244,7 @@ angular.module('tagrefineryGuiApp')
                             render(scope, element, scope.data);
                         }
                     },true);
-                }, 100);
+                }, 200);
             }
         };
 }]);
