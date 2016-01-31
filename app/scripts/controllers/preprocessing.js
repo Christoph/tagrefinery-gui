@@ -12,14 +12,13 @@ angular.module('tagrefineryGuiApp')
 
    var that = this;
    that.threshold = 0.65;
-   that.newThreshold = 0.65;
    that.data = [];
+   that.lower = 0;
+   that.upper = 1;
+   that.showSlider = false;
 
    // Start in simple mode
    $scope.$parent.mode = 0;
-
-   // Slider
-   that.current = 10;
     
    ////////////////////////////////////////////////
    // D3 functions
@@ -28,7 +27,9 @@ angular.module('tagrefineryGuiApp')
     $scope.onClick = function(lower, upper)
     {
         $scope.$apply(function() {
-            console.log(lower+":"+upper)
+            that.lower = lower;
+            that.upper = upper;
+            that.showSlider = true;
         });
     };
 
@@ -38,7 +39,11 @@ angular.module('tagrefineryGuiApp')
 
    socket.on('vocab', function(data) {
        that.vocabGrid.data = JSON.parse(data);
+   });
+
+   socket.on('similarities', function(data) {
        that.data = JSON.parse(data);
+       console.log(that.data);
    });
 
    socket.on('cluster', function(data) {
@@ -59,9 +64,9 @@ angular.module('tagrefineryGuiApp')
 
    that.apply = function()
    {
-       if(that.threshold !== that.newThreshold)
+       if(that.threshold !== that.current)
        {
-           that.threshold = that.newThreshold;
+           that.threshold = that.current;
 
            socket.emit("applyClustering",""+that.threshold);
        }

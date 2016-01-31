@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc directive
- * @name tagrefineryGuiApp.directive:d3Bars
+ * @name tagrefineryGuiApp.directive:d3SimHist
  * @description
- * # d3Bars
+ * # d3SimHist
  */
 angular.module('tagrefineryGuiApp')
-    .directive('d3Bars', ["d3", "$timeout", function (d3, $timeout) {
+    .directive('d3SimHist', ["d3", "$timeout", function (d3, $timeout) {
         var margin, marginLeft;
         var width, height, xScale, yScale, xAxis, yAxis;
         var quadrantWidth, quadrantHeight;
@@ -27,6 +27,28 @@ angular.module('tagrefineryGuiApp')
                 });
         };
 
+        var customHist = function(data)
+        {
+            var dx = 1/binCount;
+            var out = [];
+            var temp = [];
+
+            for(var i = 0; i < binCount; i++)
+            {
+                temp = _.sumBy(_.filter(data, function(d) {
+                    return d.value > i * dx && d.value <= dx + i * dx;
+                }),function(o) { return o.count; });
+
+                out.push({
+                    dx: dx,
+                    x: i * dx,
+                    y: temp
+                })
+            }
+
+            return out;
+        };
+
         var definitions = function(data)
         {
             quadrantWidth = width - marginLeft - margin;
@@ -42,9 +64,7 @@ angular.module('tagrefineryGuiApp')
                 .orient("bottom");
             
             // hist data
-            hist = d3.layout.histogram()
-                .bins(binCount)
-                (data.map(function(d) { return d[attribute]; }));
+            hist = customHist(data)
 
             // y-scale and axis
             var m = d3.max(hist, function(d) { return d.y; });
@@ -162,7 +182,7 @@ angular.module('tagrefineryGuiApp')
                 .attr("height", function(d) { return quadrantHeight - yScale(d.y); });
                 
             bar.select("text")
-                .attr("x", xScale(hist[0].dx) / 2 - 6)
+                .attr("x", xScale(hist[0].dx) / 2 - 18)
                 .text(function(d) { return formatCount(d.y); });
 
             // Exit
