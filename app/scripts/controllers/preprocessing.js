@@ -12,6 +12,9 @@ angular.module('tagrefineryGuiApp')
 
    var that = this;
    that.threshold = 0.65;
+   that.replacements = 0;
+   that.newThreshold = 0.65;
+   that.newReplacements = 0;
    that.data = [];
    that.filterList = [];
    that.filter = [0,1];
@@ -20,6 +23,35 @@ angular.module('tagrefineryGuiApp')
 
    // Start in simple mode
    $scope.$parent.mode = 0;
+
+   ////////////////////////////////////////////////
+   // Helper
+   ////////////////////////////////////////////////
+
+   that.countReplacements = function(threshold)
+   {
+       return _.sumBy(_.filter(that.data, function(d) {
+           return d.value >= threshold;
+       }), function(o) {
+           return o.count;
+       });
+   };
+
+   ////////////////////////////////////////////////
+   // Slider functions
+   ////////////////////////////////////////////////
+
+   $scope.slider = {
+        options: {
+            start: function (event, ui) { 
+                },
+            stop: function (event, ui) { 
+                $scope.$apply(function() {
+                    that.newReplacements = that.countReplacements(ui.value);
+                })
+            }
+        }
+    };
     
    ////////////////////////////////////////////////
    // D3 functions
@@ -67,6 +99,8 @@ angular.module('tagrefineryGuiApp')
 
    socket.on('similarities', function(data) {
        that.data = JSON.parse(data);
+
+       that.replacements = that.countReplacements(that.threshold);
    });
 
    socket.on('cluster', function(data) {

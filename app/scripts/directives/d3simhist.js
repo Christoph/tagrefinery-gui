@@ -327,7 +327,6 @@ angular.module('tagrefineryGuiApp')
 
         var useFilter = function(scope)
         {
-            console.log(scope.filter)
             // Apply filter
             var filtered = _.filter(scope.data, function(d) {
                 return d.value > scope.filter[0] && d.value <= scope.filter[1];

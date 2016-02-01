@@ -1,3 +1,23 @@
+<div class="preSummary well well-sm">
+    <table style="width:100%">
+      <tr>
+        <th style="text-align:center">Similarities</th>
+        <th>Threshold</th>
+        <th>Replacements</th> 
+      </tr>
+      <tr>
+        <td style="text-align:center">Current</td>
+        <td>{{pc.threshold}}</td>
+        <td>{{pc.replacements}}</td>
+      </tr>
+      <tr>
+        <td style="text-align:center">New</td>
+        <td>{{pc.newThreshold}}</td>
+        <td>{{pc.newReplacements}}</td>
+      </tr>
+    </table>
+</div>
+
 <div d3-sim-hist data="pc.data" filter="pc.filter" ng-if="activeTabs[0]" attribute="value" bins="10" svg-height="300" title="Similarity Histogram" y-label="Count" on-click="onClick(extend)">
     <div class="btn-group control">
         <button class="btn btn-default" ng-disabled="pc.allowBack" ng-click="pc.back()">
@@ -10,7 +30,7 @@
 </div>
 
 <div class="slider well">
-    <div ui-slider min="{{pc.filter[0]}}" max="{{pc.filter[1]}}" step="0.0001" use-decimals data-tip ng-model="pc.current"></div>
+    <div ui-slider="slider.options" min="{{pc.filter[0]}}" max="{{pc.filter[1]}}" step="0.0001" use-decimals data-tip ng-model="pc.newThreshold"></div>
     <span style="float:right">{{pc.filter[1] | number:2}}</span>
     <span style="float:left">{{pc.filter[0] | number:2}}</span>
 </div>
@@ -18,8 +38,5 @@
 <div class="run">
     <button type="button" class="btn btn-primary btn-block run" ng-click="pc.apply()"> 
         Cluster words with new similarity
-        <span class="label label-success">
-            {{pc.current}} 
-        </span>
     </button>
 </div>
