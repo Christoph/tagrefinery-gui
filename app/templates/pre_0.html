@@ -1,6 +1,6 @@
-<div d3-sim-hist data="pc.data" filter="pc.filter" ng-if="activeTabs[0]" attribute="value" bins="10" svg-height="300" title="Importance Histogram" y-label="Count" on-click="onClick(filter)">
+<div d3-sim-hist data="pc.data" filter="pc.filter" ng-if="activeTabs[0]" attribute="value" bins="10" svg-height="300" title="Similarity Histogram" y-label="Count" on-click="onClick(extend)">
     <div class="btn-group control">
-        <button class="btn btn-default" ng-click="pc.back()">
+        <button class="btn btn-default" ng-disabled="pc.allowBack" ng-click="pc.back()">
             <span class="glyphicon glyphicon-menu-left"></span>
         </button>
         <button class="btn btn-default" ng-click="pc.reset()">

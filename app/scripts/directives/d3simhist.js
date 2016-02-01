@@ -30,18 +30,22 @@ angular.module('tagrefineryGuiApp')
                 });
         };
 
-        var customHist = function(data,filter)
+        var xScaling = function(filter)
         {
             ticks = [];
             dx = (filter[1] - filter[0])/binCount;
-            var out = [];
-            var temp = [];
-
+            
             // Define ticks
             for(var j = 0; j <= binCount; j++)
             {
                 ticks.push(filter[0] + j * dx);
             }
+        };
+
+        var customHist = function(data,filter)
+        {
+            var out = [];
+            var temp = [];
 
             // Create histogram data
             for(var i = 0; i < binCount; i++)
@@ -102,7 +106,7 @@ angular.module('tagrefineryGuiApp')
           else
           {
               // Filter
-              externalFunc({filter: extent1});
+              externalFunc([extent1[0], extent1[1]]);
 
               // Remove brush
               extent1[1] = extent1[0];
@@ -127,6 +131,9 @@ angular.module('tagrefineryGuiApp')
             quadrantWidth = width - marginLeft - margin;
             quadrantHeight = height - margin -margin;
 
+            // Create ticks and dx
+            xScaling(filter);
+
             // x-scale and axis
             xScale = d3.scale.linear()
                 //.domain([0,d3.max(data, function(d) { return d[attribute]; })]).nice()
@@ -135,6 +142,7 @@ angular.module('tagrefineryGuiApp')
 
             xAxis = d3.svg.axis()
                 .scale(xScale)
+                .tickValues(ticks)
                 .orient("bottom");
             
             // hist data
@@ -240,20 +248,18 @@ angular.module('tagrefineryGuiApp')
         };
 
         var renderBars = function(scope) {
-            console.log(hist)
             // Enter
             var bar = bodyG.selectAll(".bar")
                 .data(hist)
                 .enter()
                 .append("g")
                 .attr("class","bar")
-                .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; });
-            /*
+                .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; })
                 .on('click', function(d) {
                     //toggleClass(this,"select");
-                    return scope.onClick({filter: [d.x, d.x + d.dx]});
+                    //return scope.onClick({filter: [d.x, d.x + d.dx]});
+                    return externalFunc([d.x, d.x + d.dx]);
                 });
-                */
 
             bar.append("rect");
 
@@ -308,7 +314,7 @@ angular.module('tagrefineryGuiApp')
             definitions(scope.data, scope.filter);
 
             // Basic skeleton
-            skeleton(element[0]);
+            skeleton(element[0], scope);
             
             // Render data
             renderBars(scope);
@@ -318,6 +324,7 @@ angular.module('tagrefineryGuiApp')
 
         var useFilter = function(scope)
         {
+            console.log(scope.filter)
             // Apply filter
             var filtered = _.filter(scope.data, function(d) {
                 return d.value > scope.filter[0] && d.value <= scope.filter[1];
@@ -326,12 +333,15 @@ angular.module('tagrefineryGuiApp')
             // Update definitions
             definitions(filtered, scope.filter);
 
-            // Update both axis
-            svg.selectAll(".x.axis").call(xAxis);
-            svg.selectAll(".y.axis").call(yAxis);
+            if(initialized)
+            {
+                // Update both axis
+                svg.selectAll(".x.axis").call(xAxis);
+                svg.selectAll(".y.axis").call(yAxis);
 
-            // Update brush axis
-            brush.x(xScale);
+                // Update brush axis
+                brush.x(xScale);
+            }
         }
 
         return {
@@ -353,7 +363,9 @@ angular.module('tagrefineryGuiApp')
                 binCount = parseInt(attrs.bins) || 30;
                 
                 // Map external function to the current scope
-                externalFunc = scope.onClick;
+                externalFunc = function(extend) {
+                    scope.onClick({extend: extend});
+                };
 
                 $timeout(function() {
                     // width

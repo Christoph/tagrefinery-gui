@@ -16,6 +16,7 @@ angular.module('tagrefineryGuiApp')
    that.filterList = [];
    that.filter = [0,1];
    that.showSlider = false;
+   that.allowBack = true;
 
    // Start in simple mode
    $scope.$parent.mode = 0;
@@ -24,11 +25,14 @@ angular.module('tagrefineryGuiApp')
    // D3 functions
    ////////////////////////////////////////////////
 
-    $scope.onClick = function(filter)
+    $scope.onClick = function(extend)
     {
         $scope.$apply(function() {
             that.filterList.push(that.filter);
-            that.filter = filter;
+            that.filter = extend;
+
+            // There is at least on element in the back log
+            that.allowBack = false;
         });
     };
 
@@ -43,6 +47,11 @@ angular.module('tagrefineryGuiApp')
         if(that.filterList.length > 0)
         {
             that.filter = that.filterList.pop();
+        }
+
+        if(that.filterList.length == 0)
+        {
+            that.allowBack = true;
         }
     }
 
