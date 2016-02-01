@@ -55,7 +55,7 @@ angular.module('tagrefineryGuiApp')
                 }),function(o) { return o.count; });
 
                 out.push({
-                    dx: filter[0]+dx,
+                    dx: dx,
                     x: ticks[i],
                     y: temp
                 });
@@ -109,15 +109,18 @@ angular.module('tagrefineryGuiApp')
               externalFunc([extent1[0], extent1[1]]);
 
               // Remove brush
-              extent1[1] = extent1[0];
+              //extent1[0] = extent1[1];
               brush.clear();
+              svg.selectAll('.brush').call(brush);
 
           }
 
           // Transition
+          /*
           d3.select(this).transition()
-              .call(brush.extent(extent1))
+              .call(brush)
               .call(brush.event);
+              */
         };
 
         // Update while brushing
@@ -257,7 +260,7 @@ angular.module('tagrefineryGuiApp')
                 .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; })
                 .on('click', function(d) {
                     //toggleClass(this,"select");
-                    //return scope.onClick({filter: [d.x, d.x + d.dx]});
+                    console.log(d)
                     return externalFunc([d.x, d.x + d.dx]);
                 });
 
@@ -277,11 +280,11 @@ angular.module('tagrefineryGuiApp')
 
             bar.select("rect")
                 .attr("x", 1)
-                .attr("width", xScale(hist[0].dx) - 1)
+                .attr("width", xScale(hist[0].x+hist[0].dx) - 1)
                 .attr("height", function(d) { return quadrantHeight - yScale(d.y); });
                 
             bar.select("text")
-                .attr("x", xScale(hist[0].dx) / 2 - 18)
+                .attr("x", xScale(hist[0].x+hist[0].dx) / 2 - 18)
                 .text(function(d) { return formatCount(d.y); });
 
             // Exit

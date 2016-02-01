@@ -40,6 +40,8 @@ angular.module('tagrefineryGuiApp')
     {
         that.filter = [0,1];
         that.filterList = [];
+
+        that.allowBack = true;
     }
 
     that.back = function()
