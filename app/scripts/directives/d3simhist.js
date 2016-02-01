@@ -11,8 +11,10 @@ angular.module('tagrefineryGuiApp')
         var margin, marginLeft;
         var width, height, xScale, yScale, xAxis, yAxis;
         var quadrantWidth, quadrantHeight;
-        var hist, svg, bodyG;
+        var hist, svg, bodyG, ticks, dx;
+        var externalFunc;
         var xLabel, yLabel, title, binCount, attribute;
+        var brush, gBrush;
         var initialized = false;
         var dirty = false;
 
@@ -30,8 +32,8 @@ angular.module('tagrefineryGuiApp')
 
         var customHist = function(data,filter)
         {
-            var ticks = [];
-            var dx = (filter[1] - filter[0])/binCount;
+            ticks = [];
+            dx = (filter[1] - filter[0])/binCount;
             var out = [];
             var temp = [];
 
@@ -56,6 +58,68 @@ angular.module('tagrefineryGuiApp')
             };
 
             return out;
+        };
+
+        // Brush functions
+        //
+        // Creates the nice drag handle
+        function resizePath(d) {
+            var e = +(d == "e"),
+                x = e ? 1 : -1,
+                y = quadrantHeight / 3;
+            return "M" + (.5 * x) + "," + y
+                + "A6,6 0 0 " + e + " " + (6.5 * x) + "," + (y + 6)
+                + "V" + (2 * y - 6)
+                + "A6,6 0 0 " + e + " " + (.5 * x) + "," + (2 * y)
+                + "Z"
+                + "M" + (2.5 * x) + "," + (y + 8)
+                + "V" + (2 * y - 8)
+                + "M" + (4.5 * x) + "," + (y + 8)
+                + "V" + (2 * y - 8);
+        };
+        
+        // Histogram bin size round function
+        function round(number, increment, offset) {
+            return Math.round((number - offset) / increment ) * increment + offset;
+        };
+
+        function brushended() {
+          if (!d3.event.sourceEvent) return; // only transition after input
+
+          var xDomain = xScale.domain();
+
+          var extent0 = brush.extent();
+          var extent1 = extent0.map(function(d) { 
+              return round(d,dx,xDomain[0]) 
+          });
+
+          // If selection is empty, clear filter
+          if ((extent1[1] - extent1[0]) < dx) {
+              // Remove brush
+              extent1[1] = extent1[0];
+              brush.clear();
+          }
+          else
+          {
+              // Filter
+              externalFunc({filter: extent1});
+
+              // Remove brush
+              extent1[1] = extent1[0];
+              brush.clear();
+
+          }
+
+          // Transition
+          d3.select(this).transition()
+              .call(brush.extent(extent1))
+              .call(brush.event);
+        };
+
+        // Update while brushing
+        function brushing()
+        {
+            if (!d3.event.sourceEvent) return; // only transition after input
         };
 
         var definitions = function(data, filter)
@@ -156,20 +220,40 @@ angular.module('tagrefineryGuiApp')
                     .attr("class", "body")
                     .attr("transform", "translate(" + marginLeft + "," + margin + ")")
                     .attr("clip-path", "url(#body-clip)");
+
+            brush = d3.svg.brush()
+                .x(xScale)
+                .on("brush", brushing)
+                .on("brushend", brushended);
+
+            gBrush = bodyG.append("g")
+                .attr("class","brush")
+                .call(brush)
+                .call(brush.event);
+
+            gBrush.selectAll("rect")
+                .attr("rx", 5)
+                .attr("height", quadrantHeight)
+                .attr("y", 1);
+
+            gBrush.selectAll(".resize").append("path").attr("d", resizePath);
         };
 
         var renderBars = function(scope) {
+            console.log(hist)
             // Enter
             var bar = bodyG.selectAll(".bar")
                 .data(hist)
                 .enter()
                 .append("g")
                 .attr("class","bar")
-                .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; })
+                .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; });
+            /*
                 .on('click', function(d) {
                     //toggleClass(this,"select");
                     return scope.onClick({filter: [d.x, d.x + d.dx]});
                 });
+                */
 
             bar.append("rect");
 
@@ -243,11 +327,11 @@ angular.module('tagrefineryGuiApp')
             definitions(filtered, scope.filter);
 
             // Update both axis
-            var temp = svg.selectAll(".x.axis")
-                .call(xAxis);
+            svg.selectAll(".x.axis").call(xAxis);
+            svg.selectAll(".y.axis").call(yAxis);
 
-            var temp = svg.selectAll(".y.axis")
-                .call(yAxis);
+            // Update brush axis
+            brush.x(xScale);
         }
 
         return {
@@ -268,6 +352,9 @@ angular.module('tagrefineryGuiApp')
                 attribute = attrs.attribute || "";
                 binCount = parseInt(attrs.bins) || 30;
                 
+                // Map external function to the current scope
+                externalFunc = scope.onClick;
+
                 $timeout(function() {
                     // width
                     width = d3.select(element[0]).node().offsetWidth;
