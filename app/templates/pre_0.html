@@ -1,7 +1,25 @@
-<button type="button" class="btn btn-primary btn-block" ng-click="pc.apply()">Cluster words with new similarity <span class="label label-success">{{pc.current}}</span></button>
-    <div d3-sim-hist data="pc.data" ng-if="activeTabs[0]" attribute="value" bins="20" svg-height="300" type-label="Importance" y-label="Count" on-click="onClick(lower, upper)"></div>
-<div class="slider well" ng-if="pc.showSlider">
-    <div ui-slider min="{{pc.lower}}" max="{{pc.upper}}" step="0.001" use-decimals data-tip ng-model="pc.current"></div>
-    <span style="float:right">{{pc.upper | number:2}}</span>
-    <span style="float:left">{{pc.lower | number:2}}</span>
+<div d3-sim-hist data="pc.data" filter="pc.filter" ng-if="activeTabs[0]" attribute="value" bins="10" svg-height="300" title="Importance Histogram" y-label="Count" on-click="onClick(filter)">
+    <div class="btn-group control">
+        <button class="btn btn-default" ng-click="pc.back()">
+            <span class="glyphicon glyphicon-menu-left"></span>
+        </button>
+        <button class="btn btn-default" ng-click="pc.reset()">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </div>
+</div>
+
+<div class="slider well">
+    <div ui-slider min="{{pc.filter[0]}}" max="{{pc.filter[1]}}" step="0.001" use-decimals data-tip ng-model="pc.current"></div>
+    <span style="float:right">{{pc.filter[1] | number:2}}</span>
+    <span style="float:left">{{pc.filter[0] | number:2}}</span>
+</div>
+
+<div class="run">
+    <button type="button" class="btn btn-primary btn-block run" ng-click="pc.apply()"> 
+        Cluster words with new similarity
+        <span class="label label-success">
+            {{pc.current}} 
+        </span>
+    </button>
 </div>

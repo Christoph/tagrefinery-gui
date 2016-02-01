@@ -157,12 +157,6 @@ body {
     fill: black;
 }
 
-.hexagon path {
-  fill: none;
-  stroke: white;
-  stroke-width: .5px;
-}
-
 .brush .extent {
   stroke: #fff;
   fill-opacity: .125;
@@ -181,8 +175,8 @@ body {
 }
 
 div.slider {
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-left: 50px;
+    margin-right: 7px;
     padding-top: 20px;
 }
 
@@ -198,3 +192,15 @@ div.slider {
   text-align: left;
   font-size: 9pt;
 }
+
+.btn-group.control {
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 88%;
+}
+
+div.run {
+    margin-left: 50px;
+    margin-right: 7px;
+}
+

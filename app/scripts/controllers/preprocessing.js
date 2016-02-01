@@ -13,8 +13,8 @@ angular.module('tagrefineryGuiApp')
    var that = this;
    that.threshold = 0.65;
    that.data = [];
-   that.lower = 0;
-   that.upper = 1;
+   that.filterList = [];
+   that.filter = [0,1];
    that.showSlider = false;
 
    // Start in simple mode
@@ -24,14 +24,27 @@ angular.module('tagrefineryGuiApp')
    // D3 functions
    ////////////////////////////////////////////////
 
-    $scope.onClick = function(lower, upper)
+    $scope.onClick = function(filter)
     {
         $scope.$apply(function() {
-            that.lower = lower;
-            that.upper = upper;
-            that.showSlider = true;
+            that.filterList.push(that.filter);
+            that.filter = filter;
         });
     };
+
+    that.reset = function()
+    {
+        that.filter = [0,1];
+        that.filterList = [];
+    }
+
+    that.back = function()
+    {
+        if(that.filterList.length > 0)
+        {
+            that.filter = that.filterList.pop();
+        }
+    }
 
    ////////////////////////////////////////////////
    // Socket functions
@@ -43,7 +56,6 @@ angular.module('tagrefineryGuiApp')
 
    socket.on('similarities', function(data) {
        that.data = JSON.parse(data);
-       console.log(that.data);
    });
 
    socket.on('cluster', function(data) {
