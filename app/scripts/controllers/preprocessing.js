@@ -72,6 +72,21 @@ angular.module('tagrefineryGuiApp')
         });
     };
 
+    that.helpAdv = function (size) {
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'templates/preHelpAdv.html',
+          controller: 'PreHelpCtrl',
+          size: size
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+          $scope.selected = selectedItem;
+        }, function () {
+          console.log('Modal dismissed at: ' + new Date());
+        });
+    };
+
    ////////////////////////////////////////////////
    // D3 functions
    ////////////////////////////////////////////////

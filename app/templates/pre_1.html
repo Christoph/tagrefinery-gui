@@ -1,5 +1,5 @@
 <div class="preSimple well well-sm">
-    <button class="btn btn-default help" ng-click="pc.help()">
+    <button class="btn btn-default help" ng-click="pc.helpAdv()">
         <span class="glyphicon glyphicon-header"></span>
     </button>
     <table style="width:100%">
@@ -37,7 +37,7 @@
      <div ui-grid="pc.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
  </div>
  <div class="col-sm-6" ng-if="activeTabs[0]">
-     <h4 style="position:relative; left:25%">Cluster</h4>
+     <h4 style="position:relative; left:25%">Replacements</h4>
     <div ui-grid="pc.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
  </div>
  <button type="button" class="btn btn-primary btn-block run" ng-click="pc.apply()">Cluster words with new similarity</button>
