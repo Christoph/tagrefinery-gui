@@ -33,6 +33,8 @@ module.exports = function(config) {
       'bower_components/d3/d3.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/lodash/lodash.js',
+      'bower_components/pdfmake/build/pdfmake.js',
+      'bower_components/pdfmake/build/vfs_fonts.js',
       // endbower
       "app/scripts/**/*.js",
       //"test/mock/**/*.js",

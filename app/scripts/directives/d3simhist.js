@@ -50,7 +50,7 @@ angular.module('tagrefineryGuiApp')
             // Create histogram data
             for(var i = 0; i < binCount; i++)
             {
-                temp = _.sumBy(_.filter(data, function(d) {
+                temp = _.sum(_.filter(data, function(d) {
                     return d.value > ticks[i] && d.value <= ticks[i+1];
                 }),function(o) { return o.count; });
 
@@ -260,7 +260,6 @@ angular.module('tagrefineryGuiApp')
                 .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; })
                 .on('click', function(d) {
                     //toggleClass(this,"select");
-                    console.log(d)
                     return externalFunc([d.x, d.x + d.dx]);
                 });
 

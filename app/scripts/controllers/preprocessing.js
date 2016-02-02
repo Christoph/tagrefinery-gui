@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PreprocessingCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
+  .controller('PreprocessingCtrl', ["$scope", "socket", "uiGridConstants","$timeout", function ($scope, socket, uiGridConstants,$timeout) {
 
    var that = this;
    that.threshold = 0.65;
@@ -28,31 +28,30 @@ angular.module('tagrefineryGuiApp')
    // Helper
    ////////////////////////////////////////////////
 
-   that.countReplacements = function(threshold)
+   that.countReplacements = function()
    {
-       return _.sumBy(_.filter(that.data, function(d) {
-           return d.value >= threshold;
+       return _.sum(_.filter(that.data, function(d) {
+           return d.value >= that.threshold;
        }), function(o) {
            return o.count;
        });
    };
 
-   ////////////////////////////////////////////////
-   // Slider functions
-   ////////////////////////////////////////////////
+   that.countNewReplacements = function()
+   {
+       return _.sum(_.filter(that.data, function(d) {
+           return d.value >= that.newThreshold;
+       }), function(o) {
+           return o.count;
+       });
+   };
 
-   $scope.slider = {
+    $scope.slider = {
         options: {
-            start: function (event, ui) { 
-                },
-            stop: function (event, ui) { 
-                $scope.$apply(function() {
-                    that.newReplacements = that.countReplacements(ui.value);
-                })
+            start: function (event, ui) {  },
+            stop: function (event, ui) { that.getReplacements(that.newThreshold); }
             }
         }
-    };
-    
    ////////////////////////////////////////////////
    // D3 functions
    ////////////////////////////////////////////////
@@ -93,14 +92,20 @@ angular.module('tagrefineryGuiApp')
    // Socket functions
    ////////////////////////////////////////////////
 
+   socket.on('replacements', function(data) {
+       that.replGrid.data = JSON.parse(data);
+       
+       $timeout(function() {
+           that.scrollTo(0,0);
+       })
+   });
+
    socket.on('vocab', function(data) {
        that.vocabGrid.data = JSON.parse(data);
    });
 
    socket.on('similarities', function(data) {
        that.data = JSON.parse(data);
-
-       that.replacements = that.countReplacements(that.threshold);
    });
 
    socket.on('cluster', function(data) {
@@ -130,6 +135,61 @@ angular.module('tagrefineryGuiApp')
    };
 
    ////////////////////////////////////////////////
+   // Replacement Grid
+   ////////////////////////////////////////////////
+   
+    // Helper functions
+    
+    that.getReplacements = function()
+    {
+        socket.emit("getReplacements", that.newThreshold);
+    };
+
+    that.scrollTo = function( rowIndex, colIndex ) {
+        that.replGridApi.core.scrollTo( that.replGrid.data[rowIndex], that.replGrid.columnDefs[colIndex]);
+        that.replGridApi.selection.selectRow(that.replGrid.data[rowIndex]);
+    };
+
+    // Grid
+    
+    that.replGrid = {
+        enableFiltering: false,
+        enableColumnMenus: false,
+        enableGridMenu: true,
+        showGridFooter: false,
+        fastWatch: true,
+        multiSelect: false,
+        enableRowHeaderSelection: false,
+        enableRowSelection: true,
+        enableFullRowSelection: true,
+        onRegisterApi: function(gridApi) {
+            that.replGridApi = gridApi;
+
+            gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+                that.newThreshold = row.entity.similarity;
+            });
+        },
+        columnDefs: [
+        { field: 'truth', minWidth: 100, width: "*"}, 
+        { field: 'replacement', minWidth: 100, width: "*"}, 
+        { field: 'similarity', minWidth: 100, width: "*", cellFilter: 'number:6',
+            sort: {
+                direction: uiGridConstants.DESC,
+                priority: 1
+            }
+        }
+        ]
+    };
+
+    // Export
+    
+    that.exportRepl = function() {
+        var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+
+        that.replGridApi.exporter.csvExport("all","all",myElement);
+    };
+
+   ////////////////////////////////////////////////
    // Vocab Grid
    ////////////////////////////////////////////////
    
@@ -145,6 +205,7 @@ angular.module('tagrefineryGuiApp')
     that.vocabGrid = {
         enableFiltering: true,
         showGridFooter: true,
+        enableColumnMenus: false,
         fastWatch: true,
         multiSelect: false,
         enableRowHeaderSelection: false,
@@ -160,6 +221,10 @@ angular.module('tagrefineryGuiApp')
         columnDefs: [
         { field: 'tag', minWidth: 100, width: "*"}, 
         { field: 'importance', minWidth: 100, width: "*", 
+            sort: {
+                direction: uiGridConstants.DESC,
+                priority: 0
+            },
             cellFilter: 'number:6', filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,
@@ -193,8 +258,11 @@ angular.module('tagrefineryGuiApp')
         that.simGridApi.exporter.csvExport("all","all", myElement);
     };
 
+    // Grid
+
     that.simGrid = {
         multiSelect: false,
+        enableColumnMenus: false,
         enableFiltering: true,
         showGridFooter: true,
         enableRowHeaderSelection: false,
@@ -216,6 +284,10 @@ angular.module('tagrefineryGuiApp')
         columnDefs: [
         { field: 'tag', minWidth: 100, width: "*" },
         { field: 'similarity', minWidth: 100, width: "*",
+            sort: {
+                direction: uiGridConstants.DESC,
+                priority: 0
+            },
             cellFilter: 'number:6', filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,
