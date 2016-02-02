@@ -312,6 +312,9 @@ angular.module('tagrefineryGuiApp')
                 return;
             }
 
+            // width
+            width = d3.select(element[0]).node().offsetWidth;
+
             // Basic definitions
             definitions(scope.data, scope.filter);
 
@@ -369,9 +372,6 @@ angular.module('tagrefineryGuiApp')
                 };
 
                 $timeout(function() {
-                    // width
-                    width = d3.select(element[0]).node().offsetWidth;
-
                     // Initial drawing
                     init(scope, element);
 
@@ -401,6 +401,8 @@ angular.module('tagrefineryGuiApp')
                     scope.$watch('data', function(newVals) {
                         if(newVals)
                         {
+                            if(initialized == false) init(scope, element);
+
                             dirty = true;
                             render(scope);
                         }
