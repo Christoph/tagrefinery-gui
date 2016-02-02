@@ -16,10 +16,14 @@ angular.module('tagrefineryGuiApp')
    that.newThreshold = 0.65;
    that.newReplacements = 0;
    that.data = [];
+   that.vocab = [];
    that.filterList = [];
    that.filter = [0,1];
+   that.vocabFilter = [0,1];
+   that.vocabFilterList = [];
    that.showSlider = false;
    that.allowBack = true;
+   that.allowBackVocab = true;
 
    // Start in simple mode
    $scope.$parent.mode = 0;
@@ -53,18 +57,12 @@ angular.module('tagrefineryGuiApp')
         }
     };
 
-    $scope.items = ['item1', 'item2', 'item3'];
     that.help = function (size) {
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
           templateUrl: 'templates/preHelp.html',
           controller: 'PreHelpCtrl',
-          size: size,
-          resolve: {
-            items: function () {
-              return $scope.items;
-            }
-          }
+          size: size
         });
 
         modalInstance.result.then(function (selectedItem) {
@@ -89,6 +87,17 @@ angular.module('tagrefineryGuiApp')
         });
     };
 
+    $scope.vocabClick = function(extend)
+    {
+        $scope.$apply(function() {
+            that.vocabFilterList.push(that.vocabFilter);
+            that.vocabFilter = extend;
+
+            // There is at least on element in the back log
+            that.allowBackVocab = false;
+        });
+    };
+
     that.reset = function()
     {
         that.filter = [0,1];
@@ -110,6 +119,27 @@ angular.module('tagrefineryGuiApp')
         }
     }
 
+    that.resetVocab = function()
+    {
+        that.vocabFilter = [0,1];
+        that.vocabFilterList = [];
+
+        that.allowBackVocab = true;
+    }
+
+    that.backVocab = function()
+    {
+        if(that.vocabFilterList.length > 0)
+        {
+            that.vocabFilter = that.vocabFilterList.pop();
+        }
+
+        if(that.vocabFilterList.length == 0)
+        {
+            that.allowBackVocab = true;
+        }
+    }
+
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////
@@ -124,6 +154,10 @@ angular.module('tagrefineryGuiApp')
 
    socket.on('vocab', function(data) {
        that.vocabGrid.data = JSON.parse(data);
+   });
+
+   socket.on('importance', function(data) {
+       that.vocab = JSON.parse(data);
    });
 
    socket.on('similarities', function(data) {
@@ -203,14 +237,6 @@ angular.module('tagrefineryGuiApp')
         ]
     };
 
-    // Export
-    
-    that.exportRepl = function() {
-        var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
-
-        that.replGridApi.exporter.csvExport("all","all",myElement);
-    };
-
    ////////////////////////////////////////////////
    // Vocab Grid
    ////////////////////////////////////////////////
@@ -228,6 +254,7 @@ angular.module('tagrefineryGuiApp')
         enableFiltering: true,
         showGridFooter: true,
         enableColumnMenus: false,
+        enableGridMenu: true,
         fastWatch: true,
         multiSelect: false,
         enableRowHeaderSelection: false,
@@ -245,7 +272,7 @@ angular.module('tagrefineryGuiApp')
         { field: 'importance', minWidth: 100, width: "*", 
             sort: {
                 direction: uiGridConstants.DESC,
-                priority: 0
+                priority: 1
             },
             cellFilter: 'number:6', filters: [
             {
@@ -260,26 +287,12 @@ angular.module('tagrefineryGuiApp')
         ]
     };
 
-    // Export
-    
-    that.exportVocab = function() {
-        var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
-
-        that.vocabGridApi.exporter.csvExport("all","all",myElement);
-    };
-
    ////////////////////////////////////////////////
    // Similarity Grid
    ////////////////////////////////////////////////
    
     // Helper 
     
-    that.exportCluster = function() {
-        var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
-
-        that.simGridApi.exporter.csvExport("all","all", myElement);
-    };
-
     // Grid
 
     that.simGrid = {
@@ -287,6 +300,7 @@ angular.module('tagrefineryGuiApp')
         enableColumnMenus: false,
         enableFiltering: true,
         showGridFooter: true,
+        enableGridMenu: true,
         enableRowHeaderSelection: false,
         enableRowSelection: true,
         enableFullRowSelection: true,
@@ -308,7 +322,7 @@ angular.module('tagrefineryGuiApp')
         { field: 'similarity', minWidth: 100, width: "*",
             sort: {
                 direction: uiGridConstants.DESC,
-                priority: 0
+                priority: 1
             },
             cellFilter: 'number:6', filters: [
             {

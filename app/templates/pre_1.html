@@ -21,18 +21,24 @@
     </table>
 </div>
 
-<div d3-sim-hist data="pc.data" filter="pc.filter" ng-if="activeTabs[0]" attribute="value" bins="16" svg-height="300" title="Imporance Histogram" y-label="Count" on-click="onClick(extend)">
+<div d3-sim-hist data="pc.vocab" filter="pc.vocabFilter" ng-if="activeTabs[0]" bins="16" svg-height="300" title="Imporance Histogram" y-label="Count" on-click="vocabClick(extend)">
+    <div class="btn-group control">
+        <button class="btn btn-default" ng-disabled="pc.allowBackVocab" ng-click="pc.backVocab()">
+            <span class="glyphicon glyphicon-menu-left"></span>
+        </button>
+        <button class="btn btn-default" ng-click="pc.resetVocab()">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </div>
 </div>
+<div class="well preSimple">
  <div class="col-sm-6" ng-if="activeTabs[0]">
      <h4 style="position:relative; left:25%">Vocab</h4>
-     <h5>Current Similarity Value: {{pc.threshold | number:6}} </h5>
      <div ui-grid="pc.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
-     <button type="button" class="btn btn-primary btn-block" ng-click="pc.exportVocab()">Export</button>
  </div>
  <div class="col-sm-6" ng-if="activeTabs[0]">
      <h4 style="position:relative; left:25%">Cluster</h4>
-     <h5>New Similarity Value: {{pc.newThreshold | number:6}}</h5>
     <div ui-grid="pc.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
-    <button type="button" class="btn btn-primary btn-block" ng-click="pc.exportCluster()">Export</button>
  </div>
- <button type="button" class="btn btn-primary btn-block" ng-click="pc.apply()">Cluster words with new similarity</button>
+ <button type="button" class="btn btn-primary btn-block run" ng-click="pc.apply()">Cluster words with new similarity</button>
+</div>

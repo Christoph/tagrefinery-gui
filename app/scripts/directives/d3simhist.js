@@ -13,7 +13,7 @@ angular.module('tagrefineryGuiApp')
         var quadrantWidth, quadrantHeight;
         var hist, svg, bodyG, ticks, dx;
         var externalFunc;
-        var xLabel, yLabel, title, binCount, attribute;
+        var xLabel, yLabel, title, binCount, attribute = "value";
         var brush, gBrush;
         var initialized = false;
         var dirty = false;
@@ -390,8 +390,7 @@ angular.module('tagrefineryGuiApp')
                 xLabel = attrs.typeLabel || "";
                 yLabel = attrs.yLabel || "";
                 title = attrs.title || "";
-                attribute = attrs.attribute || "";
-                binCount = parseInt(attrs.bins) || 30;
+                binCount = parseInt(attrs.bins) || 16;
                 
                 // Map external function to the current scope
                 externalFunc = function(extend) {
@@ -419,7 +418,7 @@ angular.module('tagrefineryGuiApp')
                         }, function(newVals) {
                         if(newVals)
                         {
-                            resize(scope, element);
+                            if(initialized == true) resize(scope, element);
 
                             dirty = true;
                             render(scope);

@@ -8,15 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PreHelpCtrl', function ($scope, $uibModalInstance, items) {
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
-
-  $scope.ok = function () {
-    $uibModalInstance.close($scope.selected.item);
-  };
+  .controller('PreHelpCtrl', function ($scope, $uibModalInstance) {
 
   $scope.close = function () {
     $uibModalInstance.dismiss('cancel');
