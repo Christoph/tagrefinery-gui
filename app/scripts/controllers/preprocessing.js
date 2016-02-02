@@ -53,8 +53,8 @@ angular.module('tagrefineryGuiApp')
         }
     };
 
-$scope.items = ['item1', 'item2', 'item3'];
-  that.help = function (size) {
+    $scope.items = ['item1', 'item2', 'item3'];
+    that.help = function (size) {
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
           templateUrl: 'templates/preHelp.html',
@@ -70,7 +70,7 @@ $scope.items = ['item1', 'item2', 'item3'];
         modalInstance.result.then(function (selectedItem) {
           $scope.selected = selectedItem;
         }, function () {
-          $log.info('Modal dismissed at: ' + new Date());
+          console.log('Modal dismissed at: ' + new Date());
         });
     };
 

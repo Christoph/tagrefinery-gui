@@ -18,7 +18,7 @@ angular.module('tagrefineryGuiApp')
     $uibModalInstance.close($scope.selected.item);
   };
 
-  $scope.cancel = function () {
+  $scope.close = function () {
     $uibModalInstance.dismiss('cancel');
   };
 });
