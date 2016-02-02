@@ -17,6 +17,7 @@ angular.module('tagrefineryGuiApp')
    that.newReplacements = 0;
    that.data = [];
    that.vocab = [];
+   that.importance = [];
    that.filterList = [];
    that.filter = [0,1];
    that.vocabFilter = [0,1];
@@ -110,6 +111,9 @@ angular.module('tagrefineryGuiApp')
 
             // There is at least on element in the back log
             that.allowBackVocab = false;
+
+            // Filter vocab grid
+            that.filterVocabGrid();
         });
     };
 
@@ -140,6 +144,8 @@ angular.module('tagrefineryGuiApp')
         that.vocabFilterList = [];
 
         that.allowBackVocab = true;
+
+        that.filterVocabGrid();
     }
 
     that.backVocab = function()
@@ -147,6 +153,8 @@ angular.module('tagrefineryGuiApp')
         if(that.vocabFilterList.length > 0)
         {
             that.vocabFilter = that.vocabFilterList.pop();
+
+            that.filterVocabGrid();
         }
 
         if(that.vocabFilterList.length == 0)
@@ -168,11 +176,12 @@ angular.module('tagrefineryGuiApp')
    });
 
    socket.on('vocab', function(data) {
-       that.vocabGrid.data = JSON.parse(data);
+       that.vocab = JSON.parse(data);
+       that.filterVocabGrid();
    });
 
    socket.on('importance', function(data) {
-       that.vocab = JSON.parse(data);
+       that.importance = JSON.parse(data);
    });
 
    socket.on('similarities', function(data) {
@@ -261,6 +270,15 @@ angular.module('tagrefineryGuiApp')
     that.getSimWords = function(tag)
     {
         socket.emit("getCluster", tag);
+    };
+
+    that.filterVocabGrid = function()
+    {
+        var temp = _.filter(that.vocab, function(d) {
+           return d.importance >= that.vocabFilter[0] && d.importance < that.vocabFilter[1];
+        });
+
+        that.vocabGrid.data = temp;
     };
 
     // Grid
