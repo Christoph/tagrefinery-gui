@@ -139,7 +139,6 @@ angular.module('tagrefineryGuiApp')
 
             // x-scale and axis
             xScale = d3.scale.linear()
-                //.domain([0,d3.max(data, function(d) { return d[attribute]; })]).nice()
                 .domain(filter)
                 .range([0, quadrantWidth]);
 
@@ -303,6 +302,34 @@ angular.module('tagrefineryGuiApp')
             }
         };
 
+        var resize = function(scope, element)
+        {
+            var padding = 5;
+
+            width = d3.select(element[0]).node().offsetWidth;
+
+            definitions(scope.data, scope.filter);
+
+            svg.selectAll(".title")
+                .attr("x",(width/2));
+
+            svg.selectAll(".x.axis")
+                    .call(xAxis);
+
+            svg.selectAll(".x.label")
+                .attr("x",(width/2)+25);
+
+            svg.selectAll("#body-clip rect")
+                    .attr("width", quadrantWidth + 3 * padding);
+
+            svg.selectAll(".body")
+                    .attr("transform", "translate(" + marginLeft + "," + margin + ")")
+                    .attr("clip-path", "url(#body-clip)");
+
+            brush.x(xScale);
+
+        };
+
         var init = function(scope, element)
         {
             // If we don't pass any data, return out of the element
@@ -392,6 +419,8 @@ angular.module('tagrefineryGuiApp')
                         }, function(newVals) {
                         if(newVals)
                         {
+                            resize(scope, element);
+
                             dirty = true;
                             render(scope);
                         }
