@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PreprocessingCtrl', ["$scope", "socket", "uiGridConstants","$timeout", function ($scope, socket, uiGridConstants,$timeout) {
+  .controller('PreprocessingCtrl', ["$scope", "socket", "uiGridConstants","$timeout","$uibModal", function ($scope, socket, uiGridConstants,$timeout,$uibModal) {
 
    var that = this;
    that.threshold = 0.65;
@@ -50,8 +50,30 @@ angular.module('tagrefineryGuiApp')
         options: {
             start: function (event, ui) {  },
             stop: function (event, ui) { that.getReplacements(that.newThreshold); }
-            }
         }
+    };
+
+$scope.items = ['item1', 'item2', 'item3'];
+  that.help = function (size) {
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'templates/preHelp.html',
+          controller: 'PreHelpCtrl',
+          size: size,
+          resolve: {
+            items: function () {
+              return $scope.items;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+          $scope.selected = selectedItem;
+        }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
    ////////////////////////////////////////////////
    // D3 functions
    ////////////////////////////////////////////////

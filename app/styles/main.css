@@ -112,10 +112,15 @@ div.slider {
 .btn-group.control {
     position: absolute;
     margin-top: 10px;
-    margin-left: 88%;
+    right: 20px;
 }
 
 div.preSimple {
     margin-left: 50px;
     margin-right: 7px;
+}
+
+button.help {
+    position: absolute;
+    right: 20px;
 }
