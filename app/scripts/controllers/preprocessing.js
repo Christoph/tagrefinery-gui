@@ -27,7 +27,7 @@ angular.module('tagrefineryGuiApp')
    that.allowBackVocab = true;
 
    // Start in simple mode
-   $scope.$parent.mode = 0;
+   $scope.$parent.modePre = 0;
 
    ////////////////////////////////////////////////
    // Helper

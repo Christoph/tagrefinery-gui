@@ -13,6 +13,13 @@ angular.module('tagrefineryGuiApp')
    var that = this;
    that.uniqueThreshold = 0.7;
    that.frequentThreshold = 0.3;
+
+   that.dataU = [];
+   that.dataF = [];
+
+
+   // Start in simple mode
+   $scope.$parent.modeComp = 0;
    
    ////////////////////////////////////////////////
    // Socket functions

@@ -30,15 +30,23 @@
                         <uib-tab active="activeTabs[0]">
                             <uib-tab-heading>
                                   Preprocessing
-                                  <button type="button" class="btn btn-default tabheader" ng-model="mode" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                                  <button type="button" class="btn btn-default tabheader" ng-model="modePre" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
                                       <span class="glyphicon glyphicon-th"></span>
                                   </button>
                             </uib-tab-heading>
-                            <div class="row" ng-controller="PreprocessingCtrl as pc" ng-include="'templates/pre_'+mode+'.html'"></div>
+                            <div class="row" ng-controller="PreprocessingCtrl as pc" ng-include="'templates/pre_'+modePre+'.html'"></div>
                         </uib-tab>
-                        <uib-tab heading="Composites" active="activeTabs[1]">
-                            <div class="row" ng-controller="CompositeCtrl as cc" ng-include="'templates/comp_adv.html'"></div>
+
+                        <uib-tab active="activeTabs[1]">
+                          	<uib-tab-heading>
+                                Composites
+                                <button type="button" class="btn btn-default tabheader" ng-model="modeComp" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                                  <span class="glyphicon glyphicon-th"></span>
+                                </button>
+                            </uib-tab-heading>
+                            <div class="row" ng-controller="CompositeCtrl as cc" ng-include="'templates/comp_'+modeComp+'.html'"></div>
                         </uib-tab>
+
                         <uib-tab heading="Postprocessing" active="activeTabs[2]">
                             <div class="row" ng-controller="PostprocessingCtrl as pc" ng-include="'templates/post_adv.html'"></div>
                         </uib-tab>

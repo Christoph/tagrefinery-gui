@@ -1,0 +1,70 @@
+ <div class="compSimple well well-sm">
+    <button class="btn btn-default help" ng-click="pc.help()">
+        <span class="glyphicon glyphicon-header"></span>
+    </button>
+    <table style="width:100%">
+      <tr>
+    <th colspan="2"></th>
+    <th>Threshold</th>    
+    <th>Count</th>
+  </tr>
+        <tr>
+    <th rowspan="2">Unique:</th>
+    <td>Current</td>
+    <td>55asd854</td>
+    <td>{{pc.countU()}}</td>
+  </tr>
+  <tr>
+    <td>New</td>
+    <td>55asd854</td>
+    <td>{{pc.newCountU()}}</td>
+  </tr>
+  <tr>
+    <th rowspan="2">Frequent:</th>
+    <td>Current</td>
+    <td>55asd854</td>
+    <td>{{pc.countF()}}</td>
+  </tr>
+  <tr>
+    <td>New</td>
+    <td>55asd854</td>
+    <td>{{pc.newCountF()}}</td>
+  </tr>
+    </table>
+</div>
+
+<div class="compSimple well">
+ <div class="col-sm-6" ng-if="activeTabs[1]">
+     <h4 style="position:relative; left:25%">Unique</h4>
+
+	    <div d3-sim-hist data="pc.dataU" filter="pc.filter" ng-if="activeTabs[1]" bins="16" svg-height="300" title="Importance Histogram" y-label="Count" on-click="onClick(extend)">
+	    	<div class="btn-group control">
+		        <button class="btn btn-default" ng-disabled="pc.allowBack" ng-click="pc.back()">
+		            <span class="glyphicon glyphicon-menu-left"></span>
+		        </button>
+		        <button class="btn btn-default" ng-click="pc.reset()">
+		            <span class="glyphicon glyphicon-search"></span>
+		        </button>
+	    	</div>
+		</div>
+
+     <div ui-grid="pc.uniqueGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+ </div>
+ <div class="col-sm-6" ng-if="activeTabs[1]">
+     <h4 style="position:relative; left:25%">Frequent</h4>
+
+	    <div d3-sim-hist data="pc.dataF" filter="pc.filter" ng-if="activeTabs[1]" bins="16" svg-height="300" title="Importance Histogram" y-label="Count" on-click="onClick(extend)">
+	    	<div class="btn-group control">
+		        <button class="btn btn-default" ng-disabled="pc.allowBack" ng-click="pc.back()">
+		            <span class="glyphicon glyphicon-menu-left"></span>
+		        </button>
+		        <button class="btn btn-default" ng-click="pc.reset()">
+		            <span class="glyphicon glyphicon-search"></span>
+		        </button>
+	    	</div>
+		</div>
+
+    <div ui-grid="pc.frequentGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+ </div>
+ <button type="button" class="btn btn-primary btn-block" ng-click="pc.apply()">Cluster words with new similarity</button>
+</div>
