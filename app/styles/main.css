@@ -120,6 +120,11 @@ div.preSimple {
     margin-right: 7px;
 }
 
+div.compSimple {
+    margin-left: 50px;
+    margin-right: 7px;
+}
+
 button.help {
     position: absolute;
     right: 20px;

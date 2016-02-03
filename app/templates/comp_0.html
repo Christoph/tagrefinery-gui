@@ -1,5 +1,5 @@
  <div class="compSimple well well-sm">
-    <button class="btn btn-default help" ng-click="pc.help()">
+    <button class="btn btn-default help" ng-click="cc.help()">
         <span class="glyphicon glyphicon-header"></span>
     </button>
     <table style="width:100%">
@@ -11,24 +11,24 @@
         <tr>
     <th rowspan="2">Unique:</th>
     <td>Current</td>
-    <td>55asd854</td>
-    <td>{{pc.countU()}}</td>
+    <td>{{cc.thresholdU | number:6}}</td>
+    <td>{{cc.countU()}}</td>
   </tr>
   <tr>
     <td>New</td>
-    <td>55asd854</td>
-    <td>{{pc.newCountU()}}</td>
+    <td>{{cc.newThresholdU | number:6}}</td>
+    <td>{{cc.newCountU()}}</td>
   </tr>
   <tr>
     <th rowspan="2">Frequent:</th>
     <td>Current</td>
-    <td>55asd854</td>
-    <td>{{pc.countF()}}</td>
+    <td>{{cc.thresholdF | number:6}}</td>
+    <td>{{cc.countF()}}</td>
   </tr>
   <tr>
     <td>New</td>
-    <td>55asd854</td>
-    <td>{{pc.newCountF()}}</td>
+    <td>{{cc.newThresholdF | number:6}}</td>
+    <td>{{cc.newCountF()}}</td>
   </tr>
     </table>
 </div>
@@ -37,34 +37,38 @@
  <div class="col-sm-6" ng-if="activeTabs[1]">
      <h4 style="position:relative; left:25%">Unique</h4>
 
-	    <div d3-sim-hist data="pc.dataU" filter="pc.filter" ng-if="activeTabs[1]" bins="16" svg-height="300" title="Importance Histogram" y-label="Count" on-click="onClick(extend)">
+	    <div d3-sim-hist data="cc.dataU" filter="cc.filterU" ng-if="activeTabs[1]" bins="16" svg-height="300" title="Importance Histogram" y-label="Count" on-click="onClickU(extend)">
 	    	<div class="btn-group control">
-		        <button class="btn btn-default" ng-disabled="pc.allowBack" ng-click="pc.back()">
+		        <button class="btn btn-default" ng-disabled="!cc.allowBackU" ng-click="cc.back()">
 		            <span class="glyphicon glyphicon-menu-left"></span>
 		        </button>
-		        <button class="btn btn-default" ng-click="pc.reset()">
+		        <button class="btn btn-default" ng-click="cc.reset()">
 		            <span class="glyphicon glyphicon-search"></span>
 		        </button>
 	    	</div>
 		</div>
 
-     <div ui-grid="pc.uniqueGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+        <div ui-slider="sliderU.options" min="{{cc.filterU[0]}}" max="{{cc.filterU[1]}}" step="0.0001" use-decimals data-tip ng-model="cc.newThresholdU"></div>
+
+     <div ui-grid="cc.uniqueGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
  </div>
  <div class="col-sm-6" ng-if="activeTabs[1]">
      <h4 style="position:relative; left:25%">Frequent</h4>
 
-	    <div d3-sim-hist data="pc.dataF" filter="pc.filter" ng-if="activeTabs[1]" bins="16" svg-height="300" title="Importance Histogram" y-label="Count" on-click="onClick(extend)">
+	    <div d3-sim-hist data="cc.dataF" filter="cc.filterF" ng-if="activeTabs[1]" bins="16" svg-height="300" title="Importance Histogram" y-label="Count" on-click="onClickF(extend)">
 	    	<div class="btn-group control">
-		        <button class="btn btn-default" ng-disabled="pc.allowBack" ng-click="pc.back()">
+		        <button class="btn btn-default" ng-disabled="!cc.allowBackF" ng-click="cc.back()">
 		            <span class="glyphicon glyphicon-menu-left"></span>
 		        </button>
-		        <button class="btn btn-default" ng-click="pc.reset()">
+		        <button class="btn btn-default" ng-click="cc.reset()">
 		            <span class="glyphicon glyphicon-search"></span>
 		        </button>
 	    	</div>
 		</div>
 
-    <div ui-grid="pc.frequentGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+        <div ui-slider="sliderF.options" min="{{cc.filterF[0]}}" max="{{cc.filterF[1]}}" step="0.0001" use-decimals data-tip ng-model="cc.newThresholdF"></div>
+
+    <div ui-grid="cc.frequentGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
  </div>
- <button type="button" class="btn btn-primary btn-block" ng-click="pc.apply()">Cluster words with new similarity</button>
+ <button type="button" class="btn btn-primary btn-block" ng-click="cc.apply()">Cluster words with new similarity</button>
 </div>
