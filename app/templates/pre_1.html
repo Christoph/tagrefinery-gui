@@ -1,44 +1,47 @@
-<div class="preSimple well well-sm">
-    <button class="btn btn-default help" ng-click="pc.helpAdv()">
-        <span class="glyphicon glyphicon-header"></span>
-    </button>
-    <table style="width:100%">
-      <tr>
-        <th style="text-align:center">Similarities</th>
-        <th>Threshold</th>
-        <th>Replacements</th> 
-      </tr>
-      <tr>
-        <td style="text-align:center">Current</td>
-        <td>{{pc.threshold | number:6}}</td>
-        <td>{{pc.countReplacements()}}</td>
-      </tr>
-      <tr>
-        <td style="text-align:center">New</td>
-        <td>{{pc.newThreshold | number:6}}</td>
-        <td>{{pc.countNewReplacements()}}</td>
-      </tr>
-    </table>
-</div>
+<div ng-if="activeTabs[0]">
+	<div class="preSimple well well-sm">
+		<button class="btn btn-default help" ng-click="pc.helpAdv()">
+			<span class="glyphicon glyphicon-header"></span>
+		</button>
+		<table style="width:100%">
+			<tr>
+				<th style="text-align:center">Similarities</th>
+				<th>Threshold</th>
+				<th>Replacements</th> 
+			</tr>
+			<tr>
+				<td style="text-align:center">Current</td>
+				<td>{{pc.threshold | number:6}}</td>
+				<td>{{pc.countReplacements()}}</td>
+			</tr>
+			<tr>
+				<td style="text-align:center">New</td>
+				<td>{{pc.newThreshold | number:6}}</td>
+				<td>{{pc.countNewReplacements()}}</td>
+			</tr>
+		</table>
+	</div>
 
-<div d3-sim-hist data="pc.importance" filter="pc.vocabFilter" ng-if="activeTabs[0]" bins="16" svg-height="300" title="Imporance Histogram" y-label="Count" on-click="vocabClick(extend)">
-    <div class="btn-group control">
-        <button class="btn btn-default" ng-disabled="pc.allowBackVocab" ng-click="pc.backVocab()">
-            <span class="glyphicon glyphicon-menu-left"></span>
-        </button>
-        <button class="btn btn-default" ng-click="pc.resetVocab()">
-            <span class="glyphicon glyphicon-search"></span>
-        </button>
-    </div>
-</div>
-<div class="well preSimple">
- <div class="col-sm-6" ng-if="activeTabs[0]">
-     <h4 style="position:relative; left:25%">Vocab</h4>
-     <div ui-grid="pc.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
- </div>
- <div class="col-sm-6" ng-if="activeTabs[0]">
-     <h4 style="position:relative; left:25%">Replacements</h4>
-    <div ui-grid="pc.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
- </div>
- <button type="button" class="btn btn-primary btn-block run" ng-click="pc.apply()">Cluster words with new similarity</button>
+	<div d3-sim-hist data="pc.importance" filter="pc.vocabFilter" bins="16" svg-height="300" title="Imporance Histogram" y-label="Count" on-click="vocabClick(extend)">
+		<div class="btn-group control">
+			<button class="btn btn-default" ng-disabled="pc.allowBackVocab" ng-click="pc.backVocab()">
+				<span class="glyphicon glyphicon-menu-left"></span>
+			</button>
+			<button class="btn btn-default" ng-click="pc.resetVocab()">
+				<span class="glyphicon glyphicon-search"></span>
+			</button>
+		</div>
+	</div>
+
+	<div class="well preSimple">
+		<div class="col-sm-6">
+			<h4 style="position:relative; left:25%">Vocab</h4>
+			<div ui-grid="pc.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+		</div>
+		<div class="col-sm-6">
+			<h4 style="position:relative; left:25%">Replacements</h4>
+			<div ui-grid="pc.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+		</div>
+		<button type="button" class="btn btn-primary btn-block run" ng-click="pc.apply()">Cluster words with new similarity</button>
+	</div>
 </div>

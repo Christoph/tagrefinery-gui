@@ -1,74 +1,78 @@
- <div class="compSimple well well-sm">
-    <button class="btn btn-default help" ng-click="cc.help()">
-        <span class="glyphicon glyphicon-header"></span>
-    </button>
-    <table style="width:100%">
-      <tr>
-    <th colspan="2"></th>
-    <th>Threshold</th>    
-    <th>Count</th>
-  </tr>
-        <tr>
-    <th rowspan="2">Unique:</th>
-    <td>Current</td>
-    <td>{{cc.thresholdU | number:6}}</td>
-    <td>{{cc.countU()}}</td>
-  </tr>
-  <tr>
-    <td>New</td>
-    <td>{{cc.newThresholdU | number:6}}</td>
-    <td>{{cc.newCountU()}}</td>
-  </tr>
-  <tr>
-    <th rowspan="2">Frequent:</th>
-    <td>Current</td>
-    <td>{{cc.thresholdF | number:6}}</td>
-    <td>{{cc.countF()}}</td>
-  </tr>
-  <tr>
-    <td>New</td>
-    <td>{{cc.newThresholdF | number:6}}</td>
-    <td>{{cc.newCountF()}}</td>
-  </tr>
-    </table>
-</div>
+<div ng-if="activeTabs[1]">
+	 <div class="compSimple well well-sm">
+		<button class="btn btn-default help" ng-click="cc.help()">
+			<span class="glyphicon glyphicon-header"></span>
+		</button>
+		<table style="width:100%">
+		  <tr>
+			<th colspan="2"></th>
+			<th>Threshold</th>    
+			<th>Count</th>
+		  </tr>
+		  <tr>	
+			<th rowspan="2">Unique:</th>
+			<td>Current</td>
+			<td>{{cc.thresholdU | number:6}}</td>
+			<td>{{cc.countU()}}</td>
+		  </tr>
+		  <tr>
+			<td>New</td>
+			<td>{{cc.newThresholdU | number:6}}</td>
+			<td>{{cc.newCountU()}}</td>
+		  </tr>
+		  <tr>
+			<th rowspan="2">Frequent:</th>
+			<td>Current</td>
+			<td>{{cc.thresholdF | number:6}}</td>
+			<td>{{cc.countF()}}</td>
+		  </tr>
+		  <tr>
+			<td>New</td>
+			<td>{{cc.newThresholdF | number:6}}</td>
+			<td>{{cc.newCountF()}}</td>
+		  </tr>
+		</table>
+	</div>
 
-<div class="compSimple well">
- <div class="col-sm-6" ng-if="activeTabs[1]">
-     <h4 style="position:relative; left:25%">Unique</h4>
+	<div class="col-sm-6">
+		<h4 style="position:relative; left:25%">Frequent</h4>
 
-	    <div d3-sim-hist data="cc.dataU" filter="cc.filterU" ng-if="activeTabs[1]" bins="16" svg-height="300" title="Importance Histogram" y-label="Count" on-click="onClickU(extend)">
-	    	<div class="btn-group control">
-		        <button class="btn btn-default" ng-disabled="!cc.allowBackU" ng-click="cc.back()">
-		            <span class="glyphicon glyphicon-menu-left"></span>
-		        </button>
-		        <button class="btn btn-default" ng-click="cc.reset()">
-		            <span class="glyphicon glyphicon-search"></span>
-		        </button>
-	    	</div>
+		<div d3-sim-hist data="cc.dataF" filter="cc.filterF" bins="12" svg-height="300" title="Group Strength Histogram" y-label="Count" on-click="cc.onClickF">
+			<div class="btn-group control">
+				<button class="btn btn-default" ng-disabled="!cc.allowBackF" ng-click="cc.backF()">
+					<span class="glyphicon glyphicon-menu-left"></span>
+				</button>
+				<button class="btn btn-default" ng-click="cc.resetF()">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</div>
 		</div>
 
-        <div ui-slider="sliderU.options" min="{{cc.filterU[0]}}" max="{{cc.filterU[1]}}" step="0.0001" use-decimals data-tip ng-model="cc.newThresholdU"></div>
+		<div ui-slider="cc.sliderF.options" min="{{cc.filterF[0]}}" max="{{cc.filterF[1]}}" step="0.0001" use-decimals data-tip ng-model="cc.newThresholdF"></div>
 
-     <div ui-grid="cc.uniqueGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
- </div>
- <div class="col-sm-6" ng-if="activeTabs[1]">
-     <h4 style="position:relative; left:25%">Frequent</h4>
+		<div ui-grid="cc.frequentGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+	</div>
 
-	    <div d3-sim-hist data="cc.dataF" filter="cc.filterF" ng-if="activeTabs[1]" bins="16" svg-height="300" title="Importance Histogram" y-label="Count" on-click="onClickF(extend)">
-	    	<div class="btn-group control">
-		        <button class="btn btn-default" ng-disabled="!cc.allowBackF" ng-click="cc.back()">
-		            <span class="glyphicon glyphicon-menu-left"></span>
-		        </button>
-		        <button class="btn btn-default" ng-click="cc.reset()">
-		            <span class="glyphicon glyphicon-search"></span>
-		        </button>
-	    	</div>
+	<div class="col-sm-6">
+		<h4 style="position:relative; left:25%">Unique</h4>
+
+		<div d3-sim-hist data="cc.dataU" filter="cc.filterU" bins="12" svg-height="300" title="Group Strength Histogram" y-label="Count" on-click="cc.onClickU(extend)">
+			<div class="btn-group control">
+				<button class="btn btn-default" ng-disabled="!cc.allowBackU" ng-click="cc.backU()">
+					<span class="glyphicon glyphicon-menu-left"></span>
+				</button>
+				<button class="btn btn-default" ng-click="cc.resetU()">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</div>
 		</div>
 
-        <div ui-slider="sliderF.options" min="{{cc.filterF[0]}}" max="{{cc.filterF[1]}}" step="0.0001" use-decimals data-tip ng-model="cc.newThresholdF"></div>
+		<div style="margin-top:40px">
+			<div ui-slider="cc.sliderU.options" min="{{cc.filterU[0]}}" max="{{cc.filterU[1]}}" step="0.0001" use-decimals data-tip ng-model="cc.newThresholdU"></div>
 
-    <div ui-grid="cc.frequentGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+			<div ui-grid="cc.uniqueGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+		</div>
+	 </div>
+
+	 <button type="button" class="btn btn-primary btn-block" ng-click="cc.apply()">Group words with new threshold</button>
  </div>
- <button type="button" class="btn btn-primary btn-block" ng-click="cc.apply()">Cluster words with new similarity</button>
-</div>
