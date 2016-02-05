@@ -2,17 +2,17 @@
 
 /**
  * @ngdoc directive
- * @name tagrefineryGuiApp.directive:d3SimHist
+ * @name tagrefineryGuiApp.directive:d3Hist
  * @description
- * # d3SimHist
+ * # d3Hist
  */
 angular.module('tagrefineryGuiApp')
-    .directive('d3SimHist', ["d3", "$timeout", function (d3, $timeout) {
+  	.directive('d3Hist', ["d3", "$timeout", function (d3, $timeout) {
         var margin, marginLeft;
         var width, height, xScale, yScale, xAxis, yAxis;
         var quadrantWidth, quadrantHeight;
         var hist, svg, bodyG, ticks, dx;
-        var externalFunc;
+        var zoomFunc;
         var xLabel, yLabel, title, binCount, attribute = "value";
         var brush, gBrush;
         var initialized = false;
@@ -106,7 +106,7 @@ angular.module('tagrefineryGuiApp')
           else
           {
               // Filter
-              externalFunc([extent1[0], extent1[1]]);
+              zoomFunc([extent1[0], extent1[1]]);
 
               // Remove brush
               //extent1[0] = extent1[1];
@@ -262,7 +262,7 @@ angular.module('tagrefineryGuiApp')
                 .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; })
                 .on('click', function(d) {
                     //toggleClass(this,"select");
-                    return externalFunc([d.x, d.x + d.dx]);
+                    return zoomFunc([d.x, d.x + d.dx]);
                 });
 
             bar.append("rect");
@@ -375,12 +375,12 @@ angular.module('tagrefineryGuiApp')
         }
 
         return {
-            restrict: 'EA',
+            restrict: 'E',
             scope: {
                 data: '=',
-                onClick: '&',
                 filter: '='
             },
+            templateUrl: 'templates/hist.html',
             link: function (scope, element, attrs) {
                 // Get attributes or use defaults
                 margin = parseInt(attrs.margin) || 30;
@@ -391,9 +391,8 @@ angular.module('tagrefineryGuiApp')
                 title = attrs.title || "";
                 binCount = parseInt(attrs.bins) || 16;
 
-                // Map external function to the current scope
-                externalFunc = function(extend) {
-                    scope.onClick({extend: extend});
+                zoomFunc = function(extend) {
+                    scope.filter = extend;
                 };
 
                 $timeout(function() {

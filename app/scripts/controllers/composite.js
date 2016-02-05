@@ -13,16 +13,6 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
-    // Unique
-    that.thresholdU = 0.7;
-    that.newThresholdU = 0;
-    that.allowBackU = false;
-
-    that.filterU = [0,1];
-    that.filterHistoryU = [];
-
-    that.dataU = [];
-
     // Frequent
     that.thresholdF = 0.3;
     that.newThresholdF = 0;
@@ -33,16 +23,27 @@ angular.module('tagrefineryGuiApp')
 
     that.dataF = [];
 
+    // Unique
+    that.thresholdU = 0.7;
+    that.newThresholdU = 0;
+    that.allowBackU = false;
+
+    that.filterU = [0,1];
+    that.filterHistoryU = [];
+
+    that.dataU = [];
+
     // Start in simple mode
-    $scope.$parent.modeComp = 0;
+    $scope.$parent.modeComp = 1;
    
    ////////////////////////////////////////////////
    // D3 functions
    ////////////////////////////////////////////////
    
-   $scope.onClickU = function(extend)
+   that.onClickU = function(extend)
    {
         $scope.$apply(function() {
+            console.log("U")
             that.filterHistoryU.push(that.filterU);
             that.filterU = extend;
 
@@ -53,6 +54,7 @@ angular.module('tagrefineryGuiApp')
    
     that.resetU = function()
     {
+        console.log("Reset U")
         that.filterU = [0,1];
         that.filterHistoryU = [];
 
@@ -72,9 +74,10 @@ angular.module('tagrefineryGuiApp')
         }
     }
 
-   $scope.onClickF = function(extend)
+   that.onClickF = function(extend)
    {
         $scope.$apply(function() {
+            console.log("F")
             that.filterHistoryF.push(that.filterF);
             that.filterF = extend;
 
@@ -85,7 +88,8 @@ angular.module('tagrefineryGuiApp')
 
     that.resetF = function()
     {
-        that.filterF = [0,1];
+        console.log("Reset F")
+        that.filterF = [1,2];
         that.filterHistoryF = [];
 
         that.allowBackF = false;
@@ -108,7 +112,7 @@ angular.module('tagrefineryGuiApp')
    // Slider functions
    ////////////////////////////////////////////////
 
-    $scope.sliderU = {
+    that.sliderU = {
         options: {
             start: function (event, ui) {  },
             stop: function (event, ui) { 
@@ -119,10 +123,11 @@ angular.module('tagrefineryGuiApp')
         }
     };
     
-    $scope.sliderF = {
+    that.sliderF = {
         options: {
             start: function (event, ui) {  },
             stop: function (event, ui) { 
+                console.log(that.newThresholdF)
                $timeout(function() {
                    that.scrollToF(that.getAboveRow(that.frequentGrid.data, that.newThresholdF),0);
                })
@@ -163,11 +168,11 @@ angular.module('tagrefineryGuiApp')
    // Socket functions
    ////////////////////////////////////////////////
 
-   socket.on('uniqueImportance', function(data) {
+   socket.on('uniqueStrength', function(data) {
        that.dataU = JSON.parse(data);
    });
 
-   socket.on('frequentImportance', function(data) {
+   socket.on('frequentStrength', function(data) {
        that.dataF = JSON.parse(data);
    });
 
@@ -279,6 +284,7 @@ angular.module('tagrefineryGuiApp')
    
     that.apply = function()
     {
+        console.log("bla")
     }
  
     that.countU = function() {

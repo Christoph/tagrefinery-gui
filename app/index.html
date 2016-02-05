@@ -40,15 +40,15 @@
                         <uib-tab active="activeTabs[1]">
                           	<uib-tab-heading>
                                 Composites
-                                <button type="button" class="btn btn-default tabheader" ng-model="modeComp" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                                  <span class="glyphicon glyphicon-th"></span>
-                                </button>
                             </uib-tab-heading>
                             <div class="row" ng-controller="CompositeCtrl as cc" ng-include="'templates/comp_'+modeComp+'.html'"></div>
                         </uib-tab>
 
-                        <uib-tab heading="Postprocessing" active="activeTabs[2]">
-                            <div class="row" ng-controller="PostprocessingCtrl as pc" ng-include="'templates/post_adv.html'"></div>
+                        <uib-tab active="activeTabs[2]">
+                          	<uib-tab-heading>
+                                Postprocessing
+                            </uib-tab-heading>
+                            <div class="row" ng-controller="PostprocessingCtrl as pc" ng-include="'templates/post_1.html'"></div>
                         </uib-tab>
                   </uib-tabset>      
               </div>
@@ -87,6 +87,7 @@
         <script src="scripts/controllers/postprocessing.js"></script>
         <script src="scripts/directives/d3simhist.js"></script>
         <script src="scripts/controllers/prehelp.js"></script>
+        <script src="scripts/directives/d3hist.js"></script>
         <!-- endbuild -->
 </body>
 </html>
