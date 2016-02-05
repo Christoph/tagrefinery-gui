@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc directive
- * @name tagrefineryGuiApp.directive:d3Hist
+ * @name tagrefineryGuiApp.directive:d3SimHist
  * @description
- * # d3Hist
+ * # d3SimHist
  */
 angular.module('tagrefineryGuiApp')
-  	.directive('d3Hist', ["d3", "$timeout", function (d3, $timeout) {
+    .directive('d3Hist', ["d3", "$timeout", function (d3, $timeout) {
         var margin, marginLeft;
         var width, height, xScale, yScale, xAxis, yAxis;
         var quadrantWidth, quadrantHeight;
@@ -16,10 +16,19 @@ angular.module('tagrefineryGuiApp')
         var xLabel, yLabel, title, binCount, attribute = "value";
         var brush, gBrush;
         var initialized = false;
-        var filterHistory = [];
-        var allowBack = false;
+        var dirty = false;
 
         var formatCount = d3.format(",.0f");
+
+        var toggleClass = function(element, className) {
+            bodyG.selectAll(".bar.select")
+                .classed(className, false);
+                
+            d3.select(element)
+                .classed(className, function () {
+                    return !d3.select(element).classed(className);
+                });
+        };
 
         var xScaling = function(filter)
         {
@@ -252,15 +261,16 @@ angular.module('tagrefineryGuiApp')
                 .attr("class","bar")
                 .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; })
                 .on('click', function(d) {
+                    //toggleClass(this,"select");
                     return zoomFunc([d.x, d.x + d.dx]);
                 });
+
+            bar.append("rect");
 
             bar.append("text")
                 .attr("dy", ".75em")
                 .attr("y", -12)
                 .attr("text-anchor", "left");
-
-            bar.append("rect");
 
             // Update
             bar = bodyG.selectAll(".bar")
@@ -269,16 +279,16 @@ angular.module('tagrefineryGuiApp')
                 .duration(500)
                 .attr("transform", function(d) { return "translate("+xScale(d.x)+","+yScale(d.y)+")"; });
 
-            bar.select("text")
-                //.attr("x", xScale(hist[0].x+hist[0].dx) / 2 - 18)
-                .attr("x", xScale(hist[0].x)  + 5)
-                .text(function(d) { return formatCount(d.y); });
-
             bar.select("rect")
                 .attr("x", 1)
                 .attr("width", xScale(hist[0].x+hist[0].dx) - 1)
                 .attr("height", function(d) { return quadrantHeight - yScale(d.y); });
                 
+            bar.select("text")
+                //.attr("x", xScale(hist[0].x+hist[0].dx) / 2 - 18)
+                .attr("x", xScale(hist[0].x)  + 5)
+                .text(function(d) { return formatCount(d.y); });
+
             // Exit
             bodyG.selectAll(".bar")
                 .data(hist)
@@ -288,10 +298,11 @@ angular.module('tagrefineryGuiApp')
 
         var render = function(scope)
         {
-            if(initialized)
+            if(initialized && dirty)
             {
                 // Render data
                 renderBars(scope);
+                dirty = false;
             }
         };
 
@@ -340,7 +351,6 @@ angular.module('tagrefineryGuiApp')
             renderBars(scope);
 
             initialized = true;
-            console.log("Hist Initialized")
         };
 
         var useFilter = function(scope, element)
@@ -365,8 +375,7 @@ angular.module('tagrefineryGuiApp')
         }
 
         return {
-            restrict: 'EA',
-            transclude: true,
+            restrict: 'E',
             scope: {
                 data: '=',
                 filter: '='
@@ -382,66 +391,34 @@ angular.module('tagrefineryGuiApp')
                 title = attrs.title || "";
                 binCount = parseInt(attrs.bins) || 16;
 
-                // Zooming functionality
                 zoomFunc = function(extend) {
-                    // Save old filter
-                    filterHistory.push(scope.filter);
-                    // Set new one
                     scope.filter = extend;
-                    // Active back button
-                    allowBack = true;
-
-                    // Redraw
-                    useFilter(scope, element);
-                    render(scope);
                 };
 
-                // Map functions to the buttons
-                scope.back = function() {
-                    if(filterHistory.length > 0)
-                    {
-                        scope.filter = filterHistory.pop();
-                        useFilter(scope, element);
-                        render();
-                    }
-
-                    if(filterHistory.length == 0)
-                    {
-                        allowBack = false;
-                    }
-                }
-
-                scope.reset = function() {
-                    scope.filter = [0,1];
-                    filterHistory = [];
-
-                    allowBack = false;
-
-                    useFilter(scope, element);
-                    render();
-                }
-
-                scope.history = function() {
-                    return allowBack;
-                }
-
-                // Rendering
                 $timeout(function() {
                     // Initial drawing
                     init(scope, element);
 
                     // Listeners
+                    // Watch for filtering
+                    scope.$watch('filter', function(newVals) {
+                        if(newVals)
+                        {
+                            dirty = true;
+                            useFilter(scope, element);
+                            render(scope);
+                        }
+                    });
+
                     // Watch for resize event
                     scope.$watch(function() {
                         return angular.element(window)[0].innerWidth;
                         }, function(newVals) {
                         if(newVals)
                         {
-                            if(initialized == true) 
-                            {
-                                resize(scope, element);   
-                            }
+                            if(initialized == true) resize(scope, element);
 
+                            dirty = true;
                             render(scope);
                         }
                     });
@@ -450,12 +427,13 @@ angular.module('tagrefineryGuiApp')
                     scope.$watch('data', function(newVals) {
                         if(newVals)
                         {
-                            //if(initialized == false) init(scope, element);
+                            if(initialized == false) init(scope, element);
 
+                            dirty = true;
                             render(scope);
                         }
                     },true);
-                }, 0);
+                }, 200);
             }
         };
 }]);
