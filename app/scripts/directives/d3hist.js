@@ -11,7 +11,7 @@ angular.module('tagrefineryGuiApp')
         var margin, marginLeft;
         var width, height, xScale, yScale, xAxis, yAxis;
         var quadrantWidth, quadrantHeight;
-        var hist, svg, bodyG, ticks, dx;
+        var hist, bodyG, ticks, dx;
         var zoomFunc;
         var xLabel, yLabel, title, binCount, attribute = "value";
         var brush, gBrush;
@@ -100,9 +100,8 @@ angular.module('tagrefineryGuiApp')
               zoomFunc([extent1[0], extent1[1]]);
 
               // Remove brush
-              //extent1[0] = extent1[1];
               brush.clear();
-              svg.selectAll('.brush').call(brush);
+              d3.selectAll('.brush').call(brush);
 
           }
 
@@ -156,19 +155,19 @@ angular.module('tagrefineryGuiApp')
                 .orient("left");            
         };
 
-        var skeleton = function(element)
+        var skeleton = function(scope, element)
         {
             var padding = 5;
 
             // SVG
-            svg = d3.select(element).append("svg")
+            scope.svg = d3.select(element).append("svg")
                 .attr("height", height)
                 .attr("width", '100%')
                 .style("background-color", "white")
                 .attr("class", "chart");
 
             // title
-            svg.append("text")
+            scope.svg.append("text")
                 .attr("class", "title")
                 .attr("text-anchor", "middle")
                 .attr("x",(width/2))
@@ -176,7 +175,7 @@ angular.module('tagrefineryGuiApp')
                 .text(title);
 
             // x axis
-            svg.append("g")
+            scope.svg.append("g")
                     .attr("class", "x axis")
                     .attr("transform", function () {
                         return "translate(" + marginLeft + "," + (height - margin) + ")";
@@ -184,7 +183,7 @@ angular.module('tagrefineryGuiApp')
                     .call(xAxis);
 
             // x axis label
-            svg.append("text")
+            scope.svg.append("text")
                 .attr("class", "x label")
                 .attr("text-anchor", "middle")
                 .attr("x",(width/2)+25)
@@ -192,7 +191,7 @@ angular.module('tagrefineryGuiApp')
                 .text(xLabel);
 
             // y axis
-            svg.append("g")
+            scope.svg.append("g")
                     .attr("class", "y axis")
                     .attr("transform", function () {
                         return "translate(" + marginLeft + "," + margin + ")";
@@ -200,7 +199,7 @@ angular.module('tagrefineryGuiApp')
                     .call(yAxis);
 
             // y axis label
-            svg.append("text")
+            scope.svg.append("text")
                 .attr("class", "y label")
                 .attr("text-anchor", "middle")
                 .attr("x",-(height/2))
@@ -210,7 +209,7 @@ angular.module('tagrefineryGuiApp')
                 .text(yLabel);
             
             // body clip
-            svg.append("defs")
+            scope.svg.append("defs")
                     .append("clipPath")
                     .attr("id", "body-clip")
                     .append("rect")
@@ -220,7 +219,7 @@ angular.module('tagrefineryGuiApp')
                     .attr("height", quadrantHeight);
 
             // create chart body
-            bodyG = svg.append("g")
+            bodyG = scope.svg.append("g")
                     .attr("class", "body")
                     .attr("transform", "translate(" + marginLeft + "," + margin + ")")
                     .attr("clip-path", "url(#body-clip)");
@@ -301,19 +300,19 @@ angular.module('tagrefineryGuiApp')
 
             definitions(scope.data, scope.filter, element);
 
-            svg.selectAll(".title")
+            scope.svg.selectAll(".title")
                 .attr("x",(width/2));
 
-            svg.selectAll(".x.axis")
+            scope.svg.selectAll(".x.axis")
                     .call(xAxis);
 
-            svg.selectAll(".x.label")
+            scope.svg.selectAll(".x.label")
                 .attr("x",(width/2)+25);
 
-            svg.selectAll("#body-clip rect")
+            scope.svg.selectAll("#body-clip rect")
                     .attr("width", quadrantWidth + 3 * padding);
 
-            svg.selectAll(".body")
+            scope.svg.selectAll(".body")
                     .attr("transform", "translate(" + marginLeft + "," + margin + ")")
                     .attr("clip-path", "url(#body-clip)");
 
@@ -334,7 +333,7 @@ angular.module('tagrefineryGuiApp')
             definitions(scope.data, scope.filter, element);
 
             // Basic skeleton
-            skeleton(element[0], scope);
+            skeleton(scope, element[0]);
             
             // Render data
             renderBars(scope);
@@ -356,8 +355,8 @@ angular.module('tagrefineryGuiApp')
             if(initialized)
             {
                 // Update both axis
-                svg.selectAll(".x.axis").call(xAxis);
-                svg.selectAll(".y.axis").call(yAxis);
+                scope.svg.selectAll(".x.axis").call(xAxis);
+                scope.svg.selectAll(".y.axis").call(yAxis);
 
                 // Update brush axis
                 brush.x(xScale);
