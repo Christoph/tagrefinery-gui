@@ -25,7 +25,7 @@
 	<div d3-hist data="pc.dataS" threshold="pc.similarity" bins="16" svg-height="300" type-label="Similarity" y-label="Count" call-back="pc.getNewSimilarity(threshold)"> </div>
 
 	<div class="preSimple well">
-		<div style="margin-top:20px" ui-grid="pc.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+		<div ui-grid="pc.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
 		<button type="button" class="btn btn-primary btn-block run" ng-click="pc.apply()"> 
 			Cluster words with new similarity
 		</button>

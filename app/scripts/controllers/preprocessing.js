@@ -22,7 +22,6 @@ angular.module('tagrefineryGuiApp')
    that.dataI = [];
 
 
-   that.voacb = [];
    that.replacements = 0;
    that.newReplacements = 0;
 
@@ -99,10 +98,35 @@ angular.module('tagrefineryGuiApp')
         $scope.$apply(function() {
             that.newImportance = threshold;
 
-            // Filter vocab grid
-            that.filterVocabGrid();
+           $timeout(function() {
+               //that.scrollToV(that.getAboveRow(that.vocabGrid.data, that.newImportance),0);
+               that.scrollToV(0,0);
+               
+           })
         });
     };
+    
+    // This function needs decreasing sorted data from the server
+    that.getAboveRow = function(data, threshold) {
+        var index = 0;
+
+        for(var i = 0; i<data.length; i++)
+        {
+            if(data[i].importance < threshold)
+            {
+                if((threshold - data[i].importance) <= (data[i-1].importance - threshold))
+                {
+                    return i;
+                }
+                else
+                {
+                    return i-1;
+                }
+            }
+        }
+
+        return index;
+    }
     
    ////////////////////////////////////////////////
    // Socket functions
@@ -112,13 +136,12 @@ angular.module('tagrefineryGuiApp')
        that.replGrid.data = JSON.parse(data);
 
        $timeout(function() {
-           that.scrollTo(0,0);
+           that.scrollToR(0,0);
        })
    });
 
    socket.on('vocab', function(data) {
-       that.vocab = JSON.parse(data);
-       that.filterVocabGrid();
+       that.vocabGrid.data = JSON.parse(data);
    });
 
    socket.on('importance', function(data) {
@@ -166,7 +189,7 @@ angular.module('tagrefineryGuiApp')
         socket.emit("getReplacements", that.newSimilarity);
     };
 
-    that.scrollTo = function( rowIndex, colIndex ) {
+    that.scrollToR = function( rowIndex, colIndex ) {
         that.replGridApi.core.scrollTo( that.replGrid.data[rowIndex], that.replGrid.columnDefs[colIndex]);
         that.replGridApi.selection.selectRow(that.replGrid.data[rowIndex]);
     };
@@ -208,20 +231,14 @@ angular.module('tagrefineryGuiApp')
    
     // Helper functions
     
+    that.scrollToV = function( rowIndex, colIndex ) {
+        that.vocabGridApi.core.scrollTo( that.vocabGrid.data[rowIndex], that.vocabGrid.columnDefs[colIndex]);
+        that.vocabGridApi.selection.selectRow(that.vocabGrid.data[rowIndex]);
+    };
+
     that.getSimWords = function(tag)
     {
         socket.emit("getCluster", tag);
-    };
-
-    that.filterVocabGrid = function()
-    {
-        /*
-        var temp = _.filter(that.vocab, function(d) {
-           return d.importance >= that.vocabFilter[0] && d.importance < that.vocabFilter[1];
-        });
-        */
-
-        that.vocabGrid.data = that.vocab;
     };
 
     // Grid
@@ -312,25 +329,25 @@ angular.module('tagrefineryGuiApp')
             { 
                 var sim = grid.getCellValue(row,col);
 
-                if(that.newThreshold > that.threshold)
+                if(that.newImportance > that.importance)
                 {
-                   if(sim >= that.newThreshold) 
+                   if(sim >= that.newImportance) 
                    {
                         return 'current';    
                    }
                 }
                 else
                 {
-                    if(sim >= that.threshold) 
+                    if(sim >= that.importance) 
                     {
                         return 'current';
                     }
                 }
-                if(sim >= that.newThreshold && sim < that.threshold)
+                if(sim >= that.newImportance && sim < that.importance)
                 {
                     return 'more';  
                 } 
-                if(sim < that.newThreshold && sim >= that.threshold)
+                if(sim < that.newImportance && sim >= that.importance)
                 {
                     return 'less';
                 } 
