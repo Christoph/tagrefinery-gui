@@ -99,9 +99,7 @@ angular.module('tagrefineryGuiApp')
             that.newImportance = threshold;
 
            $timeout(function() {
-               //that.scrollToV(that.getAboveRow(that.vocabGrid.data, that.newImportance),0);
-               that.scrollToV(0,0);
-               
+               that.scrollToV(that.getAboveRow(that.vocabGrid.data, that.newImportance),0);
            })
         });
     };
@@ -242,7 +240,7 @@ angular.module('tagrefineryGuiApp')
     };
 
     // Grid
-    
+
     that.vocabGrid = {
         enableFiltering: true,
         showGridFooter: true,
