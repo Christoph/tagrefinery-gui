@@ -22,16 +22,7 @@
 		</table>
 	</div>
 
-	<div d3-sim-hist data="pc.importance" filter="pc.vocabFilter" bins="16" svg-height="300" title="Imporance Histogram" y-label="Count" on-click="vocabClick(extend)">
-		<div class="btn-group control">
-			<button class="btn btn-default" ng-disabled="pc.allowBackVocab" ng-click="pc.backVocab()">
-				<span class="glyphicon glyphicon-menu-left"></span>
-			</button>
-			<button class="btn btn-default" ng-click="pc.resetVocab()">
-				<span class="glyphicon glyphicon-search"></span>
-			</button>
-		</div>
-	</div>
+	<div d3-hist data="pc.dataI" threshold="pc.importance" bins="16" svg-height="300" type-label="Imporance" y-label="Count" on-click="pc.getNewImportance(threshold)"> </div>
 
 	<div class="well preSimple">
 		<div class="col-sm-6">

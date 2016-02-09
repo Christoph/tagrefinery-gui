@@ -15,12 +15,12 @@ angular.module('tagrefineryGuiApp')
 
     // Frequent
     that.thresholdF = 0.3;
-    that.newThresholdF = 0;
+    that.newThresholdF = 0.3;
     that.dataF = [];
 
     // Unique
     that.thresholdU = 0.7;
-    that.newThresholdU = 0;
+    that.newThresholdU = 0.7;
     that.dataU = [];
 
     // Start in simple mode

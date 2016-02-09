@@ -11,20 +11,20 @@ angular.module('tagrefineryGuiApp')
   .controller('PreprocessingCtrl', ["$scope", "socket", "uiGridConstants","$timeout","$uibModal", function ($scope, socket, uiGridConstants, $timeout, $uibModal) {
 
    var that = this;
-   that.threshold = 0.65;
+
+   that.similarity = 0.65;
+   that.newSimilarity = 0.65;
+   that.dataS = [];
+
+
+   that.importance = 0.65;
+   that.newImportance = 0.65;
+   that.dataI = [];
+
+
+   that.voacb = [];
    that.replacements = 0;
-   that.newThreshold = 0.65;
    that.newReplacements = 0;
-   that.data = [];
-   that.vocab = [];
-   that.importance = [];
-   that.filterList = [];
-   that.filter = [0,1];
-   that.vocabFilter = [0,1];
-   that.vocabFilterList = [];
-   that.showSlider = false;
-   that.allowBack = true;
-   that.allowBackVocab = true;
 
    // Start in simple mode
    $scope.$parent.modePre = 0;
@@ -35,8 +35,8 @@ angular.module('tagrefineryGuiApp')
 
    that.countReplacements = function()
    {
-       return _.sum(_.filter(that.data, function(d) {
-           return d.value >= that.threshold;
+       return _.sum(_.filter(that.dataS, function(d) {
+           return d.value >= that.similarity;
        }), function(o) {
            return o.count;
        });
@@ -44,19 +44,12 @@ angular.module('tagrefineryGuiApp')
 
    that.countNewReplacements = function()
    {
-       return _.sum(_.filter(that.data, function(d) {
-           return d.value >= that.newThreshold;
+       return _.sum(_.filter(that.dataS, function(d) {
+           return d.value >= that.newSimilarity;
        }), function(o) {
            return o.count;
        });
    };
-
-    $scope.slider = {
-        options: {
-            start: function (event, ui) {  },
-            stop: function (event, ui) { that.getReplacements(that.newThreshold); }
-        }
-    };
 
     that.help = function (size) {
         var modalInstance = $uibModal.open({
@@ -92,84 +85,32 @@ angular.module('tagrefineryGuiApp')
    // D3 functions
    ////////////////////////////////////////////////
 
-    $scope.onClick = function(extend)
+    that.getNewSimilarity = function(threshold)
     {
         $scope.$apply(function() {
-            that.filterList.push(that.filter);
-            that.filter = extend;
+            that.newSimilarity = threshold;
 
-            // There is at least on element in the back log
-            that.allowBack = false;
+            that.getReplacements();
         });
     };
 
-    $scope.vocabClick = function(extend)
+    that.getNewImportance = function(threshold)
     {
         $scope.$apply(function() {
-            that.vocabFilterList.push(that.vocabFilter);
-            that.vocabFilter = extend;
-
-            // There is at least on element in the back log
-            that.allowBackVocab = false;
+            that.newImportance = threshold;
 
             // Filter vocab grid
             that.filterVocabGrid();
         });
     };
-
-    that.reset = function()
-    {
-        that.filter = [0,1];
-        that.filterList = [];
-
-        that.allowBack = true;
-    }
-
-    that.back = function()
-    {
-        if(that.filterList.length > 0)
-        {
-            that.filter = that.filterList.pop();
-        }
-
-        if(that.filterList.length == 0)
-        {
-            that.allowBack = true;
-        }
-    }
-
-    that.resetVocab = function()
-    {
-        that.vocabFilter = [0,1];
-        that.vocabFilterList = [];
-
-        that.allowBackVocab = true;
-
-        that.filterVocabGrid();
-    }
-
-    that.backVocab = function()
-    {
-        if(that.vocabFilterList.length > 0)
-        {
-            that.vocabFilter = that.vocabFilterList.pop();
-
-            that.filterVocabGrid();
-        }
-
-        if(that.vocabFilterList.length == 0)
-        {
-            that.allowBackVocab = true;
-        }
-    }
-
+    
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////
 
    socket.on('replacements', function(data) {
        that.replGrid.data = JSON.parse(data);
-       
+
        $timeout(function() {
            that.scrollTo(0,0);
        })
@@ -181,11 +122,11 @@ angular.module('tagrefineryGuiApp')
    });
 
    socket.on('importance', function(data) {
-       that.importance = JSON.parse(data);
+       that.dataI = JSON.parse(data);
    });
 
    socket.on('similarities', function(data) {
-       that.data = JSON.parse(data);
+       that.dataS = JSON.parse(data);
    });
 
    socket.on('cluster', function(data) {
@@ -222,7 +163,7 @@ angular.module('tagrefineryGuiApp')
     
     that.getReplacements = function()
     {
-        socket.emit("getReplacements", that.newThreshold);
+        socket.emit("getReplacements", that.newSimilarity);
     };
 
     that.scrollTo = function( rowIndex, colIndex ) {
@@ -274,11 +215,13 @@ angular.module('tagrefineryGuiApp')
 
     that.filterVocabGrid = function()
     {
+        /*
         var temp = _.filter(that.vocab, function(d) {
            return d.importance >= that.vocabFilter[0] && d.importance < that.vocabFilter[1];
         });
+        */
 
-        that.vocabGrid.data = temp;
+        that.vocabGrid.data = that.vocab;
     };
 
     // Grid
@@ -324,8 +267,6 @@ angular.module('tagrefineryGuiApp')
    // Similarity Grid
    ////////////////////////////////////////////////
    
-    // Helper 
-    
     // Grid
 
     that.simGrid = {

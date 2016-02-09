@@ -11,32 +11,20 @@
 		  </tr>
 		  <tr>
 			<td style="text-align:center">Current</td>
-			<td>{{pc.threshold | number:6}}</td>
+			<td>{{pc.similarity | number:6}}</td>
 			<td>{{pc.countReplacements()}}</td>
 		  </tr>
 		  <tr>
 			<td style="text-align:center">New</td>
-			<td>{{pc.newThreshold | number:6}}</td>
+			<td>{{pc.newSimilarity | number:6}}</td>
 			<td>{{pc.countNewReplacements()}}</td>
 		  </tr>
 		</table>
 	</div>
 
-	<div d3-sim-hist data="pc.data" filter="pc.filter" bins="16" svg-height="300" title="Similarity Histogram" y-label="Count" on-click="onClick(extend)">
-		<div class="btn-group control">
-			<button class="btn btn-default" ng-disabled="pc.allowBack" ng-click="pc.back()">
-				<span class="glyphicon glyphicon-menu-left"></span>
-			</button>
-			<button class="btn btn-default" ng-click="pc.reset()">
-				<span class="glyphicon glyphicon-search"></span>
-			</button>
-		</div>
-	</div>
+	<div d3-hist data="pc.dataS" threshold="pc.similarity" bins="16" svg-height="300" type-label="Similarity" y-label="Count" call-back="pc.getNewSimilarity(threshold)"> </div>
 
 	<div class="preSimple well">
-		<div ui-slider="slider.options" min="{{pc.filter[0]}}" max="{{pc.filter[1]}}" step="0.0001" use-decimals data-tip ng-model="pc.newThreshold"></div>
-		<span style="float:right">{{pc.filter[1] | number:2}}</span>
-		<span style="float:left">{{pc.filter[0] | number:2}}</span>
 		<div style="margin-top:20px" ui-grid="pc.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
 		<button type="button" class="btn btn-primary btn-block run" ng-click="pc.apply()"> 
 			Cluster words with new similarity

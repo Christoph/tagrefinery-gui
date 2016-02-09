@@ -407,7 +407,6 @@ angular.module('tagrefineryGuiApp')
                 scope.binCount = parseInt(attrs.bins) || 16;
 
                 scope.initialized = false;
-                scope.threshold = 0.65;
                 scope.isZoomed = false;
 
                 // Rendering
