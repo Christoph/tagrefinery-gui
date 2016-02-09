@@ -16,123 +16,40 @@ angular.module('tagrefineryGuiApp')
     // Frequent
     that.thresholdF = 0.3;
     that.newThresholdF = 0;
-
-    that.filterF = [0,1];
-    that.filterHistoryF = [];
-    that.allowBackF = false;
-
     that.dataF = [];
 
     // Unique
     that.thresholdU = 0.7;
     that.newThresholdU = 0;
-    that.allowBackU = false;
-
-    that.filterU = [0,1];
-    that.filterHistoryU = [];
-
     that.dataU = [];
 
     // Start in simple mode
-    $scope.$parent.modeComp = 1;
+    $scope.$parent.modeComp = 0;
    
    ////////////////////////////////////////////////
    // D3 functions
    ////////////////////////////////////////////////
-   
-   that.onClickU = function(extend)
-   {
+
+   that.getThresholdF = function(threshold)
+    {
         $scope.$apply(function() {
-            console.log("U")
-            that.filterHistoryU.push(that.filterU);
-            that.filterU = extend;
+            that.newThresholdF = threshold;
 
-            // There is at least on element in the back log
-            that.allowBackU = true;
+           $timeout(function() {
+               that.scrollToF(that.getAboveRow(that.frequentGrid.data, that.newThresholdF),0);
+           })
         });
-   };  
-   
-    that.resetU = function()
-    {
-        console.log("Reset U")
-        that.filterU = [0,1];
-        that.filterHistoryU = [];
-
-        that.allowBackU = false;
-    }
-
-    that.backU = function()
-    {
-        if(that.filterHistoryU.length > 0)
-        {
-            that.filterU = that.filterHistoryU.pop();
-        }
-
-        if(that.filterHistoryU.length == 0)
-        {
-            that.allowBackU = false;
-        }
-    }
-
-   that.onClickF = function(extend)
-   {
-        $scope.$apply(function() {
-            console.log("F")
-            that.filterHistoryF.push(that.filterF);
-            that.filterF = extend;
-
-            // There is at least on element in the back log
-            that.allowBackF = true;
-        });
-   };  
-
-    that.resetF = function()
-    {
-        console.log("Reset F")
-        that.filterF = [1,2];
-        that.filterHistoryF = [];
-
-        that.allowBackF = false;
-    }
-
-    that.backF = function()
-    {
-        if(that.filterHistoryF.length > 0)
-        {
-            that.filterF = that.filterHistoryF.pop();
-        }
-
-        if(that.filterHistoryF.length == 0)
-        {
-            that.allowBackF = false;
-        }
-    }
-    
-   ////////////////////////////////////////////////
-   // Slider functions
-   ////////////////////////////////////////////////
-
-    that.sliderU = {
-        options: {
-            start: function (event, ui) {  },
-            stop: function (event, ui) { 
-               $timeout(function() {
-                   that.scrollToF(that.getAboveRow(that.uniqueGrid.data, that.newThresholdU),0);
-               })
-            }
-        }
     };
-    
-    that.sliderF = {
-        options: {
-            start: function (event, ui) {  },
-            stop: function (event, ui) { 
-                console.log(that.newThresholdF)
-               $timeout(function() {
-                   that.scrollToF(that.getAboveRow(that.frequentGrid.data, that.newThresholdF),0);
-               })
-            }
-        }
+
+   that.getThresholdU = function(threshold)
+    {
+        $scope.$apply(function() {
+            that.newThresholdU = threshold;
+
+           $timeout(function() {
+               that.scrollToU(that.getAboveRow(that.uniqueGrid.data, that.newThresholdU),0);
+           })
+        });
     };
 
     // This function needs decreasing sorted data from the server
@@ -141,22 +58,15 @@ angular.module('tagrefineryGuiApp')
 
         for(var i = 0; i<data.length; i++)
         {
-            if(data[i].strength <= threshold)
+            if(data[i].strength < threshold)
             {
-                if(i > 0)
+                if((threshold - data[i].strength) <= (data[i-1].strength - threshold))
                 {
-                    if((threshold - data[i].strength) <= (data[i-1].strength - threshold))
-                    {
-                        index = i;
-                    }
-                    else
-                    {
-                        index = data[i-1].strength;
-                    }
+                    return i;
                 }
                 else
                 {
-                    index = 0;
+                    return i-1;
                 }
             }
         }

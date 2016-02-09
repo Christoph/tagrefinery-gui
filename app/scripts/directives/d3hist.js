@@ -96,6 +96,8 @@ angular.module('tagrefineryGuiApp')
 
             scope.dragmove = function(d) 
             {
+                scope.callBack({threshold: scope.x.invert(d3.event.x)});
+
                 d3.select(this).select("line").attr("x1", d3.event.x);
                 d3.select(this).select("line").attr("x2", d3.event.x);
                 d3.select(this).select("circle").attr("cx", d3.event.x);
@@ -195,6 +197,7 @@ angular.module('tagrefineryGuiApp')
                 .call(scope.zoom)
                 .on('dblclick', function(d) {
                     scope.threshold = scope.x.invert(d3.mouse(this)[0]-scope.marginLeft);
+                    scope.callBack({threshold: scope.threshold});
                     renderLine(scope);
                 });
 
@@ -389,7 +392,8 @@ angular.module('tagrefineryGuiApp')
             transclude: true,
             scope: {
                 data: '=',
-                threshold: '='
+                exThreshold: '=threshold',
+                callBack: '&'
             },
             templateUrl: 'templates/hist.html',
             link: function (scope, element, attrs) {
@@ -408,8 +412,6 @@ angular.module('tagrefineryGuiApp')
 
                 // Rendering
                 $timeout(function() {
-
-
                     // Initial drawing
                     init(scope, element);
 
@@ -429,6 +431,15 @@ angular.module('tagrefineryGuiApp')
                         if(newVals)
                         {
                             render(scope);
+                        }
+                    },true);
+                    
+                    // Watch for external threshold changes and re-render
+                    scope.$watch('exThreshold', function(newVals) {
+                        if(newVals)
+                        {
+                            scope.threshold = newVals;
+                            renderLine(scope);
                         }
                     },true);
                 }, 0);
