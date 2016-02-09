@@ -73,10 +73,19 @@ angular.module('tagrefineryGuiApp')
                 scope.svg.select(".y.axis").call(scope.yAxis);
             }
 
+            scope.dragmove = function(d) 
+            {
+                d3.select(this).attr("x1", d3.event.x);
+                d3.select(this).attr("x2", d3.event.x);
+            }
 
-        scope.moveToFront = function() {  
-        this.parentNode.appendChild(this);
-    };
+            // Bring element to front
+            scope.bringToFront = function()
+            {
+                this.each(function(){
+                    this.parentNode.appendChild(this);
+                });
+            };
             
         }
         
@@ -119,18 +128,19 @@ angular.module('tagrefineryGuiApp')
                 .scale(scope.y)
                 .orient("left");            
 
+            //Define zoom behavior
             scope.zoom = d3.behavior.zoom()
                 .x(scope.x)
                 .scaleExtent([1,100])
                 .size(scope.quadrantWidth, scope.quadrantHeight)
                 .on("zoom", scope.zoomed);
 
-            scope.bringToFront = function()
-            {
-                this.each(function(){
-                    this.parentNode.appendChild(this);
-                });
-            }
+            // Define drag beavior
+            scope.drag = d3.behavior.drag()
+                .on("dragstart", function() {
+                    d3.event.sourceEvent.stopPropagation(); // silence other listeners
+                })
+                .on("drag", scope.dragmove);
 
         };
 
@@ -214,11 +224,13 @@ angular.module('tagrefineryGuiApp')
             // Threshold line
             scope.line = scope.bodyG
                 .append("line")
+                .attr("class", "marker")
                 .attr("stroke", "black")
+                .attr("stroke-width", 5)
                 .attr("y1", 0)
                 .attr("y2", scope.height)
-                .attr("stroke.width", 5)
-                .attr("class", "threshold");
+                .attr("class", "threshold")
+                .call(scope.drag);
         };
         
         var renderLine = function(scope)
