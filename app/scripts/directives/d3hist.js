@@ -89,6 +89,10 @@ angular.module('tagrefineryGuiApp')
                 .domain(scope.xDomain)
                 .range([0, scope.quadrantWidth]);
 
+            scope.xLine = d3.scale.linear()
+                .domain([0, scope.quadrantWidth])
+                .range([0, 1]);
+
             scope.xAxis = d3.svg.axis()
                 .scale(scope.x)
                 .tickValues(scope.ticks)
@@ -114,6 +118,7 @@ angular.module('tagrefineryGuiApp')
                 .scaleExtent([1,100])
                 .size(scope.quadrantWidth, scope.quadrantHeight)
                 .on("zoom", scope.zoomed);
+
         };
 
         var skeleton = function(scope, element)
@@ -126,7 +131,13 @@ angular.module('tagrefineryGuiApp')
                 .attr("width", '100%')
                 .style("background-color", "white")
                 .attr("class", "chart")
-                .call(scope.zoom);
+                .call(scope.zoom)
+                .on('dblclick', function(d) {
+                    scope.threshold = scope.x.invert(d3.mouse(this)[0]-scope.marginLeft);
+                    renderLine(scope);
+                });
+
+            scope.svg.on("dblclick.zoom", null);
 
             // title
             scope.svg.append("text")
@@ -186,6 +197,23 @@ angular.module('tagrefineryGuiApp')
                     .attr("transform", "translate(" + scope.marginLeft + "," + scope.margin + ")")
                     .attr("clip-path", "url(#body-clip)");
 
+            // Threshold line
+            scope.line = scope.bodyG
+                .append("line")
+                .attr("stroke", "black")
+                .attr("y1", 0)
+                .attr("y2", scope.height)
+                .attr("stroke.width", 5)
+                .attr("class", "threshold");
+        };
+        
+        var renderLine = function(scope)
+        {
+            scope.bodyG.selectAll(".threshold")
+                .transition()
+                .duration(100)
+                .attr("x1", scope.x(scope.threshold))
+                .attr("x2", scope.x(scope.threshold));
         };
 
         var renderBars = function(scope) {
@@ -195,16 +223,16 @@ angular.module('tagrefineryGuiApp')
             // Update y scaling
             scope.y.domain(scope.yScaling());
 
+            // Update line position
+            renderLine(scope);
+
             // Enter
             scope.bar = scope.bodyG.selectAll(".bar")
                 .data(scope.hist)
                 .enter()
                 .append("g")
                 .attr("class","bar")
-                .attr("transform", function(d) { return "translate("+scope.x(d.x)+","+scope.y(d.y)+")"; })
-                .on('click', function(d) {
-                    //return zoomFunc([d.x, d.x + d.dx]);
-                });
+                .attr("transform", function(d) { return "translate("+scope.x(d.x)+","+scope.y(d.y)+")"; });
 
             scope.bar.append("text")
                 .attr("dy", ".75em")
@@ -316,6 +344,7 @@ angular.module('tagrefineryGuiApp')
                 scope.binCount = parseInt(attrs.bins) || 16;
 
                 scope.initialized = false;
+                scope.threshold = 0.65;
                 
                 // Map functions to the button
                 scope.reset = function() {
