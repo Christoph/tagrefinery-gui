@@ -7,7 +7,7 @@
  * # d3SimHist
  */
 angular.module('tagrefineryGuiApp')
-    .directive('d3Hist', ["d3", "$timeout", function (d3, $timeout) {
+    .directive('d3HistBrush', ["d3", "$timeout", function (d3, $timeout) {
         var margin, marginLeft;
         var width, height, xScale, yScale, xAxis, yAxis;
         var quadrantWidth, quadrantHeight;
