@@ -75,8 +75,9 @@ angular.module('tagrefineryGuiApp')
 
             scope.dragmove = function(d) 
             {
-                d3.select(this).attr("x1", d3.event.x);
-                d3.select(this).attr("x2", d3.event.x);
+                d3.select(this).select("line").attr("x1", d3.event.x);
+                d3.select(this).select("line").attr("x2", d3.event.x);
+                d3.select(this).select("circle").attr("cx", d3.event.x);
             }
 
             // Bring element to front
@@ -221,27 +222,42 @@ angular.module('tagrefineryGuiApp')
                     .attr("transform", "translate(" + scope.marginLeft + "," + scope.margin + ")")
                     .attr("clip-path", "url(#body-clip)");
 
-            // Threshold line
-            scope.line = scope.bodyG
+            // Threshold line and circle
+            scope.marker = scope.bodyG
+               .append("g")
+               .attr("class","threshold")
+               .call(scope.drag);
+
+           scope.marker
                 .append("line")
-                .style("cursor", "pointer")
-                .attr("class", "marker")
+                .style("cursor", "ew-resize")
                 .attr("stroke", "black")
                 .attr("stroke-width", 5)
-                .attr("y1", 0)
-                .attr("y2", scope.height)
-                .attr("class", "threshold")
-                .call(scope.drag);
+                .attr("y1", 5)
+                .attr("y2", scope.height);
+
+            scope.marker
+                .append("circle")
+                .style("cursor", "ew-resize")
+                .attr("r", 10)
+                .attr("cy", 10);
         };
         
         var renderLine = function(scope)
         {
             scope.bodyG.selectAll(".threshold")
-                .call(scope.bringToFront)
-                .transition()
-                .duration(100)
-                .attr("x1", scope.x(scope.threshold))
-                .attr("x2", scope.x(scope.threshold));
+               .call(scope.bringToFront);
+
+            scope.marker.select("line")
+               .transition()
+               .duration(100)
+               .attr("x1", scope.x(scope.threshold))
+               .attr("x2", scope.x(scope.threshold));
+
+            scope.marker.select("circle")
+               .transition()
+               .duration(100)
+               .attr("cx", scope.x(scope.threshold))
         };
 
         var renderBars = function(scope) {
@@ -265,7 +281,11 @@ angular.module('tagrefineryGuiApp')
             scope.bar.append("text")
                 .attr("dy", ".75em")
                 .attr("y", -12)
+                .attr("class", "barLabel")
                 .attr("text-anchor", "left");
+
+            scope.bodyG.selectAll(".barLabel")
+               .call(scope.bringToFront);
 
             scope.bar.append("rect");
 
@@ -277,7 +297,7 @@ angular.module('tagrefineryGuiApp')
                 .attr("transform", function(d) { return "translate("+scope.x(d.x)+","+scope.y(d.y)+")"; });
 
             scope.bar.select("text")
-                .call(scope.bringToFront)
+                //.call(scope.bringToFront)
                 .attr("x", scope.x(scope.hist[0].x)  + 5)
                 .text(function(d) { return scope.formatCount(d.y); });
 
