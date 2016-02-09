@@ -72,6 +72,12 @@ angular.module('tagrefineryGuiApp')
                 scope.svg.select(".x.axis").call(scope.xAxis);
                 scope.svg.select(".y.axis").call(scope.yAxis);
             }
+
+
+        scope.moveToFront = function() {  
+        this.parentNode.appendChild(this);
+    };
+            
         }
         
         var definitions = function(scope, element)
@@ -119,6 +125,13 @@ angular.module('tagrefineryGuiApp')
                 .size(scope.quadrantWidth, scope.quadrantHeight)
                 .on("zoom", scope.zoomed);
 
+            scope.bringToFront = function()
+            {
+                this.each(function(){
+                    this.parentNode.appendChild(this);
+                });
+            }
+
         };
 
         var skeleton = function(scope, element)
@@ -137,6 +150,7 @@ angular.module('tagrefineryGuiApp')
                     renderLine(scope);
                 });
 
+            // Detach dbl click from zoom
             scope.svg.on("dblclick.zoom", null);
 
             // title
@@ -210,6 +224,7 @@ angular.module('tagrefineryGuiApp')
         var renderLine = function(scope)
         {
             scope.bodyG.selectAll(".threshold")
+                .call(scope.bringToFront)
                 .transition()
                 .duration(100)
                 .attr("x1", scope.x(scope.threshold))
@@ -249,7 +264,7 @@ angular.module('tagrefineryGuiApp')
                 .attr("transform", function(d) { return "translate("+scope.x(d.x)+","+scope.y(d.y)+")"; });
 
             scope.bar.select("text")
-                //.attr("x", xScale(hist[0].x+hist[0].dx) / 2 - 18)
+                .call(scope.bringToFront)
                 .attr("x", scope.x(scope.hist[0].x)  + 5)
                 .text(function(d) { return scope.formatCount(d.y); });
 
@@ -272,32 +287,6 @@ angular.module('tagrefineryGuiApp')
                 // Render data
                 renderBars(scope);
             }
-        };
-
-        var resize = function(scope, element)
-        {
-            var padding = 5;
-
-            definitions(scope, element);
-
-            scope.svg.selectAll(".title")
-                .attr("x",(scope.width/2));
-
-            scope.svg.selectAll(".x.axis")
-                    .call(scope.xAxis);
-
-            scope.svg.selectAll(".x.label")
-                .attr("x",(scope.width/2)+25);
-
-            scope.svg.selectAll("#body-clip rect")
-                    .attr("width", scope.quadrantWidth + 3 * padding);
-
-            scope.svg.selectAll(".body")
-                    .attr("transform", "translate(" + scope.marginLeft + "," + scope.margin + ")")
-                    .attr("clip-path", "url(#body-clip)");
-
-            scope.brush.x(scope.x);
-
         };
 
         var init = function(scope, element)
@@ -330,7 +319,7 @@ angular.module('tagrefineryGuiApp')
             transclude: true,
             scope: {
                 data: '=',
-                filter: '='
+                threshold: '='
             },
             templateUrl: 'templates/hist.html',
             link: function (scope, element, attrs) {
