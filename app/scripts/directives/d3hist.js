@@ -73,6 +73,27 @@ angular.module('tagrefineryGuiApp')
                 scope.svg.select(".y.axis").call(scope.yAxis);
             }
 
+            scope.zoomend = function()
+            {
+                scope.checkZoom();
+            }
+
+            scope.checkZoom = function()
+            {
+                if(scope.x.domain()[0] == scope.xDomain[0] && scope.x.domain()[1] == scope.xDomain[1])
+                {
+                    scope.$apply(function() {
+                        scope.isZoomed = false;
+                    })
+                }
+                else
+                {
+                    scope.$apply(function() {
+                        scope.isZoomed = true;
+                    })
+                }
+            }
+
             scope.dragmove = function(d) 
             {
                 d3.select(this).select("line").attr("x1", d3.event.x);
@@ -88,6 +109,21 @@ angular.module('tagrefineryGuiApp')
                 });
             };
             
+            scope.reset = function() {
+                d3.transition().duration(750).tween("zoom", function() {
+                    var ix = d3.interpolate(scope.x.domain(), scope.xDomain),
+                        iy = d3.interpolate(scope.y.domain(), scope.yDomain);
+                    return function(t) {
+                    scope.zoom.x(scope.x.domain(ix(t))).y(scope.y.domain(iy(t)));
+
+                    render(scope); 
+                    scope.svg.select(".x.axis").call(scope.xAxis);
+                    scope.svg.select(".y.axis").call(scope.yAxis);
+
+                    scope.checkZoom();
+                    };
+                });
+            }
         }
         
         var definitions = function(scope, element)
@@ -134,7 +170,8 @@ angular.module('tagrefineryGuiApp')
                 .x(scope.x)
                 .scaleExtent([1,100])
                 .size(scope.quadrantWidth, scope.quadrantHeight)
-                .on("zoom", scope.zoomed);
+                .on("zoom", scope.zoomed)
+                .on("zoomend", scope.zoomend);
 
             // Define drag beavior
             scope.drag = d3.behavior.drag()
@@ -233,7 +270,7 @@ angular.module('tagrefineryGuiApp')
                 .style("cursor", "ew-resize")
                 .attr("stroke", "black")
                 .attr("stroke-width", 5)
-                .attr("y1", 5)
+                .attr("y1", 18)
                 .attr("y2", scope.height);
 
             scope.marker
@@ -367,18 +404,7 @@ angular.module('tagrefineryGuiApp')
 
                 scope.initialized = false;
                 scope.threshold = 0.65;
-                
-                // Map functions to the button
-                scope.reset = function() {
-                    d3.transition().duration(750).tween("zoom", function() {
-                        var ix = d3.interpolate(scope.x.domain(), scope.xDomain),
-                            iy = d3.interpolate(scope.y.domain(), scope.yDomain);
-                        return function(t) {
-                        scope.zoom.x(scope.x.domain(ix(t))).y(scope.y.domain(iy(t)));
-                        scope.zoomed();
-                        };
-                    });
-                }
+                scope.isZoomed = false;
 
                 // Rendering
                 $timeout(function() {

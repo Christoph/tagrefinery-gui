@@ -129,3 +129,15 @@ button.help {
     position: absolute;
     right: 20px;
 }
+
+.threshold line {
+  stroke: steelblue;
+  stroke-opacity: .75;
+  shape-rendering: crispEdges;
+}
+
+.threshold circle {
+    border-radius: 50%;
+    fill: steelblue;
+    fill-opacity: .90;
+}
