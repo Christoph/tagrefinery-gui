@@ -224,6 +224,7 @@ angular.module('tagrefineryGuiApp')
             // Threshold line
             scope.line = scope.bodyG
                 .append("line")
+                .style("cursor", "pointer")
                 .attr("class", "marker")
                 .attr("stroke", "black")
                 .attr("stroke-width", 5)
