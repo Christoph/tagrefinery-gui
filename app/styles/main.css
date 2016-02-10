@@ -59,7 +59,7 @@
 }
 
 .bar rect{
-  fill: #535f6c;
+  fill: #535f6c; 
   shape-rendering: crispEdges;
 }
 
@@ -82,11 +82,6 @@
 .brush .resize path {
   fill: #eee;
   stroke: #666;
-}
-
-.startAll {
-    position: relative;
-    left: 50%;
 }
 
 div.slider {
@@ -140,3 +135,26 @@ button.help {
     fill: steelblue;
     fill-opacity: .90;
 }
+
+.startAll {
+    position: relative;
+    left: 50%;
+}
+
+.descriptionText {
+    font-size: 10pt;
+    font-weight: normal;
+}
+
+.scafold {
+    margin-top: 10px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+
+
+
+
+
+

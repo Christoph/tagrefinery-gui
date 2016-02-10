@@ -26,38 +26,38 @@
     <div class="container-fluid">
           <div class="row">
               <div class="well well-lg" ng-controller="MainCtrl as ctrl" ng-include="'templates/header.html'"> </div>
-              <uib-tabset justified="true">
+              <uib-tabset justified="true" ng-init="activeTabs[4] = true">
                     <uib-tab active="activeTabs[0]">
                         <uib-tab-heading>
-                            Preprocessing
+                            <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
                         <div class="row" ng-controller="PreprocessingCtrl as ctrl" ng-include="'templates/preprocessing.html'" ng-if="activeTabs[0]"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[1]">
                         <uib-tab-heading>
-                            Spell Checking
+                            <label class="pull-left">2</label> Spellchecking <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
                         <div class="row" ng-controller="SpellcheckingCtrl as ctrl" ng-include="'templates/spellchecking.html'" ng-if="activeTabs[1]"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[2]">
                         <uib-tab-heading>
-                            Composites
+                            <label class="pull-left">3</label> Composites <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
                         <div class="row" ng-controller="CompositeCtrl as ctrl" ng-include="'templates/composite.html'" ng-if="activeTabs[2]"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[3]">
                         <uib-tab-heading>
-                            Postprocessing
+                            <label class="pull-left">4</label> Postprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
                         <div class="row" ng-controller="PostprocessingCtrl as ctrl" ng-include="'templates/postprocessing.html'" ng-if="activeTabs[3]"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[4]">
                         <uib-tab-heading>
-                            Output
+                            Overview
                         </uib-tab-heading>
                         <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'templates/overview.html'" ng-if="activeTabs[4]"></div>
                     </uib-tab>

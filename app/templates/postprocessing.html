@@ -1,3 +1,37 @@
-<div class="well scafold">
-	Postprocessing
+<div class="scafold">
+	<div class="well">
+		Post
+	</div>
+	<uib-accordion>
+		<uib-accordion-group is-open="status.open[0]">
+				<uib-accordion-heading>
+					<div>
+						Define Important Tags <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
+						<br>
+						<p class="descriptionText">Define, which tags are useful.</p>
+					</div>
+				</uib-accordion-heading>
+			This is just some content to illustrate fancy headings.
+		</uib-accordion-group>
+		<uib-accordion-group is-open="status.open[1]">
+				<uib-accordion-heading>
+					<div>
+						Replace or Remove Tags <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[1], 'glyphicon-chevron-right': !status.open[1]}"></i>
+						<br>
+						<p class="descriptionText">Replace or remove tags from the important tags.</p>
+					</div>
+				</uib-accordion-heading>
+			This is just some content to illustrate fancy headings.
+		</uib-accordion-group>
+		<uib-accordion-group is-open="status.open[2]">
+				<uib-accordion-heading>
+					<div>
+						Salvage Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[2], 'glyphicon-chevron-right': !status.open[2]}"></i>
+						<br>
+						<p class="descriptionText">Find and salvage important tags in the unimportant ones.</p>
+					</div>
+				</uib-accordion-heading>
+			This is just some content to illustrate fancy headings.
+		</uib-accordion-group>
+	</uib-accordion>
 </div>
