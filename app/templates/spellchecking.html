@@ -1,8 +1,5 @@
 <div class="scafold">
 	<uib-accordion>
-		<div class="well">
-			SPell CHecking
-		</div>
 		<uib-accordion-group is-open="status.open[0]">
 				<uib-accordion-heading>
 					<div>
@@ -11,7 +8,7 @@
 						<p class="descriptionText">How similar should two words be, to be regarded as the same.</p>
 					</div>
 				</uib-accordion-heading>
-			This is just some content to illustrate fancy headings.
+			<div class="row" ng-controller="SpellcheckingfindCtrl as ctrl" ng-include="'templates/spellchecking.find.html'" ng-if="status.open[0]"></div>
 		</uib-accordion-group>
 	</uib-accordion>
 </div>

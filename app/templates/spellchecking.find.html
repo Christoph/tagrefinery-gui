@@ -1,0 +1,38 @@
+<div class="compSimple well well-sm">
+	<div class="btn-group" style="position:absolute;right:50px">
+    <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span class="glyphicon glyphicon-play"></span></label>
+    <label class="btn btn-default btn-lg" uib-tooltip="Switch between similarity and importance mode"ng-model="ctrl.mode" uib-btn-checkbox btn-checkbox-true=true btn-checkbox-false=false><span class="glyphicon glyphicon-refresh"></span></label>
+    <label class="btn btn-default btn-lg" uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information"><span class="glyphicon glyphicon-th-list"></span></label>
+</div>
+<table style="width:100%;margin-bottom:5px">
+  <tr>
+	<th></th>
+	<th>Threshold</th>    
+	<th>Count</th>
+  </tr>
+  <tr>	
+	<th></th>
+	<td style="color:steelblue;font-size:12pt">{{ctrl.newSimilarity | number:6}}</td>
+	<td>{{ctrl.countNewReplacements()}}/{{ctrl.totalReplacements()}}</td>
+  </tr>
+</table>
+</div>
+
+<div d3-hist data="ctrl.dataS" threshold="ctrl.newSimilarity" bins="16" svg-height="300" type-label="Similarity" y-label="Count" call-back="ctrl.getNewSimilarity(threshold)" ng-if="!ctrl.mode"> </div>
+
+<div ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="!ctrl.mode && ctrl.showDetails"></div>
+
+
+
+<div d3-hist data="ctrl.dataI" threshold="ctrl.newImportance" bins="16" svg-height="300" type-label="Imporance" y-label="Count" call-back="ctrl.getNewImportance(threshold)" ng-if="ctrl.mode"> </div>
+
+<div class="row" ng-if="ctrl.mode && ctrl.showDetails">
+	<div class="col-sm-6">
+		<h4 style="position:relative; left:25%">Vocab</h4>
+		<div ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+	</div>
+	<div class="col-sm-6">
+		<h4 style="position:relative; left:25%">Replacements</h4>
+		<div ui-grid="ctrl.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+	</div>
+</div>

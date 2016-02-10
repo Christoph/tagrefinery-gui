@@ -31,28 +31,28 @@
                         <uib-tab-heading>
                             <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
-                        <div class="row" ng-controller="PreprocessingCtrl as ctrl" ng-include="'templates/preprocessing.html'" ng-if="activeTabs[0]"></div>
+                        <div class="row" ng-include="'templates/preprocessing.html'" ng-if="activeTabs[0]"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[1]">
                         <uib-tab-heading>
                             <label class="pull-left">2</label> Spellchecking <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
-                        <div class="row" ng-controller="SpellcheckingCtrl as ctrl" ng-include="'templates/spellchecking.html'" ng-if="activeTabs[1]"></div>
+                        <div class="row" ng-include="'templates/spellchecking.html'" ng-if="activeTabs[1]"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[2]">
                         <uib-tab-heading>
                             <label class="pull-left">3</label> Composites <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
-                        <div class="row" ng-controller="CompositeCtrl as ctrl" ng-include="'templates/composite.html'" ng-if="activeTabs[2]"></div>
+                        <div class="row" ng-include="'templates/composite.html'" ng-if="activeTabs[2]"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[3]">
                         <uib-tab-heading>
                             <label class="pull-left">4</label> Postprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
-                        <div class="row" ng-controller="PostprocessingCtrl as ctrl" ng-include="'templates/postprocessing.html'" ng-if="activeTabs[3]"></div>
+                        <div class="row" ng-include="'templates/postprocessing.html'" ng-if="activeTabs[3]"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[4]">
@@ -91,7 +91,6 @@
         <script src="scripts/services/d3.js"></script>
         <script src="scripts/services/httploader.js"></script>
         <script src="scripts/services/socket.js"></script>
-        <script src="scripts/controllers/composite.js"></script>
         <script src="scripts/controllers/spellchecking.js"></script>
         <script src="scripts/controllers/preprocessing.js"></script>
         <script src="scripts/controllers/postprocessing.js"></script>
@@ -101,6 +100,7 @@
         <script src="scripts/directives/d3hist.js"></script>
         <script src="scripts/controllers/compositefrequent.js"></script>
         <script src="scripts/controllers/compositeunique.js"></script>
+        <script src="scripts/controllers/spellcheckingfind.js"></script>
         <!-- endbuild -->
 </body>
 </html>
