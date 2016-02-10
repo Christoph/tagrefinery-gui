@@ -84,10 +84,9 @@
   stroke: #666;
 }
 
-.tabheader {
-    position: absolute;
-    bottom: 3px;
-    right: 5px;
+.startAll {
+    position: relative;
+    left: 50%;
 }
 
 div.slider {

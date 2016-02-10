@@ -25,34 +25,43 @@
     <!-- Add your site or application content here -->
     <div class="container-fluid">
           <div class="row">
-              <div class="col-sm-8">
-                  <uib-tabset justified="true">
-                        <uib-tab active="activeTabs[0]">
-                            <uib-tab-heading>
-                                  Preprocessing
-                                  <button type="button" class="btn btn-default tabheader" ng-model="modePre" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                                      <span class="glyphicon glyphicon-th"></span>
-                                  </button>
-                            </uib-tab-heading>
-                            <div class="row" ng-controller="PreprocessingCtrl as pc" ng-include="'templates/pre_'+modePre+'.html'"></div>
-                        </uib-tab>
+              <div class="well well-lg" ng-controller="MainCtrl as ctrl" ng-include="'templates/header.html'"> </div>
+              <uib-tabset justified="true">
+                    <uib-tab active="activeTabs[0]">
+                        <uib-tab-heading>
+                            Preprocessing
+                        </uib-tab-heading>
+                        <div class="row" ng-controller="PreprocessingCtrl as ctrl" ng-include="'templates/preprocessing.html'" ng-if="activeTabs[0]"></div>
+                    </uib-tab>
 
-                        <uib-tab active="activeTabs[1]">
-                          	<uib-tab-heading>
-                                Composites
-                            </uib-tab-heading>
-                            <div class="row" ng-controller="CompositeCtrl as cc" ng-include="'templates/comp_'+modeComp+'.html'"></div>
-                        </uib-tab>
+                    <uib-tab active="activeTabs[1]">
+                        <uib-tab-heading>
+                            Spell Checking
+                        </uib-tab-heading>
+                        <div class="row" ng-controller="SpellcheckingCtrl as ctrl" ng-include="'templates/spellchecking.html'" ng-if="activeTabs[1]"></div>
+                    </uib-tab>
 
-                        <uib-tab active="activeTabs[2]">
-                          	<uib-tab-heading>
-                                Postprocessing
-                            </uib-tab-heading>
-                            <div class="row" ng-controller="PostprocessingCtrl as pc" ng-include="'templates/post_1.html'"></div>
-                        </uib-tab>
-                  </uib-tabset>      
-              </div>
-              <div class="col-sm-4" ng-controller="MainCtrl as mc" ng-include="'templates/overview.html'"></div>
+                    <uib-tab active="activeTabs[2]">
+                        <uib-tab-heading>
+                            Composites
+                        </uib-tab-heading>
+                        <div class="row" ng-controller="CompositeCtrl as ctrl" ng-include="'templates/composite.html'" ng-if="activeTabs[2]"></div>
+                    </uib-tab>
+
+                    <uib-tab active="activeTabs[3]">
+                        <uib-tab-heading>
+                            Postprocessing
+                        </uib-tab-heading>
+                        <div class="row" ng-controller="PostprocessingCtrl as ctrl" ng-include="'templates/postprocessing.html'" ng-if="activeTabs[3]"></div>
+                    </uib-tab>
+
+                    <uib-tab active="activeTabs[4]">
+                        <uib-tab-heading>
+                            Output
+                        </uib-tab-heading>
+                        <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'templates/overview.html'" ng-if="activeTabs[4]"></div>
+                    </uib-tab>
+              </uib-tabset>      
           </div>
       </div>
 
@@ -83,8 +92,10 @@
         <script src="scripts/services/httploader.js"></script>
         <script src="scripts/services/socket.js"></script>
         <script src="scripts/controllers/composite.js"></script>
+        <script src="scripts/controllers/spellchecking.js"></script>
         <script src="scripts/controllers/preprocessing.js"></script>
         <script src="scripts/controllers/postprocessing.js"></script>
+        <script src="scripts/controllers/overview.js"></script>
         <script src="scripts/directives/d3simhist.js"></script>
         <script src="scripts/controllers/prehelp.js"></script>
         <script src="scripts/directives/d3hist.js"></script>
