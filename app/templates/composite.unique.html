@@ -1,0 +1,21 @@
+<div class="compSimple well well-sm">
+	 	<div class="btn-group" style="position:absolute;right:50px">
+	        <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span class="glyphicon glyphicon-play"></span></label>
+	        <label class="btn btn-default btn-lg" uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information"><span class="glyphicon glyphicon-th-list"></span></label>
+    	</div>
+		<table style="width:100%;margin-bottom:5px">
+		  <tr>
+			<th></th>
+			<th>Threshold</th>    
+			<th>Count</th>
+		  </tr>
+		  <tr>	
+			<th></th>
+			<td style="color:steelblue;font-size:12pt">{{ctrl.newThresholdU | number:6}}</td>
+			<td>{{ctrl.newCountU()}}/{{ctrl.totalReplacements()}}</td>
+		  </tr>
+		</table>
+</div>
+
+<div d3-hist data="ctrl.dataU" call-back="ctrl.getThresholdU(threshold)" threshold="ctrl.newThresholdU" bins="12" svg-height="300" type-label="Group Strength" y-label="Count" ></div>
+<div ui-grid="ctrl.uniqueGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="ctrl.showDetails"></div>
