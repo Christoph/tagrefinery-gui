@@ -8,7 +8,7 @@
 	  <tr>
 		<th></th>
 		<th>Threshold</th>    
-		<th>Filtered Words</th>
+		<th>Used Tags</th>
 	  </tr>
 	  <tr>	
 		<th>Importance:</th>
@@ -18,5 +18,5 @@
 	</table>
 </div>
 
-<div d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)" threshold="ctrl.newThreshold" bins="12" svg-height="300" type-label="Normalized Frequency" y-label="Count" ></div>
+<div d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)" threshold="ctrl.newThreshold" bins="12" svg-height="300" type-label="Importance" y-label="Count" ></div>
 <div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="ctrl.showDetails"></div>

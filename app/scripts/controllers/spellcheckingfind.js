@@ -55,7 +55,7 @@ angular.module('tagrefineryGuiApp')
 
         for(var i = 0; i<data.length; i++)
         {
-            if(data[i].importance < threshold)
+            if(data[i].importance > threshold)
             {
                 if((threshold - data[i].importance) <= (data[i-1].importance - threshold))
                 {

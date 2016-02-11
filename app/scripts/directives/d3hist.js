@@ -285,19 +285,22 @@ angular.module('tagrefineryGuiApp')
         
         var renderLine = function(scope)
         {
-            scope.bodyG.selectAll(".threshold")
-               .call(scope.bringToFront);
+            if(scope.initialized)
+            {
+                scope.bodyG.selectAll(".threshold")
+                   .call(scope.bringToFront);
 
-            scope.marker.select("line")
-               .transition()
-               .duration(100)
-               .attr("x1", scope.x(scope.threshold))
-               .attr("x2", scope.x(scope.threshold));
+                scope.marker.select("line")
+                   .transition()
+                   .duration(100)
+                   .attr("x1", scope.x(scope.threshold))
+                   .attr("x2", scope.x(scope.threshold));
 
-            scope.marker.select("circle")
-               .transition()
-               .duration(100)
-               .attr("cx", scope.x(scope.threshold))
+                scope.marker.select("circle")
+                   .transition()
+                   .duration(100)
+                   .attr("cx", scope.x(scope.threshold))
+           }
         };
 
         var renderBars = function(scope) {
@@ -441,7 +444,7 @@ angular.module('tagrefineryGuiApp')
                             renderLine(scope);
                         }
                     },true);
-                }, 0);
+                }, 100);
             }
         };
 }]);

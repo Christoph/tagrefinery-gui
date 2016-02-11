@@ -42,9 +42,9 @@ angular.module('tagrefineryGuiApp')
 
         for(var i = 0; i<data.length; i++)
         {
-            if(data[i].strength < threshold)
+            if(data[i].importance > threshold)
             {
-                if((threshold - data[i].strength) <= (data[i-1].strength - threshold))
+                if((threshold - data[i].importance) <= (data[i-1].importance - threshold))
                 {
                     return i;
                 }
