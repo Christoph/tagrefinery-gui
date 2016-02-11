@@ -1,17 +1,14 @@
 <div class="scafold">
-	<div class="well">
-		Pre
-	</div>
 	<uib-accordion>
 		<uib-accordion-group is-open="status.open[0]">
 				<uib-accordion-heading>
 					<div>
 						Pre-Filter <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
 						<br>
-						<p class="descriptionText">Filter out data right before the pipeline.</p>
+						<p class="descriptionText">Filter unimportant tags right before the whole pipeline.</p>
 					</div>
 				</uib-accordion-heading>
-			This is just some content to illustrate fancy headings.
+			<div class="row" ng-controller="PreprocessingfilterCtrl as ctrl" ng-include="'templates/preprocessing.filter.html'" ng-if="status.open[0]"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[1]">
 				<uib-accordion-heading>

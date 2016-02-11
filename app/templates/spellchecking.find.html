@@ -20,11 +20,9 @@
 
 <div d3-hist data="ctrl.dataS" threshold="ctrl.newSimilarity" bins="16" svg-height="300" type-label="Similarity" y-label="Count" call-back="ctrl.getNewSimilarity(threshold)" ng-if="!ctrl.mode"> </div>
 
-<div ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="!ctrl.mode && ctrl.showDetails"></div>
-
-
-
 <div d3-hist data="ctrl.dataI" threshold="ctrl.newImportance" bins="16" svg-height="300" type-label="Imporance" y-label="Count" call-back="ctrl.getNewImportance(threshold)" ng-if="ctrl.mode"> </div>
+
+<div ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="!ctrl.mode && ctrl.showDetails"></div>
 
 <div class="row" ng-if="ctrl.mode && ctrl.showDetails">
 	<div class="col-sm-6">

@@ -8,15 +8,15 @@
 	  <tr>
 		<th></th>
 		<th>Threshold</th>    
-		<th>Count</th>
+		<th>Filtered Words</th>
 	  </tr>
 	  <tr>	
-		<th></th>
-		<td style="color:steelblue;font-size:12pt">{{ctrl.newThresholdF | number:6}}</td>
-		<td>{{ctrl.newCountF()}}/{{ctrl.totalReplacements()}}</td>
+		<th>Importance:</th>
+		<td>{{ctrl.newThreshold | number:6}}</td>
+		<td style="color:steelblue;font-size:12pt">{{ctrl.newCount()}}/{{ctrl.totalReplacements()}}</td>
 	  </tr>
 	</table>
 </div>
 
-<div d3-hist data="ctrl.dataF" call-back="ctrl.getThresholdF(threshold)" threshold="ctrl.newThresholdF" bins="12" svg-height="300" type-label="Group Strength" y-label="Count" ></div>
-<div ui-grid="ctrl.frequentGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="ctrl.showDetails"></div>
+<div d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)" threshold="ctrl.newThreshold" bins="12" svg-height="300" type-label="Normalized Frequency" y-label="Count" ></div>
+<div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="ctrl.showDetails"></div>

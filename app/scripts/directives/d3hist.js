@@ -170,7 +170,7 @@ angular.module('tagrefineryGuiApp')
             //Define zoom behavior
             scope.zoom = d3.behavior.zoom()
                 .x(scope.x)
-                .scaleExtent([1,100])
+                .scaleExtent([1,1000])
                 .size(scope.quadrantWidth, scope.quadrantHeight)
                 .on("zoom", scope.zoomed)
                 .on("zoomend", scope.zoomend);
