@@ -18,7 +18,7 @@
 						<p class="descriptionText">Remove characters from dataset.</p>
 					</div>
 				</uib-accordion-heading>
-			This is just some content to illustrate fancy headings.
+			<div class="row" ng-controller="PreprocessingremoveCtrl as ctrl" ng-include="'templates/preprocessing.remove.html'" ng-if="status.open[1]"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[2]">
 				<uib-accordion-heading>
