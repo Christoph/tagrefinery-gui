@@ -38,7 +38,7 @@
 						<p class="descriptionText">Import ground thruth dictionary.</p>
 					</div>
 				</uib-accordion-heading>
-			This is just some content to illustrate fancy headings.
+			<div class="row" ng-controller="PreprocessingimportCtrl as ctrl" ng-include="'templates/preprocessing.import.html'" ng-if="status.open[3]"></div>
 		</uib-accordion-group>
 	</uib-accordion>
 </div>

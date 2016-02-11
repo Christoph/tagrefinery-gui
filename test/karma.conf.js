@@ -35,6 +35,7 @@ module.exports = function(config) {
       'bower_components/lodash/lodash.js',
       'bower_components/pdfmake/build/pdfmake.js',
       'bower_components/pdfmake/build/vfs_fonts.js',
+      'bower_components/CSV-JS/csv.js',
       // endbower
       "app/scripts/**/*.js",
       //"test/mock/**/*.js",
