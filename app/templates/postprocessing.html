@@ -1,7 +1,4 @@
 <div class="scafold">
-	<div class="well">
-		Post
-	</div>
 	<uib-accordion>
 		<uib-accordion-group is-open="status.open[0]">
 				<uib-accordion-heading>
@@ -11,7 +8,7 @@
 						<p class="descriptionText">Define, which tags are useful.</p>
 					</div>
 				</uib-accordion-heading>
-			This is just some content to illustrate fancy headings.
+			<div class="row" ng-controller="PostprocessingimportantCtrl as ctrl" ng-include="'templates/postprocessing.important.html'" ng-if="status.open[0]"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[1]">
 				<uib-accordion-heading>
@@ -21,7 +18,7 @@
 						<p class="descriptionText">Replace or remove tags from the important tags.</p>
 					</div>
 				</uib-accordion-heading>
-			This is just some content to illustrate fancy headings.
+			<div class="row" ng-controller="PostprocessingreplaceCtrl as ctrl" ng-include="'templates/postprocessing.replace.html'" ng-if="status.open[1]"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[2]">
 				<uib-accordion-heading>
@@ -31,7 +28,7 @@
 						<p class="descriptionText">Find and salvage important tags in the unimportant ones.</p>
 					</div>
 				</uib-accordion-heading>
-			This is just some content to illustrate fancy headings.
+			<div class="row" ng-controller="PostprocessingsalvageCtrl as ctrl" ng-include="'templates/postprocessing.salvage.html'" ng-if="status.open[2]"></div>
 		</uib-accordion-group>
 	</uib-accordion>
 </div>
