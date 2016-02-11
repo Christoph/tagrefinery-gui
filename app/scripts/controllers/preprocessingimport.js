@@ -12,8 +12,6 @@ angular.module('tagrefineryGuiApp')
 
     // Get instance of the class
     var that = this;
-
-    that.data = [];
     
    ////////////////////////////////////////////////
    // Socket functions
@@ -21,7 +19,7 @@ angular.module('tagrefineryGuiApp')
 
    that.apply = function() 
    {
-       socket.emit("applyImportedData", that.data);
+       socket.emit("applyImportedData", JSON.stringify($scope.data));
    };
 
     // I accordian gets opened => initialize
@@ -38,13 +36,17 @@ angular.module('tagrefineryGuiApp')
   $scope.data = [];
   $scope.gridOptions = {
     enableGridMenu: true,
+    rowEditWaitInterval: -1,
     data: 'data',
     importerDataAddCallback: function ( grid, newObjects ) {
       $scope.data = $scope.data.concat( newObjects );
     },
     onRegisterApi: function(gridApi){
       $scope.gridApi = gridApi;
-    }
+    }, 
+    columnDefs: [
+    { field: 'tag', minWidth: 100, width: "*"}
+    ]
   };
 
   }]);
