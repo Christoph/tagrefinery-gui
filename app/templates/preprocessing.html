@@ -25,10 +25,10 @@
 					<div>
 						Replace Characters <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[2], 'glyphicon-chevron-right': !status.open[2]}"></i>
 						<br>
-						<p class="descriptionText">Replace characters by another ones.</p>
+						<p class="descriptionText">Replace characters by different ones.</p>
 					</div>
 				</uib-accordion-heading>
-			This is just some content to illustrate fancy headings.
+			<div class="row" ng-controller="PreprocessingreplaceCtrl as ctrl" ng-include="'templates/preprocessing.replace.html'" ng-if="status.open[2]"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[3]">
 				<uib-accordion-heading>

@@ -152,7 +152,9 @@ button.help {
     margin-left: 50px;
 }
 
-
+input.ng-invalid {
+    background-color: rgba(255, 51, 51, 1);
+}
 
 
 
