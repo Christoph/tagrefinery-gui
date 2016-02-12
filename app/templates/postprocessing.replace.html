@@ -2,21 +2,43 @@
 
  	<div class="btn-group" style="position:absolute;right:50px">
         <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span class="glyphicon glyphicon-play"></span></label>
-        <label class="btn btn-default btn-lg" uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information"><span class="glyphicon glyphicon-th-list"></span></label>
 	</div>
 	<table style="width:100%;margin-bottom:5px">
 	  <tr>
 		<th></th>
-		<th>Threshold</th>    
-		<th>Filtered Words</th>
+		<th>Count</th>    
+		<th>Replacements</th>
 	  </tr>
 	  <tr>	
-		<th>Importance:</th>
-		<td>{{ctrl.newThreshold | number:6}}</td>
-		<td style="color:steelblue;font-size:12pt">{{ctrl.newCount()}}/{{ctrl.totalReplacements()}}</td>
+		<th>Important Tags</th>
+		<td>{{ctrl.grid.data.length}}</td>
+		<td style="color:steelblue;font-size:12pt">{{ctrl.replace.length}}</td>
 	  </tr>
 	</table>
 </div>
 
-<div d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)" threshold="ctrl.newThreshold" bins="12" svg-height="300" type-label="Normalized Frequency" y-label="Count" ></div>
-<div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="ctrl.showDetails"></div>
+<div class="row">
+	<div class="col-sm-6">
+		<div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter ui-grid-edit ui-grid-row-edit class="compSimple"></div>
+	</div>
+	<div class="col-sm-6">
+		<h4> Replacements </h4>
+		<table class="table">
+    		<thead>
+		      <tr>
+		        <th>Replace</th>
+		        <th>By</th>
+		        <th>Remove</th>
+		      </tr>
+    		</thead>
+    		<tbody>
+		  		<tr ng-repeat="x in ctrl.replace" id="{{$index}}">
+			    	<td>{{ x.replace }}</td>
+			    	<td>{{ x.by }}</td>
+			    	<td><button class="btn btn-danger btn-xs" ng-click="ctrl.remove()" ><span class="glyphicon glyphicon-trash"></span></button></td>
+		  		</tr>
+    		</tbody>
+  		</table>
+	</div>
+</div>
+

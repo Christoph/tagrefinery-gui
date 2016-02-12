@@ -13,9 +13,9 @@
 		<uib-accordion-group is-open="status.open[1]">
 				<uib-accordion-heading>
 					<div>
-						Replace or Remove Tags <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[1], 'glyphicon-chevron-right': !status.open[1]}"></i>
+						Replace Tags <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[1], 'glyphicon-chevron-right': !status.open[1]}"></i>
 						<br>
-						<p class="descriptionText">Replace or remove tags from the important tags.</p>
+						<p class="descriptionText">Make last changes to the dataset per hand.</p>
 					</div>
 				</uib-accordion-heading>
 			<div class="row" ng-controller="PostprocessingreplaceCtrl as ctrl" ng-include="'templates/postprocessing.replace.html'" ng-if="status.open[1]"></div>
