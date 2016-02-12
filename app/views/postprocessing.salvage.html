@@ -1,22 +1,28 @@
  <div class="compSimple well well-sm">
 
  	<div class="btn-group" style="position:absolute;right:50px">
-        <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span class="glyphicon glyphicon-play"></span></label>
-        <label class="btn btn-default btn-lg" uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information"><span class="glyphicon glyphicon-th-list"></span></label>
+        <label ng-disabled="!ctrl.changes" class="btn btn-warning btn-lg" uib-tooltip="Revert changes" ng-click="ctrl.revert()"><span class="glyphicon glyphicon-remove"></span></label>
+        <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span class="glyphicon glyphicon-ok"></span></label>
 	</div>
 	<table style="width:100%;margin-bottom:5px">
 	  <tr>
 		<th></th>
-		<th>Threshold</th>    
-		<th>Filtered Words</th>
+		<th>Count</th>    
+		<th>Salvaged Tags</th>
 	  </tr>
 	  <tr>	
-		<th>Importance:</th>
-		<td>{{ctrl.newThreshold | number:6}}</td>
-		<td style="color:steelblue;font-size:12pt">{{ctrl.newCount()}}/{{ctrl.totalReplacements()}}</td>
+		<th>Important Tags:</th>
+		<td>{{ctrl.temp.length}}</td>
+		<td style="color:steelblue;font-size:12pt">0</td>
 	  </tr>
 	</table>
 </div>
 
-<div ng-if="status.open[2]" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)" threshold="ctrl.newThreshold" bins="12" svg-height="300" type-label="Normalized Frequency" y-label="Count" ></div>
-<div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="ctrl.showDetails && status.open[2]"></div>
+<div class="row">
+	<div class="col-sm-6">
+		<div ng-if="status.open[2]" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple"></div>
+	</div>
+	<div class="col-sm-6">
+		<div ng-if="status.open[2]" ui-grid="ctrl.salvage" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple"></div>
+	</div>
+</div>
