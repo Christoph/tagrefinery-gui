@@ -398,7 +398,7 @@ angular.module('tagrefineryGuiApp')
                 exThreshold: '=threshold',
                 callBack: '&'
             },
-            templateUrl: 'templates/hist.html',
+            templateUrl: 'views/hist.html',
             link: function (scope, element, attrs) {
                 // Get attributes or use defaults
                 scope.margin = parseInt(attrs.margin) || 30;

@@ -8,7 +8,7 @@
 						<p class="descriptionText">Filter unimportant tags right before the whole pipeline.</p>
 					</div>
 				</uib-accordion-heading>
-			<div class="row" ng-controller="PreprocessingfilterCtrl as ctrl" ng-include="'templates/preprocessing.filter.html'"></div>
+			<div class="row" ng-controller="PreprocessingfilterCtrl as ctrl" ng-include="'views/preprocessing.filter.html'"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[1]">
 				<uib-accordion-heading>
@@ -18,7 +18,7 @@
 						<p class="descriptionText">Remove characters from dataset.</p>
 					</div>
 				</uib-accordion-heading>
-			<div class="row" ng-controller="PreprocessingremoveCtrl as ctrl" ng-include="'templates/preprocessing.remove.html'"></div>
+			<div class="row" ng-controller="PreprocessingremoveCtrl as ctrl" ng-include="'views/preprocessing.remove.html'"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[2]">
 				<uib-accordion-heading>
@@ -28,7 +28,7 @@
 						<p class="descriptionText">Replace characters by different ones.</p>
 					</div>
 				</uib-accordion-heading>
-			<div class="row" ng-controller="PreprocessingreplaceCtrl as ctrl" ng-include="'templates/preprocessing.replace.html'"></div>
+			<div class="row" ng-controller="PreprocessingreplaceCtrl as ctrl" ng-include="'views/preprocessing.replace.html'"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[3]">
 				<uib-accordion-heading>
@@ -38,7 +38,7 @@
 						<p class="descriptionText">Import ground thruth dictionary.</p>
 					</div>
 				</uib-accordion-heading>
-			<div class="row" ng-controller="PreprocessingimportCtrl as ctrl" ng-include="'templates/preprocessing.import.html'"></div>
+			<div class="row" ng-controller="PreprocessingimportCtrl as ctrl" ng-include="'views/preprocessing.import.html'"></div>
 		</uib-accordion-group>
 	</uib-accordion>
 </div>

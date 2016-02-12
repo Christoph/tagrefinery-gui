@@ -25,41 +25,41 @@
     <!-- Add your site or application content here -->
     <div class="container-fluid">
           <div class="row">
-              <div class="well well-lg" ng-controller="MainCtrl as ctrl" ng-include="'templates/header.html'"> </div>
+              <div class="well well-lg" ng-controller="MainCtrl as ctrl" ng-include="'views/header.html'"> </div>
               <uib-tabset justified="true" ng-init="activeTabs[4] = true">
                     <uib-tab active="activeTabs[0]">
                         <uib-tab-heading>
                             <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
-                        <div class="row" ng-include="'templates/preprocessing.html'"></div>
+                        <div class="row" ng-include="'views/preprocessing.html'"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[1]">
                         <uib-tab-heading>
                             <label class="pull-left">2</label> Spellchecking <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
-                        <div class="row" ng-include="'templates/spellchecking.html'"></div>
+                        <div class="row" ng-include="'views/spellchecking.html'"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[2]">
                         <uib-tab-heading>
                             <label class="pull-left">3</label> Composites <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
-                        <div class="row" ng-include="'templates/composite.html'" ></div>
+                        <div class="row" ng-include="'views/composite.html'" ></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[3]">
                         <uib-tab-heading>
                             <label class="pull-left">4</label> Postprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
                         </uib-tab-heading>
-                        <div class="row" ng-include="'templates/postprocessing.html'"></div>
+                        <div class="row" ng-include="'views/postprocessing.html'"></div>
                     </uib-tab>
 
                     <uib-tab active="activeTabs[4]">
                         <uib-tab-heading>
                             Output
                         </uib-tab-heading>
-                        <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'templates/overview.html'"></div>
+                        <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
                     </uib-tab>
               </uib-tabset>      
           </div>
@@ -88,12 +88,10 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/directives/d3bars.js"></script>
         <script src="scripts/services/d3.js"></script>
         <script src="scripts/services/httploader.js"></script>
         <script src="scripts/services/socket.js"></script>
         <script src="scripts/controllers/overview.js"></script>
-        <script src="scripts/directives/d3simhist.js"></script>
         <script src="scripts/directives/d3hist.js"></script>
         <script src="scripts/controllers/compositefrequent.js"></script>
         <script src="scripts/controllers/compositeunique.js"></script>

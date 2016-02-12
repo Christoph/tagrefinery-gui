@@ -8,7 +8,7 @@
 						<p class="descriptionText">Define, which tags are useful.</p>
 					</div>
 				</uib-accordion-heading>
-			<div class="row" ng-controller="PostprocessingimportantCtrl as ctrl" ng-include="'templates/postprocessing.important.html'"></div>
+			<div class="row" ng-controller="PostprocessingimportantCtrl as ctrl" ng-include="'views/postprocessing.important.html'"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[1]">
 				<uib-accordion-heading>
@@ -18,7 +18,7 @@
 						<p class="descriptionText">Make last changes to the dataset per hand.</p>
 					</div>
 				</uib-accordion-heading>
-			<div class="row" ng-controller="PostprocessingreplaceCtrl as ctrl" ng-include="'templates/postprocessing.replace.html'"></div>
+			<div class="row" ng-controller="PostprocessingreplaceCtrl as ctrl" ng-include="'views/postprocessing.replace.html'"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[2]">
 				<uib-accordion-heading>
@@ -28,7 +28,7 @@
 						<p class="descriptionText">Find and salvage important tags in the unimportant ones.</p>
 					</div>
 				</uib-accordion-heading>
-			<div class="row" ng-controller="PostprocessingsalvageCtrl as ctrl" ng-include="'templates/postprocessing.salvage.html'"></div>
+			<div class="row" ng-controller="PostprocessingsalvageCtrl as ctrl" ng-include="'views/postprocessing.salvage.html'"></div>
 		</uib-accordion-group>
 	</uib-accordion>
 </div>
