@@ -8,111 +8,55 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('OverviewCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
-   var that = this;
+  .controller('OverviewCtrl', ["$scope", "socket", "uiGridConstants","$timeout","$q", function ($scope, socket, uiGridConstants, $timeout, $q) {
 
-   $scope.history = {
-       original: "asd",
-       pre: "",
-       composite: "",
-       post: ""
-   };
+    // Get instance of the class
+    var that = this;
 
-   $scope.templateUrl = 'popoverTemplateInline.html';
-
-   // tabindex="0" makes the popover use focus as trigger
-   that.popover = '<div tabindex="0" popover-append-to-body="true" class="ui-grid-cell-contents" popover-placement="left" uib-popover="asdasd" popover-trigger="focus">{{row.entity.tag}}</div>';
+    that.stats = [];
 
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////
-   socket.on('connect', function() {
-       console.log("connected");
+
+   socket.on('output', function(data) {
+       that.grid.data = JSON.parse(data);
    });
 
-   socket.on('initalized', function(data) {
-       that.overviewGrid.data = JSON.parse(data);
-       console.log("initialized");
-   });
-
-   socket.on('history', function(data) {
-       that.historyGrid.data = JSON.parse(data);
-
-       $scope.history = JSON.parse(data);
-   });
-
-   socket.on('overview', function(data) {
-       that.overviewGrid.data = JSON.parse(data);
-   });
+  // I accordian gets opened => initialize
+  if($scope.$parent.activeTabs[4] == true)
+  {
+    socket.emit("getOutputData","output");
+  }
 
    ////////////////////////////////////////////////
-   // Overview Grid
-   ////////////////////////////////////////////////
-   
-   // Helper functions
-   
-   // Update History grid
-   function getHistory(gridList)
-   {
-       var ids = [];
-
-       ids = _.map(_.map(gridList, 'entity'),'id');
-        
-       socket.emit("getHistory",ids.join());
-   }
-
    // Grid
+   ////////////////////////////////////////////////
 
-   that.overviewGrid = {
+    // Grid
+
+   that.grid = {
         enableFiltering: true,
+        enableColumnMenus: false,
         multiSelect: false,
         enableRowHeaderSelection: false,
-        showGridFooter: true,
-        fastWatch: true,
-        enableFullRowSelection: true,
+        enableRowSelection: true,
+        enableullRowSelection: true,
+        enableGridMenu: true,
         onRegisterApi: function(gridApi) {
-            that.overviewGridApi = gridApi;
+            that.gridApi = gridApi;
 
-            // Update History grid
-            gridApi.selection.on.rowSelectionChanged($scope, function() {
-                getHistory(gridApi.selection.getSelectedGridRows());
+            gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+                that.old = row.entity.tag;
             });
         }, 
         columnDefs: [
-        { field: 'tag', cellTemplate: that.popover, cellClass: 'cellPopover', minWidth: 100},
-        { field: 'carrier', minWidth: 100, width: "*"},
-        { field: 'importance', minWidth: 100, width: "*", cellFilter: 'number:6', filters: [
-            {
-              condition: uiGridConstants.filter.GREATER_THAN,
-              placeholder: 'greater than'
-            },
-            {
-              condition: uiGridConstants.filter.LESS_THAN,
-              placeholder: 'less than'
-            }
-        ]}
+        { field: 'tag', minWidth: 100, width: "*"},
+        { field: 'carrier', displayName: "Item", minWidth: 100, width: "*"},
+        { field: 'importance', minWidth: 100, width: "*", cellFilter: 'number:4'}
         ]
     };
 
-   ////////////////////////////////////////////////
-   // History Grid
-   ////////////////////////////////////////////////
-   
-    that.historyGrid = {
-        columnDefs: [
-        { field: 'original'},
-        { field: 'pre'},
-        { field: 'composite'},
-        { field: 'post'}
-        ]
-    };
 
-    $scope.grid = {
-        columnDefs: [
-        { field: 'original'},
-        { field: 'pre'},
-        { field: 'composite'},
-        { field: 'post'}
-        ]
-    };
-}]);
+
+  }]);
