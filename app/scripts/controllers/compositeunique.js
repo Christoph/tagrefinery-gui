@@ -75,12 +75,8 @@ angular.module('tagrefineryGuiApp')
        socket.emit("applyUniqueGroups",""+that.newThresholdU);
    };
 
-    // I accordian gets opened => initialize
-	if($scope.$parent.status.open[1] == true)
-	{
 		socket.emit("getCompositeData","uniqueData");
 		socket.emit("getCompositeData","uniqueGroups");
-	}
 
    ////////////////////////////////////////////////
    // Unique Grid

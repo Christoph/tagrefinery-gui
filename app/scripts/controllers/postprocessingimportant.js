@@ -75,12 +75,8 @@ angular.module('tagrefineryGuiApp')
        socket.emit("applyImportanceFilter",""+that.newThreshold);
    };
 
-    // I accordian gets opened => initialize
-	if($scope.$parent.status.open[0] == true)
-	{
 		socket.emit("getPostprocessingData","postFilterData");
 		socket.emit("getPostprocessingData","postFilterGrid");
-	}
 
    ////////////////////////////////////////////////
    // requent Grid

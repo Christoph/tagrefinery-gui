@@ -15,7 +15,6 @@ angular.module('tagrefineryGuiApp')
 
     that.replace = [];
     that.old;
-    
 
     that.remove = function(index)
     {
@@ -34,11 +33,7 @@ angular.module('tagrefineryGuiApp')
        socket.emit("applyImportantReplacements",that.replace);
    };
 
-    // I accordian gets opened => initialize
-	if($scope.$parent.status.open[1] == true)
-	{
-		socket.emit("getPostprocessingData","importantWords");
-	}
+	socket.emit("getPostprocessingData","importantWords");
 
    ////////////////////////////////////////////////
    // Grid

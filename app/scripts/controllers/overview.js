@@ -23,11 +23,7 @@ angular.module('tagrefineryGuiApp')
        that.grid.data = JSON.parse(data);
    });
 
-  // I accordian gets opened => initialize
-  if($scope.$parent.activeTabs[4] == true)
-  {
     socket.emit("getOutputData","output");
-  }
 
    ////////////////////////////////////////////////
    // Grid

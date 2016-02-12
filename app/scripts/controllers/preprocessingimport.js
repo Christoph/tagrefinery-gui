@@ -22,12 +22,6 @@ angular.module('tagrefineryGuiApp')
        socket.emit("applyImportedData", JSON.stringify($scope.data));
    };
 
-    // I accordian gets opened => initialize
-	if($scope.$parent.status.open[0] == true)
-	{
-		//socket.emit("getCompositeData","frequentData");
-	}
-
    ////////////////////////////////////////////////
    // Grid
    ////////////////////////////////////////////////

@@ -17,5 +17,5 @@
 		</table>
 </div>
 
-<div d3-hist data="ctrl.dataU" call-back="ctrl.getThresholdU(threshold)" threshold="ctrl.newThresholdU" bins="12" svg-height="300" type-label="Group Strength" y-label="Count" ></div>
-<div ui-grid="ctrl.uniqueGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="ctrl.showDetails"></div>
+<div ng-if="status.open[1]" d3-hist data="ctrl.dataU" call-back="ctrl.getThresholdU(threshold)" threshold="ctrl.newThresholdU" bins="24" svg-height="300" type-label="Group Strength" y-label="Count" ></div>
+<div ui-grid="ctrl.uniqueGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="ctrl.showDetails && status.open[1]"></div>

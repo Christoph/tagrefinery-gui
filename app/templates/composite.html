@@ -8,7 +8,7 @@
 						<p class="descriptionText">How many frequent groups should be considered.</p>
 					</div>
 				</uib-accordion-heading>
-			<div class="row" ng-controller="CompositefrequentCtrl as ctrl" ng-include="'templates/composite.frequent.html'" ng-if="status.open[0]"></div>
+			<div class="row" ng-controller="CompositefrequentCtrl as ctrl" ng-include="'templates/composite.frequent.html'"></div>
 		</uib-accordion-group>
 		<uib-accordion-group is-open="status.open[1]">
 				<uib-accordion-heading>
@@ -18,7 +18,7 @@
 						<p class="descriptionText">How many unique groups should be considered.</p>
 					</div>
 				</uib-accordion-heading>
-			<div class="row" ng-controller="CompositeuniqueCtrl	 as ctrl" ng-include="'templates/composite.unique.html'" ng-if="status.open[1]"></div>
+			<div class="row" ng-controller="CompositeuniqueCtrl	 as ctrl" ng-include="'templates/composite.unique.html'"></div>
 		</uib-accordion-group>
 	</uib-accordion>
 </div>

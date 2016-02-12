@@ -75,12 +75,8 @@ angular.module('tagrefineryGuiApp')
        socket.emit("applyPrefilter",""+that.newThreshold);
    };
 
-    // I accordian gets opened => initialize
-	if($scope.$parent.status.open[0] == true)
-	{
 		socket.emit("getPreprocessingData","preFilterData");
 		socket.emit("getPreprocessingData","preFilterGrid");
-	}
 
    ////////////////////////////////////////////////
    // requent Grid

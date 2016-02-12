@@ -2,105 +2,39 @@
 
 /**
  * @ngdoc function
- * @name tagrefineryGuiApp.controller:SpellcheckingCtrl
+ * @name tagrefineryGuiApp.controller:SpellcheckingsetCtrl
  * @description
- * # SpellcheckingCtrl
+ * # SpellcheckingsetCtrl
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('SpellcheckingCtrl', ["$scope", "socket", "uiGridConstants","$timeout","$uibModal", function ($scope, socket, uiGridConstants, $timeout, $uibModal) {
+  .controller('SpellcheckingsetCtrl', ["$scope", "socket", "uiGridConstants","$timeout","$uibModal", function ($scope, socket, uiGridConstants, $timeout, $uibModal) {
 
    var that = this;
-
-   that.similarity = 0.65;
-   that.newSimilarity = 0.65;
-   that.dataS = [];
-
 
    that.importance = 0.65;
    that.newImportance = 0.65;
    that.dataI = [];
 
-
    that.replacements = 0;
    that.newReplacements = 0;
-
-   // Start in simple mode
-   $scope.$parent.modePre = 0;
-
-   ////////////////////////////////////////////////
-   // Helper
-   ////////////////////////////////////////////////
-
-   that.countReplacements = function()
-   {
-       return _.sum(_.filter(that.dataS, function(d) {
-           return d.value >= that.similarity;
-       }), function(o) {
-           return o.count;
-       });
-   };
-
-   that.countNewReplacements = function()
-   {
-       return _.sum(_.filter(that.dataS, function(d) {
-           return d.value >= that.newSimilarity;
-       }), function(o) {
-           return o.count;
-       });
-   };
-
-    that.help = function (size) {
-        var modalInstance = $uibModal.open({
-          animation: $scope.animationsEnabled,
-          templateUrl: 'templates/preHelp.html',
-          controller: 'PreHelpCtrl',
-          size: size
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-          $scope.selected = selectedItem;
-        }, function () {
-          console.log('Modal dismissed at: ' + new Date());
-        });
-    };
-
-    that.helpAdv = function (size) {
-        var modalInstance = $uibModal.open({
-          animation: $scope.animationsEnabled,
-          templateUrl: 'templates/preHelpAdv.html',
-          controller: 'PreHelpCtrl',
-          size: size
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-          $scope.selected = selectedItem;
-        }, function () {
-          console.log('Modal dismissed at: ' + new Date());
-        });
-    };
 
    ////////////////////////////////////////////////
    // D3 functions
    ////////////////////////////////////////////////
-
-    that.getNewSimilarity = function(threshold)
-    {
-        $scope.$apply(function() {
-            that.newSimilarity = threshold;
-
-            that.getReplacements();
-        });
-    };
 
     that.getNewImportance = function(threshold)
     {
         $scope.$apply(function() {
             that.newImportance = threshold;
 
-           $timeout(function() {
-               that.scrollToV(that.getAboveRow(that.vocabGrid.data, that.newImportance),0);
-           })
+            if(that.showDetails)
+            {
+            	$timeout(function() {
+               		that.scrollToV(that.getAboveRow(that.vocabGrid.data, that.newImportance),0);
+           		})
+            }
+
         });
     };
     
@@ -130,24 +64,12 @@ angular.module('tagrefineryGuiApp')
    // Socket functions
    ////////////////////////////////////////////////
 
-   socket.on('replacements', function(data) {
-       that.replGrid.data = JSON.parse(data);
-
-       $timeout(function() {
-           that.scrollToR(0,0);
-       })
-   });
-
    socket.on('vocab', function(data) {
        that.vocabGrid.data = JSON.parse(data);
    });
 
    socket.on('importance', function(data) {
        that.dataI = JSON.parse(data);
-   });
-
-   socket.on('similarities', function(data) {
-       that.dataS = JSON.parse(data);
    });
 
    socket.on('cluster', function(data) {
@@ -161,67 +83,15 @@ angular.module('tagrefineryGuiApp')
        that.simGrid.data = cluster;
    });
 
-   that.clustering = function()
-   {
-       socket.emit("clustering","3");
-   };
-
    that.apply = function()
    {
-       if(that.threshold !== that.current)
-       {
-           that.threshold = that.current;
-
-           socket.emit("applyClustering",""+that.threshold);
-       }
+    	socket.emit("applyImportanceThresholdForClustering",""+that.newImportance);
    };
 
-   ////////////////////////////////////////////////
-   // Replacement Grid
-   ////////////////////////////////////////////////
-   
-    // Helper functions
-    
-    that.getReplacements = function()
-    {
-        socket.emit("getReplacements", that.newSimilarity);
-    };
+		socket.emit("getSpellcheckingData","importance");
+		socket.emit("getSpellcheckingData","vocab");
 
-    that.scrollToR = function( rowIndex, colIndex ) {
-        that.replGridApi.core.scrollTo( that.replGrid.data[rowIndex], that.replGrid.columnDefs[colIndex]);
-        that.replGridApi.selection.selectRow(that.replGrid.data[rowIndex]);
-    };
-
-    // Grid
-    
-    that.replGrid = {
-        enableFiltering: false,
-        enableColumnMenus: false,
-        enableGridMenu: true,
-        showGridFooter: false,
-        fastWatch: true,
-        multiSelect: false,
-        enableRowHeaderSelection: false,
-        enableRowSelection: true,
-        enableFullRowSelection: true,
-        onRegisterApi: function(gridApi) {
-            that.replGridApi = gridApi;
-
-            gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                that.newThreshold = row.entity.similarity;
-            });
-        },
-        columnDefs: [
-        { field: 'truth', minWidth: 100, width: "*"}, 
-        { field: 'replacement', minWidth: 100, width: "*"}, 
-        { field: 'similarity', minWidth: 100, width: "*", cellFilter: 'number:6',
-            sort: {
-                direction: uiGridConstants.DESC,
-                priority: 1
-            }
-        }
-        ]
-    };
+ 
 
    ////////////////////////////////////////////////
    // Vocab Grid

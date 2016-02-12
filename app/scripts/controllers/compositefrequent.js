@@ -75,12 +75,9 @@ angular.module('tagrefineryGuiApp')
        socket.emit("applyFrequentGroups",""+that.newThresholdF);
    };
 
-    // I accordian gets opened => initialize
-	if($scope.$parent.status.open[0] == true)
-	{
-		socket.emit("getCompositeData","frequentData");
-		socket.emit("getCompositeData","frequentGroups");
-	}
+  socket.emit("getCompositeData","frequentData");
+  socket.emit("getCompositeData","frequentGroups");
+
 
    ////////////////////////////////////////////////
    // Frequent Grid
