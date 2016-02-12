@@ -1,3 +1,18 @@
-<button type="button" class="btn btn-success btn-lg startAll">
-	<span class="glyphicon glyphicon-play"></span>
-</button>
+<div class="well row" style="height:60px">
+	<div class="btn-group pull-left side">
+	  <button type="button" class="btn btn-primary" ng-disabled="!ctrl.connectionStatus">Import Data</button>
+	  <button type="button" class="btn btn-primary">Placeholder</button>
+	</div>
+
+	<span class="title"> TagRefinery </span>
+
+	<button uib-tooltip="Run All" tooltip-placement="bottom" type="button" class="btn btn-success btn-lg startAll pull-right" ng-disabled="!ctrl.connectionStatus">
+		<span class="glyphicon glyphicon-play"></span>
+	</button>
+</div>		
+
+<div class="alert alert-danger infos" ng-hide="ctrl.connectionStatus">
+    <h4 class="pull-left">Disconnected</h4>
+	<button type="button" class="btn btn-primary pull-right" style="position: relative;
+top:-7px" ng-click="ctrl.reconnect()">Reconnect</button>
+</div>
