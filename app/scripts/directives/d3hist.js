@@ -96,11 +96,15 @@ angular.module('tagrefineryGuiApp')
 
             scope.dragmove = function(d) 
             {
-                scope.callBack({threshold: scope.x.invert(d3.event.x)});
+                var x = d3.event.x;
 
-                d3.select(this).select("line").attr("x1", d3.event.x);
-                d3.select(this).select("line").attr("x2", d3.event.x);
-                d3.select(this).select("circle").attr("cx", d3.event.x);
+                x = Math.max(0 , Math.min(scope.quadrantWidth, x));
+
+                scope.callBack({threshold: scope.x.invert(x)});
+
+                d3.select(this).select("line").attr("x1", x);
+                d3.select(this).select("line").attr("x2", x);
+                d3.select(this).select("circle").attr("cx", x);
             }
 
             // Bring element to front
@@ -411,6 +415,7 @@ angular.module('tagrefineryGuiApp')
 
                 scope.initialized = false;
                 scope.isZoomed = false;
+                scope.threshold = 0;
 
                 // Rendering
                 $timeout(function() {
@@ -443,7 +448,7 @@ angular.module('tagrefineryGuiApp')
                             scope.threshold = newVals;
                             renderLine(scope);
                         }
-                    },true);
+                    });
                 }, 100);
             }
         };

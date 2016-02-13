@@ -13,13 +13,17 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
-    that.remove = "'";
+    that.remove = "";
 
     stats.write("preRemove", that.remove);
 
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////
+   
+   socket.on('preRemoveParams', function(data) {
+       that.remove = data;
+   });
 
    that.apply = function() 
    { 

@@ -59,6 +59,22 @@ angular.module('tagrefineryGuiApp')
    // Socket functions
    ////////////////////////////////////////////////
 
+   socket.on('preReplaceParams', function(data) {
+    _.each(data, function(d) {
+        var temp = d.split(",");
+
+        if(temp[0] === " ")
+        {
+            that.replace.push({replace: "<Space>", by:temp[1]});	
+        }
+        if(temp[1] === " ")
+        {
+            that.replace.push({replace: temp[0], by: "<Space>"});	
+        }
+		that.out.push({replace: temp[0], by: temp[1]});	
+    })
+   });
+
    that.apply = function() 
    {
        socket.emit("applyReplaceCharacters",JSON.stringify(that.out));

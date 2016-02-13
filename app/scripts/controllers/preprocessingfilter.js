@@ -14,8 +14,7 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     // Frequent
-    that.threshold = 0.3;
-    that.newThreshold = 0.3;
+    that.threshold = 0;
     that.data = [];
 
     stats.write("preFilter",that.threshold);
@@ -27,12 +26,12 @@ angular.module('tagrefineryGuiApp')
    that.getThreshold = function(threshold)
     {
         $scope.$apply(function() {
-            that.newThreshold = threshold;
+            that.threshold = threshold;
 
             if(that.showDetails)
             {
         		$timeout(function() {
-           			that.scrollTo(that.getAboveRow(that.grid.data, that.newThreshold),0);
+           			that.scrollTo(that.getAboveRow(that.grid.data, that.threshold),0);
            		})
             }
         });
@@ -72,13 +71,14 @@ angular.module('tagrefineryGuiApp')
        that.grid.data = JSON.parse(data);
    });
 
+   socket.on('preFilterParams', function(data) {
+       that.threshold = parseFloat(data);
+   });
+
    that.apply = function() 
    {
-       socket.emit("applyPrefilter",""+that.newThreshold);
+       socket.emit("applyPrefilter",""+that.threshold);
    };
-
-    socket.emit("getPreprocessingData","preFilterData");
-    socket.emit("getPreprocessingData","preFilterGrid");
 
    ////////////////////////////////////////////////
    // requent Grid
@@ -107,7 +107,7 @@ angular.module('tagrefineryGuiApp')
 
             // Set frequent threshold
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                that.newThreshold = row.entity.importance;
+                that.threshold = row.entity.importance;
             });
         }, 
         columnDefs: [
@@ -133,7 +133,7 @@ angular.module('tagrefineryGuiApp')
 
     that.newCount = function() {
        return _.sum(_.filter(that.data, function(d) {
-           return d.value >= that.newThreshold;
+           return d.value < that.threshold;
        }), function(o) {
            return o.count;
        });

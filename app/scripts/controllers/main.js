@@ -15,7 +15,7 @@ angular.module('tagrefineryGuiApp')
    var connectionStatus = false;
    $scope.$parent.disconnected = true;
 
-   socket.on('connected', function(data) {
+   socket.on('connect', function(data) {
        	that.connectionStatus = true;
        	$scope.$parent.disconnected = false;
    });

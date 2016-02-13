@@ -17,6 +17,12 @@ angular.module('tagrefineryGuiApp')
    // Socket functions
    ////////////////////////////////////////////////
 
+   socket.on('preDictionaryParams', function(data) {
+        _.map(data, function(d) {
+            $scope.data.push({tag: d});
+        })
+   });
+
    that.apply = function() 
    {
        socket.emit("applyImportedData", JSON.stringify($scope.data));
@@ -34,6 +40,7 @@ angular.module('tagrefineryGuiApp')
     data: 'data',
     importerDataAddCallback: function ( grid, newObjects ) {
       $scope.data = $scope.data.concat( newObjects );
+      $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.ALL );
     },
     onRegisterApi: function(gridApi){
       $scope.gridApi = gridApi;
