@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PreprocessingfilterCtrl', ["$scope", "socket", "uiGridConstants","$timeout","$uibModal", function ($scope, socket, uiGridConstants, $timeout, $uibModal) {
+  .controller('PreprocessingfilterCtrl', ["$scope", "socket", "uiGridConstants","$timeout","stats", function ($scope, socket, uiGridConstants, $timeout, stats) {
 
     // Get instance of the class
     var that = this;
@@ -17,6 +17,8 @@ angular.module('tagrefineryGuiApp')
     that.threshold = 0.3;
     that.newThreshold = 0.3;
     that.data = [];
+
+    stats.write("preFilter",that.threshold);
    
    ////////////////////////////////////////////////
    // D3 functions
@@ -75,8 +77,8 @@ angular.module('tagrefineryGuiApp')
        socket.emit("applyPrefilter",""+that.newThreshold);
    };
 
-		socket.emit("getPreprocessingData","preFilterData");
-		socket.emit("getPreprocessingData","preFilterGrid");
+    socket.emit("getPreprocessingData","preFilterData");
+    socket.emit("getPreprocessingData","preFilterGrid");
 
    ////////////////////////////////////////////////
    // requent Grid
