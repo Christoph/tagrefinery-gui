@@ -14,8 +14,7 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     // Unique
-    that.thresholdU = 0.7;
-    that.newThresholdU = 0.7;
+    that.newThresholdU = 0;
     that.dataU = [];
    
    ////////////////////////////////////////////////
@@ -70,13 +69,14 @@ angular.module('tagrefineryGuiApp')
        that.uniqueGrid.data = JSON.parse(data);
    });
 
+   socket.on('compUniqueParams', function(data) {
+       that.newThresholdU = parseFloat(data);
+   });
+
    that.apply = function() 
    {
-       socket.emit("applyUniqueGroups",""+that.newThresholdU);
+       socket.emit("applyUniqueThreshold",""+that.newThresholdU);
    };
-
-		socket.emit("getCompositeData","uniqueData");
-		socket.emit("getCompositeData","uniqueGroups");
 
    ////////////////////////////////////////////////
    // Unique Grid

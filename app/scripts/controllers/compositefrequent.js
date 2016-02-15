@@ -14,8 +14,7 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     // Frequent
-    that.thresholdF = 0.3;
-    that.newThresholdF = 0.3;
+    that.newThresholdF = 0;
     that.dataF = [];
    
    ////////////////////////////////////////////////
@@ -70,14 +69,14 @@ angular.module('tagrefineryGuiApp')
        that.frequentGrid.data = JSON.parse(data);
    });
 
+   socket.on('compFrequentParams', function(data) {
+       that.newThresholdF = parseFloat(data);
+   });
+
    that.apply = function() 
    {
-       socket.emit("applyFrequentGroups",""+that.newThresholdF);
+       socket.emit("applyFrequentThreshold",""+that.newThresholdF);
    };
-
-  socket.emit("getCompositeData","frequentData");
-  socket.emit("getCompositeData","frequentGroups");
-
 
    ////////////////////////////////////////////////
    // Frequent Grid
