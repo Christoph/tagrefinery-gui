@@ -60,6 +60,9 @@ angular.module('tagrefineryGuiApp')
    ////////////////////////////////////////////////
 
    socket.on('preReplaceParams', function(data) {
+    that.replace.length = 0;
+    that.out.length = 0;
+    
     _.each(data, function(d) {
         var temp = d.split(",");
 

@@ -12,8 +12,7 @@ angular.module('tagrefineryGuiApp')
 
    var that = this;
 
-   that.similarity = 0.65;
-   that.newSimilarity = 0.65;
+   that.newSimilarity = 0;
    that.dataS = [];
 
    that.replacements = 0;
@@ -58,6 +57,11 @@ angular.module('tagrefineryGuiApp')
    // Socket functions
    ////////////////////////////////////////////////
 
+   socket.on('spellSimilarity', function(data) {
+       that.newSimilarity = parseFloat(data);
+       socket.emit("getReplacements", that.newSimilarity);
+   });
+
    socket.on('replacements', function(data) {
        that.replGrid.data = JSON.parse(data);
 
@@ -75,11 +79,8 @@ angular.module('tagrefineryGuiApp')
 
    that.apply = function()
    {
-    	socket.emit("applyClustering",""+that.newSimilarity);
+    	socket.emit("applySpellSimilarity",""+that.newSimilarity);
    };
-
-		socket.emit("getSpellcheckingData","similarities");
-		socket.emit("getReplacements",""+that.newSimilarity);
 
    ////////////////////////////////////////////////
    // Replacement Grid

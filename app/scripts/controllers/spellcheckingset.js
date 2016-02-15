@@ -12,8 +12,7 @@ angular.module('tagrefineryGuiApp')
 
    var that = this;
 
-   that.importance = 0.65;
-   that.newImportance = 0.65;
+   that.newImportance = 0;
    that.dataI = [];
 
    that.replacements = 0;
@@ -64,6 +63,10 @@ angular.module('tagrefineryGuiApp')
    // Socket functions
    ////////////////////////////////////////////////
 
+   socket.on('spellImportance', function(data) {
+       that.newImportance = parseFloat(data);
+   });
+
    socket.on('vocab', function(data) {
        that.vocabGrid.data = JSON.parse(data);
    });
@@ -85,13 +88,8 @@ angular.module('tagrefineryGuiApp')
 
    that.apply = function()
    {
-    	socket.emit("applyImportanceThresholdForClustering",""+that.newImportance);
+    	socket.emit("applySpellImportance",""+that.newImportance);
    };
-
-		socket.emit("getSpellcheckingData","importance");
-		socket.emit("getSpellcheckingData","vocab");
-
- 
 
    ////////////////////////////////////////////////
    // Vocab Grid
