@@ -86,6 +86,11 @@ angular.module('tagrefineryGuiApp')
        that.simGrid.data = cluster;
    });
 
+   that.refresh = function()
+   {
+      that.vocabGridApi.core.refresh();
+   }
+
    that.apply = function()
    {
     	socket.emit("applySpellImportance",""+that.newImportance);
