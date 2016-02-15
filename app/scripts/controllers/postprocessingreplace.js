@@ -46,6 +46,18 @@ angular.module('tagrefineryGuiApp')
    // Grid
    ////////////////////////////////////////////////
 
+	that.deleteRow = function(row) {
+		var index = that.grid.data.indexOf(row.entity);
+		that.grid.data.splice(index, 1);
+	};
+
+
+	that.revert = function()
+	{
+		that.changes = false;
+
+		that.grid.data = _.clone(that.temp);
+	}
 
     that.saveRow = function( rowEntity ) {
 	    var promise = $q.defer();

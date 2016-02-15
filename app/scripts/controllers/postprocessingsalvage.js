@@ -13,20 +13,21 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
-	that.temp = [];
     that.old;
-    that.changes = false;
 
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////
 
-   socket.on('salvageWords', function(data) {
+   socket.on('postSalvageWords', function(data) {
        that.grid.data = JSON.parse(data);
-       that.temp = JSON.parse(data); 
    });
 
-   that.compute = function() 
+   socket.on('postSalvageData', function(data) {
+       that.salvage.data = JSON.parse(data);
+   });
+
+   that.salvaging = function() 
    {
        socket.emit("computeSalvaging","");
    };
@@ -54,26 +55,12 @@ angular.module('tagrefineryGuiApp')
             that.gridApi = gridApi;
 
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                that.deleteRow(row);
-                that.changes = true;
             });
         }, 
         columnDefs: [
         { field: 'tag', minWidth: 100, width: "*"}
         ]
     };
-
-	that.deleteRow = function(row) {
-		var index = that.grid.data.indexOf(row.entity);
-		that.grid.data.splice(index, 1);
-	};
-
-	that.revert = function()
-	{
-		that.changes = false;
-
-		that.grid.data = _.clone(that.temp);
-	}
 
    ////////////////////////////////////////////////
    // Salvaging
@@ -97,9 +84,8 @@ angular.module('tagrefineryGuiApp')
             });
         }, 
         columnDefs: [
-        { field: 'important', displayName: 'Important Tag', minWidth: 100, width: "*"},
-        { field: 'original', displayName: 'Unimportant Tag', minWidth: 100, width: "*"},
-        { field: 'salvage', displayName: 'Salvage', minWidth: 100, width: "*"}
+        { field: 'truth', displayName: 'Important Tag', minWidth: 100, width: "*"},
+        { field: 'replacement', displayName: 'Salvaged Tag', minWidth: 100, width: "*"}
         ]
     };
 
