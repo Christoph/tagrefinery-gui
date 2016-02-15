@@ -14,29 +14,27 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
 	that.temp = [];
-    that.replace = [];
     that.old;
     that.changes = false;
 
-    that.remove = function(index)
-    {
-    	that.replace.splice(index,1);
-    }
    ////////////////////////////////////////////////
    // Socket functions
    ////////////////////////////////////////////////
 
-   socket.on('importantWords', function(data) {
+   socket.on('salvageWords', function(data) {
        that.grid.data = JSON.parse(data);
        that.temp = JSON.parse(data); 
    });
 
-   that.apply = function() 
+   that.compute = function() 
    {
-       socket.emit("applySalvaging",that.replace);
+       socket.emit("computeSalvaging","");
    };
 
-	socket.emit("getPostprocessingData","importantWords");
+   that.apply = function() 
+   {
+       socket.emit("applySalvaging","");
+   };
 
    ////////////////////////////////////////////////
    // Grid

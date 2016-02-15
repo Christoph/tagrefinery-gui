@@ -14,8 +14,7 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     // Frequent
-    that.threshold = 0.3;
-    that.newThreshold = 0.3;
+    that.newThreshold = 0;
     that.data = [];
    
    ////////////////////////////////////////////////
@@ -70,13 +69,14 @@ angular.module('tagrefineryGuiApp')
        that.grid.data = JSON.parse(data);
    });
 
+   socket.on('postFilterParams', function(data) {
+       that.newThreshold = parseFloat(data);
+   });
+
    that.apply = function() 
    {
-       socket.emit("applyImportanceFilter",""+that.newThreshold);
+       socket.emit("applyPostFilter",""+that.newThreshold);
    };
-
-		socket.emit("getPostprocessingData","postFilterData");
-		socket.emit("getPostprocessingData","postFilterGrid");
 
    ////////////////////////////////////////////////
    // requent Grid

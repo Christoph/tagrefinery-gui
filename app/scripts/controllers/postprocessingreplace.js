@@ -24,16 +24,23 @@ angular.module('tagrefineryGuiApp')
    // Socket functions
    ////////////////////////////////////////////////
 
-   socket.on('importantWords', function(data) {
+   socket.on('postImportantWords', function(data) {
        that.grid.data = JSON.parse(data);
+   });
+
+   socket.on('postReplaceParams', function(data) {
+       that.replace.length = 0;
+
+        _.each(data, function(d) {
+            var temp = d.split(","); 
+            that.replace.push({replace: temp[0], by: temp[1]});	
+    })
    });
 
    that.apply = function() 
    {
-       socket.emit("applyImportantReplacements",that.replace);
+       socket.emit("applyPostReplace",JSON.stringify(that.replace));
    };
-
-	socket.emit("getPostprocessingData","importantWords");
 
    ////////////////////////////////////////////////
    // Grid
