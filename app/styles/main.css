@@ -136,10 +136,15 @@ button.help {
     fill-opacity: .90;
 }
 
-.startAll {
-    position: relative;
-    top: -14px;
-    width: 150px;
+.importButton {
+  position:relative;
+    top: -50px;
+    right: 7px;
+}
+
+.reconnectButton {
+  position:relative;
+    top: -37px;
 }
 
 .descriptionText {
@@ -169,10 +174,9 @@ input.ng-invalid {
 }
 
 .title {
-  position: relative;
-  left: 35%;
-  top:-14px;
+  padding-bottom: 40px;
   font-size: 24pt;
+  text-align:center
 }
 
 

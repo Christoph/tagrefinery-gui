@@ -1,18 +1,26 @@
-<div class="well row" style="height:60px">
-	<div class="btn-group pull-left side">
-	  <button type="button" class="btn btn-primary" ng-disabled="!ctrl.connectionStatus">Import Data</button>
-	  <button type="button" class="btn btn-primary">Placeholder</button>
-	</div>
-
-	<span class="title"> TagRefinery </span>
-
-	<button uib-tooltip="Run All" tooltip-placement="bottom" type="button" class="btn btn-success btn-lg startAll pull-right" ng-disabled="!ctrl.connectionStatus">
-		<span class="glyphicon glyphicon-play"></span>
-	</button>
+<div>
+	<h2 class="title">TagRefinery</h2>
 </div>		
 
 <div class="alert alert-danger infos" ng-hide="ctrl.connectionStatus">
-    <h4 class="pull-left">Disconnected</h4>
-	<button type="button" class="btn btn-primary pull-right" style="position: relative;
-top:-7px" ng-click="ctrl.reconnect()">Reconnect</button>
+    <h4 style="text-align:center">Disconnected</h4>
+	<button type="button" class="btn btn-primary pull-right reconnectButton" ng-click="ctrl.reconnect()">Reconnect</button>
+</div>
+
+<div ng-hide="!ctrl.connectionStatus">
+	<div class="alert alert-info infos" >
+    	<h4 style="text-align:center">No Data</h4>
+	</div>
+	<h3 style="text-align:center">Import Data</h3>
+	<button uib-tooltip="Import Data" tooltip-placement="bottom" type="button" class="btn btn-info btn-lg pull-right importButton" ng-click="ctrl.import()" ng-disabled="data.length<1">
+	<span class="glyphicon glyphicon-ok"></span>
+	</button>
+
+	<div ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="compSimple"></div>
+
+	<div class="well compSimple">
+		<p>
+			Import by clicking on the symbol in the right top corner of the grid - choose a file. The file needs to be a csv file with exact the same column headers as the grid has. After importing, the first three steps of the pipeline will be computed automatically, using default values. The forth step is optional.
+		</p>
+	</div>
 </div>
