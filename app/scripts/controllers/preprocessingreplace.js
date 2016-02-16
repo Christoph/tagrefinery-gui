@@ -80,7 +80,7 @@ angular.module('tagrefineryGuiApp')
 
    that.apply = function() 
    {
-       socket.emit("applyReplaceCharacters",JSON.stringify(that.out));
+       socket.emit("applyPreReplaceCharacters",JSON.stringify(that.out));
    };
 
   }]);

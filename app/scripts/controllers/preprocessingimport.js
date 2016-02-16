@@ -25,7 +25,7 @@ angular.module('tagrefineryGuiApp')
 
    that.apply = function() 
    {
-       socket.emit("applyImportedData", JSON.stringify($scope.data));
+       socket.emit("applyPreImportedData", JSON.stringify($scope.data));
    };
 
    ////////////////////////////////////////////////

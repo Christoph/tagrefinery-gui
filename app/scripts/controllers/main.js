@@ -38,10 +38,14 @@ angular.module('tagrefineryGuiApp')
        	$scope.$parent.activeTabs[0] = true;
    });
 
-  socket.on('importedData', function(data) {
-        that.connectionStatus = false;
-        $scope.$parent.disconnected = true;
-        $scope.$parent.activeTabs[0] = true;
+  socket.on('mainData', function(data) {
+      var json = JSON.parse(data);
+      if(json.length > 0)
+      {
+        $scope.gridOptions.data = json;
+        that.dataLoaded = true;
+        $scope.$parent.disconnected = false;
+      }
    });
 
    that.reconnect = function() 
@@ -51,9 +55,18 @@ angular.module('tagrefineryGuiApp')
 
    that.import = function() 
    {
-      that.dataLoaded = true;
+      var chunk = 500;
 
-      socket.emit("applyImportedData",$scope.data);
+      socket.emit("applyImportedDataCount",Math.ceil($scope.data.length/chunk));
+
+      for (var i=0, j=$scope.data.length; i<j; i+=chunk) 
+      {
+        socket.emit("applyImportedData",JSON.stringify(_.slice($scope.data,i,i+chunk)));
+      }
+      
+      socket.emit("applyImportedDataFinished","");
+      that.dataLoaded = true;
+      $scope.$parent.disconnected = false;
    };
 
       // Grid

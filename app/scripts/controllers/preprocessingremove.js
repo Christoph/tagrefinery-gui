@@ -27,7 +27,7 @@ angular.module('tagrefineryGuiApp')
 
    that.apply = function() 
    { 
-       socket.emit("applyRemoveCharacters",that.remove);
+       socket.emit("applyPreRemoveCharacters",that.remove);
    };
    
   }]);
