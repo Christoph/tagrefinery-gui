@@ -27,7 +27,7 @@ angular.module('tagrefineryGuiApp')
         $scope.$apply(function() {
             that.newSimilarity = threshold;
 
-            //that.getReplacements();
+            that.getReplacements();
         });
     };
     
@@ -90,7 +90,7 @@ angular.module('tagrefineryGuiApp')
     
     that.getReplacements = function()
     {
-        //socket.emit("getReplacements", that.newSimilarity);
+        socket.emit("getReplacements", that.newSimilarity);
     };
 
     that.scrollToR = function( rowIndex, colIndex ) {
