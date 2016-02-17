@@ -12,8 +12,9 @@ angular.module('tagrefineryGuiApp')
   .factory('socket', ["$rootScope", function ($rootScope) {
 
       var socketio = io.connect('http://localhost:9092',{
-          reconnection: false,
-          'reconnectionAttempts': 5
+          reconnection: true,
+          timeout: 10000,
+          'reconnectionAttempts': 10
       });
 
       var connect = function(e, callback) {
