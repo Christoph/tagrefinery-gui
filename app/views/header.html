@@ -20,7 +20,7 @@
     <span class="glyphicon glyphicon-ok"></span>
   </button>
 
-  <div ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="compSimple"></div>
+  <div ng-if="!ctrl.dataLoaded" ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="compSimple"></div>
 
   <div class="well compSimple">
     <p>
