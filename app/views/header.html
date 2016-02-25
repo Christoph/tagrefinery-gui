@@ -1,5 +1,7 @@
-<div>
-  <h2 class="title">TagRefinery</h2>
+<div style="text-align:center">
+  <h2 ng-if="!ctrl.dataLoaded || !ctrl.connectionStatus" class="title">TagRefinery</h2>
+  <button ng-if="ctrl.dataLoaded && ctrl.connectionStatus" ng-click="ctrl.runAll()" class="btn btn-lg btn-success startButton"><span class="glyphicon glyphicon-play"></span></button>
+     <h4 ng-if="ctrl.dataLoaded && ctrl.connectionStatus" class="runText">Run complete work-flow</h4>
 </div>
 
 <div class="alert alert-danger infos" ng-hide="ctrl.connectionStatus">

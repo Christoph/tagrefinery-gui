@@ -1,9 +1,8 @@
 'use strict';
-/* jshint -W117 */
 
 /**
  * @ngdoc function
- * @name tagrefineryGuiApp.thatroller:MainCtrl
+ * @name tagrefineryGuiApp.thatcontroller:MainCtrl
  * @description
  * # MainCtrl
  * Controller of the tagrefineryGuiApp
@@ -63,6 +62,10 @@ angular.module('tagrefineryGuiApp')
       that.dataLoaded = true;
       $scope.$parent.disconnected = false;
     };
+
+    that.runAll = function() {
+      socket.emit("runAll", "");
+    }
 
     // Grid
     $scope.data = [];

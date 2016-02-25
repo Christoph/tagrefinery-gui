@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name tagrefineryGuiApp.controller:PreprocessingimportCtrl
+ * @name tagrefineryGuiApp.controller:SpellcheckingimportCtrl
  * @description
- * # PreprocessingimportCtrl
+ * # SpellcheckingimportCtrl
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PreprocessingimportCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
+  .controller('SpellcheckingimportCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
 
     // Get instance of the class
     var that = this;
@@ -17,14 +17,14 @@ angular.module('tagrefineryGuiApp')
     // Socket functions
     ////////////////////////////////////////////////
 
-    socket.on('preDictionaryParams', function (data) {
+    socket.on('spellDictionaryParams', function (data) {
       _.map(data, function (d) {
-        $scope.data.push({word: d});
+        $scope.data.push({tag: d});
       })
     });
 
     that.apply = function () {
-      socket.emit("applyPreImportedData", JSON.stringify($scope.data));
+      socket.emit("applySpellImportedData", JSON.stringify($scope.data));
     };
 
     ////////////////////////////////////////////////
@@ -46,7 +46,7 @@ angular.module('tagrefineryGuiApp')
         $scope.gridApi = gridApi;
       },
       columnDefs: [
-        {field: 'word', minWidth: 100, width: "*"}
+        {field: 'tag', minWidth: 100, width: "*"}
       ]
     };
 

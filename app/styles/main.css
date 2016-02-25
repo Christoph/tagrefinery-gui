@@ -179,6 +179,13 @@ input.ng-invalid {
   text-align: center
 }
 
+.startButton {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
 
 
-
+.runText {
+  display: inline-block;
+}
