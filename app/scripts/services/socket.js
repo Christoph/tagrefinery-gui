@@ -11,37 +11,40 @@
 angular.module('tagrefineryGuiApp')
   .factory('socket', ["$rootScope", function ($rootScope) {
 
-      var socketio = io.connect('http://localhost:9092',{
-          reconnection: true,
-          timeout: 10000,
-          'reconnectionAttempts': 10
+    var socketio = io.connect('http://localhost:9092', {
+      reconnection: true,
+      timeout: 10000,
+      'reconnectionAttempts': 10
+    });
+
+    var connect = function (e, callback) {
+      socketio.io.reconnect();
+    }
+
+    var onEvent = function (e, callback) {
+      socketio.on(e, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socketio, args);
+        });
       });
+    };
 
-      var connect = function(e, callback) {
-        socketio.io.reconnect();
-      }
+    var emitEvent = function (e, data, callback) {
+      socketio.emit(e, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.apply(socketio, args);
+          }
+        });
+      });
+    };
 
-      var onEvent = function (e, callback) {
-           socketio.on(e, function() {
-              var args = arguments; $rootScope.$apply(function() {
-                callback.apply(socketio, args); 
-              });
-            }); 
-         };
-      
-      var emitEvent = function (e, data, callback) { 
-           socketio.emit(e, data, function() {
-              var args = arguments; $rootScope.$apply(function() {
-                if (callback) {
-                callback.apply(socketio, args);
-              } });
-            }); 
-         };
-
-      return {
-          on: onEvent,
-          emit: emitEvent,
-          reconnect: connect
-      };
+    return {
+      on: onEvent,
+      emit: emitEvent,
+      reconnect: connect
+    };
 
   }]);

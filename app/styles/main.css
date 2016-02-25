@@ -1,76 +1,76 @@
 .overviewGrid {
-    width: 100%;
-    height: 25%;
+  width: 100%;
+  height: 25%;
 }
 
 .current {
-    color: steelblue;
-    font-weight: bold;
+  color: steelblue;
+  font-weight: bold;
 }
 
 .more {
-    color: green;
-    font-weight: bold;
+  color: green;
+  font-weight: bold;
 }
 
 .less {
-    color: orange;
-    font-weight: bold;
+  color: orange;
+  font-weight: bold;
 }
 
 .axis path,
 .axis line {
-	fill: none;
-	stroke: black;
-    stroke-opacity: .75;
-	shape-rendering: crispEdges;
-}
-
-.tick {
-	font-size: 9pt;
-	fill: #000;
-}
-
-.x.label {
-	font-size: 9pt;
-	fill: #000
-}
-
-.y.label {
-	font-size: 9pt;
-	fill: #000;
-}
-
-.title {
-	font-size: 10pt;
-	fill: #000;
-}
-
-.hist.highlight {
-    stroke: black;
-    stroke-width: 5;
-    stroke-opacity: 0.3;
-}
-
-.text._0.highlight {
-    font-size: 20px;
-    stroke: darkblue;
-    stroke-width: 3px;
-}
-
-.bar rect{
-  fill: #535f6c; 
+  fill: none;
+  stroke: black;
+  stroke-opacity: .75;
   shape-rendering: crispEdges;
 }
 
-.bar.select rect{
+.tick {
+  font-size: 9pt;
+  fill: #000;
+}
+
+.x.label {
+  font-size: 9pt;
+  fill: #000
+}
+
+.y.label {
+  font-size: 9pt;
+  fill: #000;
+}
+
+.title {
+  font-size: 10pt;
+  fill: #000;
+}
+
+.hist.highlight {
+  stroke: black;
+  stroke-width: 5;
+  stroke-opacity: 0.3;
+}
+
+.text._0.highlight {
+  font-size: 20px;
+  stroke: darkblue;
+  stroke-width: 3px;
+}
+
+.bar rect {
+  fill: #535f6c;
+  shape-rendering: crispEdges;
+}
+
+.bar.select rect {
   fill: steelblue;
   shape-rendering: crispEdges;
 }
 
-.bar text{
-	font-size: 9pt;
-    fill: black;
+.bar text {
+  font-size: 9pt;
+  fill: black;
 }
 
 .brush .extent {
@@ -85,13 +85,13 @@
 }
 
 div.slider {
-    margin-left: 50px;
-    margin-right: 7px;
-    padding-top: 20px;
+  margin-left: 50px;
+  margin-right: 7px;
+  padding-top: 20px;
 }
 
 .ui-slider {
-    width: 100%;
+  width: 100%;
 }
 
 .ui-slider-tip {
@@ -104,24 +104,24 @@ div.slider {
 }
 
 .btn-group.control {
-    position: absolute;
-    margin-top: 10px;
-    right: 20px;
+  position: absolute;
+  margin-top: 10px;
+  right: 20px;
 }
 
 div.preSimple {
-    margin-left: 50px;
-    margin-right: 7px;
+  margin-left: 50px;
+  margin-right: 7px;
 }
 
 div.compSimple {
-    margin-left: 50px;
-    margin-right: 7px;
+  margin-left: 50px;
+  margin-right: 7px;
 }
 
 button.help {
-    position: absolute;
-    right: 20px;
+  position: absolute;
+  right: 20px;
 }
 
 .threshold line {
@@ -131,52 +131,52 @@ button.help {
 }
 
 .threshold circle {
-    border-radius: 50%;
-    fill: steelblue;
-    fill-opacity: .90;
+  border-radius: 50%;
+  fill: steelblue;
+  fill-opacity: .90;
 }
 
 .importButton {
-  position:relative;
-    top: -50px;
-    right: 7px;
+  position: relative;
+  top: -50px;
+  right: 7px;
 }
 
 .reconnectButton {
-  position:relative;
-    top: -37px;
+  position: relative;
+  top: -37px;
 }
 
 .descriptionText {
-    font-size: 10pt;
-    font-weight: normal;
+  font-size: 10pt;
+  font-weight: normal;
 }
 
 .scafold {
-    margin-top: 10px;
-    margin-right: 50px;
-    margin-left: 50px;
+  margin-top: 10px;
+  margin-right: 50px;
+  margin-left: 50px;
 }
 
 input.ng-invalid {
-    background-color: rgba(255, 51, 51, 1);
+  background-color: rgba(255, 51, 51, 1);
 }
 
 .side {
-    position: relative;
-    top: -7px;
+  position: relative;
+  top: -7px;
 }
 
 .infos {
-    position: relative;
-    top:-20px;
-    height:50px;
+  position: relative;
+  top: -20px;
+  height: 50px;
 }
 
 .title {
   padding-bottom: 40px;
   font-size: 24pt;
-  text-align:center
+  text-align: center
 }
 
 

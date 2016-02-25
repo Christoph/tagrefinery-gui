@@ -1,22 +1,27 @@
- <div class="compSimple well well-sm">
+<div class="compSimple well well-sm">
 
- 	<div class="btn-group" style="position:absolute;right:50px">
-        <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span class="glyphicon glyphicon-play"></span></label>
-        <label class="btn btn-default btn-lg" uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information"><span class="glyphicon glyphicon-th-list"></span></label>
-	</div>
-	<table style="width:100%;margin-bottom:5px">
-	  <tr>
-		<th></th>
-		<th>Threshold</th>    
-		<th>Filtered Words</th>
-	  </tr>
-	  <tr>	
-		<th>Importance:</th>
-		<td>{{ctrl.threshold}}</td>
-		<td style="color:steelblue;font-size:12pt">{{ctrl.newCount()}}/{{ctrl.totalReplacements()}}</td>
-	  </tr>
-	</table>
+  <div class="btn-group" style="position:absolute;right:50px">
+    <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span
+      class="glyphicon glyphicon-play"></span></label>
+    <label class="btn btn-default btn-lg" uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
+           btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information"><span
+      class="glyphicon glyphicon-th-list"></span></label>
+  </div>
+  <table style="width:100%;margin-bottom:5px">
+    <tr>
+      <th></th>
+      <th>Threshold</th>
+      <th>Filtered Words</th>
+    </tr>
+    <tr>
+      <th>Importance:</th>
+      <td>{{ctrl.threshold}}</td>
+      <td style="color:steelblue;font-size:12pt">{{ctrl.newCount()}}/{{ctrl.totalReplacements()}}</td>
+    </tr>
+  </table>
 </div>
 
-<div ng-if="status.open[0]" d3-hist-dyn data="ctrl.data" call-back="ctrl.getThreshold(threshold)" threshold="ctrl.threshold" bins="24" svg-height="300" type-label="Normalized Frequency" y-label="Count" ></div>
-<div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" ng-if="ctrl.showDetails && status.open[0]"></div>
+<div ng-if="status.open[0]" d3-hist-dyn data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
+     threshold="ctrl.threshold" bins="24" svg-height="300" type-label="Normalized Frequency" y-label="Count"></div>
+<div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple"
+     ng-if="ctrl.showDetails && status.open[0]"></div>

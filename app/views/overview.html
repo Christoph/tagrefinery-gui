@@ -1,23 +1,24 @@
 <div class="row">
-	<div class="col-sm-6">
-		<h4 style="margin-left:50px"> Final Dataset </h4>
-		<div ng-if="activeTabs[4]" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple" style="height=100%;margin-top:25px"></div>
-	</div>
-	<div class="col-sm-6">
-		<h4> Stats </h4>
-		<table class="table">
-    		<thead>
-		      <tr>
-		        <th>Parameter</th>
-		        <th>Value</th>
-		      </tr>
-    		</thead>
-    		<tbody>
-		  		<tr ng-repeat="x in ctrl.stats" id="{{$index}}">
-			    	<td>{{ x.key }}</td>
-			    	<td>{{ x.value }}</td>
-		  		</tr>
-    		</tbody>
-  		</table>
-	</div>
+  <div class="col-sm-6">
+    <h4 style="margin-left:50px"> Final Dataset </h4>
+    <div ng-if="activeTabs[4]" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
+         class="compSimple" style="height=100%;margin-top:25px"></div>
+  </div>
+  <div class="col-sm-6">
+    <h4> Stats </h4>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Value</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="x in ctrl.stats" id="{{$index}}">
+        <td>{{ x.key }}</td>
+        <td>{{ x.value }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

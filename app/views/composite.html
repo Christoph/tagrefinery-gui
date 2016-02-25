@@ -1,24 +1,26 @@
 <div class="scafold">
-	<uib-accordion>
-		<uib-accordion-group is-open="status.open[0]">
-				<uib-accordion-heading>
-					<div>
-						Find Frequent Groups <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
-						<br>
-						<p class="descriptionText">How many frequent groups should be considered.</p>
-					</div>
-				</uib-accordion-heading>
-			<div class="row" ng-controller="CompositefrequentCtrl as ctrl" ng-include="'views/composite.frequent.html'"></div>
-		</uib-accordion-group>
-		<uib-accordion-group is-open="status.open[1]">
-				<uib-accordion-heading>
-					<div>
-						Find Unique Groups <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[1], 'glyphicon-chevron-right': !status.open[1]}"></i>
-						<br>
-						<p class="descriptionText">How many unique groups should be considered.</p>
-					</div>
-				</uib-accordion-heading>
-			<div class="row" ng-controller="CompositeuniqueCtrl	 as ctrl" ng-include="'views/composite.unique.html'"></div>
-		</uib-accordion-group>
-	</uib-accordion>
+  <uib-accordion>
+    <uib-accordion-group is-open="status.open[0]">
+      <uib-accordion-heading>
+        <div>
+          Find Frequent Groups <i class="pull-right glyphicon"
+                                  ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
+          <br>
+          <p class="descriptionText">How many frequent groups should be considered.</p>
+        </div>
+      </uib-accordion-heading>
+      <div class="row" ng-controller="CompositefrequentCtrl as ctrl" ng-include="'views/composite.frequent.html'"></div>
+    </uib-accordion-group>
+    <uib-accordion-group is-open="status.open[1]">
+      <uib-accordion-heading>
+        <div>
+          Find Unique Groups <i class="pull-right glyphicon"
+                                ng-class="{'glyphicon-chevron-down': status.open[1], 'glyphicon-chevron-right': !status.open[1]}"></i>
+          <br>
+          <p class="descriptionText">How many unique groups should be considered.</p>
+        </div>
+      </uib-accordion-heading>
+      <div class="row" ng-controller="CompositeuniqueCtrl	 as ctrl" ng-include="'views/composite.unique.html'"></div>
+    </uib-accordion-group>
+  </uib-accordion>
 </div>

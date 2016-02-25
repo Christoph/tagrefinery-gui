@@ -17,17 +17,16 @@ angular.module('tagrefineryGuiApp')
 
     stats.write("preRemove", that.remove);
 
-   ////////////////////////////////////////////////
-   // Socket functions
-   ////////////////////////////////////////////////
-   
-   socket.on('preRemoveParams', function(data) {
-       that.remove = data;
-   });
+    ////////////////////////////////////////////////
+    // Socket functions
+    ////////////////////////////////////////////////
 
-   that.apply = function() 
-   { 
-       socket.emit("applyPreRemoveCharacters",that.remove);
-   };
-   
+    socket.on('preRemoveParams', function (data) {
+      that.remove = data;
+    });
+
+    that.apply = function () {
+      socket.emit("applyPreRemoveCharacters", that.remove);
+    };
+
   }]);

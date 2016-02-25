@@ -1,111 +1,112 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.css" />
-    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-  </head>
-  <body ng-app="tagrefineryGuiApp">
-    <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
+  <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css"/>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+</head>
+<body ng-app="tagrefineryGuiApp">
+<!--[if lte IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="container-fluid">
-          <div class="row">
-              <uib-tabset justified="true">
-                    <div ng-controller="MainCtrl as ctrl" ng-include="'views/header.html'"> </div>
-                    <uib-tab active="activeTabs[0]" ng-hide="disconnected">
-                        <uib-tab-heading>
-                            <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-                        </uib-tab-heading>
-                        <div class="row" ng-include="'views/preprocessing.html'" ng-hide="disconnected"></div>
-                    </uib-tab>
+<!-- Add your site or application content here -->
+<div class="container-fluid">
+  <div class="row">
+    <uib-tabset justified="true">
+      <div ng-controller="MainCtrl as ctrl" ng-include="'views/header.html'"></div>
+      <uib-tab active="activeTabs[0]" ng-hide="disconnected">
+        <uib-tab-heading>
+          <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+        </uib-tab-heading>
+        <div class="row" ng-include="'views/preprocessing.html'" ng-hide="disconnected"></div>
+      </uib-tab>
 
-                    <uib-tab active="activeTabs[1]" ng-hide="disconnected">
-                        <uib-tab-heading>
-                            <label class="pull-left">2</label> Spell-correct <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-                        </uib-tab-heading>
-                        <div class="row" ng-include="'views/spellchecking.html'"></div>
-                    </uib-tab>
+      <uib-tab active="activeTabs[1]" ng-hide="disconnected">
+        <uib-tab-heading>
+          <label class="pull-left">2</label> Spell-correct <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+        </uib-tab-heading>
+        <div class="row" ng-include="'views/spellchecking.html'"></div>
+      </uib-tab>
 
-                    <uib-tab active="activeTabs[2]" ng-hide="disconnected">
-                        <uib-tab-heading>
-                            <label class="pull-left">3</label> Multiword Tags <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-                        </uib-tab-heading>
-                        <div class="row" ng-include="'views/composite.html'" ></div>
-                    </uib-tab>
+      <uib-tab active="activeTabs[2]" ng-hide="disconnected">
+        <uib-tab-heading>
+          <label class="pull-left">3</label> Multiword Tags <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+        </uib-tab-heading>
+        <div class="row" ng-include="'views/composite.html'"></div>
+      </uib-tab>
 
-                    <uib-tab active="activeTabs[3]" ng-hide="disconnected">
-                        <uib-tab-heading>
-                            <label class="pull-left">4</label> Finalizes <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-                        </uib-tab-heading>
-                        <div class="row" ng-include="'views/postprocessing.html'"></div>
-                    </uib-tab>
+      <uib-tab active="activeTabs[3]" ng-hide="disconnected">
+        <uib-tab-heading>
+          <label class="pull-left">4</label> Finalizes <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+        </uib-tab-heading>
+        <div class="row" ng-include="'views/postprocessing.html'"></div>
+      </uib-tab>
 
-                    <uib-tab active="activeTabs[4]" ng-hide="disconnected">
-                        <uib-tab-heading>
-                            Output
-                        </uib-tab-heading>
-                        <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
-                    </uib-tab>
-              </uib-tabset>      
-          </div>
-      </div>
+      <uib-tab active="activeTabs[4]" ng-hide="disconnected">
+        <uib-tab-heading>
+          Output
+        </uib-tab-heading>
+        <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+</div>
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <script src="bower_components/socket.io/socket.io.js"></script>
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/angular-ui-slider/src/slider.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/d3/d3.js"></script>
-    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
-    <script src="bower_components/lodash/lodash.js"></script>
-    <script src="bower_components/pdfmake/build/pdfmake.js"></script>
-    <script src="bower_components/pdfmake/build/vfs_fonts.js"></script>
-    <script src="bower_components/CSV-JS/csv.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+<!-- build:js(.) scripts/vendor.js -->
+<script src="bower_components/socket.io/socket.io.js"></script>
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-ui-slider/src/slider.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/d3/d3.js"></script>
+<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/pdfmake/build/pdfmake.js"></script>
+<script src="bower_components/pdfmake/build/vfs_fonts.js"></script>
+<script src="bower_components/CSV-JS/csv.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/services/d3.js"></script>
-        <script src="scripts/services/httploader.js"></script>
-        <script src="scripts/services/socket.js"></script>
-        <script src="scripts/controllers/overview.js"></script>
-        <script src="scripts/directives/d3hist.js"></script>
-        <script src="scripts/directives/d3histDyn.js"></script>
-        <script src="scripts/controllers/compositefrequent.js"></script>
-        <script src="scripts/controllers/compositeunique.js"></script>
-        <script src="scripts/controllers/spellcheckingfind.js"></script>
-        <script src="scripts/controllers/preprocessingfilter.js"></script>
-        <script src="scripts/controllers/preprocessingremove.js"></script>
-        <script src="scripts/controllers/preprocessingreplace.js"></script>
-        <script src="scripts/controllers/preprocessingimport.js"></script>
-        <script src="scripts/controllers/postprocessingimportant.js"></script>
-        <script src="scripts/controllers/postprocessingreplace.js"></script>
-        <script src="scripts/controllers/postprocessingsalvage.js"></script>
-        <script src="scripts/controllers/spellcheckingset.js"></script>
-        <script src="scripts/services/stats.js"></script>
-        <!-- endbuild -->
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/services/d3.js"></script>
+<script src="scripts/services/httploader.js"></script>
+<script src="scripts/services/socket.js"></script>
+<script src="scripts/controllers/overview.js"></script>
+<script src="scripts/directives/d3hist.js"></script>
+<script src="scripts/directives/d3histDyn.js"></script>
+<script src="scripts/controllers/compositefrequent.js"></script>
+<script src="scripts/controllers/compositeunique.js"></script>
+<script src="scripts/controllers/spellcheckingfind.js"></script>
+<script src="scripts/controllers/preprocessingfilter.js"></script>
+<script src="scripts/controllers/preprocessingremove.js"></script>
+<script src="scripts/controllers/preprocessingreplace.js"></script>
+<script src="scripts/controllers/preprocessingimport.js"></script>
+<script src="scripts/controllers/postprocessingimportant.js"></script>
+<script src="scripts/controllers/postprocessingreplace.js"></script>
+<script src="scripts/controllers/postprocessingsalvage.js"></script>
+<script src="scripts/controllers/spellcheckingset.js"></script>
+<script src="scripts/services/stats.js"></script>
+<!-- endbuild -->
 </body>
 </html>

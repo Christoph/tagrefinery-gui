@@ -1,44 +1,53 @@
 <div class="scafold">
-	<uib-accordion>
-		<uib-accordion-group is-open="status.open[0]">
-				<uib-accordion-heading>
-					<div>
-						Pre-Filter <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
-						<br>
-						<p class="descriptionText">Filter unimportant tags right before the whole pipeline. To increase performance.</p>
-					</div>
-				</uib-accordion-heading>
-			<div class="row" ng-controller="PreprocessingfilterCtrl as ctrl" ng-include="'views/preprocessing.filter.html'"></div>
-		</uib-accordion-group>
-		<uib-accordion-group is-open="status.open[1]">
-				<uib-accordion-heading>
-					<div>
-						Remove Characters <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[1], 'glyphicon-chevron-right': !status.open[1]}"></i>
-						<br>
-						<p class="descriptionText">Remove characters from dataset.</p>
-					</div>
-				</uib-accordion-heading>
-			<div class="row" ng-controller="PreprocessingremoveCtrl as ctrl" ng-include="'views/preprocessing.remove.html'"></div>
-		</uib-accordion-group>
-		<uib-accordion-group is-open="status.open[2]">
-				<uib-accordion-heading>
-					<div>
-						Replace Characters <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[2], 'glyphicon-chevron-right': !status.open[2]}"></i>
-						<br>
-						<p class="descriptionText">Replace characters by different ones.</p>
-					</div>
-				</uib-accordion-heading>
-			<div class="row" ng-controller="PreprocessingreplaceCtrl as ctrl" ng-include="'views/preprocessing.replace.html'"></div>
-		</uib-accordion-group>
-		<uib-accordion-group is-open="status.open[3]">
-				<uib-accordion-heading>
-					<div>
-						Import Dictionary <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[3], 'glyphicon-chevron-right': !status.open[3]}"></i>
-						<br>
-						<p class="descriptionText">Import ground thruth dictionary.</p>
-					</div>
-				</uib-accordion-heading>
-			<div class="row" ng-controller="PreprocessingimportCtrl as ctrl" ng-include="'views/preprocessing.import.html'"></div>
-		</uib-accordion-group>
-	</uib-accordion>
+  <uib-accordion>
+    <uib-accordion-group is-open="status.open[0]">
+      <uib-accordion-heading>
+        <div>
+          Pre-Filter <i class="pull-right glyphicon"
+                        ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
+          <br>
+          <p class="descriptionText">Filter unimportant tags right before the whole pipeline. To increase
+            performance.</p>
+        </div>
+      </uib-accordion-heading>
+      <div class="row" ng-controller="PreprocessingfilterCtrl as ctrl"
+           ng-include="'views/preprocessing.filter.html'"></div>
+    </uib-accordion-group>
+    <uib-accordion-group is-open="status.open[1]">
+      <uib-accordion-heading>
+        <div>
+          Remove Characters <i class="pull-right glyphicon"
+                               ng-class="{'glyphicon-chevron-down': status.open[1], 'glyphicon-chevron-right': !status.open[1]}"></i>
+          <br>
+          <p class="descriptionText">Remove characters from dataset.</p>
+        </div>
+      </uib-accordion-heading>
+      <div class="row" ng-controller="PreprocessingremoveCtrl as ctrl"
+           ng-include="'views/preprocessing.remove.html'"></div>
+    </uib-accordion-group>
+    <uib-accordion-group is-open="status.open[2]">
+      <uib-accordion-heading>
+        <div>
+          Replace Characters <i class="pull-right glyphicon"
+                                ng-class="{'glyphicon-chevron-down': status.open[2], 'glyphicon-chevron-right': !status.open[2]}"></i>
+          <br>
+          <p class="descriptionText">Replace characters by different ones.</p>
+        </div>
+      </uib-accordion-heading>
+      <div class="row" ng-controller="PreprocessingreplaceCtrl as ctrl"
+           ng-include="'views/preprocessing.replace.html'"></div>
+    </uib-accordion-group>
+    <uib-accordion-group is-open="status.open[3]">
+      <uib-accordion-heading>
+        <div>
+          Import Dictionary <i class="pull-right glyphicon"
+                               ng-class="{'glyphicon-chevron-down': status.open[3], 'glyphicon-chevron-right': !status.open[3]}"></i>
+          <br>
+          <p class="descriptionText">Import ground thruth dictionary.</p>
+        </div>
+      </uib-accordion-heading>
+      <div class="row" ng-controller="PreprocessingimportCtrl as ctrl"
+           ng-include="'views/preprocessing.import.html'"></div>
+    </uib-accordion-group>
+  </uib-accordion>
 </div>

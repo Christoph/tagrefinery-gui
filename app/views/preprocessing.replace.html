@@ -1,34 +1,40 @@
- <div class="compSimple well well-sm" style="height:65px">
- 	<div>
-		<div class="btn-group pull-right" style="display:inline-block">
-        	<label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span class="glyphicon glyphicon-play"></span></label>
-		</div>	
- 	</div>
+<div class="compSimple well well-sm" style="height:65px">
+  <div>
+    <div class="btn-group pull-right" style="display:inline-block">
+      <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span
+        class="glyphicon glyphicon-play"></span></label>
+    </div>
+  </div>
 
-	<form name="that.replacement">
-	 	Replace: <input ng-maxlength="1" name="word" ng-model="ctrl.word" uib-tooltip="Character to be replaced.">
-	 	by: <input ng-maxlength="1" name="by" ng-model="ctrl.by" uib-tooltip="The replacing character">
-	 	<button class="btn btn-primary" ng-disabled="that.replacement.word.$invalid || that.replacement.by.$invalid" ng-click="ctrl.add()" style="margin-left:5px">Add</button>
-		<span ng-show="that.replacement.word.$invalid"> Only characters can be replaced!</span>
-		<span ng-show="that.replacement.by.$invalid"> It can only be replaced by one character!</span>
-	</form>
+  <form name="that.replacement">
+    Replace: <input ng-maxlength="1" name="word" ng-model="ctrl.word" uib-tooltip="Character to be replaced.">
+    by: <input ng-maxlength="1" name="by" ng-model="ctrl.by" uib-tooltip="The replacing character">
+    <button class="btn btn-primary" ng-disabled="that.replacement.word.$invalid || that.replacement.by.$invalid"
+            ng-click="ctrl.add()" style="margin-left:5px">Add
+    </button>
+    <span ng-show="that.replacement.word.$invalid"> Only characters can be replaced!</span>
+    <span ng-show="that.replacement.by.$invalid"> It can only be replaced by one character!</span>
+  </form>
 </div>
-<div class="compSimple"  style="width:450px">
- 	<h4> Replacements </h4>
- 	<table class="table">
-	    <thead>
-	      <tr>
-	        <th>Replace</th>
-	        <th>By</th>
-	        <th>Remove</th>
-	      </tr>
-	    </thead>
-	    <tbody>
-	  		<tr ng-repeat="x in ctrl.replace" id="{{$index}}">
-		    	<td>{{ x.replace }}</td>
-		    	<td>{{ x.by }}</td>
-		    	<td><button class="btn btn-danger btn-xs" ng-click="ctrl.remove()" ><span class="glyphicon glyphicon-trash"></span></button></td>
-	  		</tr>
-		</tbody>		
-	</table>
+<div class="compSimple" style="width:450px">
+  <h4> Replacements </h4>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Replace</th>
+      <th>By</th>
+      <th>Remove</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="x in ctrl.replace" id="{{$index}}">
+      <td>{{ x.replace }}</td>
+      <td>{{ x.by }}</td>
+      <td>
+        <button class="btn btn-danger btn-xs" ng-click="ctrl.remove()"><span class="glyphicon glyphicon-trash"></span>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>

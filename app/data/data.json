@@ -1,36 +1,44 @@
-[{
-  "tag" : "reuse",
-  "carrier" : "a",
-  "importance" : 0.0014705882352941176,
-  "id" : 1
-},{
-  "tag" : "hip-hop",
-  "carrier" : "a",
-  "importance" : 0.0023352941176,
-  "id" : 2
-},{
-  "tag" : "hard rock",
-  "carrier" : "a",
-  "importance" : 0.00234442941176,
-  "id" : 3
-},{
-  "tag" : "apple pie",
-  "carrier" : "b",
-  "importance" : 0.02343382352941176,
-  "id" : 4
-},{
-  "tag" : "hold",
-  "carrier" : "b",
-  "importance" : 0.06666882352941176,
-  "id" : 5
-},{
-  "tag" : "electro",
-  "carrier" : "v",
-  "importance" : 0.888352941176,
-  "id" : 6
-},{
-  "tag" : "this is a pretty long tag",
-  "carrier" : "df",
-  "importance" : 0.056782352941176,
-  "id" : 7
-}]
+[
+  {
+    "tag": "reuse",
+    "carrier": "a",
+    "importance": 0.0014705882352941176,
+    "id": 1
+  },
+  {
+    "tag": "hip-hop",
+    "carrier": "a",
+    "importance": 0.0023352941176,
+    "id": 2
+  },
+  {
+    "tag": "hard rock",
+    "carrier": "a",
+    "importance": 0.00234442941176,
+    "id": 3
+  },
+  {
+    "tag": "apple pie",
+    "carrier": "b",
+    "importance": 0.02343382352941176,
+    "id": 4
+  },
+  {
+    "tag": "hold",
+    "carrier": "b",
+    "importance": 0.06666882352941176,
+    "id": 5
+  },
+  {
+    "tag": "electro",
+    "carrier": "v",
+    "importance": 0.888352941176,
+    "id": 6
+  },
+  {
+    "tag": "this is a pretty long tag",
+    "carrier": "df",
+    "importance": 0.056782352941176,
+    "id": 7
+  }
+]

@@ -9,7 +9,7 @@
  */
 angular.module('tagrefineryGuiApp')
   .factory('httpLoader', ["$http", function ($http) {
-      return function(url) {
-          return $http.get(url);
-      };
+    return function (url) {
+      return $http.get(url);
+    };
   }]);

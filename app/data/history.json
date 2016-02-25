@@ -1,21 +1,23 @@
-[{
-  "origin" : "electrooooo",
-  "pre" : "electro",
-  "composite" : "electro",
-  "post" : "electro",
-  "id" : 1
-},
-{
-  "origin" : "hip",
-  "pre" : "hip",
-  "composite" : "hip-hop",
-  "post" : "hip-hop",
-  "id" : 2
-},
-{
-  "origin" : "asd",
-  "pre" : "",
-  "composite" : "",
-  "post" : "",
-  "id" : 0
-}]
+[
+  {
+    "origin": "electrooooo",
+    "pre": "electro",
+    "composite": "electro",
+    "post": "electro",
+    "id": 1
+  },
+  {
+    "origin": "hip",
+    "pre": "hip",
+    "composite": "hip-hop",
+    "post": "hip-hop",
+    "id": 2
+  },
+  {
+    "origin": "asd",
+    "pre": "",
+    "composite": "",
+    "post": "",
+    "id": 0
+  }
+]

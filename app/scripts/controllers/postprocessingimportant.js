@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PostprocessingimportantCtrl', ["$scope", "socket", "uiGridConstants","$timeout","$uibModal", function ($scope, socket, uiGridConstants, $timeout, $uibModal) {
+  .controller('PostprocessingimportantCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", "$uibModal", function ($scope, socket, uiGridConstants, $timeout, $uibModal) {
 
     // Get instance of the class
     var that = this;
@@ -16,125 +16,119 @@ angular.module('tagrefineryGuiApp')
     // Frequent
     that.newThreshold = 0;
     that.data = [];
-   
-   ////////////////////////////////////////////////
-   // D3 functions
-   ////////////////////////////////////////////////
 
-   that.getThreshold = function(threshold)
-    {
-        $scope.$apply(function() {
-            that.newThreshold = threshold;
+    ////////////////////////////////////////////////
+    // D3 functions
+    ////////////////////////////////////////////////
 
-            if(that.showDetails)
-            {
-        		$timeout(function() {
-           			that.scrollTo(that.getAboveRow(that.grid.data, that.newThreshold),0);
-           		})
-            }
-        });
+    that.getThreshold = function (threshold) {
+      $scope.$apply(function () {
+        that.newThreshold = threshold;
+
+        if (that.showDetails) {
+          $timeout(function () {
+            that.scrollTo(that.getAboveRow(that.grid.data, that.newThreshold), 0);
+          })
+        }
+      });
     };
 
     // This function needs decreasing sorted data from the server
-    that.getAboveRow = function(data, threshold) {
-        var index = 0;
+    that.getAboveRow = function (data, threshold) {
+      var index = 0;
 
-        for(var i = 0; i<data.length; i++)
-        {
-            if(data[i].importance > threshold)
-            { 
-                if((threshold - data[i].importance) <= (data[i-1].importance - threshold))
-                {
-                    return i;
-                }
-                else
-                {
-                    return i-1;
-                }
-            }
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].importance > threshold) {
+          if ((threshold - data[i].importance) <= (data[i - 1].importance - threshold)) {
+            return i;
+          }
+          else {
+            return i - 1;
+          }
         }
+      }
 
-        return index;
+      return index;
     }
-    
-   ////////////////////////////////////////////////
-   // Socket functions
-   ////////////////////////////////////////////////
 
-   socket.on('postFilterData', function(data) {
-       that.data = JSON.parse(data);
-   });
+    ////////////////////////////////////////////////
+    // Socket functions
+    ////////////////////////////////////////////////
 
-   socket.on('postFilterGrid', function(data) {
-       that.grid.data = JSON.parse(data);
-   });
+    socket.on('postFilterData', function (data) {
+      that.data = JSON.parse(data);
+    });
 
-   socket.on('postFilterParams', function(data) {
-       that.newThreshold = parseFloat(data);
-   });
+    socket.on('postFilterGrid', function (data) {
+      that.grid.data = JSON.parse(data);
+    });
 
-   that.apply = function() 
-   {
-       socket.emit("applyPostFilter",""+that.newThreshold);
-   };
+    socket.on('postFilterParams', function (data) {
+      that.newThreshold = parseFloat(data);
+    });
 
-   ////////////////////////////////////////////////
-   // requent Grid
-   ////////////////////////////////////////////////
-   
-   // Helper
-    that.scrollTo = function( rowIndex, colIndex ) {
-        that.gridApi.core.scrollTo( that.grid.data[rowIndex], that.grid.columnDefs[colIndex]);
-        that.gridApi.selection.selectRow(that.grid.data[rowIndex]);
+    that.apply = function () {
+      socket.emit("applyPostFilter", "" + that.newThreshold);
+    };
+
+    ////////////////////////////////////////////////
+    // requent Grid
+    ////////////////////////////////////////////////
+
+    // Helper
+    that.scrollTo = function (rowIndex, colIndex) {
+      that.gridApi.core.scrollTo(that.grid.data[rowIndex], that.grid.columnDefs[colIndex]);
+      that.gridApi.selection.selectRow(that.grid.data[rowIndex]);
     };
 
     // Grid
 
-   that.grid = {
-        enableFiltering: false,
-        enableColumnMenus: false,
-        enableGridMenu: true,
-        showGridooter: false,
-        fastWatch: true,
-        multiSelect: false,
-        enableRowHeaderSelection: false,
-        enableRowSelection: true,
-        enableullRowSelection: true,
-        onRegisterApi: function(gridApi) {
-            that.gridApi = gridApi;
+    that.grid = {
+      enableFiltering: false,
+      enableColumnMenus: false,
+      enableGridMenu: true,
+      showGridooter: false,
+      fastWatch: true,
+      multiSelect: false,
+      enableRowHeaderSelection: false,
+      enableRowSelection: true,
+      enableullRowSelection: true,
+      onRegisterApi: function (gridApi) {
+        that.gridApi = gridApi;
 
-            // Set frequent threshold
-            gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                that.newThreshold = row.entity.importance;
-            });
-        }, 
-        columnDefs: [
-        { field: 'tag', minWidth: 100, width: "*"},
-        { field: 'importance', minWidth: 100, width: "*", cellFilter: 'number:4',
-            sort: {
-                direction: uiGridConstants.DESC,
-                priority: 1
-            }
+        // Set frequent threshold
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+          that.newThreshold = row.entity.importance;
+        });
+      },
+      columnDefs: [
+        {field: 'tag', minWidth: 100, width: "*"},
+        {
+          field: 'importance', minWidth: 100, width: "*", cellFilter: 'number:4',
+          sort: {
+            direction: uiGridConstants.DESC,
+            priority: 1
+          }
         }
-        ]
+      ]
     };
 
-   ////////////////////////////////////////////////
-   // Helper functions
-   ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    // Helper functions
+    ////////////////////////////////////////////////
 
-    that.totalReplacements = function() {
-       return _.sum(that.data, function(o) {
-           return o.count;
-       });
+    that.totalReplacements = function () {
+      return _.sum(that.data, function (o) {
+        return o.count;
+      });
     }
 
-    that.newCount = function() {
-       return _.sum(_.filter(that.data, function(d) {
-           return d.value >= that.newThreshold;
-       }), function(o) {
-           return o.count;
-       });
+    that.newCount = function () {
+      return _.sum(_.filter(that.data, function (d) {
+        return d.value >= that.newThreshold;
+      }), function (o) {
+        return o.count;
+      });
     }
 
   }]);

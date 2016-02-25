@@ -1,24 +1,26 @@
 <div class="scafold">
-	<uib-accordion>
-		<uib-accordion-group is-open="status.open[0]">
-				<uib-accordion-heading>
-					<div>
-						Define Similarity <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
-						<br>
-						<p class="descriptionText">How similar should two tags be, to be regarded as the same.</p>
-					</div>
-				</uib-accordion-heading>
-			<div class="row" ng-controller="SpellcheckingfindCtrl as ctrl" ng-include="'views/spellchecking.find.html'"></div>
-		</uib-accordion-group>
-			<uib-accordion-group is-open="status.open[1]">
-				<uib-accordion-heading>
-					<div>
-						Define Correct Tags <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
-						<br>
-						<p class="descriptionText">Which tags are always true</p>
-					</div>
-				</uib-accordion-heading>
-			<div class="row" ng-controller="SpellcheckingsetCtrl as ctrl" ng-include="'views/spellchecking.set.html'"></div>
-		</uib-accordion-group>
-	</uib-accordion>
+  <uib-accordion>
+    <uib-accordion-group is-open="status.open[0]">
+      <uib-accordion-heading>
+        <div>
+          Define Similarity <i class="pull-right glyphicon"
+                               ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
+          <br>
+          <p class="descriptionText">How similar should two tags be, to be regarded as the same.</p>
+        </div>
+      </uib-accordion-heading>
+      <div class="row" ng-controller="SpellcheckingfindCtrl as ctrl" ng-include="'views/spellchecking.find.html'"></div>
+    </uib-accordion-group>
+    <uib-accordion-group is-open="status.open[1]">
+      <uib-accordion-heading>
+        <div>
+          Define Correct Tags <i class="pull-right glyphicon"
+                                 ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
+          <br>
+          <p class="descriptionText">Which tags are always true</p>
+        </div>
+      </uib-accordion-heading>
+      <div class="row" ng-controller="SpellcheckingsetCtrl as ctrl" ng-include="'views/spellchecking.set.html'"></div>
+    </uib-accordion-group>
+  </uib-accordion>
 </div>

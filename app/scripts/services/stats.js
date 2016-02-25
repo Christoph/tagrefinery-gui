@@ -10,18 +10,18 @@
 angular.module('tagrefineryGuiApp')
   .service('stats', ["$rootScope", function ($rootScope) {
 
-      var stats = {};
+    var stats = {};
 
-      stats.data = {};
+    stats.data = {};
 
-      stats.write = function(key, value) {
-          stats.data[key] = value;
-      }
+    stats.write = function (key, value) {
+      stats.data[key] = value;
+    }
 
-      stats.read = function(name) {
-          return stats.data[name];
-      }
+    stats.read = function (name) {
+      return stats.data[name];
+    }
 
-      return stats;
+    return stats;
 
   }]);
