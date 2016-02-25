@@ -19,7 +19,7 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('preDictionaryParams', function (data) {
       _.map(data, function (d) {
-        $scope.data.push({tag: d});
+        $scope.data.push({word: d});
       })
     });
 
@@ -45,7 +45,7 @@ angular.module('tagrefineryGuiApp')
         $scope.gridApi = gridApi;
       },
       columnDefs: [
-        {field: 'tag', minWidth: 100, width: "*"}
+        {field: 'word', minWidth: 100, width: "*"}
       ]
     };
 
