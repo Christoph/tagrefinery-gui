@@ -1,5 +1,17 @@
 <div class="scafold">
   <uib-accordion>
+    <uib-accordion-group is-open="status.open[3]" ng-show="advanced.mode" panel-class="panel-warning">
+      <uib-accordion-heading>
+        <div>
+          Advanced Parameter <i class="pull-right glyphicon"
+                                ng-class="{'glyphicon-chevron-down': status.open[3], 'glyphicon-chevron-right': !status.open[3]}"></i>
+          <br>
+          <p class="descriptionText">Set the min word length for salvaging and composite split parameters.</p>
+        </div>
+      </uib-accordion-heading>
+      <div class="row" ng-controller="PostprocessingparamsCtrl as ctrl"
+           ng-include="'views/postprocessing.params.html'"></div>
+    </uib-accordion-group>
     <uib-accordion-group is-open="status.open[0]">
       <uib-accordion-heading>
         <div>
@@ -36,5 +48,7 @@
       <div class="row" ng-controller="PostprocessingsalvageCtrl as ctrl"
            ng-include="'views/postprocessing.salvage.html'"></div>
     </uib-accordion-group>
+    <label style="margin-top: 5px" class="btn btn-warning" uib-tooltip="Show advanced options" ng-click="" ng-model="advanced.mode" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0"><span
+      class="glyphicon glyphicon-font">dvanced</span></label>
   </uib-accordion>
 </div>

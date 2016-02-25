@@ -1,5 +1,17 @@
 <div class="scafold">
   <uib-accordion>
+    <uib-accordion-group is-open="status.open[2]" ng-show="advanced.mode" panel-class="panel-warning">
+      <uib-accordion-heading>
+        <div>
+          Advanced Parameter <i class="pull-right glyphicon"
+                                ng-class="{'glyphicon-chevron-down': status.open[2], 'glyphicon-chevron-right': !status.open[2]}"></i>
+          <br>
+          <p class="descriptionText">Set the max group size, min group occurrence and composite split parameters.</p>
+        </div>
+      </uib-accordion-heading>
+      <div class="row" ng-controller="CompositeparamsCtrl as ctrl"
+           ng-include="'views/composite.params.html'"></div>
+    </uib-accordion-group>
     <uib-accordion-group is-open="status.open[0]">
       <uib-accordion-heading>
         <div>
@@ -22,5 +34,7 @@
       </uib-accordion-heading>
       <div class="row" ng-controller="CompositeuniqueCtrl	 as ctrl" ng-include="'views/composite.unique.html'"></div>
     </uib-accordion-group>
+    <label style="margin-top: 5px" class="btn btn-warning" uib-tooltip="Show advanced options" ng-click="" ng-model="advanced.mode" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0"><span
+      class="glyphicon glyphicon-font">dvanced</span></label>
   </uib-accordion>
 </div>
