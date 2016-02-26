@@ -189,3 +189,11 @@ input.ng-invalid {
 .runText {
   display: inline-block;
 }
+
+.right {
+  fill: lightgrey;
+}
+
+.left {
+  fill: steelblue;
+}
