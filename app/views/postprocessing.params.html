@@ -1,0 +1,16 @@
+<div class="compSimple well well-sm" style="height:65px">
+  <div>
+    <div class="btn-group pull-right" style="display:inline-block">
+      <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span
+        class="glyphicon glyphicon-play"></span></label>
+    </div>
+  </div>
+</div>
+
+<div class="compSimple" style="width:450px">
+  Min Word Length: <input type="number" ng-model="ctrl.minWordLength" uib-tooltip="What is the minimum word length for greedy salvaging?">
+  <br>
+  Split Composite Tags: <input type="checkbox" ng-model="ctrl.minOcc" uib-tooltip="Should multiword tags be split?">
+  <br>
+  Use All Words: <input type="checkbox" ng-model="ctrl.useAllWords" uib-tooltip="Should all words be used or only the filtered ones?">
+</div>
