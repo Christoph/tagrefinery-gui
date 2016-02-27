@@ -14,11 +14,16 @@
 <div ng-if="status.open[1]" d3-hist data="ctrl.dataI" threshold="ctrl.newImportance" bins="24" svg-height="300"
      type-label="Importance" y-label="Count" call-back="ctrl.getNewImportance(threshold)"></div>
 
-<div class="compSimple" style="text-align: right">
-  <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
-         btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
-    Inspect Words
-  </label>
+<div class="row compSimple">
+  <div class="col-sm-6" style="text-align: left">
+    <h4>Current threshold: </h4>
+  </div>
+  <div class="col-sm-6" style="text-align: right">
+    <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
+           btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
+      Inspect Words
+    </label>
+  </div>
 </div>
 
 <div class="row" ng-if="ctrl.showDetails && status.open[1]">
@@ -51,11 +56,16 @@
 
 <hr>
 
-<div class="compSimple" style="text-align: right">
-  <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()">
-    <span class="glyphicon glyphicon-remove"></span>
-  </label>
-<label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()">
-  <span class="glyphicon glyphicon-ok"></span>
-</label>
+<div class="row compSimple">
+  <div class="col-sm-6" style="text-align: left">
+    <h4>Number of replacements:<h4/>
+  </div>
+  <div class="col-sm-6" style="text-align: right">
+    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()">
+      <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()">
+      <span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div>
 </div>
