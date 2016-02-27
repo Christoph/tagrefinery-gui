@@ -12,14 +12,16 @@ angular.module('tagrefineryGuiApp')
 
     var that = this;
 
+    that.importance = 0;
     that.newImportance = 0;
-    that.dataI = [];
-    that.domain = [0,1];
-    that.similarity = 0.5;
+    that.similarity = 0;
     that.newSimilarity = 0;
 
+    that.touched = false;
+
+    that.dataI = [];
+    that.domain = [0,1];
     that.replacements = 0;
-    that.newReplacements = 0;
 
     ////////////////////////////////////////////////
     // D3 functions
@@ -28,6 +30,7 @@ angular.module('tagrefineryGuiApp')
     that.getNewImportance = function (threshold) {
       $scope.$apply(function () {
         that.newImportance = threshold;
+        that.touched = true;
 
         if (that.showDetails) {
           $timeout(function () {
@@ -41,6 +44,7 @@ angular.module('tagrefineryGuiApp')
     that.slider = function (value) {
       $scope.$apply(function () {
         that.newSimilarity = value;
+        that.touched = true;
       });
     };
 
@@ -67,7 +71,13 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     socket.on('spellImportance', function (data) {
-      that.newImportance = parseFloat(data);
+      that.importance = parseFloat(data);
+      that.newImportance = that.importance;
+    });
+
+    socket.on('spellSimilarity', function (data) {
+      that.similarity = parseFloat(data);
+      that.newSimilarity = that.similarity;
     });
 
     socket.on('vocab', function (data) {
@@ -75,6 +85,10 @@ angular.module('tagrefineryGuiApp')
     });
 
     socket.on('importance', function (data) {
+      that.dataI = JSON.parse(data);
+    });
+
+    socket.on('spellReplacements', function (data) {
       that.dataI = JSON.parse(data);
     });
 
@@ -88,13 +102,23 @@ angular.module('tagrefineryGuiApp')
       that.simGrid.data = cluster;
     });
 
-    that.refresh = function () {
-      that.vocabGridApi.core.refresh();
-    }
-
     that.apply = function () {
+      that.similarity = that.newSimilarity;
+      that.importance = that.newImportance;
+
       socket.emit("applySpellImportance", "" + that.newImportance);
+      socket.emit("applySpellSimilarity", "" + that.newSimilarity);
+
+      that.touched = false;
     };
+
+    that.undo = function()
+    {
+      that.newSimilarity = that.similarity;
+      that.newImportance = that.importance;
+
+      that.touched = false;
+    }
 
     ////////////////////////////////////////////////
     // Vocab Grid

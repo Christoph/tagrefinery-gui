@@ -52,7 +52,7 @@
   </div>
 </div>
 
-<div class="compSimple" d3-slider ng-if="status.open[1]" value="ctrl.similarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
+<div class="compSimple" d3-slider ng-if="status.open[1]" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
 
 <hr>
 
@@ -61,10 +61,10 @@
     <h4>Number of replacements:<h4/>
   </div>
   <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()">
+    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
       <span class="glyphicon glyphicon-remove"></span>
     </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()">
+    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.touched">
       <span class="glyphicon glyphicon-ok"></span>
     </label>
   </div>
