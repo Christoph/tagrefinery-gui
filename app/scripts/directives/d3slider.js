@@ -27,7 +27,6 @@ angular.module('tagrefineryGuiApp')
         function dragMove(d) {
 
           var current = Math.max(0, Math.min(width, d3.event.x));
-          console.log(d3.event.x)
 
           d3.select(this)
             .attr("opacity", 0.6)
