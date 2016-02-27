@@ -129,9 +129,9 @@ angular.module('tagrefineryGuiApp')
 
         bodyG.append("circle")
           .attr("class", "barmarker")
-          .attr("r", heigth/2)
+          .attr("r", 20)
           .attr("cy", heigth/2)
-          .attr("fill", "#2394F5")
+          .attr("fill", "black")
           .call(drag);
 
         this.line(scope);
