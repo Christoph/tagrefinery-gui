@@ -9,9 +9,10 @@
 angular.module('tagrefineryGuiApp')
   .directive('d3Slider', ["d3", "$timeout", function (d3, $timeout) {
     function svgController() {
+      var that = this;
       var svg, drag, x, bodyG, width, heigth, xAxis, formatCount;
 
-      this.init = function(element, scope)
+      that.init = function(element, scope)
       {
         scope.width = d3.select(element[0]).node().offsetWidth;
 
@@ -25,8 +26,8 @@ angular.module('tagrefineryGuiApp')
           .on('dragend', dragEnd);
 
         function dragMove(d) {
-
           var current = Math.max(0, Math.min(width, d3.event.x));
+          scope.data = current;
 
           d3.select(this)
             .attr("opacity", 0.6)
@@ -62,22 +63,19 @@ angular.module('tagrefineryGuiApp')
             .attr("opacity", rightOp)
             .attr("x", function(d) { return current + heigth/2 + 5})
             .text(formatCount(x.invert(current)));
-
-          scope.callBack({value: x.invert(current)});
         }
 
         function dragEnd() {
           d3.select(this)
             .attr('opacity', 1)
+
+          scope.callBack({value: x.invert(scope.data)});
         }
 
         svg = d3.select(element[0]).append("svg")
           .attr("width", scope.width)
           .attr("height", scope.heigth + 25);
-      }
 
-      this.render = function(scope)
-      {
         x = d3.scale.linear()
           .domain(scope.domain)
           .range([0, width]);
@@ -100,10 +98,7 @@ angular.module('tagrefineryGuiApp')
           .attr("y", heigth + 40)
           .text(scope.xLabel);
 
-        bodyG = svg.selectAll(".body")
-          .data(scope.data)
-          .enter()
-          .append('g')
+        bodyG = svg.append('g')
           .attr("height", heigth)
           .attr("width", width)
           .attr('transform', 'translate(20, 10)');
@@ -111,7 +106,12 @@ angular.module('tagrefineryGuiApp')
         bodyG.append("rect")
           .attr("class", "left")
           .attr("y", 0)
-          .attr("height", heigth);
+          .attr("height", heigth)
+          .on("click", function(d) {
+            scope.data = d3.mouse(this)[0];
+            scope.callBack({value: x.invert(scope.data)});
+            that.render(scope);
+          });
 
         bodyG.append("text")
           .attr("class","leftlabel value")
@@ -120,12 +120,17 @@ angular.module('tagrefineryGuiApp')
         bodyG.append("rect")
           .attr("class", "right")
           .attr("y", 0)
-          .attr("height", heigth);
+          .attr("height", heigth)
+          .on("click", function(d) {
+            scope.data = d3.mouse(this)[0];
+            scope.callBack({value: x.invert(scope.data)});
+            that.render(scope);
+          });
 
         bodyG.append("text")
           .attr("class","rightlabel value")
           .attr("y", heigth/2+5)
-          .text(function(d) { return formatCount(x.invert(d.x)); });
+          .text(function(d) { return formatCount(x.invert(scope.data)); });
 
         bodyG.append("circle")
           .attr("class", "barmarker")
@@ -133,32 +138,30 @@ angular.module('tagrefineryGuiApp')
           .attr("cy", heigth/2)
           .attr("fill", "black")
           .call(drag);
-
-        this.line(scope);
       }
 
-      this.line = function(scope)
+      that.render = function(scope)
       {
-        svg.selectAll(".body")
-          .data(scope.data);
-
         d3.selectAll(".barmarker")
           .transition()
-          .attr("cx", scope.data.x);
+          .duration(100)
+          .attr("cx", scope.data);
 
         d3.selectAll(".left")
           .transition()
-          .attr("width", scope.data.x);
+          .duration(100)
+          .attr("width", scope.data);
 
         d3.selectAll(".right")
           .transition()
-          .attr("width", function(d) { return width - scope.data.x; })
-          .attr("x", function(d) { return scope.data.x; });
+          .duration(100)
+          .attr("width", function(d) { return width - scope.data; })
+          .attr("x", function(d) { return scope.data; });
 
         var leftOp = 1;
         var rightOp = 1;
 
-        if(scope.data.x < width/2)
+        if(scope.data < width/2)
         {
           leftOp = 0;
           rightOp = 1;
@@ -172,17 +175,17 @@ angular.module('tagrefineryGuiApp')
         d3.selectAll(".leftlabel")
           .attr("opacity", leftOp)
           .transition()
-          .attr("x", function(d) { return scope.data.x - heigth - 5})
-          .text(formatCount(x.invert(scope.data.x)));
+          .attr("x", function(d) { return scope.data - heigth - 5})
+          .text(formatCount(x.invert(scope.data)));
 
         d3.selectAll(".rightlabel")
           .attr("opacity", rightOp)
           .transition()
-          .attr("x", function(d) { return scope.data.x + heigth/2 + 5})
-          .text(formatCount(x.invert(scope.data.x)));
+          .attr("x", function(d) { return scope.data + heigth/2 + 5})
+          .text(formatCount(x.invert(scope.data)));
       }
 
-      this.scale = function(value)
+      that.scale = function(value)
       {
         return x(value);
       }
@@ -199,7 +202,7 @@ angular.module('tagrefineryGuiApp')
       link: function(scope, element, attrs, ctrl) {
         scope.heigth = parseInt(attrs.heigth) || 70;
         scope.xLabel = attrs.xlabel || "x-label";
-        scope.data = [{x: 0}];
+        scope.data = 0;
 
         $timeout(function () {
           ctrl.init(element, scope);
@@ -217,7 +220,7 @@ angular.module('tagrefineryGuiApp')
           // Watch for external threshold changes and re-render
           scope.$watch('value', function (newVals) {
             if (newVals) {
-              scope.data.x = ctrl.scale(newVals);
+              scope.data = ctrl.scale(newVals);
               ctrl.render(scope);
             }
           });
