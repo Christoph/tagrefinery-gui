@@ -1,10 +1,25 @@
-<div class="compSimple well">
-  Define ground truth
-  <br>
-  Choose a new threshold on tag quelity to distinguish a group of tags as ground-truth
+<div class="compSimple">
+  <button class="btn btn-link infoButton" ng-model="spellset.imp" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+    <span class="glyphicon glyphicon-info-sign"></span>
+  </button>
+  <div style="display: inline-block">
+    <h4>Define ground truth</h4>
+    Choose a new threshold on tag quelity to distinguish a group of tags as ground-truth
+  </div>
+  <div class="alert alert-info" ng-show="spellset.imp">
+    Description
+  </div>
 </div>
+
 <div ng-if="status.open[1]" d3-hist data="ctrl.dataI" threshold="ctrl.newImportance" bins="24" svg-height="300"
      type-label="Importance" y-label="Count" call-back="ctrl.getNewImportance(threshold)"></div>
+
+<div class="compSimple" style="text-align: right">
+  <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
+         btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
+    Inspect Words
+  </label>
+</div>
 
 <div class="row" ng-if="ctrl.showDetails && status.open[1]">
   <div class="col-sm-6">
@@ -16,24 +31,31 @@
     <div ui-grid="ctrl.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
   </div>
 </div>
+
 <hr>
+
 <div class="compSimple">
-  <button class="btn btn-link infoButton">
+  <button class="btn btn-link infoButton" ng-model="spellset.sim" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Modify degree of similarity</h4>
     Choose a value for spelling similarity, above which two tags will be considered the same.
   </div>
+  <div class="alert alert-info" ng-show="spellset.sim">
+    Description
+  </div>
 </div>
 
 <div class="compSimple" d3-slider ng-if="status.open[1]" value="ctrl.similarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
+
 <hr>
 
-<div class="btn-group">
-<label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span
-  class="glyphicon glyphicon-play"></span></label>
-<label class="btn btn-default btn-lg" uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
-       btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information"><span
-  class="glyphicon glyphicon-th-list"></span></label>
+<div class="compSimple" style="text-align: right">
+  <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()">
+    <span class="glyphicon glyphicon-remove"></span>
+  </label>
+<label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()">
+  <span class="glyphicon glyphicon-ok"></span>
+</label>
 </div>
