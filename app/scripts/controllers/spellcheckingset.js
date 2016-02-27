@@ -15,7 +15,8 @@ angular.module('tagrefineryGuiApp')
     that.newImportance = 0;
     that.dataI = [];
     that.domain = [0,1];
-    that.similarity = 0;
+    that.similarity = 0.5;
+    that.newSimilarity = 0;
 
     that.replacements = 0;
     that.newReplacements = 0;
@@ -39,7 +40,7 @@ angular.module('tagrefineryGuiApp')
 
     that.slider = function (value) {
       $scope.$apply(function () {
-        that.similarity = value;
+        that.newSimilarity = value;
       });
     };
 

@@ -9,48 +9,41 @@
 angular.module('tagrefineryGuiApp')
   .directive('d3Slider', ["d3", "$timeout", function (d3, $timeout) {
     function svgController() {
-      var svg, drag, x, bodyG, width, heigth, xAxis;
+      var svg, drag, x, bodyG, width, heigth, xAxis, formatCount;
 
-      this.init = function(element, scope) {
+      this.init = function(element, scope)
+      {
+        scope.width = d3.select(element[0]).node().offsetWidth;
 
         width = scope.width - 40;
         heigth = scope.heigth - 20;
 
-        var formatCount = d3.format(",.2f");
-
-        // x-scale and axis
-        x = d3.scale.linear()
-          .domain(scope.domain)
-          .range([0, width]);
-
-        xAxis = d3.svg.axis()
-          .scale(x)
-          .orient("bottom");
+        formatCount = d3.format(",.2f");
 
         drag = d3.behavior.drag()
-          .origin(Object)
           .on("drag", dragMove)
           .on('dragend', dragEnd);
 
         function dragMove(d) {
 
           var current = Math.max(0, Math.min(width, d3.event.x));
+          console.log(d3.event.x)
 
           d3.select(this)
             .attr("opacity", 0.6)
-            .attr("cx", d.x = current);
+            .attr("cx", current);
 
           d3.selectAll(".left")
-            .attr("width", function(d) { return d.x; });
+            .attr("width", function(d) { return current; });
 
           d3.selectAll(".right")
-            .attr("width", function(d) { return width - d.x; })
-            .attr("x", function(d) { return d.x; });
+            .attr("width", function(d) { return width - current; })
+            .attr("x", function(d) { return current; });
 
           var leftOp = 1;
           var rightOp = 1;
 
-          if(d.x < width/2)
+          if(current < width/2)
           {
             leftOp = 0;
             rightOp = 1;
@@ -63,12 +56,12 @@ angular.module('tagrefineryGuiApp')
 
           d3.selectAll(".leftlabel")
             .attr("opacity", leftOp)
-            .attr("x", function(d) { return d.x - heigth - 5})
+            .attr("x", function(d) { return current - heigth - 5})
             .text(formatCount(x.invert(current)));
 
           d3.selectAll(".rightlabel")
             .attr("opacity", rightOp)
-            .attr("x", function(d) { return d.x + heigth/2 + 5})
+            .attr("x", function(d) { return current + heigth/2 + 5})
             .text(formatCount(x.invert(current)));
 
           scope.callBack({value: x.invert(current)});
@@ -82,6 +75,17 @@ angular.module('tagrefineryGuiApp')
         svg = d3.select(element[0]).append("svg")
           .attr("width", scope.width)
           .attr("height", scope.heigth + 25);
+      }
+
+      this.render = function(scope)
+      {
+        x = d3.scale.linear()
+          .domain(scope.domain)
+          .range([0, width]);
+
+        xAxis = d3.svg.axis()
+          .scale(x)
+          .orient("bottom");
 
         svg.append("g")
           .attr("class", "x axis")
@@ -98,7 +102,7 @@ angular.module('tagrefineryGuiApp')
           .text(scope.xLabel);
 
         bodyG = svg.selectAll(".body")
-          .data([{x: width/4}])
+          .data(scope.data)
           .enter()
           .append('g')
           .attr("height", heigth)
@@ -108,54 +112,116 @@ angular.module('tagrefineryGuiApp')
         bodyG.append("rect")
           .attr("class", "left")
           .attr("y", 0)
-          .attr("height", heigth)
-          .attr("width", function(d) { return d.x; });
+          .attr("height", heigth);
 
         bodyG.append("text")
           .attr("class","leftlabel value")
-          .attr("x", function(d) { return d.x - heigth - 5})
           .attr("y", heigth/2+5);
 
         bodyG.append("rect")
           .attr("class", "right")
           .attr("y", 0)
-          .attr("height", heigth)
-          .attr("width", function(d) { return width - d.x; })
-          .attr("x", function(d) { return d.x; });
+          .attr("height", heigth);
 
         bodyG.append("text")
           .attr("class","rightlabel value")
-          .attr("x", function(d) { return d.x + heigth/2 + 5})
           .attr("y", heigth/2+5)
           .text(function(d) { return formatCount(x.invert(d.x)); });
 
         bodyG.append("circle")
+          .attr("class", "barmarker")
           .attr("r", heigth/2)
-          .attr("cx", function(d) { return d.x; })
           .attr("cy", heigth/2)
           .attr("fill", "#2394F5")
           .call(drag);
 
+        this.line(scope);
       }
 
-      this.render = function(scope) {
+      this.line = function(scope)
+      {
+        svg.selectAll(".body")
+          .data(scope.data);
+
+        d3.selectAll(".barmarker")
+          .transition()
+          .attr("cx", scope.data.x);
+
+        d3.selectAll(".left")
+          .transition()
+          .attr("width", scope.data.x);
+
+        d3.selectAll(".right")
+          .transition()
+          .attr("width", function(d) { return width - scope.data.x; })
+          .attr("x", function(d) { return scope.data.x; });
+
+        var leftOp = 1;
+        var rightOp = 1;
+
+        if(scope.data.x < width/2)
+        {
+          leftOp = 0;
+          rightOp = 1;
+        }
+        else
+        {
+          leftOp = 1;
+          rightOp = 0;
+        }
+
+        d3.selectAll(".leftlabel")
+          .attr("opacity", leftOp)
+          .transition()
+          .attr("x", function(d) { return scope.data.x - heigth - 5})
+          .text(formatCount(x.invert(scope.data.x)));
+
+        d3.selectAll(".rightlabel")
+          .attr("opacity", rightOp)
+          .transition()
+          .attr("x", function(d) { return scope.data.x + heigth/2 + 5})
+          .text(formatCount(x.invert(scope.data.x)));
+      }
+
+      this.scale = function(value)
+      {
+        return x(value);
       }
     }
     return {
-      restrict: "E",
+      restrict: "A",
       controller: svgController,
       scope: {
+        "value": "=",
         "domain": "=",
         callBack: '&'
       },
-      template: "<div></div>",
+      //template: "<div></div>",
       link: function(scope, element, attrs, ctrl) {
-        scope.width = parseInt(attrs.width) || 400;
         scope.heigth = parseInt(attrs.heigth) || 70;
         scope.xLabel = attrs.xlabel || "x-label";
+        scope.data = [{x: 0}];
 
         $timeout(function () {
           ctrl.init(element, scope);
+
+          // Listeners
+          // Watch for resize event
+          scope.$watch(function () {
+            return angular.element(window)[0].innerWidth;
+          }, function (newVals) {
+            if (newVals) {
+              ctrl.render(scope);
+            }
+          });
+
+          // Watch for external threshold changes and re-render
+          scope.$watch('value', function (newVals) {
+            if (newVals) {
+              scope.data.x = ctrl.scale(newVals);
+              ctrl.render(scope);
+            }
+          });
         },100)
       }
     }

@@ -20,7 +20,7 @@
   </table>
 </div>
 
-<d3-slider ng-if="status.open[1]" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></d3-slider>
+<div d3-slider ng-if="status.open[1]" value="ctrl.similarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
 
 <div ng-if="status.open[1]" d3-hist data="ctrl.dataI" threshold="ctrl.newImportance" bins="24" svg-height="300"
      type-label="Importance" y-label="Count" call-back="ctrl.getNewImportance(threshold)"></div>
