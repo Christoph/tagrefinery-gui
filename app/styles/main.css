@@ -185,6 +185,11 @@ input.ng-invalid {
   border-radius: 10px;
 }
 
+.infoButton {
+  width: 50px;
+  vertical-align: top;
+  font-size: 30px;
+}
 
 .runText {
   display: inline-block;
