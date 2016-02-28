@@ -93,7 +93,14 @@ angular.module('tagrefineryGuiApp')
 
         x = Math.max(0, Math.min(scope.quadrantWidth, x));
 
-        scope.callBack({threshold: scope.x.invert(x)});
+        if(scope.isFloat)
+        {
+          scope.callBack({threshold: scope.x.invert(x)});
+        }
+        else
+        {
+          scope.callBack({threshold: Math.round(scope.x.invert(x))});
+        }
 
         d3.select(this).select("line").attr("x1", x);
         d3.select(this).select("line").attr("x2", x);
@@ -131,11 +138,13 @@ angular.module('tagrefineryGuiApp')
       scope.quadrantWidth = scope.width - scope.marginLeft - scope.margin;
       scope.quadrantHeight = scope.height - scope.margin - scope.margin;
 
-      scope.xDomain = [0, 1];
+      scope.xDomain = d3.extent(scope.data, function (d) {
+        return d.value;
+      });
 
       // x-scale and axis
       scope.x = d3.scale.linear()
-        .domain(scope.xDomain)
+        .domain(scope.xDomain).nice()
         .range([0, scope.quadrantWidth]);
 
       scope.xLine = d3.scale.linear()
@@ -191,7 +200,15 @@ angular.module('tagrefineryGuiApp')
         .call(scope.zoom)
         .on('click', function (d) {
           if (d3.event.defaultPrevented) return; // click suppressed
-          scope.threshold = scope.x.invert(d3.mouse(this)[0] - scope.marginLeft);
+          if(scope.isFloat)
+          {
+            scope.threshold = scope.x.invert(d3.mouse(this)[0] - scope.marginLeft);
+          }
+          else
+          {
+            scope.threshold = Math.round(scope.x.invert(d3.mouse(this)[0] - scope.marginLeft));
+          }
+
           scope.callBack({threshold: scope.threshold});
         });
 
@@ -408,6 +425,10 @@ angular.module('tagrefineryGuiApp')
         scope.yLabel = attrs.yLabel || "";
         scope.title = attrs.title || "";
         scope.binCount = parseInt(attrs.bins) || 16;
+        var temp = attrs.isFloat || "true";
+
+        if(temp=="true") scope.isFloat = true;
+        else scope.isFloat = false;
 
         scope.initialized = false;
         scope.isZoomed = false;
