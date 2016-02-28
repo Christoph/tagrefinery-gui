@@ -10,7 +10,7 @@ angular.module('tagrefineryGuiApp')
   .directive('d3Slider', ["d3", "$timeout", function (d3, $timeout) {
     function svgController() {
       var that = this;
-      var svg, drag, x, bodyG, width, heigth, xAxis, formatCount;
+      var svg, drag, x, bodyG, width, heigth, xAxis, formatCount, marker;
 
       that.init = function(element, scope)
       {
@@ -19,18 +19,20 @@ angular.module('tagrefineryGuiApp')
         width = scope.width - 40;
         heigth = scope.heigth - 20;
 
-        formatCount = d3.format(",.2f");
+        formatCount = d3.format(",.3f");
 
         drag = d3.behavior.drag()
           .on("drag", dragMove)
           .on('dragend', dragEnd);
 
-        function dragMove(d) {
+        function dragMove() {
           var current = Math.max(0, Math.min(width, d3.event.x));
           scope.data = current;
 
-          d3.select(this)
-            .attr("opacity", 0.6)
+          marker.select(".outer")
+            .attr("cx", current);
+
+          marker.select(".inner")
             .attr("cx", current);
 
           d3.selectAll(".left")
@@ -43,15 +45,17 @@ angular.module('tagrefineryGuiApp')
           var leftOp = 1;
           var rightOp = 1;
 
-          if(current < width/2)
+          if(scope.data < width/2)
           {
             leftOp = 0;
             rightOp = 1;
+            marker.select(".outer").classed({'right': true, 'left': false})
           }
           else
           {
             leftOp = 1;
             rightOp = 0;
+            marker.select(".outer").classed({'right': false, 'left': true})
           }
 
           d3.selectAll(".leftlabel")
@@ -66,9 +70,6 @@ angular.module('tagrefineryGuiApp')
         }
 
         function dragEnd() {
-          d3.select(this)
-            .attr('opacity', 1)
-
           scope.callBack({value: x.invert(scope.data)});
         }
 
@@ -132,19 +133,28 @@ angular.module('tagrefineryGuiApp')
           .attr("y", heigth/2+5)
           .text(function(d) { return formatCount(x.invert(scope.data)); });
 
-        bodyG.append("circle")
-          .attr("class", "barmarker")
-          .attr("r", 20)
-          .attr("cy", heigth/2)
-          .attr("fill", "black")
+        marker = bodyG.append("g")
+          .attr("class", "marker")
           .call(drag);
+
+        marker.append("circle")
+          .attr("class", "outer")
+          .attr("r", 20)
+          .attr("cy", heigth/2);
+
+        marker.append("circle")
+          .attr("class", "inner")
+          .attr("r", 10)
+          .attr("cy", heigth/2)
+          .attr("fill", "black");
       }
 
       that.render = function(scope)
       {
-        d3.selectAll(".barmarker")
-          .transition()
-          .duration(100)
+        marker.select(".outer")
+          .attr("cx", scope.data);
+
+        marker.select(".inner")
           .attr("cx", scope.data);
 
         d3.selectAll(".left")
@@ -165,11 +175,13 @@ angular.module('tagrefineryGuiApp')
         {
           leftOp = 0;
           rightOp = 1;
+          marker.select(".outer").classed({'right': true, 'left': false})
         }
         else
         {
           leftOp = 1;
           rightOp = 0;
+          marker.select(".outer").classed({'right': false, 'left': true})
         }
 
         d3.selectAll(".leftlabel")
