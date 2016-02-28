@@ -21,7 +21,7 @@
   </table>
 </div>
 
-<div ng-if="status.open[0]" d3-hist-dyn data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
+<div ng-if="status.open[0]" d3-hist-dyn data="ctrl.data" call-back="ctrl.getThreshold(threshold)" is-float="0"
      threshold="ctrl.threshold" bins="24" svg-height="300" type-label="Normalized Frequency" y-label="Count"></div>
 <div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple"
      ng-if="ctrl.showDetails && status.open[0]"></div>
