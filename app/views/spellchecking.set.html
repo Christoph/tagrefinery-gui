@@ -58,7 +58,7 @@
 
 <div class="row compSimple">
   <div class="col-sm-6" style="text-align: left">
-    <h4>Number of replacements:<h4/>
+    <h4>Number of replacements: {{ ctrl.replacements }}<h4/>
   </div>
   <div class="col-sm-6" style="text-align: right">
     <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">

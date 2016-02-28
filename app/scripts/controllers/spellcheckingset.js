@@ -21,6 +21,7 @@ angular.module('tagrefineryGuiApp')
 
     that.data = [];
     that.domain = [0,1];
+
     that.replacements = 0;
 
     ////////////////////////////////////////////////
@@ -31,11 +32,9 @@ angular.module('tagrefineryGuiApp')
       $scope.$apply(function () {
         that.newImportance = threshold;
         that.touched = true;
-
-        if (that.showDetails) {
-          that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
-        }
       });
+
+      that.getReplacements();
     };
 
     that.slider = function (value) {
@@ -43,6 +42,12 @@ angular.module('tagrefineryGuiApp')
         that.newSimilarity = value;
         that.touched = true;
       });
+
+      if (that.showDetails) {
+        that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+      }
+
+      that.getReplacements();
     };
 
     // This function needs decreasing sorted data from the server
@@ -86,8 +91,8 @@ angular.module('tagrefineryGuiApp')
       that.data = JSON.parse(data);
     });
 
-    socket.on('spellReplacements', function (data) {
-      that.data = JSON.parse(data);
+    socket.on('replacements', function (data) {
+      that.replacements = parseInt(data);
     });
 
     socket.on('cluster', function (data) {
@@ -104,8 +109,11 @@ angular.module('tagrefineryGuiApp')
       that.similarity = that.newSimilarity;
       that.importance = that.newImportance;
 
-      socket.emit("applySpellImportance", "" + that.newImportance);
-      socket.emit("applySpellSimilarity", "" + that.newSimilarity);
+      socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+
+      if (that.showDetails) {
+        that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+      }
 
       that.touched = false;
     };
@@ -116,6 +124,11 @@ angular.module('tagrefineryGuiApp')
       that.newImportance = that.importance;
 
       that.touched = false;
+    }
+
+    that.getReplacements = function()
+    {
+      socket.emit("getReplacements", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
     }
 
     ////////////////////////////////////////////////
@@ -204,6 +217,19 @@ angular.module('tagrefineryGuiApp')
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
         {
+          field: 'importance', minWidth: 100, width: "*",
+          cellFilter: 'number:6', filters: [
+          {
+            condition: uiGridConstants.filter.GREATER_THAN,
+            placeholder: 'greater than'
+          },
+          {
+            condition: uiGridConstants.filter.LESS_THAN,
+            placeholder: 'less than'
+          }
+          ]
+        },
+        {
           field: 'similarity', minWidth: 100, width: "*",
           sort: {
             direction: uiGridConstants.DESC,
@@ -222,20 +248,20 @@ angular.module('tagrefineryGuiApp')
           cellClass: function (grid, row, col) {
             var sim = grid.getCellValue(row, col);
 
-            if (that.newImportance > that.importance) {
-              if (sim >= that.newImportance) {
+            if (that.newSimilarity > that.similarity) {
+              if (sim >= that.newSimilarity) {
                 return 'current';
               }
             }
             else {
-              if (sim >= that.importance) {
+              if (sim >= that.similarity) {
                 return 'current';
               }
             }
-            if (sim >= that.newImportance && sim < that.importance) {
+            if (sim >= that.newSimilarity && sim < that.similarity) {
               return 'more';
             }
-            if (sim < that.newImportance && sim >= that.importance) {
+            if (sim < that.newSimilarity && sim >= that.similarity) {
               return 'less';
             }
           }

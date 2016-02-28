@@ -67,10 +67,12 @@ angular.module('tagrefineryGuiApp')
             .attr("opacity", rightOp)
             .attr("x", function(d) { return current + heigth/2 + 5})
             .text(formatCount(x.invert(current)));
+
+          scope.callBack({value: x.invert(scope.data)});
         }
 
         function dragEnd() {
-          scope.callBack({value: x.invert(scope.data)});
+          //scope.callBack({value: x.invert(scope.data)});
         }
 
         svg = d3.select(element[0]).append("svg")
@@ -158,13 +160,9 @@ angular.module('tagrefineryGuiApp')
           .attr("cx", scope.data);
 
         d3.selectAll(".left")
-          .transition()
-          .duration(100)
           .attr("width", scope.data);
 
         d3.selectAll(".right")
-          .transition()
-          .duration(100)
           .attr("width", function(d) { return width - scope.data; })
           .attr("x", function(d) { return scope.data; });
 
@@ -186,13 +184,11 @@ angular.module('tagrefineryGuiApp')
 
         d3.selectAll(".leftlabel")
           .attr("opacity", leftOp)
-          .transition()
           .attr("x", function(d) { return scope.data - heigth - 5})
           .text(formatCount(x.invert(scope.data)));
 
         d3.selectAll(".rightlabel")
           .attr("opacity", rightOp)
-          .transition()
           .attr("x", function(d) { return scope.data + heigth/2 + 5})
           .text(formatCount(x.invert(scope.data)));
       }
