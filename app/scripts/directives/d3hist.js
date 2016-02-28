@@ -189,10 +189,10 @@ angular.module('tagrefineryGuiApp')
         .style("background-color", "white")
         .attr("class", "chart")
         .call(scope.zoom)
-        .on('dblclick', function (d) {
+        .on('click', function (d) {
+          if (d3.event.defaultPrevented) return; // click suppressed
           scope.threshold = scope.x.invert(d3.mouse(this)[0] - scope.marginLeft);
           scope.callBack({threshold: scope.threshold});
-          renderLine(scope);
         });
 
       // Detach dbl click from zoom
