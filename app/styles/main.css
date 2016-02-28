@@ -3,18 +3,17 @@
   height: 25%;
 }
 
+.default {
+  color: black;
+}
+
 .current {
   color: steelblue;
   font-weight: bold;
 }
 
-.more {
+.truth {
   color: green;
-  font-weight: bold;
-}
-
-.less {
-  color: orange;
   font-weight: bold;
 }
 

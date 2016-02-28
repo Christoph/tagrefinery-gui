@@ -193,6 +193,35 @@ angular.module('tagrefineryGuiApp')
 
     // Grid
 
+    var rowtpl = '<div ng-class="{\'default\':true,  \'current\': grid.appScope.isCurrent( row ), \'truth\': grid.appScope.isTruth( row ) }"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div></div>';
+/*
+            if (that.newSimilarity > that.similarity) {
+              if (sim >= that.newSimilarity) {
+                return 'current';
+              }
+            }
+            else {
+              if (sim >= that.similarity) {
+                return 'current';
+              }
+            }
+            if (sim >= that.newSimilarity && sim < that.similarity) {
+              return 'more';
+            }
+            if (sim < that.newSimilarity && sim >= that.similarity) {
+              return 'less';
+            }
+            */
+    $scope.isCurrent = function(row)
+    {
+      return row.entity.similarity > that.newSimilarity && row.entity.importance < that.newImportance;
+    }
+
+    $scope.isTruth = function(row)
+    {
+      return row.entity.importance >= that.newImportance;
+    }
+
     that.simGrid = {
       multiSelect: false,
       enableColumnMenus: false,
@@ -202,12 +231,13 @@ angular.module('tagrefineryGuiApp')
       enableRowHeaderSelection: false,
       enableRowSelection: true,
       enableFullRowSelection: true,
+      rowTemplate:rowtpl,
       onRegisterApi: function (gridApi) {
         that.simGridApi = gridApi;
 
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
           if (row.entity.similarity > 0) {
-            that.newThreshold = row.entity.similarity;
+            that.newSimilarity = row.entity.similarity;
           }
 
           // Tells the grid to redraw after click
@@ -244,28 +274,7 @@ angular.module('tagrefineryGuiApp')
             condition: uiGridConstants.filter.LESS_THAN,
             placeholder: 'less than'
           }
-        ],
-          cellClass: function (grid, row, col) {
-            var sim = grid.getCellValue(row, col);
-
-            if (that.newSimilarity > that.similarity) {
-              if (sim >= that.newSimilarity) {
-                return 'current';
-              }
-            }
-            else {
-              if (sim >= that.similarity) {
-                return 'current';
-              }
-            }
-            if (sim >= that.newSimilarity && sim < that.similarity) {
-              return 'more';
-            }
-            if (sim < that.newSimilarity && sim >= that.similarity) {
-              return 'less';
-            }
-          }
-        }]
+        ]}]
     };
 
   }]);
