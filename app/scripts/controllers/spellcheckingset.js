@@ -33,11 +33,8 @@ angular.module('tagrefineryGuiApp')
         that.touched = true;
 
         if (that.showDetails) {
-          $timeout(function () {
-            that.scrollToV(that.getAboveRow(that.vocabGrid.data, that.newImportance), 0);
-          })
+          that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
         }
-
       });
     };
 
@@ -53,6 +50,7 @@ angular.module('tagrefineryGuiApp')
       var index = 0;
 
       for (var i = 0; i < data.length; i++) {
+        console.log(data[i])
         if (data[i].importance < threshold) {
           if ((threshold - data[i].importance) <= (data[i - 1].importance - threshold)) {
             return i;
