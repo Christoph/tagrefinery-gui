@@ -116,6 +116,8 @@ angular.module('tagrefineryGuiApp')
       }
 
       that.touched = false;
+
+      that.getReplacements();
     };
 
     that.undo = function()
@@ -124,6 +126,8 @@ angular.module('tagrefineryGuiApp')
       that.newImportance = that.importance;
 
       that.touched = false;
+
+      that.getReplacements();
     }
 
     that.getReplacements = function()
@@ -194,24 +198,7 @@ angular.module('tagrefineryGuiApp')
     // Grid
 
     var rowtpl = '<div ng-class="{\'default\':true,  \'current\': grid.appScope.isCurrent( row ), \'truth\': grid.appScope.isTruth( row ) }"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div></div>';
-/*
-            if (that.newSimilarity > that.similarity) {
-              if (sim >= that.newSimilarity) {
-                return 'current';
-              }
-            }
-            else {
-              if (sim >= that.similarity) {
-                return 'current';
-              }
-            }
-            if (sim >= that.newSimilarity && sim < that.similarity) {
-              return 'more';
-            }
-            if (sim < that.newSimilarity && sim >= that.similarity) {
-              return 'less';
-            }
-            */
+
     $scope.isCurrent = function(row)
     {
       return row.entity.similarity > that.newSimilarity && row.entity.importance < that.newImportance;

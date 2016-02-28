@@ -68,11 +68,11 @@ angular.module('tagrefineryGuiApp')
             .attr("x", function(d) { return current + heigth/2 + 5})
             .text(formatCount(x.invert(current)));
 
-          scope.callBack({value: x.invert(scope.data)});
+          //scope.callBack({value: x.invert(scope.data)});
         }
 
         function dragEnd() {
-          //scope.callBack({value: x.invert(scope.data)});
+          scope.callBack({value: x.invert(scope.data)});
         }
 
         svg = d3.select(element[0]).append("svg")
