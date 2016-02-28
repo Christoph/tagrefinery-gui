@@ -133,7 +133,12 @@ button.help {
 .threshold circle {
   border-radius: 50%;
   fill: steelblue;
-  fill-opacity: .90;
+}
+
+.threshold rect {
+  fill: steelblue;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
 }
 
 .importButton {

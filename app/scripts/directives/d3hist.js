@@ -267,14 +267,18 @@ angular.module('tagrefineryGuiApp')
         .style("cursor", "ew-resize")
         .attr("stroke", "black")
         .attr("stroke-width", 5)
-        .attr("y1", 18)
-        .attr("y2", scope.height);
+        .attr("y1", 0)
+        .attr("y2", scope.quadrantHeight);
 
       scope.marker
         .append("circle")
         .style("cursor", "ew-resize")
         .attr("r", 10)
-        .attr("cy", 10);
+        .attr("cy", scope.quadrantHeight/2);
+
+      scope.marker
+        .append("rect")
+        .attr("height", scope.quadrantHeight)
     };
 
     var renderLine = function (scope) {
@@ -283,15 +287,15 @@ angular.module('tagrefineryGuiApp')
           .call(scope.bringToFront);
 
         scope.marker.select("line")
-          .transition()
-          .duration(100)
           .attr("x1", scope.x(scope.threshold))
           .attr("x2", scope.x(scope.threshold));
 
         scope.marker.select("circle")
-          .transition()
-          .duration(100)
           .attr("cx", scope.x(scope.threshold))
+
+        scope.marker.select("rect")
+          .attr("x", scope.x(scope.threshold))
+          .attr("width", scope.quadrantWidth - scope.x(scope.threshold));
       }
     };
 
