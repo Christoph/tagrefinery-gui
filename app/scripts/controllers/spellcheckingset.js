@@ -19,7 +19,7 @@ angular.module('tagrefineryGuiApp')
 
     that.touched = false;
 
-    that.dataI = [];
+    that.data = [];
     that.domain = [0,1];
     that.replacements = 0;
 
@@ -85,11 +85,11 @@ angular.module('tagrefineryGuiApp')
     });
 
     socket.on('importance', function (data) {
-      that.dataI = JSON.parse(data);
+      that.data = JSON.parse(data);
     });
 
     socket.on('spellReplacements', function (data) {
-      that.dataI = JSON.parse(data);
+      that.data = JSON.parse(data);
     });
 
     socket.on('cluster', function (data) {
