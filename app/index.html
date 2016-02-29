@@ -57,7 +57,7 @@
         <div class="row" ng-include="'views/postprocessing.html'"></div>
       </uib-tab>
 
-      <uib-tab active="activeTabs[4]" ng-hide="disconnected">
+      <uib-tab active="activeTabs[4]" ng-hide="disconnected" select="loadStats()">
         <uib-tab-heading>
           Output
         </uib-tab-heading>

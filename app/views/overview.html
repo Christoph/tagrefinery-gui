@@ -30,17 +30,27 @@
   </div>
   <div class="col-sm-4">
     <h4> Stats </h4>
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Parameter</th>
-        <th>Value</th>
-      </tr>
-      </thead>
+    <table class="table" style="width:95% ">
       <tbody>
-      <tr ng-repeat="x in ctrl.stats" id="{{$index}}">
-        <td>{{ x.key }}</td>
-        <td>{{ x.value }}</td>
+      <th>Preprocessing</th>
+      <tr ng-repeat="(key, value) in ctrl.pre" id="{{$index}}">
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+      </tr>
+      <th>Spell-correct</th>
+      <tr ng-repeat="(key, value) in ctrl.spell" id="{{$index}}">
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+      </tr>
+      <th>Multiword Tags</th>
+      <tr ng-repeat="(key, value) in ctrl.comp" id="{{$index}}">
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+      </tr>
+      <th>Finalize</th>
+      <tr ng-repeat="(key, value) in ctrl.post" id="{{$index}}">
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
       </tr>
       </tbody>
     </table>

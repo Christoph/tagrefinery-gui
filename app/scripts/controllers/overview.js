@@ -8,13 +8,26 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('OverviewCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", "$q", function ($scope, socket, uiGridConstants, $timeout, $q) {
+  .controller('OverviewCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
 
     // Get instance of the class
     var that = this;
 
-    that.stats = [];
+    that.pre = [];
+    that.spell = [];
+    that.comp = [];
+    that.post = [];
+
     that.history = [];
+
+    $scope.$parent.loadStats = function()
+    {
+      that.pre = stats.getPre();
+      that.spell = stats.getSpell();
+      that.comp = stats.getComp();
+      that.post = stats.getPost();
+    }
+
 
     ////////////////////////////////////////////////
     // Socket functions
