@@ -1,16 +1,18 @@
+<!--Task description-->
 <div class="compSimple">
   <button class="btn btn-link infoButton" ng-model="spellset.imp" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
-    <h4>Define ground truth</h4>
-    Choose a new threshold on tag quelity to distinguish a group of tags as ground-truth
+    <h4>Task</h4>
+    Short description
   </div>
   <div class="alert alert-info" ng-show="spellset.imp">
     Description
   </div>
 </div>
 
+<!--Task content-->
 <div ng-if="status.open[1]" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="24" svg-height="300"
      type-label="Importance" y-label="Count" call-back="ctrl.getNewImportance(threshold)"></div>
 
@@ -26,6 +28,7 @@
   </div>
 </div>
 
+<!--Task Parameters and details-->
 <div class="row" ng-if="ctrl.showDetails && status.open[1]">
   <div class="col-sm-6">
     <h4 style="position:relative; left:25%">Vocab</h4>
@@ -37,25 +40,8 @@
   </div>
 </div>
 
+<!--Footer -> Apply and Undo -->
 <hr>
-
-<div class="compSimple">
-  <button class="btn btn-link infoButton" ng-model="spellset.sim" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-    <span class="glyphicon glyphicon-info-sign"></span>
-  </button>
-  <div style="display: inline-block">
-    <h4>Modify degree of similarity</h4>
-    Choose a value for spelling similarity, above which two tags will be considered the same.
-  </div>
-  <div class="alert alert-info" ng-show="spellset.sim">
-    Description
-  </div>
-</div>
-
-<div class="compSimple" d3-slider ng-if="status.open[1]" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
-
-<hr>
-
 <div class="row compSimple">
   <div class="col-sm-6" style="text-align: left">
     <h4>Number of replacements: {{ ctrl.replacements }}</h4>
