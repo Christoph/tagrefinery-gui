@@ -95,16 +95,16 @@ angular.module('tagrefineryGuiApp')
 
         if(scope.isFloat)
         {
+          scope.threshold = scope.x.invert(x);
           scope.callBack({threshold: scope.x.invert(x)});
         }
         else
         {
+          scope.threshold = Math.round(scope.x.invert(x));
           scope.callBack({threshold: Math.round(scope.x.invert(x))});
         }
 
-        d3.select(this).select("line").attr("x1", x);
-        d3.select(this).select("line").attr("x2", x);
-        d3.select(this).select("circle").attr("cx", x);
+        renderLine(scope);
       }
 
       // Bring element to front
@@ -210,6 +210,8 @@ angular.module('tagrefineryGuiApp')
           }
 
           scope.callBack({threshold: scope.threshold});
+
+          renderLine(scope);
         });
 
       // Detach dbl click from zoom
@@ -310,9 +312,18 @@ angular.module('tagrefineryGuiApp')
         scope.marker.select("circle")
           .attr("cx", scope.x(scope.threshold))
 
-        scope.marker.select("rect")
-          .attr("x", scope.x(scope.threshold))
-          .attr("width", scope.quadrantWidth - scope.x(scope.threshold));
+        if(scope.fromRight)
+        {
+          scope.marker.select("rect")
+            .attr("x", scope.x(scope.threshold))
+            .attr("width", scope.quadrantWidth - scope.x(scope.threshold));
+        }
+        else
+        {
+          scope.marker.select("rect")
+            .attr("x",0)
+            .attr("width", scope.x(scope.threshold));
+        }
       }
     };
 
@@ -426,8 +437,10 @@ angular.module('tagrefineryGuiApp')
         scope.title = attrs.title || "";
         scope.binCount = parseInt(attrs.bins) || 16;
         var temp = attrs.isFloat || "true";
-
         if(temp=="true") scope.isFloat = true;
+        else scope.isFloat = false;
+        temp = attrs.fromRight || "true";
+        if(temp=="true") scope.fromRight = true;
         else scope.isFloat = false;
 
         scope.initialized = false;
@@ -459,6 +472,7 @@ angular.module('tagrefineryGuiApp')
           // Watch for external threshold changes and re-render
           scope.$watch('exThreshold', function (newVals) {
             if (newVals) {
+              console.log(newVals)
               scope.threshold = newVals;
               renderLine(scope);
             }
