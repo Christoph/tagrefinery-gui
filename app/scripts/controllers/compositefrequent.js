@@ -13,23 +13,28 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
+    that.touched = false;
+
     // Frequent
-    that.newThresholdF = 0;
-    that.dataF = [];
+    that.threshold = 0;
+    that.newThreshold = 0;
+    that.data = [];
 
     ////////////////////////////////////////////////
     // D3 functions
     ////////////////////////////////////////////////
 
-    that.getThresholdF = function (threshold) {
+    that.getThreshold = function (threshold) {
       $scope.$apply(function () {
-        that.newThresholdF = threshold;
+        that.newThreshold = threshold;
 
         if (that.showDetails) {
           $timeout(function () {
-            that.scrollToF(that.getAboveRow(that.frequentGrid.data, that.newThresholdF), 0);
+            that.scrollToF(that.getAboveRow(that.frequentGrid.data, that.newThreshold), 0);
           })
         }
+
+        that.touched = true;
       });
     };
 
@@ -56,7 +61,7 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     socket.on('frequentData', function (data) {
-      that.dataF = JSON.parse(data);
+      that.data = JSON.parse(data);
     });
 
     socket.on('frequentGroups', function (data) {
@@ -64,12 +69,22 @@ angular.module('tagrefineryGuiApp')
     });
 
     socket.on('compFrequentParams', function (data) {
-      that.newThresholdF = parseFloat(data);
+      that.newThreshold = parseFloat(data);
+      that.threshold = that.newThreshold;
     });
 
     that.apply = function () {
-      socket.emit("applyFrequentThreshold", "" + that.newThresholdF);
+      socket.emit("applyFrequentThreshold", "" + that.newThreshold);
+
+      that.touched = false;
     };
+
+    that.undo = function ()
+    {
+      that.newThreshold = that.threshold;
+
+      that.touched = false;
+    }
 
     ////////////////////////////////////////////////
     // Frequent Grid
@@ -98,7 +113,7 @@ angular.module('tagrefineryGuiApp')
 
         // Set frequent threshold
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          that.newThresholdF = row.entity.strength;
+          that.newThreshold = row.entity.strength;
         });
       },
       columnDefs: [
@@ -117,15 +132,9 @@ angular.module('tagrefineryGuiApp')
     // Helper functions
     ////////////////////////////////////////////////
 
-    that.totalReplacements = function () {
-      return _.sum(that.dataF, function (o) {
-        return o.count;
-      });
-    }
-
-    that.newCountF = function () {
-      return _.sum(_.filter(that.dataF, function (d) {
-        return d.value >= that.newThresholdF;
+    that.getGroups = function () {
+      return _.sum(_.filter(that.data, function (d) {
+        return d.value >= that.newThreshold;
       }), function (o) {
         return o.count;
       });

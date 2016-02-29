@@ -13,8 +13,6 @@
 </div>
 
 <!--Task content-->
-<div ng-if="status.open[1]" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="24" svg-height="300"
-     type-label="Importance" y-label="Count" call-back="ctrl.getNewImportance(threshold)"></div>
 
 <!--Task Parameters and details-->
 <div class="row taskInner">
@@ -30,16 +28,6 @@
 </div>
 
 <!--Task advanced content-->
-<div class="row" ng-if="ctrl.showDetails && status.open[1]">
-  <div class="col-sm-6">
-    <h4 style="position:relative; left:25%">Vocab</h4>
-    <div ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
-  </div>
-  <div class="col-sm-6">
-    <h4 style="position:relative; left:25%">Replacements</h4>
-    <div ui-grid="ctrl.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
-  </div>
-</div>
 
 <!--Footer -> Apply and Undo -->
 <hr>
