@@ -23,6 +23,7 @@ angular.module('tagrefineryGuiApp')
     that.domain = [0,1];
 
     that.replacements = 0;
+    that.showReplacements = false;
 
     ////////////////////////////////////////////////
     // D3 functions
@@ -87,6 +88,10 @@ angular.module('tagrefineryGuiApp')
       that.vocabGrid.data = JSON.parse(data);
     });
 
+    socket.on('replacementData', function (data) {
+      that.replGrid.data = JSON.parse(data);
+    });
+
     socket.on('importance', function (data) {
       that.data = JSON.parse(data);
     });
@@ -133,6 +138,11 @@ angular.module('tagrefineryGuiApp')
     that.getReplacements = function()
     {
       socket.emit("getReplacements", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+
+      if(that.showReplacements)
+      {
+        socket.emit("getReplacementData", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+      }
     }
 
     ////////////////////////////////////////////////
@@ -246,6 +256,51 @@ angular.module('tagrefineryGuiApp')
           }
           ]
         },
+        {
+          field: 'similarity', minWidth: 100, width: "*",
+          sort: {
+            direction: uiGridConstants.DESC,
+            priority: 1
+          },
+          cellFilter: 'number:6', filters: [
+          {
+            condition: uiGridConstants.filter.GREATER_THAN,
+            placeholder: 'greater than'
+          },
+          {
+            condition: uiGridConstants.filter.LESS_THAN,
+            placeholder: 'less than'
+          }
+        ]}]
+    };
+
+    ////////////////////////////////////////////////
+    // Replacement Grid
+    ////////////////////////////////////////////////
+
+    // Grid
+
+    that.replGrid = {
+      multiSelect: false,
+      enableColumnMenus: false,
+      enableFiltering: true,
+      showGridFooter: true,
+      enableGridMenu: true,
+      enableRowHeaderSelection: false,
+      enableRowSelection: true,
+      enableFullRowSelection: true,
+      rowTemplate:rowtpl,
+      onRegisterApi: function (gridApi) {
+        that.replGridApi = gridApi;
+
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+
+        });
+      },
+      columnDefs: [
+        {field: 'truth', displayName: "Tag", minWidth: 100, width: "*"},
+        {field: 'replacement', displayName: "Replaced", minWidth: 100, width: "*"},
+
         {
           field: 'similarity', minWidth: 100, width: "*",
           sort: {

@@ -54,13 +54,24 @@
 
 <div class="taskInner" d3-slider ng-if="status.open[1]" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
 
-<hr>
-
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
     <h4>Number of replacements: {{ ctrl.replacements }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
+    <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showReplacements" uib-btn-checkbox
+           btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
+      Inspect Replacements
+    </label>
+  </div>
+</div>
+
+<div ng-if="ctrl.showReplacements && status.open[1]" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+
+<hr>
+
+<div class="row taskInner">
+  <div class="col-sm-12" style="text-align: right">
     <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
       <span class="glyphicon glyphicon-remove"></span>
     </label>
