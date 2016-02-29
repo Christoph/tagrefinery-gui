@@ -12,14 +12,41 @@ angular.module('tagrefineryGuiApp')
 
     var stats = {};
 
-    stats.data = {};
+    stats.pre = {};
+    stats.spell = {};
+    stats.comp = {};
+    stats.post = {};
 
-    stats.write = function (key, value) {
-      stats.data[key] = value;
+    stats.writePre = function (key, value) {
+      stats.pre[key] = value;
     }
 
-    stats.read = function (name) {
-      return stats.data[name];
+    stats.writeSpell = function (key, value) {
+      stats.spell[key] = value;
+    }
+
+    stats.writeComp = function (key, value) {
+      stats.comp[key] = value;
+    }
+
+    stats.writePost = function (key, value) {
+      stats.post[key] = value;
+    }
+
+    stats.getPre = function () {
+      return stats.pre;
+    }
+
+    stats.getSpell = function () {
+      return stats.spell;
+    }
+
+    stats.getComp = function () {
+      return stats.comp;
+    }
+
+    stats.getPost = function () {
+      return stats.post;
     }
 
     return stats;
