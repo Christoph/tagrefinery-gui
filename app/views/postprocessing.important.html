@@ -1,27 +1,50 @@
-<div class="taskInner well well-sm">
-
-  <div class="btn-group" style="position:absolute;right:50px">
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span
-      class="glyphicon glyphicon-play"></span></label>
-    <label class="btn btn-default btn-lg" uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
-           btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information"><span
-      class="glyphicon glyphicon-th-list"></span></label>
+<!--Task description-->
+<div class="taskInner description">
+  <button class="btn btn-link infoButton" ng-model="info.one" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+    <span class="glyphicon glyphicon-info-sign"></span>
+  </button>
+  <div style="display: inline-block">
+    <h4>Task</h4>
+    Short description
   </div>
-  <table style="width:100%;margin-bottom:5px">
-    <tr>
-      <th></th>
-      <th>Threshold</th>
-      <th>Used Tags</th>
-    </tr>
-    <tr>
-      <th>Importance:</th>
-      <td>{{ctrl.newThreshold | number:6}}</td>
-      <td style="color:steelblue;font-size:12pt">{{ctrl.newCount()}}/{{ctrl.totalReplacements()}}</td>
-    </tr>
-  </table>
+  <div class="alert alert-info" ng-show="info.one">
+    Description
+  </div>
 </div>
 
+<!--Task content-->
 <div ng-if="status.open[0]" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
      threshold="ctrl.newThreshold" bins="24" svg-height="300" type-label="Importance" y-label="Count"></div>
+
+<!--Task Parameters and details-->
+<div class="row taskInner">
+  <div class="col-sm-6" style="text-align: left">
+    <h4>Current threshold: {{ctrl.newThreshold | number:4 }}</h4>
+  </div>
+  <div class="col-sm-6" style="text-align: right">
+    <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
+           btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
+      Inspect Words
+    </label>
+  </div>
+</div>
+
+<!--Task advanced content-->
 <div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="taskInner"
      ng-if="ctrl.showDetails && status.open[0]"></div>
+
+<!--Footer -> Apply and Undo -->
+<hr>
+<div class="row taskInner">
+  <div class="col-sm-6" style="text-align: left">
+    <h4>Number of replacements: {{ ctrl.newCount() }}</h4>
+  </div>
+  <div class="col-sm-6" style="text-align: right">
+    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
+      <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.touched">
+      <span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div>
+</div>

@@ -13,7 +13,10 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
+    that.touched = false;
+
     // Frequent
+    that.threshold = 0;
     that.newThreshold = 0;
     that.data = [];
 
@@ -30,6 +33,8 @@ angular.module('tagrefineryGuiApp')
             that.scrollTo(that.getAboveRow(that.grid.data, that.newThreshold), 0);
           })
         }
+
+        that.touched = true;
       });
     };
 
@@ -65,11 +70,21 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('postFilterParams', function (data) {
       that.newThreshold = parseFloat(data);
+      that.threshold = that.newThreshold;
     });
 
     that.apply = function () {
       socket.emit("applyPostFilter", "" + that.newThreshold);
+
+      that.touched = false;
     };
+
+    that.undo = function()
+    {
+      that.newThreshold = that.threshold;
+
+      that.touched = false;
+    }
 
     ////////////////////////////////////////////////
     // requent Grid
@@ -116,12 +131,6 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
     // Helper functions
     ////////////////////////////////////////////////
-
-    that.totalReplacements = function () {
-      return _.sum(that.data, function (o) {
-        return o.count;
-      });
-    }
 
     that.newCount = function () {
       return _.sum(_.filter(that.data, function (d) {
