@@ -13,6 +13,8 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
+    that.touched = false;
+
     ////////////////////////////////////////////////
     // Socket functions
     ////////////////////////////////////////////////
@@ -25,7 +27,16 @@ angular.module('tagrefineryGuiApp')
 
     that.apply = function () {
       socket.emit("applyPreImportedData", JSON.stringify($scope.data));
+
+      that.touched = false;
     };
+
+    that.undo = function()
+    {
+      $scope.data = [];
+
+      that.touched = false;
+    }
 
     ////////////////////////////////////////////////
     // Grid
@@ -41,6 +52,7 @@ angular.module('tagrefineryGuiApp')
         $scope.data.length = 0;
         $scope.data = $scope.data.concat(newObjects);
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+        that.touched = true;
       },
       onRegisterApi: function (gridApi) {
         $scope.gridApi = gridApi;

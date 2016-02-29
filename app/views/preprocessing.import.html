@@ -1,10 +1,31 @@
-<div class="taskInner well well-sm" style="height:65px">
-  <div>
-    Number of Dictionary items: <span>{{data.length}}</span>
-    <div class="btn-group pull-right" style="display:inline-block">
-      <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span
-        class="glyphicon glyphicon-play"></span></label>
-    </div>
+<div class="taskInner description">
+  <button class="btn btn-link infoButton" ng-model="spellimp.imp" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+    <span class="glyphicon glyphicon-info-sign"></span>
+  </button>
+  <div style="display: inline-block">
+    <h4>Task</h4>
+    Short description
+  </div>
+  <div class="alert alert-info" ng-show="spellimp.imp">
+    Description
   </div>
 </div>
+
+<!--Task content-->
 <div ng-if="status.open[3]" ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="grid"></div>
+
+<!--Footer -> Apply and Undo -->
+<hr>
+<div class="row taskInner">
+  <div class="col-sm-6" style="text-align: left">
+    <h4>Number of Dictionary Items: {{ data.length }}</h4>
+  </div>
+  <div class="col-sm-6" style="text-align: right">
+    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
+      <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.touched">
+      <span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div>
+</div>
