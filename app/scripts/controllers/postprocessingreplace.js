@@ -13,26 +13,35 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
+    that.touched = false;
+
     that.replace = [];
+    that.replacements = [];
     that.old;
+    that.original = [];
 
     that.remove = function (index) {
       that.replace.splice(index, 1);
     }
+
     ////////////////////////////////////////////////
     // Socket functions
     ////////////////////////////////////////////////
 
     socket.on('postImportantWords', function (data) {
       that.grid.data = JSON.parse(data);
+      that.original = JSON.parse(data);
     });
 
     socket.on('postReplaceParams', function (data) {
       that.replace.length = 0;
+      that.replacements.length = 0;
 
       _.each(data, function (d) {
         var temp = d.split(",");
+
         that.replace.push({replace: temp[0], by: temp[1]});
+        that.replacements.push({replace: temp[0], by: temp[1]});
       })
     });
 
@@ -50,10 +59,11 @@ angular.module('tagrefineryGuiApp')
     };
 
 
-    that.revert = function () {
-      that.changes = false;
+    that.undo = function () {
+      that.replace = _.clone(that.replacements);
+      that.grid.data = _.clone(that.original);
 
-      that.grid.data = _.clone(that.temp);
+      that.touched = false;
     }
 
     that.saveRow = function (rowEntity) {
@@ -63,6 +73,8 @@ angular.module('tagrefineryGuiApp')
       that.replace.push({replace: that.old, by: rowEntity.tag});
 
       promise.resolve();
+
+      that.touched = true;
     };
 
     // Grid

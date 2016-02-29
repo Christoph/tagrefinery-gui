@@ -1,25 +1,18 @@
-<div class="taskInner well well-sm">
-
-  <div class="btn-group" style="position:absolute;right:50px">
-    <label ng-disabled="!ctrl.changes" class="btn btn-warning btn-lg" uib-tooltip="Revert Changes"
-           ng-click="ctrl.revert()"><span class="glyphicon glyphicon-remove"></span></label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply Changes" ng-click="ctrl.apply()"><span
-      class="glyphicon glyphicon-ok"></span></label>
+<!--Task description-->
+<div class="taskInner description">
+  <button class="btn btn-link infoButton" ng-model="info.one" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+    <span class="glyphicon glyphicon-info-sign"></span>
+  </button>
+  <div style="display: inline-block">
+    <h4>Task</h4>
+    Short description
   </div>
-  <table style="width:100%;margin-bottom:5px">
-    <tr>
-      <th></th>
-      <th>Count</th>
-      <th>Replacements</th>
-    </tr>
-    <tr>
-      <th>Important Tags</th>
-      <td>{{ctrl.grid.data.length}}</td>
-      <td style="color:steelblue;font-size:12pt">{{ctrl.replace.length}}</td>
-    </tr>
-  </table>
+  <div class="alert alert-info" ng-show="info.one">
+    Description
+  </div>
 </div>
 
+<!--Task content-->
 <div class="row">
   <div class="col-sm-6">
     <div ng-if="status.open[1]" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
@@ -49,3 +42,18 @@
   </div>
 </div>
 
+<!--Footer -> Apply and Undo -->
+<hr>
+<div class="row taskInner">
+  <div class="col-sm-6" style="text-align: left">
+    <h4>Number of replacements: {{ ctrl.replace.length }}</h4>
+  </div>
+  <div class="col-sm-6" style="text-align: right">
+    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
+      <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.touched">
+      <span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div>
+</div>
