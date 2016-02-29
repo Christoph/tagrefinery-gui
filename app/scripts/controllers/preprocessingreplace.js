@@ -13,6 +13,8 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
+    that.touched = false;
+
     that.replace = [];
     that.out = [];
     that.word = "";
@@ -42,11 +44,15 @@ angular.module('tagrefineryGuiApp')
 
       that.word = "";
       that.by = "";
+
+      that.touched = true;
     }
 
     that.remove = function (index) {
       that.replace.splice(index, 1);
       that.out.splice(index, 1);
+
+      that.touched = true;
     }
 
     ////////////////////////////////////////////////
@@ -72,6 +78,8 @@ angular.module('tagrefineryGuiApp')
 
     that.apply = function () {
       socket.emit("applyPreReplaceCharacters", JSON.stringify(that.out));
+
+      that.touched = false;
     };
 
   }]);
