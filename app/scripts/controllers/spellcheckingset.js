@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('SpellcheckingsetCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", "$uibModal", function ($scope, socket, uiGridConstants, $timeout, $uibModal) {
+  .controller('SpellcheckingsetCtrl', ["$scope", "socket", "uiGridConstants", "stats", function ($scope, socket, uiGridConstants, stats) {
 
     var that = this;
 
@@ -77,11 +77,15 @@ angular.module('tagrefineryGuiApp')
     socket.on('spellImportance', function (data) {
       that.importance = parseFloat(data);
       that.newImportance = that.importance;
+
+      stats.writeSpell("Importance Threshold", that.newImportance);
     });
 
     socket.on('spellSimilarity', function (data) {
       that.similarity = parseFloat(data);
       that.newSimilarity = that.similarity;
+
+      stats.writeSpell("Similarity Threshold", that.newSimilarity);
     });
 
     socket.on('vocab', function (data) {
@@ -94,10 +98,13 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('importance', function (data) {
       that.data = JSON.parse(data);
+      that.getReplacements();
     });
 
     socket.on('replacements', function (data) {
       that.replacements = parseInt(data);
+
+      stats.writeSpell("Number of Replacements", that.replacements);
     });
 
     socket.on('cluster', function (data) {
@@ -120,6 +127,8 @@ angular.module('tagrefineryGuiApp')
         that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
       }
 
+      stats.writeSpell("Importance Threshold", that.newImportance);
+      stats.writeSpell("Similarity Threshold", that.newSimilarity);
       that.touched = false;
 
       that.getReplacements();
@@ -130,6 +139,8 @@ angular.module('tagrefineryGuiApp')
       that.newSimilarity = that.similarity;
       that.newImportance = that.importance;
 
+      stats.writeSpell("Importance Threshold", that.newImportance);
+      stats.writeSpell("Similarity Threshold", that.newSimilarity);
       that.touched = false;
 
       that.getReplacements();

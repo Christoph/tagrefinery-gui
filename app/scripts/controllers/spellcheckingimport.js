@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('SpellcheckingimportCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
+  .controller('SpellcheckingimportCtrl', ["$scope", "socket", "uiGridConstants", "stats", function ($scope, socket, uiGridConstants, stats) {
 
     // Get instance of the class
     var that = this;
@@ -22,10 +22,14 @@ angular.module('tagrefineryGuiApp')
       _.map(data, function (d) {
         $scope.data.push({tag: d});
       })
+
+      stats.writeSpell("Number of Ground Truth Words", $scope.data.length);
     });
 
     that.apply = function () {
       socket.emit("applySpellImportedData", JSON.stringify($scope.data));
+
+      stats.writeSpell("Number of Ground Truth Words", $scope.data.length);
 
       that.touched = false;
     };
@@ -33,6 +37,8 @@ angular.module('tagrefineryGuiApp')
     that.undo = function()
     {
       $scope.data = [];
+
+      stats.writeSpell("Number of Ground Truth Words", $scope.data.length);
 
       that.touched = false;
     }
