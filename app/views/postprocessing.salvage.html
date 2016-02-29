@@ -1,25 +1,18 @@
-<div class="taskInner well well-sm">
-
-  <div class="btn-group" style="position:absolute;right:50px">
-    <label class="btn btn-info btn-lg" uib-tooltip="Salvage Data" ng-click="ctrl.salvaging()"><span
-      class="glyphicon glyphicon-refresh"></span></label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply Salvaged Data" ng-click="ctrl.apply()"><span
-      class="glyphicon glyphicon-ok"></span></label>
+<!--Task description-->
+<div class="taskInner description">
+  <button class="btn btn-link infoButton" ng-model="info.one" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+    <span class="glyphicon glyphicon-info-sign"></span>
+  </button>
+  <div style="display: inline-block">
+    <h4>Task</h4>
+    Short description
   </div>
-  <table style="width:100%;margin-bottom:5px">
-    <tr>
-      <th></th>
-      <th>Count</th>
-      <th>Salvaged Tags</th>
-    </tr>
-    <tr>
-      <th>Important Tags:</th>
-      <td>{{ctrl.temp.length}}</td>
-      <td style="color:steelblue;font-size:12pt">0</td>
-    </tr>
-  </table>
+  <div class="alert alert-info" ng-show="info.one">
+    Description
+  </div>
 </div>
 
+<!--Task content-->
 <div class="row">
   <div class="col-sm-6">
     <div ng-if="status.open[2]" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
@@ -28,5 +21,21 @@
   <div class="col-sm-6">
     <div ng-if="status.open[2]" ui-grid="ctrl.salvage" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
          class="taskInner"></div>
+  </div>
+</div>
+
+<!--Footer -> Apply and Undo -->
+<hr>
+<div class="row taskInner">
+  <div class="col-sm-6" style="text-align: left">
+    <h4>Number of salvaged tags: {{ ctrl.salvage.data.length }}</h4>
+  </div>
+  <div class="col-sm-6" style="text-align: right">
+    <label class="btn btn-info btn-lg" uib-tooltip="Salvage Data" ng-click="ctrl.salvaging()"><span
+      class="glyphicon glyphicon-refresh"></span>
+    </label>
+    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.salvage.data.length > 0">
+      <span class="glyphicon glyphicon-ok"></span>
+    </label>
   </div>
 </div>
