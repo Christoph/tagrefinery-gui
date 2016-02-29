@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PreprocessingimportCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
+  .controller('PreprocessingimportCtrl', ["$scope", "socket", "uiGridConstants", "stats", function ($scope, socket, uiGridConstants, stats) {
 
     // Get instance of the class
     var that = this;
@@ -23,10 +23,14 @@ angular.module('tagrefineryGuiApp')
       _.map(data, function (d) {
         $scope.data.push({word: d});
       })
+
+      stats.writePre("Number of blacklisted Words", $scope.data.length);
     });
 
     that.apply = function () {
       socket.emit("applyPreImportedData", JSON.stringify($scope.data));
+
+      stats.writePre("Number of blacklisted Words", $scope.data.length);
 
       that.touched = false;
     };
@@ -34,6 +38,8 @@ angular.module('tagrefineryGuiApp')
     that.undo = function()
     {
       $scope.data = [];
+
+      stats.writePre("Number of blacklisted Words", $scope.data.length);
 
       that.touched = false;
     }

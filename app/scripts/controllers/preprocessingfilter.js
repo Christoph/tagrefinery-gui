@@ -20,7 +20,7 @@ angular.module('tagrefineryGuiApp')
     that.newOccurrences = 0;
     that.data = [];
 
-    stats.write("preFilter", that.occurrences);
+    that.filteredWords = 0;
 
     ////////////////////////////////////////////////
     // D3 functions
@@ -35,6 +35,9 @@ angular.module('tagrefineryGuiApp')
             that.scrollTo(that.getAboveRow(that.grid.data, that.newOccurrences), 0);
           })
         }
+
+        that.filteredWords = that.newCount();
+        stats.writePre("Number of Filtered Words", that.filteredWords);
 
         that.touched = true;
       });
@@ -64,6 +67,9 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('preFilterData', function (data) {
       that.data = JSON.parse(data);
+
+      that.filteredWords = that.newCount();
+      stats.writePre("Number of Filtered Words", that.filteredWords);
     });
 
     socket.on('preFilterGrid', function (data) {
@@ -73,11 +79,15 @@ angular.module('tagrefineryGuiApp')
     socket.on('preFilterParams', function (data) {
       that.occurrences = parseFloat(data);
       that.newOccurrences = that.occurrences;
+
+      stats.writePre("Occurrence Threshold", that.newOccurrences);
     });
 
     that.apply = function () {
       socket.emit("applyPrefilter", "" + that.newOccurrences);
       that.occurrences = that.newOccurrences;
+
+      stats.writePre("Occurrence Threshold", that.newOccurrences);
 
       that.touched = false;
     };
@@ -85,6 +95,8 @@ angular.module('tagrefineryGuiApp')
     that.undo = function()
     {
       that.newOccurrences = that.occurrences;
+
+      stats.writePre("Occurrence Threshold", that.newOccurrences);
 
       that.touched = false;
     }
@@ -140,6 +152,7 @@ angular.module('tagrefineryGuiApp')
       }), function (o) {
         return o.count;
       });
+
     }
 
   }]);

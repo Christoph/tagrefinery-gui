@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PreprocessingreplaceCtrl', ["$scope", "socket", function ($scope, socket) {
+  .controller('PreprocessingreplaceCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
 
     // Get instance of the class
     var that = this;
@@ -74,10 +74,14 @@ angular.module('tagrefineryGuiApp')
         }
         that.out.push({replace: temp[0], by: temp[1]});
       })
+
+      stats.writePre("Number of Character Replacements", that.out.length)
     });
 
     that.apply = function () {
       socket.emit("applyPreReplaceCharacters", JSON.stringify(that.out));
+
+      stats.writePre("Number of Character Replacements", that.out.length)
 
       that.touched = false;
     };
