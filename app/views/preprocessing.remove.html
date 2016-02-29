@@ -1,10 +1,38 @@
-<div class="taskInner well well-sm" style="height:65px">
-  <div>
-    Characters to remove: <input ng-model="ctrl.remove"
-                                 uib-tooltip="CAUTION: each character in the input field will be removed!">
-    <div class="btn-group pull-right" style="display:inline-block">
-      <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span
-        class="glyphicon glyphicon-play"></span></label>
-    </div>
+<!--Task description-->
+<div class="taskInner description">
+  <button class="btn btn-link infoButton" ng-model="preremove.params" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+    <span class="glyphicon glyphicon-info-sign"></span>
+  </button>
+  <div style="display: inline-block">
+    <h4>Task</h4>
+    Short description
+  </div>
+  <div class="alert alert-info" ng-show="preremove.params">
+    Description
+  </div>
+</div>
+
+<!--Task Parameters and details-->
+<div class="row taskInner">
+  <div class="col-sm-12" style="text-align: left">
+    <form name="ctrl.params">
+      <h5>
+        Characters to remove: <input name="remove" ng-model="ctrl.newRemove"
+                                     uib-tooltip="CAUTION: each character in the input field will be removed!">
+      </h5>
+    </form>
+  </div>
+</div>
+
+<!--Footer -> Apply and Undo -->
+<hr>
+<div class="row taskInner">
+  <div class="col-sm-12" style="text-align: right">
+    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.params.$dirty">
+      <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.params.$dirty">
+      <span class="glyphicon glyphicon-ok"></span>
+    </label>
   </div>
 </div>
