@@ -1,16 +1,41 @@
-<div class="taskInner well well-sm" style="height:65px">
-  <div>
-    <div class="btn-group pull-right" style="display:inline-block">
-      <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span
-        class="glyphicon glyphicon-play"></span></label>
-    </div>
+<!--Task description-->
+<div class="taskInner description">
+  <button class="btn btn-link infoButton" ng-model="spellparams.params" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+    <span class="glyphicon glyphicon-info-sign"></span>
+  </button>
+  <div style="display: inline-block">
+    <h4>Task</h4>
+    Short description
+  </div>
+  <div class="alert alert-info" ng-show="spellparams.params">
+    Description
   </div>
 </div>
 
-<div class="taskInner" style="width:450px">
-  Max Group Size: <input type="number" ng-model="ctrl.maxGroupSize" uib-tooltip="What should the maximum word count per group be?">
-  <br>
-  Min Group Occurrence: <input type="number" ng-model="ctrl.minOcc" uib-tooltip="What is the minimum number of occurrences a group should have to be considered?">
-  <br>
-  Split Groups: <input type="checkbox" ng-model="ctrl.split" uib-tooltip="Should composite non groups stay together?">
+<!--Task Parameters and details-->
+<div class="row taskInner">
+  <div class="col-sm-12" style="text-align: left">
+    <form name="ctrl.params">
+      <h5>
+        Max Group Size: <input type="number" ng-model="ctrl.newMaxGroupSize" uib-tooltip="What should the maximum word count per group be?">
+        <br>
+        Min Group Occurrence: <input type="number" ng-model="ctrl.newMinOcc" uib-tooltip="What is the minimum number of occurrences a group should have to be considered?">
+        <br>
+        Split Groups: <input type="checkbox" ng-model="ctrl.newSplit" uib-tooltip="Should composite non groups stay together?">
+      </h5>
+    </form>
+  </div>
+</div>
+
+<!--Footer -> Apply and Undo -->
+<hr>
+<div class="row taskInner">
+  <div class="col-sm-12" style="text-align: right">
+    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.params.$dirty">
+      <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.params.$dirty">
+      <span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div>
 </div>

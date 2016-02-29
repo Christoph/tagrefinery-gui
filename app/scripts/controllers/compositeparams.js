@@ -14,8 +14,11 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     that.maxGroupSize = 3;
+    that.newMaxGroupSize = 0;
     that.minOcc = 2;
+    that.newMinOcc = 0;
     that.split = true;
+    that.newSplit = true;
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -23,18 +26,32 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('compSizeParams', function (data) {
       that.maxGroupSize = data;
+      that.newMaxGroupSize = data;
     });
 
     socket.on('compSplitParams', function (data) {
       that.split = data;
+      that.newSplit = data;
     });
 
     socket.on('compOccParams', function (data) {
       that.minOcc = data;
+      that.newMinOcc = data;
     });
 
     that.apply = function () {
       socket.emit("applyCompositeParams", JSON.stringify([{maxGroupSize: that.maxGroupSize, minOcc: that.minOcc, split: that.split}]));
+
+      that.params.$setPristine();
     };
+
+    that.undo = function()
+    {
+      that.newMaxGroupSize = that.maxGroupSize;
+      that.newMinOcc = that.minOcc;
+      that.newSplit = that.split;
+
+      that.params.$setPristine();
+    }
 
   }]);
