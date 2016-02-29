@@ -14,6 +14,7 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     that.stats = [];
+    that.history = [];
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -23,10 +24,17 @@ angular.module('tagrefineryGuiApp')
       that.grid.data = JSON.parse(data);
     });
 
-    socket.emit("getOutputData", "output");
+    socket.on('history', function (data) {
+      that.history = JSON.parse(data);
+    });
+
+    that.getHistory = function(tag, item)
+    {
+      socket.emit("getHistory", JSON.stringify([{tag: tag, item: item}]))
+    }
 
     ////////////////////////////////////////////////
-    // Grid
+    // Overview Grid
     ////////////////////////////////////////////////
 
     // Grid
@@ -43,15 +51,13 @@ angular.module('tagrefineryGuiApp')
         that.gridApi = gridApi;
 
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          that.old = row.entity.tag;
+          that.getHistory(row.entity.tag, row.entity.carrier);
         });
       },
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
-        {field: 'carrier', displayName: "Item", minWidth: 100, width: "*"},
-        {field: 'importance', minWidth: 100, width: "*", cellFilter: 'number:4'}
+        {field: 'carrier', displayName: "Item", minWidth: 100, width: "*"}
       ]
     };
-
 
   }]);
