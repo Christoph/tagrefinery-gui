@@ -13,23 +13,29 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
+
+    that.touched = false;
+
     // Unique
-    that.newThresholdU = 0;
-    that.dataU = [];
+    that.threshold = 0;;
+    that.newThreshold = 0;
+    that.data = [];
 
     ////////////////////////////////////////////////
     // D3 functions
     ////////////////////////////////////////////////
 
-    that.getThresholdU = function (threshold) {
+    that.getThreshold = function (threshold) {
       $scope.$apply(function () {
-        that.newThresholdU = threshold;
+        that.newThreshold = threshold;
 
         if (that.showDetails) {
           $timeout(function () {
-            that.scrollToU(that.getAboveRow(that.uniqueGrid.data, that.newThresholdU), 0);
+            that.scrollToU(that.getAboveRow(that.uniqueGrid.data, that.newThreshold), 0);
           })
         }
+
+        that.touched = true;
       });
     };
 
@@ -56,7 +62,7 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     socket.on('uniqueData', function (data) {
-      that.dataU = JSON.parse(data);
+      that.data = JSON.parse(data);
     });
 
     socket.on('uniqueGroups', function (data) {
@@ -64,12 +70,22 @@ angular.module('tagrefineryGuiApp')
     });
 
     socket.on('compUniqueParams', function (data) {
-      that.newThresholdU = parseFloat(data);
+      that.newThreshold = parseFloat(data);
+      that.threshold = that.newThreshold;
     });
 
     that.apply = function () {
-      socket.emit("applyUniqueThreshold", "" + that.newThresholdU);
+      socket.emit("applyUniqueThreshold", "" + that.newThreshold);
+
+      that.touched = false;
     };
+
+    that.undo = function ()
+    {
+      that.newThreshold = that.threshold;
+
+      that.touched = false;
+    }
 
     ////////////////////////////////////////////////
     // Unique Grid
@@ -99,7 +115,7 @@ angular.module('tagrefineryGuiApp')
 
         // Set unique threshold
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          that.newThresholdU = row.entity.strength;
+          that.newThreshold = row.entity.strength;
         });
       },
       columnDefs: [
@@ -118,15 +134,9 @@ angular.module('tagrefineryGuiApp')
     // Helper functions
     ////////////////////////////////////////////////
 
-    that.totalReplacements = function () {
-      return _.sum(that.dataU, function (o) {
-        return o.count;
-      });
-    }
-
-    that.newCountU = function () {
-      return _.sum(_.filter(that.dataU, function (d) {
-        return d.value >= that.newThresholdU;
+    that.getGroups = function () {
+      return _.sum(_.filter(that.data, function (d) {
+        return d.value >= that.newThreshold;
       }), function (o) {
         return o.count;
       });
