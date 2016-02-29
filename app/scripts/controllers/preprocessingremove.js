@@ -24,14 +24,10 @@ angular.module('tagrefineryGuiApp')
     socket.on('preRemoveParams', function (data) {
       that.remove = data;
       that.newRemove = that.remove;
-
-      stats.writePre("Removed Characters", that.newRemove);
     });
 
     that.apply = function () {
       socket.emit("applyPreRemoveCharacters", that.newRemove);
-
-      stats.writePre("Removed Characters", that.newRemove);
 
       that.params.$setPristine();
     };
@@ -39,8 +35,6 @@ angular.module('tagrefineryGuiApp')
     that.undo = function()
     {
       that.newRemove = that.remove;
-
-      stats.writePre("Removed Characters", that.newRemove);
 
       that.params.$setPristine();
     }
