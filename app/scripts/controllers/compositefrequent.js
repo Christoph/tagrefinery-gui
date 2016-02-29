@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('CompositefrequentCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", "$uibModal", function ($scope, socket, uiGridConstants, $timeout, $uibModal) {
+  .controller('CompositefrequentCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", "stats", function ($scope, socket, uiGridConstants, $timeout, stats) {
 
     // Get instance of the class
     var that = this;
@@ -19,6 +19,8 @@ angular.module('tagrefineryGuiApp')
     that.threshold = 0;
     that.newThreshold = 0;
     that.data = [];
+
+    that.replacements = 0;
 
     ////////////////////////////////////////////////
     // D3 functions
@@ -33,6 +35,9 @@ angular.module('tagrefineryGuiApp')
             that.scrollToF(that.getAboveRow(that.frequentGrid.data, that.newThreshold), 0);
           })
         }
+
+        that.replacements = that.getGroups();
+        stats.writeComp("Number of Frequent Groups", that.replacements);
 
         that.touched = true;
       });
@@ -62,6 +67,9 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('frequentData', function (data) {
       that.data = JSON.parse(data);
+
+      that.replacements = that.getGroups();
+      stats.writeComp("Number of Frequent Groups", that.replacements);
     });
 
     socket.on('frequentGroups', function (data) {
@@ -71,10 +79,14 @@ angular.module('tagrefineryGuiApp')
     socket.on('compFrequentParams', function (data) {
       that.newThreshold = parseFloat(data);
       that.threshold = that.newThreshold;
+
+      stats.writeComp("Frequent Threshold", Math.round(that.newThreshold * 1000) / 1000);
     });
 
     that.apply = function () {
       socket.emit("applyFrequentThreshold", "" + that.newThreshold);
+
+      stats.writeComp("Frequent Threshold", Math.round(that.newThreshold * 1000) / 1000);
 
       that.touched = false;
     };
@@ -82,6 +94,8 @@ angular.module('tagrefineryGuiApp')
     that.undo = function ()
     {
       that.newThreshold = that.threshold;
+
+      stats.writeComp("Frequent Threshold", Math.round(that.newThreshold * 1000) / 1000);
 
       that.touched = false;
     }
