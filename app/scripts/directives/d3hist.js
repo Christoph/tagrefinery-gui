@@ -472,7 +472,11 @@ angular.module('tagrefineryGuiApp')
           // Watch for external threshold changes and re-render
           scope.$watch('exThreshold', function (newVals) {
             if (newVals) {
-              console.log(newVals)
+              scope.threshold = newVals;
+              renderLine(scope);
+            }
+            else if(newVals === 0)
+            {
               scope.threshold = newVals;
               renderLine(scope);
             }
