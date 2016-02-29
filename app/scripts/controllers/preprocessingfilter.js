@@ -13,35 +13,40 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
+    that.touched = false;
+
     // Frequent
-    that.threshold = 0;
+    that.occurrences = 0;
+    that.newOccurrences = 0;
     that.data = [];
 
-    stats.write("preFilter", that.threshold);
+    stats.write("preFilter", that.occurrences);
 
     ////////////////////////////////////////////////
     // D3 functions
     ////////////////////////////////////////////////
 
-    that.getThreshold = function (threshold) {
+    that.getOccurrences = function (occurrences) {
       $scope.$apply(function () {
-        that.threshold = threshold;
+        that.newOccurrences = occurrences;
 
         if (that.showDetails) {
           $timeout(function () {
-            that.scrollTo(that.getAboveRow(that.grid.data, that.threshold), 0);
+            that.scrollTo(that.getAboveRow(that.grid.data, that.newOccurrences), 0);
           })
         }
+
+        that.touched = true;
       });
     };
 
     // This function needs decreasing sorted data from the server
-    that.getAboveRow = function (data, threshold) {
+    that.getAboveRow = function (data, occurrences) {
       var index = 0;
 
       for (var i = 0; i < data.length; i++) {
-        if (data[i].importance > threshold) {
-          if ((threshold - data[i].importance) <= (data[i - 1].importance - threshold)) {
+        if (data[i].importance > occurrences) {
+          if ((occurrences - data[i].importance) <= (data[i - 1].importance - occurrences)) {
             return i;
           }
           else {
@@ -66,12 +71,23 @@ angular.module('tagrefineryGuiApp')
     });
 
     socket.on('preFilterParams', function (data) {
-      that.threshold = parseFloat(data);
+      that.occurrences = parseFloat(data);
+      that.newOccurrences = that.occurrences;
     });
 
     that.apply = function () {
-      socket.emit("applyPrefilter", "" + that.threshold);
+      socket.emit("applyPrefilter", "" + that.newOccurrences);
+      that.occurrences = that.newOccurrences;
+
+      that.touched = false;
     };
+
+    that.undo = function()
+    {
+      that.newOccurrences = that.occurrences;
+
+      that.touched = false;
+    }
 
     ////////////////////////////////////////////////
     // requent Grid
@@ -86,7 +102,7 @@ angular.module('tagrefineryGuiApp')
     // Grid
 
     that.grid = {
-      enableFiltering: false,
+      enableFiltering: true,
       enableColumnMenus: false,
       enableGridMenu: true,
       showGridooter: false,
@@ -94,19 +110,18 @@ angular.module('tagrefineryGuiApp')
       multiSelect: false,
       enableRowHeaderSelection: false,
       enableRowSelection: true,
-      enableullRowSelection: true,
       onRegisterApi: function (gridApi) {
         that.gridApi = gridApi;
 
-        // Set frequent threshold
+        // Set frequent occurrences
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          that.threshold = row.entity.importance;
+          that.newOccurrences = row.entity.importance;
         });
       },
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
         {
-          field: 'importance', minWidth: 100, width: "*", cellFilter: 'number:4',
+          field: 'importance', displayName: "Occurrences", minWidth: 100, width: "*",
           sort: {
             direction: uiGridConstants.DESC,
             priority: 1
@@ -119,15 +134,9 @@ angular.module('tagrefineryGuiApp')
     // Helper functions
     ////////////////////////////////////////////////
 
-    that.totalReplacements = function () {
-      return _.sum(that.data, function (o) {
-        return o.count;
-      });
-    }
-
     that.newCount = function () {
       return _.sum(_.filter(that.data, function (d) {
-        return d.value < that.threshold;
+        return d.value < that.newOccurrences;
       }), function (o) {
         return o.count;
       });
