@@ -78,14 +78,14 @@ angular.module('tagrefineryGuiApp')
       that.importance = parseFloat(data);
       that.newImportance = that.importance;
 
-      stats.writeSpell("Importance Threshold", that.newImportance);
+      stats.writeSpell("Importance Threshold", Math.round(that.newImportance * 1000) / 1000);
     });
 
     socket.on('spellSimilarity', function (data) {
       that.similarity = parseFloat(data);
       that.newSimilarity = that.similarity;
 
-      stats.writeSpell("Similarity Threshold", that.newSimilarity);
+      stats.writeSpell("Similarity Threshold", Math.round(that.newSimilarity * 1000) / 1000);
     });
 
     socket.on('vocab', function (data) {
@@ -127,8 +127,8 @@ angular.module('tagrefineryGuiApp')
         that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
       }
 
-      stats.writeSpell("Importance Threshold", that.newImportance);
-      stats.writeSpell("Similarity Threshold", that.newSimilarity);
+      stats.writeSpell("Importance Threshold", Math.round(that.newImportance * 1000) / 1000);
+      stats.writeSpell("Similarity Threshold", Math.round(that.newSimilarity * 1000) / 1000);
       that.touched = false;
 
       that.getReplacements();
@@ -139,8 +139,8 @@ angular.module('tagrefineryGuiApp')
       that.newSimilarity = that.similarity;
       that.newImportance = that.importance;
 
-      stats.writeSpell("Importance Threshold", that.newImportance);
-      stats.writeSpell("Similarity Threshold", that.newSimilarity);
+      stats.writeSpell("Importance Threshold", Math.round(that.newImportance * 1000) / 1000);
+      stats.writeSpell("Similarity Threshold", Math.round(that.newSimilarity * 1000) / 1000);
       that.touched = false;
 
       that.getReplacements();
