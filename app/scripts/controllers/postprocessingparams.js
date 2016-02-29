@@ -40,7 +40,7 @@ angular.module('tagrefineryGuiApp')
     });
 
     that.apply = function () {
-      socket.emit("applyPostParams", JSON.stringify([{minWordLength: that.minWordLength, useAll: that.useAllWords, split: that.split}]));
+      socket.emit("applyPostParams", JSON.stringify([{minWordLength: that.newMinWordLength, useAll: that.newUseAllWords, split: that.newSplit}]));
 
       that.params.$setPristine();
     };

@@ -40,7 +40,7 @@ angular.module('tagrefineryGuiApp')
     });
 
     that.apply = function () {
-      socket.emit("applyCompositeParams", JSON.stringify([{maxGroupSize: that.maxGroupSize, minOcc: that.minOcc, split: that.split}]));
+      socket.emit("applyCompositeParams", JSON.stringify([{maxGroupSize: that.newMaxGroupSize, minOcc: that.newMinOcc, split: that.newSplit}]));
 
       that.params.$setPristine();
     };
