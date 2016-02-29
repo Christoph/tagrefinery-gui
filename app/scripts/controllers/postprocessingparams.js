@@ -34,6 +34,8 @@ angular.module('tagrefineryGuiApp')
     });
 
     that.apply = function () {
+      socket.emit("applyPostParams", JSON.stringify([{minWordLength: that.minWordLength, useAll: that.useAllWords, split: that.split}]));
+
       socket.emit("applyPostLength", that.minWordLength);
       socket.emit("applyPostAll", that.useAllWords);
       socket.emit("applyPostSplit", that.split);
