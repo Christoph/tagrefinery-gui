@@ -34,9 +34,7 @@ angular.module('tagrefineryGuiApp')
     });
 
     that.apply = function () {
-      socket.emit("applyCompMaxSize", that.maxGroupSize);
-      socket.emit("applyCompMinOcc", that.minOcc);
-      socket.emit("applyCompSplit", that.split);
+      socket.emit("applyCompositeParams", JSON.stringify([{maxGroupSize: that.maxGroupSize, minOcc: that.minOcc, split: that.split}]));
     };
 
   }]);
