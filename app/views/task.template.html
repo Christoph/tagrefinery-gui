@@ -16,6 +16,7 @@
 <div ng-if="status.open[1]" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="24" svg-height="300"
      type-label="Importance" y-label="Count" call-back="ctrl.getNewImportance(threshold)"></div>
 
+<!--Task Parameters and details-->
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
     <h4>Current threshold: {{ctrl.newImportance | number:4 }}</h4>
@@ -28,7 +29,7 @@
   </div>
 </div>
 
-<!--Task Parameters and details-->
+<!--Task advanced content-->
 <div class="row" ng-if="ctrl.showDetails && status.open[1]">
   <div class="col-sm-6">
     <h4 style="position:relative; left:25%">Vocab</h4>
