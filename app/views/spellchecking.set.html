@@ -59,7 +59,7 @@
     <h4>Number of replacements: {{ ctrl.replacements }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showReplacements" uib-btn-checkbox
+    <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showReplacements" ng-click="ctrl.show()" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
       Inspect Replacements
     </label>

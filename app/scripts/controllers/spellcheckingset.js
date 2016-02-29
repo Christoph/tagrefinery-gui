@@ -145,6 +145,13 @@ angular.module('tagrefineryGuiApp')
       }
     }
 
+    that.show = function() {
+      if (that.showReplacements)
+      {
+        socket.emit("getReplacementData", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+      }
+    }
+
     ////////////////////////////////////////////////
     // Vocab Grid
     ////////////////////////////////////////////////
