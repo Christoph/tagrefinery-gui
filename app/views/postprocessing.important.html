@@ -1,4 +1,4 @@
-<div class="compSimple well well-sm">
+<div class="taskInner well well-sm">
 
   <div class="btn-group" style="position:absolute;right:50px">
     <label class="btn btn-success btn-lg" uib-tooltip="Apply selected threshold" ng-click="ctrl.apply()"><span
@@ -23,5 +23,5 @@
 
 <div ng-if="status.open[0]" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
      threshold="ctrl.newThreshold" bins="24" svg-height="300" type-label="Importance" y-label="Count"></div>
-<div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="compSimple"
+<div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="taskInner"
      ng-if="ctrl.showDetails && status.open[0]"></div>

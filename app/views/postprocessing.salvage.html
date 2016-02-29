@@ -1,4 +1,4 @@
-<div class="compSimple well well-sm">
+<div class="taskInner well well-sm">
 
   <div class="btn-group" style="position:absolute;right:50px">
     <label class="btn btn-info btn-lg" uib-tooltip="Salvage Data" ng-click="ctrl.salvaging()"><span
@@ -23,10 +23,10 @@
 <div class="row">
   <div class="col-sm-6">
     <div ng-if="status.open[2]" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
-         class="compSimple"></div>
+         class="taskInner"></div>
   </div>
   <div class="col-sm-6">
     <div ng-if="status.open[2]" ui-grid="ctrl.salvage" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
-         class="compSimple"></div>
+         class="taskInner"></div>
   </div>
 </div>

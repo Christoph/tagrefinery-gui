@@ -1,4 +1,4 @@
-<div class="compSimple">
+<div class="taskInner">
   <button class="btn btn-link infoButton" ng-model="spellset.imp" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
@@ -14,7 +14,7 @@
 <div ng-if="status.open[1]" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="24" svg-height="300"
      type-label="Importance" y-label="Count" call-back="ctrl.getNewImportance(threshold)"></div>
 
-<div class="row compSimple">
+<div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
     <h4>Current threshold: {{ctrl.newImportance | number:4 }}</h4>
   </div>
@@ -39,7 +39,7 @@
 
 <hr>
 
-<div class="compSimple">
+<div class="taskInner">
   <button class="btn btn-link infoButton" ng-model="spellset.sim" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
@@ -52,11 +52,11 @@
   </div>
 </div>
 
-<div class="compSimple" d3-slider ng-if="status.open[1]" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
+<div class="taskInner" d3-slider ng-if="status.open[1]" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
 
 <hr>
 
-<div class="row compSimple">
+<div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
     <h4>Number of replacements: {{ ctrl.replacements }}</h4>
   </div>
