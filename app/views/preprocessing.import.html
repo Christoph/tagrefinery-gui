@@ -3,11 +3,15 @@
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
-    <h4>Task</h4>
-    Short description
+    <h4>Import Black List</h4>
+    Import csv file with "Word" as header and one word per line.
   </div>
   <div class="alert alert-info" ng-show="spellimp.imp">
-    Description
+    Each imported word will be removed from the whole dataset.
+    <br>
+    Note that this happens before spell-correct and does not affect wrong spelled versions
+    <br>
+    of the word.
   </div>
 </div>
 
@@ -18,7 +22,7 @@
 <hr>
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
-    <h4>Number of Dictionary Items: {{ data.length }}</h4>
+    <h4>Number of Black List Items: {{ data.length }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
     <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">

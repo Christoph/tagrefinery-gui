@@ -6,7 +6,7 @@
           Remove Characters <i class="pull-right glyphicon"
                                ng-class="{'glyphicon-chevron-down': status.open[1], 'glyphicon-chevron-right': !status.open[1]}"></i>
           <br>
-          <p class="descriptionText">Remove characters from dataset.</p>
+          <p class="descriptionText">Remove characters from the dataset</p>
         </div>
       </uib-accordion-heading>
       <div class="row" ng-controller="PreprocessingremoveCtrl as ctrl"
@@ -18,7 +18,7 @@
           Replace Characters <i class="pull-right glyphicon"
                                 ng-class="{'glyphicon-chevron-down': status.open[2], 'glyphicon-chevron-right': !status.open[2]}"></i>
           <br>
-          <p class="descriptionText">Replace characters by different ones.</p>
+          <p class="descriptionText">Replace characters in the dataset</p>
         </div>
       </uib-accordion-heading>
       <div class="row" ng-controller="PreprocessingreplaceCtrl as ctrl"
@@ -27,10 +27,10 @@
     <uib-accordion-group is-open="status.open[0]">
       <uib-accordion-heading>
         <div>
-          Pre-Filter <i class="pull-right glyphicon"
+          Filter <i class="pull-right glyphicon"
                         ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
           <br>
-          <p class="descriptionText">Filter unimportant tags right before the whole pipeline. To increase
+          <p class="descriptionText">Filter unimportant words right before the whole pipeline. This increases
             performance.</p>
         </div>
       </uib-accordion-heading>
@@ -43,7 +43,7 @@
           Import Blacklist <i class="pull-right glyphicon"
                                ng-class="{'glyphicon-chevron-down': status.open[3], 'glyphicon-chevron-right': !status.open[3]}"></i>
           <br>
-          <p class="descriptionText">Import black list.</p>
+          <p class="descriptionText">Import words which should be removed from the dataset- such as stopwords..</p>
         </div>
       </uib-accordion-heading>
       <div class="row" ng-controller="PreprocessingimportCtrl as ctrl"

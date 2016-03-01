@@ -4,11 +4,19 @@
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
-    <h4>Task</h4>
-    Short description
+    <h4>Pre Pipeline Filter</h4>
+    Histogram of the occurrences of single words and <strong>not tags</strong>.
   </div>
   <div class="alert alert-info" ng-show="spellset.imp">
-    Description
+    The filter allows you to remove words below a certain occurrence threshold.
+    <br>
+    Single words are used instead of tags. The reason is that word combinations are far less frequent
+    <br>
+    and most of the tags would have a occurrence of 1.
+    <br><br>
+    A threshold of 2 means that a need to have at least 2 occurrences to stay in the dataset.
+    <br>
+    <p>This should be used if the dataset is too big to be computed in a reasonable time.</p>
   </div>
 </div>
 
