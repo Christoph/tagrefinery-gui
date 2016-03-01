@@ -4,11 +4,18 @@
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
-    <h4>Task</h4>
-    Short description
+    <h4>Advanced Parameters</h4>
+    For detailed information click onto the info button on the left.
   </div>
   <div class="alert alert-info" ng-show="spellparams.params">
-    Description
+    <strong>Max Group Size</strong>
+    No groups above this value will be computed.
+    <strong>Min Group Occurrence</strong>
+    No unique group below this value will be considered. <br>
+    This parameters allows you the removal of unique but very rare groups.
+    <strong>Split Groups</strong>
+    If this parameter is set to true. Composite tags like "hard-rock song" will be <br>
+    split into two distinct tags: "hard-rock" and "song". <br>
   </div>
 </div>
 

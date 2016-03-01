@@ -115,7 +115,7 @@ angular.module('tagrefineryGuiApp')
     // Grid
 
     that.uniqueGrid = {
-      enableFiltering: false,
+      enableFiltering: true,
       enableColumnMenus: false,
       enableGridMenu: true,
       showGridFooter: false,
@@ -135,7 +135,7 @@ angular.module('tagrefineryGuiApp')
       columnDefs: [
         {field: 'group', minWidth: 100, width: "*"},
         {
-          field: 'strength', minWidth: 100, width: "*", cellFilter: 'number:3',
+          field: 'strength', displayName: "Groups Strength", minWidth: 100, width: "*", cellFilter: 'number:3',
           sort: {
             direction: uiGridConstants.DESC,
             priority: 1

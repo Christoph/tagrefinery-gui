@@ -4,11 +4,12 @@
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
-    <h4>Task</h4>
-    Short description
+    <h4>Select how many word groups should be considered</h4>
+    A high group strength means that the words of this group appear mostly in this combination
   </div>
   <div class="alert alert-info" ng-show="info.one">
-    Description
+    The groups strength is the number of group occurrences divided by the sum of the single occurrences. <br>
+    This brings up unique groups like artist names.
   </div>
 </div>
 
@@ -19,7 +20,7 @@
 <!--Task Parameters and details-->
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
-    <h4>Current threshold: {{ctrl.newThreshold | number:4 }}</h4>
+    <h4>Threshold: {{ctrl.newThreshold | number:4 }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
     <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
@@ -37,7 +38,7 @@
 <hr>
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
-    <h4>Number of replacements: {{ ctrl.replacements }}</h4>
+    <h4>Number of used Word Groups: {{ ctrl.replacements }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
     <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">

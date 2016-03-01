@@ -4,11 +4,12 @@
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
-    <h4>Task</h4>
-    Short description
+    <h4>Select how many word groups should be considered</h4>
+    A high group strength mean this group appears many time.
   </div>
   <div class="alert alert-info" ng-show="info.one">
-    Description
+    The <b>group strength</b> is the normalized frequency of the group. <br>
+    1 means this word group appeard most often and 0 means it appeared never.
   </div>
 </div>
 
@@ -19,12 +20,12 @@
 <!--Task Parameters and details-->
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
-    <h4>Current threshold: {{ctrl.newThreshold | number:4 }}</h4>
+    <h4>Threshold: {{ctrl.newThreshold | number:4 }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
     <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
-      Inspect Words
+      Inspect Groups
     </label>
   </div>
 </div>
@@ -37,7 +38,7 @@
 <hr>
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
-    <h4>Number of replacements: {{ ctrl.replacements }}</h4>
+    <h4>Number of used Word Groups: {{ ctrl.replacements }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
     <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
