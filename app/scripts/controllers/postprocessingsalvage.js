@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PostprocessingsalvageCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", "$q", function ($scope, socket, uiGridConstants, $timeout, $q) {
+  .controller('PostprocessingsalvageCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
 
     // Get instance of the class
     var that = this;
@@ -25,6 +25,8 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('postSalvageData', function (data) {
       that.salvage.data = JSON.parse(data);
+
+      stats.writePost("Number of Salvaged Tags", that.salvage.data.length);
     });
 
     that.salvaging = function () {

@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PostprocessingreplaceCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", "$q", function ($scope, socket, uiGridConstants, $timeout, $q) {
+  .controller('PostprocessingreplaceCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", "$q", "stats", function ($scope, socket, uiGridConstants, $timeout, $q, stats) {
 
     // Get instance of the class
     var that = this;
@@ -43,10 +43,14 @@ angular.module('tagrefineryGuiApp')
         that.replace.push({replace: temp[0], by: temp[1]});
         that.replacements.push({replace: temp[0], by: temp[1]});
       })
+
+      stats.writePost("Number of Replaced Tags", that.replace.length);
     });
 
     that.apply = function () {
       socket.emit("applyPostReplace", JSON.stringify(that.replace));
+
+      stats.writePost("Number of Replaced Tags", that.replace.length);
     };
 
     ////////////////////////////////////////////////
@@ -62,6 +66,8 @@ angular.module('tagrefineryGuiApp')
     that.undo = function () {
       that.replace = _.clone(that.replacements);
       that.grid.data = _.clone(that.original);
+
+      stats.writePost("Number of Replaced Tags", that.replace.length);
 
       that.touched = false;
     }
