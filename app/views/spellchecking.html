@@ -6,7 +6,7 @@
           Advanced Parameter <i class="pull-right glyphicon"
                                ng-class="{'glyphicon-chevron-down': status.open[3], 'glyphicon-chevron-right': !status.open[3]}"></i>
           <br>
-          <p class="descriptionText">Set the minimum word size for replacements.</p>
+          <p class="descriptionText">Set the minimum word length for replacements.</p>
         </div>
       </uib-accordion-heading>
       <div class="row" ng-controller="SpellcheckingparamsCtrl as ctrl"
@@ -18,7 +18,7 @@
           Import Dictionary <i class="pull-right glyphicon"
                                ng-class="{'glyphicon-chevron-down': status.open[2], 'glyphicon-chevron-right': !status.open[2]}"></i>
           <br>
-          <p class="descriptionText">Import ground thruth dictionary.</p>
+          <p class="descriptionText">Import ground truth dictionary.</p>
         </div>
       </uib-accordion-heading>
       <div class="row" ng-controller="SpellcheckingimportCtrl as ctrl"
@@ -27,10 +27,10 @@
     <uib-accordion-group is-open="status.open[1]">
       <uib-accordion-heading>
         <div>
-          Define Correct Tags <i class="pull-right glyphicon"
+          Configure spell corrector <i class="pull-right glyphicon"
                                  ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
           <br>
-          <p class="descriptionText">Which tags are always true</p>
+          <p class="descriptionText">Reduce spelling errors and different word forms</p>
         </div>
       </uib-accordion-heading>
       <div class="row" ng-controller="SpellcheckingsetCtrl as ctrl" ng-include="'views/spellchecking.set.html'"></div>

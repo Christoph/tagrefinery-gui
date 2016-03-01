@@ -4,15 +4,20 @@
   </button>
   <div style="display: inline-block">
     <h4>Define ground truth</h4>
-    Choose a new threshold on tag quelity to distinguish a group of tags as ground-truth
+    Choose a threshold on word quality to distinguish a group of tags as ground-truth
   </div>
   <div class="alert alert-info" ng-show="spellset.imp">
-    Description
+    Each word has a word quality which is computed from your tag weight. <br>
+    1 means most important and 0 not important at all. <br><br>
+    Everything above the selected threshold will be treated as correct and will not be touched. <br><br>
+    In the <b>Inspect Words</b> dialog shows the left grid the whole vocabulary and after clicking on <br>
+    on word - the right one shows all possible replacements. The green words are above the selected <br>
+    tag quality and the blue words will be replaced at the current similarity value.
   </div>
 </div>
 
-<div ng-if="status.open[1]" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="24" svg-height="300"
-     type-label="Importance" y-label="Count" call-back="ctrl.getNewImportance(threshold)"></div>
+<div ng-if="status.open[1]" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="48" svg-height="300"
+     type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getNewImportance(threshold)"></div>
 
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
@@ -48,7 +53,7 @@
     Choose a value for spelling similarity, above which two tags will be considered the same.
   </div>
   <div class="alert alert-info" ng-show="spellset.sim">
-    Description
+    The value displays the similarity from 0 (completely different) to 1 (the same).
   </div>
 </div>
 
