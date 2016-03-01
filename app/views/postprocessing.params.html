@@ -4,11 +4,18 @@
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
-    <h4>Task</h4>
-    Short description
+    <h4>Advanced Parameters</h4>
+    For more details click onto the info button on the left
   </div>
   <div class="alert alert-info" ng-show="spellparams.params">
-    Description
+    <strong>Min Word Length</strong>
+    All words below the choosen minimum word length will be salvaged with the conservative salvager and all <br>
+    above with the greedy salvager.
+    <strong>Split Composite</strong>
+    If this parameter is true, composite words like "hard-rock song" will be split.
+    <strong>Use All Words</strong>
+    If this parameter is true, all words will be used and not only the filtered ones. <br>
+    False means, only filtered words will be in the final dataset.
   </div>
 </div>
 

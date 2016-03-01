@@ -4,27 +4,27 @@
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
-    <h4>Task</h4>
-    Short description
+    <h4>Select Important Tags</h4>
+    All tags above the selected threshold are important words for the following steps
   </div>
   <div class="alert alert-info" ng-show="info.one">
-    Description
+    Word above the selcted threshold are important. All words below are subject to the salvaging process.
   </div>
 </div>
 
 <!--Task content-->
 <div ng-if="status.open[0]" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
-     threshold="ctrl.newThreshold" bins="24" svg-height="300" type-label="Importance" y-label="Count"></div>
+     threshold="ctrl.newThreshold" bins="24" svg-height="300" type-label="Tag Quality" y-label="Number of Words"></div>
 
 <!--Task Parameters and details-->
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
-    <h4>Current threshold: {{ctrl.newThreshold | number:4 }}</h4>
+    <h4>Threshold: {{ctrl.newThreshold | number:4 }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
     <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
-      Inspect Words
+      Inspect Tags
     </label>
   </div>
 </div>
@@ -37,7 +37,7 @@
 <hr>
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
-    <h4>Number of replacements: {{ ctrl.count }}</h4>
+    <h4>Number of important Tags: {{ ctrl.count }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
     <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
