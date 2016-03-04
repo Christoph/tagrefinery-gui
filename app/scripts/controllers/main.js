@@ -68,10 +68,6 @@ angular.module('tagrefineryGuiApp')
       that.dataLoaded = true;
     };
 
-    that.runAll = function() {
-      socket.emit("runAll", "");
-    }
-
     that.clear = function()
     {
       $scope.data.length = 0;
@@ -97,18 +93,19 @@ angular.module('tagrefineryGuiApp')
 
     that.reconnectToWorkflow = function()
     {
-
       that.showWorkflow = true;
     }
 
     that.startWithDefaults = function()
     {
+      socket.emit("runAll", "default");
 
       that.showWorkflow = true;
     }
 
     that.startCustom = function()
     {
+      socket.emit("runAll", "custom");
 
       that.showWorkflow = true;
     }
