@@ -1,4 +1,4 @@
 <div ng-include="'views/start.html'" ng-if="ctrl.dataLoaded && ctrl.connectionStatus && !ctrl.showWorkflow"></div>
 <div ng-include="'views/import.html'" ng-if="!ctrl.dataLoaded && ctrl.connectionStatus"></div>
 <div ng-include="'views/disconnected.html'" ng-if="!ctrl.connectionStatus"></div>
-<div ng-include="'views/workflow.html'" ng-show="ctrl.showWorkflow"></div>
+<div ng-include="'views/workflow.html'" ng-if="ctrl.dataLoaded && ctrl.connectionStatus && ctrl.showWorkflow"></div>
