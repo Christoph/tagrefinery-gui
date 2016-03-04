@@ -18,21 +18,21 @@
 
   <uib-tab active="activeTabs[2]">
     <uib-tab-heading>
-      <label class="pull-left">3</label> Multiword Tags
+      <label class="pull-left">3</label> Multiword Tags <i class="pull-right glyphicon glyphicon-chevron-right"></i>
     </uib-tab-heading>
     <div class="row" ng-include="'views/composite.html'"></div>
   </uib-tab>
 
   <uib-tab active="activeTabs[3]">
     <uib-tab-heading>
-      <label class="pull-left"><i class="glyphicon glyphicon-user"></i></label> Finalize
+      <label class="pull-left">4</label> Finalize <i class="pull-right glyphicon glyphicon-chevron-right"></i>
     </uib-tab-heading>
     <div class="row" ng-include="'views/postprocessing.html'"></div>
   </uib-tab>
 
   <uib-tab active="activeTabs[4]" select="loadStats()">
     <uib-tab-heading>
-      <label class="pull-left glyphicon glyphicon-chevron-right"></label>Output
+      Output
     </uib-tab-heading>
     <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
   </uib-tab>
