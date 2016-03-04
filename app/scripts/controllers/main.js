@@ -8,42 +8,42 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", function ($scope, socket, uiGridConstants, $timeout) {
+  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants",  function ($scope, socket, uiGridConstants) {
     var that = this;
 
     that.connectionStatus = false;
     that.dataLoaded = false;
+    that.showWorkflow = false;
+    that.dataChanged = false;
+    that.running = false;
+
     $scope.data = [];
 
     $scope.$parent.disconnected = true;
 
     socket.on('connect', function (data) {
       that.connectionStatus = true;
+    });
 
-      if (that.dataLoaded) {
-        $scope.$parent.disconnected = false;
-        $scope.$parent.activeTabs[0] = true;
-      }
+    socket.on('isRunning', function (data) {
+      if(data=="true") that.running = true;
+      else that.running = false;
     });
 
     socket.on('disconnect', function (data) {
       that.connectionStatus = false;
-      $scope.$parent.disconnected = true;
-      $scope.$parent.activeTabs[0] = true;
     });
 
     socket.on('connect_error', function (data) {
       that.connectionStatus = false;
-      $scope.$parent.disconnected = true;
-      $scope.$parent.activeTabs[0] = true;
     });
 
     socket.on('mainData', function (data) {
       var json = JSON.parse(data);
       if (json.length > 0) {
-        $scope.gridOptions.data = json;
+        $scope.data = json;
+        that.dataChanged = false;
         that.dataLoaded = true;
-        $scope.$parent.disconnected = false;
       }
     });
 
@@ -52,17 +52,20 @@ angular.module('tagrefineryGuiApp')
     };
 
     that.import = function () {
-      var chunk = 500;
+      if(that.dataChanged)
+      {
+          var chunk = 500;
 
-      socket.emit("applyImportedDataCount", Math.ceil($scope.data.length / chunk));
+          socket.emit("applyImportedDataCount", Math.ceil($scope.data.length / chunk));
 
-      for (var i = 0, j = $scope.data.length; i < j; i += chunk) {
-        socket.emit("applyImportedData", JSON.stringify(_.slice($scope.data, i, i + chunk)));
+          for (var i = 0, j = $scope.data.length; i < j; i += chunk) {
+            socket.emit("applyImportedData", JSON.stringify(_.slice($scope.data, i, i + chunk)));
+          }
+
+          socket.emit("applyImportedDataFinished", "");
       }
 
-      socket.emit("applyImportedDataFinished", "");
       that.dataLoaded = true;
-      $scope.$parent.disconnected = false;
     };
 
     that.runAll = function() {
@@ -78,7 +81,36 @@ angular.module('tagrefineryGuiApp')
     {
         $scope.$apply(function() {
           $scope.gridApi.importer.importFile( file );
+          that.dataChanged = true;
         })
+    }
+
+    that.goToImport = function()
+    {
+      that.dataLoaded = false;
+    }
+
+    that.goToStart = function()
+    {
+      that.showWorkflow = false;
+    }
+
+    that.reconnectToWorkflow = function()
+    {
+
+      that.showWorkflow = true;
+    }
+
+    that.startWithDefaults = function()
+    {
+
+      that.showWorkflow = true;
+    }
+
+    that.startCustom = function()
+    {
+
+      that.showWorkflow = true;
     }
 
     // Grid

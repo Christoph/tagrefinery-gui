@@ -1,33 +1,36 @@
+<h2 style="text-align: center">TagRefinery</h2>
+<button ng-click="ctrl.goToStart()" class="btn btn-default" style="position: absolute; top: 0px; left: 0px;" uib-tooltip="Back to the Start Screen" tooltip-placement="bottom-right"><span class="glyphicon glyphicon-arrow-left"></span></button>
+<hr>
 <uib-tabset justified="true">
-  <uib-tab active="activeTabs[0]" ng-hide="disconnected">
+  <uib-tab active="activeTabs[0]">
     <uib-tab-heading>
       <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
     </uib-tab-heading>
-    <div class="row" ng-include="'views/preprocessing.html'" ng-hide="disconnected"></div>
+    <div class="row" ng-include="'views/preprocessing.html'"></div>
   </uib-tab>
 
-  <uib-tab active="activeTabs[1]" ng-hide="disconnected">
+  <uib-tab active="activeTabs[1]">
     <uib-tab-heading>
       <label class="pull-left">2</label> Spell-correct <i class="pull-right glyphicon glyphicon-chevron-right"></i>
     </uib-tab-heading>
     <div class="row" ng-include="'views/spellchecking.html'"></div>
   </uib-tab>
 
-  <uib-tab active="activeTabs[2]" ng-hide="disconnected">
+  <uib-tab active="activeTabs[2]">
     <uib-tab-heading>
       <label class="pull-left">3</label> Multiword Tags
     </uib-tab-heading>
     <div class="row" ng-include="'views/composite.html'"></div>
   </uib-tab>
 
-  <uib-tab active="activeTabs[3]" ng-hide="disconnected">
+  <uib-tab active="activeTabs[3]">
     <uib-tab-heading>
       <label class="pull-left"><i class="glyphicon glyphicon-user"></i></label> Finalize
     </uib-tab-heading>
     <div class="row" ng-include="'views/postprocessing.html'"></div>
   </uib-tab>
 
-  <uib-tab active="activeTabs[4]" ng-hide="disconnected" select="loadStats()">
+  <uib-tab active="activeTabs[4]" select="loadStats()">
     <uib-tab-heading>
       <label class="pull-left glyphicon glyphicon-chevron-right"></label>Output
     </uib-tab-heading>
