@@ -1,0 +1,20 @@
+  <div style="text-align: center; margin-top: 5%" class="test">
+    <h4>Import Data</h4>
+    <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Select File"></upload-button>
+    <div class="btn-group">
+      <button class="btn btn-danger" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="data.length<1">Clear</button>
+      <button uib-tooltip="Import" tooltip-placement="bottom" type="button"
+              class="btn btn-success" ng-click="ctrl.import()" ng-disabled="data.length<1">
+        Apply
+      </button>
+    </div>
+
+  <div ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="inner" style="text-align: left"></div>
+
+      <div class="well inner">
+        <p>
+          Import one or multiple files by adding them with "Select File". <br>
+          The file needs to be a csv file with exact the same column headers as in the grid shown.
+        </p>
+      </div>
+  </div>

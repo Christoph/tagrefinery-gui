@@ -25,58 +25,16 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<div class="container-fluid">
-  <div class="row">
-    <uib-tabset justified="true">
-      <div ng-controller="MainCtrl as ctrl" ng-include="'views/header.html'"></div>
-      <uib-tab active="activeTabs[0]" ng-hide="disconnected">
-        <uib-tab-heading>
-          <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-        </uib-tab-heading>
-        <div class="row" ng-include="'views/preprocessing.html'" ng-hide="disconnected"></div>
-      </uib-tab>
-
-      <uib-tab active="activeTabs[1]" ng-hide="disconnected">
-        <uib-tab-heading>
-          <label class="pull-left">2</label> Spell-correct <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-        </uib-tab-heading>
-        <div class="row" ng-include="'views/spellchecking.html'"></div>
-      </uib-tab>
-
-      <uib-tab active="activeTabs[2]" ng-hide="disconnected">
-        <uib-tab-heading>
-          <label class="pull-left">3</label> Multiword Tags
-        </uib-tab-heading>
-        <div class="row" ng-include="'views/composite.html'"></div>
-      </uib-tab>
-
-      <uib-tab active="activeTabs[3]" ng-hide="disconnected">
-        <uib-tab-heading>
-          <label class="pull-left"><i class="glyphicon glyphicon-user"></i></label> Finalize
-        </uib-tab-heading>
-        <div class="row" ng-include="'views/postprocessing.html'"></div>
-      </uib-tab>
-
-      <uib-tab active="activeTabs[4]" ng-hide="disconnected" select="loadStats()">
-        <uib-tab-heading>
-          <label class="pull-left glyphicon glyphicon-chevron-right"></label>Output
-        </uib-tab-heading>
-        <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
-      </uib-tab>
-    </uib-tabset>
-  </div>
-</div>
+<div ng-controller="MainCtrl as ctrl" ng-include="'views/main.html'" style="position: absolute; min-height: 100%; width: 100%;"></div>
 
 <!-- build:js(.) scripts/vendor.js -->
 <script src="bower_components/socket.io/socket.io.js"></script>
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/angular-ui-slider/src/slider.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="bower_components/d3/d3.js"></script>
 <script src="bower_components/angular-mocks/angular-mocks.js"></script>
@@ -84,6 +42,7 @@
 <script src="bower_components/pdfmake/build/pdfmake.js"></script>
 <script src="bower_components/pdfmake/build/vfs_fonts.js"></script>
 <script src="bower_components/CSV-JS/csv.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -111,6 +70,7 @@
 <script src="scripts/controllers/compositeparams.js"></script>
 <script src="scripts/controllers/postprocessingparams.js"></script>
 <script src="scripts/directives/d3slider.js"></script>
+<script src="scripts/directives/upload.js"></script>
 <!-- endbuild -->
 </body>
 </html>

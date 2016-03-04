@@ -8,11 +8,12 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", function ($scope, socket, uiGridConstants) {
+  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", function ($scope, socket, uiGridConstants, $timeout) {
     var that = this;
 
     that.connectionStatus = false;
     that.dataLoaded = false;
+    $scope.data = [];
 
     $scope.$parent.disconnected = true;
 
@@ -68,18 +69,29 @@ angular.module('tagrefineryGuiApp')
       socket.emit("runAll", "");
     }
 
+    that.clear = function()
+    {
+      $scope.data.length = 0;
+    }
+
+    that.getFile = function(file)
+    {
+        $scope.$apply(function() {
+          $scope.gridApi.importer.importFile( file );
+        })
+    }
+
     // Grid
-    $scope.data = [];
     $scope.gridOptions = {
       enableGridMenu: true,
       showGridFooter: true,
       enableColumnMenus: false,
       enableFiltering: true,
-      rowEditWaitInterval: -1,
       data: 'data',
       importerDataAddCallback: function (grid, newObjects) {
         $scope.data = $scope.data.concat(newObjects);
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+        $scope.gridApi.core.refresh();
       },
       onRegisterApi: function (gridApi) {
         $scope.gridApi = gridApi;
@@ -90,5 +102,6 @@ angular.module('tagrefineryGuiApp')
         {field: 'weight', minWidth: 100, width: "*"}
       ]
     };
+
 
   }]);
