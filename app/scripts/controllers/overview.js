@@ -19,6 +19,7 @@ angular.module('tagrefineryGuiApp')
     that.post = [];
 
     that.history = [];
+    that.state = "";
 
     $scope.$parent.loadStats = function()
     {
@@ -39,6 +40,10 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('history', function (data) {
       that.history = JSON.parse(data);
+    });
+
+    socket.on('outputState', function (data) {
+      that.state = data;
     });
 
     that.getHistory = function(tag, item)
