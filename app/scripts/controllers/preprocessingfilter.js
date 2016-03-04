@@ -147,7 +147,7 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     that.newCount = function () {
-      return _.sum(_.filter(that.data, function (d) {
+      return _.sum(that.data, function(d) { return d.count; }) - _.sum(_.filter(that.data, function (d) {
         return d.value < that.newOccurrences;
       }), function (o) {
         return o.count;
