@@ -3,17 +3,15 @@
   "version": "0.0.1",
   "dependencies": {
     "jquery-ui": "^1.11.4",
-    "angular": "1.4.8",
-    "angular-resource": "1.4.8",
-    "angular-ui-grid": "3.0.7",
-    "angular-bootstrap": "0.14.3",
+    "angular": "^1.4.8",
+    "angular-ui-grid": "^3.0.7",
+    "angular-bootstrap": "^1.2.2",
     "bootstrap": "^3.2.0",
-    "d3": "3.5.9",
-    "angular-mocks": "~1.4.8",
+    "d3": "^3.5.9",
     "lodash": "^4.2.0",
     "pdfmake": "^0.1.20",
     "CSV-JS": "csv-js#^1.1.1",
-    "angular-animate": "^1.5.0"
+    "angular-animate": "^1.5.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -34,8 +32,5 @@
         "ui/jquery-ui.js"
       ]
     }
-  },
-  "resolutions": {
-    "jquery-ui": "~1.10.x"
   }
 }
