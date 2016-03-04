@@ -4,9 +4,9 @@
   <div class="row">
     <span style="font-size: large">Start:</span>
     <div class="btn-group">
-      <button class="btn btn-success" ng-click="ctrl.startWithDefaults()">with Defaults</button>
-      <button class="btn btn-success" ng-click="ctrl.startCustom()">Custom Mode</button>
-      <button ng-if="ctrl.running" class="btn btn-warning" ng-click="ctrl.reconnectToWorkflow()">Reconnect</button>
+      <button ng-if="!ctrl.running" class="btn btn-success" ng-click="ctrl.startWithDefaults()">with Default Values</button>
+      <button ng-if="!ctrl.running" class="btn btn-success" ng-click="ctrl.startCustom()">no Default Values</button>
+      <button ng-if="ctrl.running" class="btn btn-warning" ng-click="ctrl.reconnectToWorkflow()">Reconnect to Active Season</button>
     </div>
   </div>
   <div class="row" style="margin-top: 2px">
