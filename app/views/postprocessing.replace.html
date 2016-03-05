@@ -1,13 +1,13 @@
 <!--Task description-->
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="info.one" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Edit Important Tags</h4>
     Edit tags by double clicking if necessary
   </div>
-  <div class="alert alert-info" ng-show="info.one">
+  <div class="alert alert-info" ng-show="ctrl.info">
     This is the last place to make changes to the used tags.
   </div>
 </div>
@@ -49,11 +49,8 @@
     <h4>Number of replacements: {{ ctrl.replace.length }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
+    <button class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
       <span class="glyphicon glyphicon-remove"></span>
-    </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.touched">
-      <span class="glyphicon glyphicon-ok"></span>
-    </label>
+    </button>
   </div>
 </div>

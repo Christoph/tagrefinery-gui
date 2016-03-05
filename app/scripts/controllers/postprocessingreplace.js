@@ -17,12 +17,12 @@ angular.module('tagrefineryGuiApp')
 
     that.replace = [];
     that.replacements = [];
-    that.old;
+    that.old = "";
     that.original = [];
 
     that.remove = function (index) {
       that.replace.splice(index, 1);
-    }
+    };
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -42,16 +42,21 @@ angular.module('tagrefineryGuiApp')
 
         that.replace.push({replace: temp[0], by: temp[1]});
         that.replacements.push({replace: temp[0], by: temp[1]});
-      })
+      });
 
       stats.writePost("Number of Replaced Tags", that.replace.length);
     });
 
-    that.apply = function () {
-      socket.emit("applyPostReplace", JSON.stringify(that.replace));
+    $scope.$on("apply", function() {
+      if(that.touched)
+      {
+        socket.emit("applyPostReplace", JSON.stringify(that.replace));
 
-      stats.writePost("Number of Replaced Tags", that.replace.length);
-    };
+        stats.writePost("Number of Replaced Tags", that.replace.length);
+
+        that.touched = false;
+      }
+    });
 
     ////////////////////////////////////////////////
     // Grid
@@ -70,7 +75,7 @@ angular.module('tagrefineryGuiApp')
       stats.writePost("Number of Replaced Tags", that.replace.length);
 
       that.touched = false;
-    }
+    };
 
     that.saveRow = function (rowEntity) {
       var promise = $q.defer();
