@@ -5,8 +5,8 @@
     <span style="font-size: large">Start:</span>
     <div class="btn-group">
       <button ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-success" ng-click="ctrl.startWithDefaults()">with Default Values</button>
-      <button ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-success" ng-click="ctrl.startCustom()">no Default Values</button>
-      <button ng-if="ctrl.running" class="btn btn-warning" ng-click="ctrl.reconnectToWorkflow()">Reconnect to Active Season</button>
+      <button ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-success" ng-click="ctrl.startCustom()">without Default Values</button>
+      <button ng-if="ctrl.running" class="btn btn-success" ng-click="ctrl.reconnectToWorkflow()">Reconnect to Active Season</button>
     </div>
   </div>
   <div class="row" style="margin-top: 2px">
