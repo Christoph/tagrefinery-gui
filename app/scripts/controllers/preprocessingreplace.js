@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PreprocessingreplaceCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
+  .controller('PreprocessingreplaceCtrl', ["$scope", "socket", function ($scope, socket) {
 
     // Get instance of the class
     var that = this;
@@ -46,14 +46,14 @@ angular.module('tagrefineryGuiApp')
       that.by = "";
 
       that.touched = true;
-    }
+    };
 
     that.remove = function (index) {
       that.replace.splice(index, 1);
       that.out.splice(index, 1);
 
       that.touched = true;
-    }
+    };
 
     ////////////////////////////////////////////////
     // Socket functions

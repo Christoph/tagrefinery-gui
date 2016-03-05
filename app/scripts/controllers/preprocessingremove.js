@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PreprocessingremoveCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
+  .controller('PreprocessingremoveCtrl', ["$scope", "socket", function ($scope, socket) {
 
     // Get instance of the class
     var that = this;
@@ -26,12 +26,6 @@ angular.module('tagrefineryGuiApp')
       that.newRemove = that.remove;
     });
 
-    that.apply = function () {
-      socket.emit("applyPreRemoveCharacters", that.newRemove);
-
-      that.params.$setPristine();
-    };
-
     $scope.$on("apply", function() {
       if(that.params.$dirty)
       {
@@ -39,7 +33,7 @@ angular.module('tagrefineryGuiApp')
 
         that.params.$setPristine();
       }
-    })
+    });
 
     that.undo = function()
     {
