@@ -1,12 +1,12 @@
 <!--Task description-->
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="preremove.params" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Remove Characters</h4>
   </div>
-  <div class="alert alert-info" ng-show="preremove.params">
+  <div class="alert alert-info" ng-show="ctrl.info">
     All characters in this text field will be removed from all tags in the dataset.
   </div>
 </div>
@@ -16,8 +16,11 @@
   <div class="col-sm-12" style="text-align: left">
     <form name="ctrl.params">
       <h5>
-        Characters to remove: <input name="remove" ng-model="ctrl.newRemove"
-                                     uib-tooltip="CAUTION: each character in the input field will be removed!">
+        <label>
+          Characters to remove:
+          <input name="remove" ng-model="ctrl.newRemove"
+                 uib-tooltip="CAUTION: each character in the input field will be removed!">
+        </label>
       </h5>
     </form>
   </div>

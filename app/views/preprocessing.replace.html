@@ -1,12 +1,12 @@
 <!--Task description-->
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="preremove.params" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Replace Characters</h4>
   </div>
-  <div class="alert alert-info" ng-show="preremove.params">
+  <div class="alert alert-info" ng-show="ctrl.info">
     Only single characters replacements are allowed.
     Use this to reduce the complexity of the whole tag space.
   </div>

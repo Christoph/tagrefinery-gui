@@ -14,6 +14,7 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     that.touched = false;
+    that.showDetails = false;
 
     // Frequent
     that.occurrences = 0;
@@ -59,7 +60,7 @@ angular.module('tagrefineryGuiApp')
       }
 
       return index;
-    }
+    };
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -83,14 +84,17 @@ angular.module('tagrefineryGuiApp')
       stats.writePre("Occurrence Threshold", that.newOccurrences);
     });
 
-    that.apply = function () {
-      socket.emit("applyPrefilter", "" + that.newOccurrences);
-      that.occurrences = that.newOccurrences;
+    $scope.$on("apply", function() {
+      if(that.touched)
+      {
+        socket.emit("applyPrefilter", "" + that.newOccurrences);
+        that.occurrences = that.newOccurrences;
 
-      stats.writePre("Occurrence Threshold", that.newOccurrences);
+        stats.writePre("Occurrence Threshold", that.newOccurrences);
 
-      that.touched = false;
-    };
+        that.touched = false;
+      }
+    });
 
     that.undo = function()
     {
@@ -99,7 +103,7 @@ angular.module('tagrefineryGuiApp')
       stats.writePre("Occurrence Threshold", that.newOccurrences);
 
       that.touched = false;
-    }
+    };
 
     ////////////////////////////////////////////////
     // requent Grid

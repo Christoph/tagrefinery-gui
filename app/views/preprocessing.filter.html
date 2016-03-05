@@ -1,13 +1,13 @@
 <!--Task description-->
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="spellset.imp" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Filter Words before the Pipeline</h4>
     The occurrences of single words and <strong>not tags</strong> are shown.
   </div>
-  <div class="alert alert-info" ng-show="spellset.imp">
+  <div class="alert alert-info" ng-show="ctrl.info">
     The filter allows you to remove words below a certain occurrence threshold.
     <br>
     Single words are used instead of tags. The reason is that word combinations are far less frequent
@@ -31,7 +31,7 @@
     <h4>Number of remaining words: {{ ctrl.filteredWords }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
+    <label class="btn btn-primary" ng-model="ctrl.showDetails" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
       Inspect Words
     </label>
@@ -46,11 +46,8 @@
 <hr>
 <div class="row taskInner">
   <div class="col-sm-12" style="text-align: right">
-    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
+    <button class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
       <span class="glyphicon glyphicon-remove"></span>
-    </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.touched">
-      <span class="glyphicon glyphicon-ok"></span>
-    </label>
+    </button>
   </div>
 </div>

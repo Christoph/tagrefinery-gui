@@ -14,8 +14,6 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     that.touched = false;
-    $scope.preremove = {};
-    $scope.preremove.params = false;
 
     that.replace = [];
     that.out = [];
@@ -89,5 +87,5 @@ angular.module('tagrefineryGuiApp')
 
         that.touched = false;
       }
-    })
+    });
   }]);
