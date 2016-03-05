@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('SpellcheckingparamsCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
+  .controller('SpellcheckingparamsCtrl', ["$scope", "socket", function ($scope, socket) {
 
     // Get instance of the class
     var that = this;
@@ -25,11 +25,14 @@ angular.module('tagrefineryGuiApp')
       that.newMinWordSize = that.minWordSize;
     });
 
-    that.apply = function () {
-      socket.emit("applySpellMinWordSize", that.newMinWordSize);
+    $scope.$on("apply", function() {
+      if(that.params.$dirty)
+      {
+        socket.emit("applySpellMinWordSize", that.newMinWordSize);
 
-      that.params.$setPristine();
-    };
+        that.params.$setPristine();
+      }
+    });
 
     that.undo = function()
     {

@@ -1,13 +1,13 @@
 <!--Task description-->
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="spellparams.params" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Select Advanced Parameters</h4>
     For detailed information click on the left info button.
   </div>
-  <div class="alert alert-info" ng-show="spellparams.params">
+  <div class="alert alert-info" ng-show="ctrl.info">
     <strong>Minimum Word Length</strong>
     This parameter defines what the minimum word length for replacements is. <br>
     Words below that length will be ignored in the process of spell correction.
@@ -18,7 +18,11 @@
 <div class="row taskInner">
   <div class="col-sm-12" style="text-align: left">
     <form name="ctrl.params">
-      <h5>Minimum Word Length: <input name="minWordSize" type="number" ng-model="ctrl.newMinWordSize" uib-tooltip="What is the minimum word length where replacements will be applied."></h5>
+      <h5><label>
+        Minimum Word Length:
+        <input name="minWordSize" type="number" ng-model="ctrl.newMinWordSize"
+               uib-tooltip="What is the minimum word length where replacements will be applied.">
+      </label></h5>
     </form>
   </div>
 </div>
@@ -27,11 +31,8 @@
 <hr>
 <div class="row taskInner">
   <div class="col-sm-12" style="text-align: right">
-    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.params.$dirty">
+    <button class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.params.$dirty">
       <span class="glyphicon glyphicon-remove"></span>
-    </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.params.$dirty">
-      <span class="glyphicon glyphicon-ok"></span>
-    </label>
+    </button>
   </div>
 </div>
