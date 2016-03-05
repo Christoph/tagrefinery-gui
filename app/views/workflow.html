@@ -12,14 +12,14 @@
       <div class="row" ng-include="'views/preprocessing.html'"></div>
     </uib-tab>
 
-    <uib-tab index="1" disable="ctrl.disabled[1]">
+    <uib-tab index="1" disable="ctrl.disabled[1]" deselect="ctrl.apply()">
       <uib-tab-heading>
         <label class="pull-left">2</label> Spell-correct <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>
       <div class="row" ng-include="'views/spellchecking.html'"></div>
     </uib-tab>
 
-    <uib-tab index="2" disable="ctrl.disabled[2]">
+    <uib-tab index="2" disable="ctrl.disabled[2]" deselect="ctrl.apply()">
       <uib-tab-heading>
         <label class="pull-left">3</label> Multiword Tags <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>
