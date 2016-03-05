@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('CompositeparamsCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
+  .controller('CompositeparamsCtrl', ["$scope", "socket", function ($scope, socket) {
 
     // Get instance of the class
     var that = this;
@@ -39,11 +39,14 @@ angular.module('tagrefineryGuiApp')
       that.newMinOcc = data;
     });
 
-    that.apply = function () {
-      socket.emit("applyCompositeParams", JSON.stringify([{maxGroupSize: that.newMaxGroupSize, minOcc: that.newMinOcc, split: that.newSplit}]));
+    $scope.$on("apply", function() {
+      if(that.params.$dirty)
+      {
+        socket.emit("applyCompositeParams", JSON.stringify([{maxGroupSize: that.newMaxGroupSize, minOcc: that.newMinOcc, split: that.newSplit}]));
 
-      that.params.$setPristine();
-    };
+        that.params.$setPristine();
+      }
+    });
 
     that.undo = function()
     {

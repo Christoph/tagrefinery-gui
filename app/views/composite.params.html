@@ -1,13 +1,13 @@
 <!--Task description-->
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="spellparams.params" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Advanced Parameters</h4>
     For detailed information click onto the info button on the left.
   </div>
-  <div class="alert alert-info" ng-show="spellparams.params">
+  <div class="alert alert-info" ng-show="ctrl.info">
     <strong>Max Group Size</strong>
     No groups above this value will be computed.
     <strong>Min Group Occurrence</strong>
@@ -24,11 +24,22 @@
   <div class="col-sm-12" style="text-align: left">
     <form name="ctrl.params">
       <h5>
-        Max Group Size: <input type="number" ng-model="ctrl.newMaxGroupSize" uib-tooltip="What should the maximum word count per group be?">
+        <label>
+          Max Group Size:
+          <input type="number" ng-model="ctrl.newMaxGroupSize"
+                 uib-tooltip="What should the maximum word count per group be?">
+        </label>
         <br>
-        Min Group Occurrence: <input type="number" ng-model="ctrl.newMinOcc" uib-tooltip="What is the minimum number of occurrences a group should have to be considered?">
+        <label>
+          Min Group Occurrence:
+          <input type="number" ng-model="ctrl.newMinOcc"
+                 uib-tooltip="What is the minimum number of occurrences a group should have to be considered?">
+        </label>
         <br>
-        Split Groups: <input type="checkbox" ng-model="ctrl.newSplit" uib-tooltip="Should composite non groups stay together?">
+        <label>
+          Split Groups:
+          <input type="checkbox" ng-model="ctrl.newSplit" uib-tooltip="Should composite non groups stay together?">
+        </label>
       </h5>
     </form>
   </div>
@@ -38,11 +49,8 @@
 <hr>
 <div class="row taskInner">
   <div class="col-sm-12" style="text-align: right">
-    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.params.$dirty">
+    <button class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.params.$dirty">
       <span class="glyphicon glyphicon-remove"></span>
-    </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.params.$dirty">
-      <span class="glyphicon glyphicon-ok"></span>
-    </label>
+    </button>
   </div>
 </div>
