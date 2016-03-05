@@ -14,6 +14,8 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     that.touched = false;
+    $scope.preremove = {};
+    $scope.preremove.params = false;
 
     that.replace = [];
     that.out = [];
@@ -79,12 +81,6 @@ angular.module('tagrefineryGuiApp')
         that.out.push({replace: temp[0], by: temp[1]});
       })
     });
-
-    that.apply = function () {
-      socket.emit("applyPreReplaceCharacters", JSON.stringify(that.out));
-
-      that.touched = false;
-    };
 
     $scope.$on("apply", function() {
       if(that.touched)
