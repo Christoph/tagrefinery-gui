@@ -1,13 +1,13 @@
 <div class="guidedInner">
-  <span class="guidedQuestion">This is the question?</span>
+  <span ng-show="ctrl.currentStep == 0" class="guidedQuestion">This is the question?</span>
   <br>
   <div class="btn-group">
-    <button ng-click="ctrl.ok()" class="btn btn-success" style="width: 100px">Yes <span class="glyphicon glyphicon-ok"></span></button>
-    <button ng-click="ctrl.next()" class="btn btn-warning" style="width: 100px">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+    <button ng-click="ctrl.ok()" class="btn btn-primary" style="width: 100px">Yes <span class="glyphicon glyphicon-ok"></span></button>
+    <button ng-click="ctrl.next()" class="btn btn-info" style="width: 100px">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
   </div>
   <hr>
   <div uib-collapse="!ctrl.showStep" style="text-align: left">
-    <div ng-show="ctrl.currentStep == 0" >
+    <div ng-show="ctrl.currentStep == 0">
       <div ng-controller="PreprocessingremoveCtrl as ctrl" ng-include="'views/preprocessing.remove.html'"></div>
     </div>
   </div>
