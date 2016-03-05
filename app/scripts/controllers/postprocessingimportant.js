@@ -59,7 +59,7 @@ angular.module('tagrefineryGuiApp')
       }
 
       return index;
-    }
+    };
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -83,13 +83,16 @@ angular.module('tagrefineryGuiApp')
       stats.writePost("Importance Threshold", Math.round(that.newThreshold * 1000) / 1000);
     });
 
-    that.apply = function () {
-      socket.emit("applyPostFilter", "" + that.newThreshold);
+    $scope.$on("apply", function() {
+      if(that.touched)
+      {
+        socket.emit("applyPostFilter", "" + that.newThreshold);
 
-      stats.writePost("Importance Threshold", Math.round(that.newThreshold * 1000) / 1000);
+        stats.writePost("Importance Threshold", Math.round(that.newThreshold * 1000) / 1000);
 
-      that.touched = false;
-    };
+        that.touched = false;
+      }
+    });
 
     that.undo = function()
     {
@@ -98,7 +101,7 @@ angular.module('tagrefineryGuiApp')
       stats.writePost("Importance Threshold", Math.round(that.newThreshold * 1000) / 1000);
 
       that.touched = false;
-    }
+    };
 
     ////////////////////////////////////////////////
     // requent Grid
