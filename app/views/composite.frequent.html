@@ -1,13 +1,13 @@
 <!--Task description-->
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="info.one" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Select how many multiword tags should be considered</h4>
     A high group strength mean this multiword tag appears many time.
   </div>
-  <div class="alert alert-info" ng-show="info.one">
+  <div class="alert alert-info" ng-show="ctrl.info">
     The <b>group strength</b> is the normalized frequency of the tag. <br>
     1 means this multiword tag appeared most often and 0 means it appeared never.
   </div>
@@ -21,9 +21,10 @@
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
     <h4>Threshold: {{ctrl.newThreshold | number:4 }}</h4>
+    <h4>Number of used multiword Tags: {{ ctrl.replacements }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
+    <label class="btn btn-default" ng-model="ctrl.showDetails" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
       Inspect Tags
     </label>
@@ -37,15 +38,9 @@
 <!--Footer -> Apply and Undo -->
 <hr>
 <div class="row taskInner">
-  <div class="col-sm-6" style="text-align: left">
-    <h4>Number of used multiword Tags: {{ ctrl.replacements }}</h4>
-  </div>
-  <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
+  <div class="col-sm-12" style="text-align: right">
+    <button class="btn btn-danger btn-lg pull-right" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
       <span class="glyphicon glyphicon-remove"></span>
-    </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.touched">
-      <span class="glyphicon glyphicon-ok"></span>
-    </label>
+    </button>
   </div>
 </div>
