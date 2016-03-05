@@ -12,32 +12,30 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     // State variables
+    that.guided = true;
+    that.showStep = false;
+    that.currentStep = 0;
 
     ////////////////////////////////////////////////
     // Start
     ////////////////////////////////////////////////
 
-    socket.on('mainData', function (data) {
-      var json = JSON.parse(data);
-      if (json.length > 0) {
-        $scope.data = json;
-        that.dataChanged = false;
-        that.dataLoaded = true;
-      }
-    });
-
-    socket.on('isRunning', function (data) {
-      that.running = data == "true";
-    });
-
-    socket.on('dataLoaded', function () {
-      that.dataLoaded = true;
-      that.loading = false;
-    });
-
-    that.goToImport = function()
+    that.switchMode = function()
     {
-      that.showImport = true;
+      that.guided = !that.guided;
+
+      socket.emit("getParameters", "");
     };
+
+    that.ok = function()
+    {
+      that.showStep = true;
+    }
+
+    that.next = function()
+    {
+      that.showStep = false;
+      that.currentStep++;
+    }
 
   }]);

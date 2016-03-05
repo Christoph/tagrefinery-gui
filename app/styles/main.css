@@ -121,6 +121,17 @@ div.inner {
   margin: 10px 50px;
 }
 
+div.guidedInner {
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+}
+
+span.guidedQuestion {
+  font-size: xx-large;
+  font-weight: 300;
+}
+
 div.description {
   margin-bottom: 10px;
 }
