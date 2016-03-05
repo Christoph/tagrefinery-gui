@@ -2,7 +2,7 @@
   <div class="col-sm-8" style="text-align: center">
     <h4> Final Dataset </h4>
     <span>Last applied step: {{ctrl.state}}</span>
-    <div style="text-align: left" ng-if="activeTabs[4]" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
+    <div style="text-align: left" ng-if="active == 4" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
          class="taskInner"></div>
     <h4>History</h4>
 
@@ -18,7 +18,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="x in ctrl.history" id="{{$index}}">
+      <tr ng-repeat="x in ctrl.history">
         <td>{{ x.original }}</td>
         <td>{{ x.pre }}</td>
         <td>{{ x.spell }}</td>
@@ -34,22 +34,22 @@
     <table class="table" style="width:95% ">
       <tbody>
       <th>Preprocessing</th>
-      <tr ng-repeat="(key, value) in ctrl.pre" id="{{$index}}">
+      <tr ng-repeat="(key, value) in ctrl.pre">
         <td>{{ key }}</td>
         <td>{{ value }}</td>
       </tr>
       <th>Spell-correct</th>
-      <tr ng-repeat="(key, value) in ctrl.spell" id="{{$index}}">
+      <tr ng-repeat="(key, value) in ctrl.spell">
         <td>{{ key }}</td>
         <td>{{ value }}</td>
       </tr>
       <th>Multiword Tags</th>
-      <tr ng-repeat="(key, value) in ctrl.comp" id="{{$index}}">
+      <tr ng-repeat="(key, value) in ctrl.comp">
         <td>{{ key }}</td>
         <td>{{ value }}</td>
       </tr>
       <th>Finalize</th>
-      <tr ng-repeat="(key, value) in ctrl.post" id="{{$index}}">
+      <tr ng-repeat="(key, value) in ctrl.post">
         <td>{{ key }}</td>
         <td>{{ value }}</td>
       </tr>
