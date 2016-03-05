@@ -2,9 +2,8 @@
 <button ng-click="ctrl.goToStart()" class="btn btn-default" style="position: absolute; top: 0; left: 0;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="glyphicon glyphicon-arrow-left"></span></button>
 <hr>
 <div ng-controller="WorkflowCtrl as ctrl">
-  <button ng-click="ctrl.switchMode()">Switch</button>
   <div ng-if="ctrl.guided" ng-include="'views/guided.html'"> </div>
-  <uib-tabset justified="true" active="active" ng-show="!ctrl.guided">
+  <uib-tabset justified="true" active="active" ng-if="!ctrl.guided">
     <uib-tab index="0" disable="ctrl.disabled[0]" deselect="ctrl.apply()">
       <uib-tab-heading>
         <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>

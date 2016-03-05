@@ -20,12 +20,11 @@ angular.module('tagrefineryGuiApp')
     // Start
     ////////////////////////////////////////////////
 
-    that.switchMode = function()
-    {
-      that.guided = !that.guided;
+    socket.on('isGuided', function (data) {
+      that.guided = data == "true";
 
       socket.emit("getParameters", "");
-    };
+    });
 
     that.ok = function()
     {
