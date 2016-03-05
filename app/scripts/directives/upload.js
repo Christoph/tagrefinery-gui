@@ -14,10 +14,7 @@ angular.module('tagrefineryGuiApp')
         getFile: '&'
       },
       templateUrl: 'views/upload.html',
-      link: function (scope, element, attrs) {
-        // Get attributes or use defaults
-        scope.margin = parseInt(attrs.margin) || 30;
-
+      link: function (scope) {
         // Rendering
         $timeout(function () {
           var handleFileSelect = function( event ){

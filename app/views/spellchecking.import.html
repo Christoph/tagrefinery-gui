@@ -1,32 +1,21 @@
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="spellimp.imp" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Import Ground Truth Words</h4>
     Import a csv file with "Tag" as header and one word per line.
   </div>
-  <div class="alert alert-info" ng-show="spellimp.imp">
+  <div class="alert alert-info" ng-show="ctrl.info">
     Each word in this list will be treated as correct word. <br>
     Each word group will be treated as correct group.
   </div>
 </div>
 
 <!--Task content-->
-<div ng-if="status.open[2]" ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="grid"></div>
-
-<!--Footer -> Apply and Undo -->
-<hr>
-<div class="row taskInner">
-  <div class="col-sm-6" style="text-align: left">
-    <h4>Number of Dictionary Items: {{ data.length }}</h4>
-  </div>
-  <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
-      <span class="glyphicon glyphicon-remove"></span>
-    </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.touched">
-      <span class="glyphicon glyphicon-ok"></span>
-    </label>
-  </div>
+<div ng-if="status.open[2]" style="text-align: center">
+  <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Select File"></upload-button>
+  <button class="btn btn-danger" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="data.length<1">Clear</button>
 </div>
+
+<div ng-if="status.open[2]" ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="grid"></div>

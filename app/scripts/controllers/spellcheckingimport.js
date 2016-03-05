@@ -13,6 +13,7 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
     that.touched = false;
+    $scope.data = [];
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -21,18 +22,10 @@ angular.module('tagrefineryGuiApp')
     socket.on('spellDictionaryParams', function (data) {
       _.map(data, function (d) {
         $scope.data.push({tag: d});
-      })
+      });
 
       stats.writeSpell("Number of Ground Truth Words", $scope.data.length);
     });
-
-    that.apply = function () {
-      socket.emit("applySpellImportedData", JSON.stringify($scope.data));
-
-      stats.writeSpell("Number of Ground Truth Words", $scope.data.length);
-
-      that.touched = false;
-    };
 
     $scope.$on("apply", function() {
       if(that.touched)
@@ -43,31 +36,36 @@ angular.module('tagrefineryGuiApp')
 
         that.touched = false;
       }
-    })
+    });
 
-    that.undo = function()
+    that.clear = function()
     {
-      $scope.data = [];
+      $scope.data.length = 0;
+    };
 
-      stats.writeSpell("Number of Ground Truth Words", $scope.data.length);
-
-      that.touched = false;
-    }
+    that.getFile = function(file)
+    {
+      $scope.$apply(function() {
+        $scope.gridApi.importer.importFile( file );
+      })
+    };
 
     ////////////////////////////////////////////////
     // Grid
     ////////////////////////////////////////////////
 
     // Grid
-    $scope.data = [];
     $scope.gridOptions = {
-      enableGridMenu: true,
-      rowEditWaitInterval: -1,
+      enableGridMenu: false,
+      showGridFooter: true,
+      enableColumnMenus: false,
+      enableFiltering: true,
       data: 'data',
       importerDataAddCallback: function (grid, newObjects) {
         $scope.data.length = 0;
         $scope.data = $scope.data.concat(newObjects);
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+        $scope.gridApi.core.refresh();
         that.touched = true;
       },
       onRegisterApi: function (gridApi) {
