@@ -4,8 +4,8 @@
   <div class="row">
     <span style="font-size: large">Start:</span>
     <div class="btn-group">
-      <button ng-if="!ctrl.running" class="btn btn-success" ng-click="ctrl.startWithDefaults()">with Default Values</button>
-      <button ng-if="!ctrl.running" class="btn btn-success" ng-click="ctrl.startCustom()">no Default Values</button>
+      <button ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-success" ng-click="ctrl.startWithDefaults()">with Default Values</button>
+      <button ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-success" ng-click="ctrl.startCustom()">no Default Values</button>
       <button ng-if="ctrl.running" class="btn btn-warning" ng-click="ctrl.reconnectToWorkflow()">Reconnect to Active Season</button>
     </div>
   </div>
@@ -13,6 +13,7 @@
     <button class="btn btn-primary" ng-click="ctrl.goToImport()">Import/Update Data</button>
     <span style="font-size: large">Status:</span>
     <span style="font-size: large; color: green" ng-if="ctrl.dataLoaded">data loaded</span>
-    <span style="font-size: large; color: grey" ng-if="!ctrl.dataLoaded">no data</span>
+    <span style="font-size: large; color: grey" ng-if="!ctrl.dataLoaded">no data </span>
+    <div spin-circle style="width: 30px; height: 30px"></div>
   </div>
 </div>
