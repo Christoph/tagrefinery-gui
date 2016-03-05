@@ -1,12 +1,12 @@
 <div class="taskInner">
-  <button class="btn btn-link infoButton" ng-model="spellset.imp" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.infoI" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Define ground truth</h4>
     Choose a threshold on word quality to distinguish a group of tags as ground-truth
   </div>
-  <div class="alert alert-info" ng-show="spellset.imp">
+  <div class="alert alert-info" ng-show="ctrl.infoI">
     Each word has a word quality which is computed from your tag weight. <br>
     1 means most important and 0 not important at all. <br><br>
     Everything above the selected threshold will be treated as correct and will not be touched. <br><br>
@@ -24,7 +24,7 @@
     <h4>Current threshold: {{ctrl.newImportance | number:4 }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showDetails" uib-btn-checkbox
+    <label class="btn btn-primary" ng-model="ctrl.showDetails" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
       Inspect Words
     </label>
@@ -45,14 +45,14 @@
 <hr>
 
 <div class="taskInner">
-  <button class="btn btn-link infoButton" ng-model="spellset.sim" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.infoS" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Modify degree of similarity</h4>
     Choose a value for spelling similarity, above which two tags will be considered the same.
   </div>
-  <div class="alert alert-info" ng-show="spellset.sim">
+  <div class="alert alert-info" ng-show="ctrl.infoS">
     The value displays the similarity from 0 (completely different) to 1 (the same).
   </div>
 </div>
@@ -64,7 +64,7 @@
     <h4>Number of replacements: {{ ctrl.replacements }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-default"  uib-btn-checkbox ng-model="ctrl.showReplacements" ng-click="ctrl.show()" uib-btn-checkbox
+    <label class="btn btn-primary" ng-model="ctrl.showReplacements" ng-click="ctrl.show()" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
       Inspect Replacements
     </label>
@@ -77,11 +77,8 @@
 
 <div class="row taskInner">
   <div class="col-sm-12" style="text-align: right">
-    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
+    <button class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
       <span class="glyphicon glyphicon-remove"></span>
-    </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.touched">
-      <span class="glyphicon glyphicon-ok"></span>
-    </label>
+    </button>
   </div>
 </div>

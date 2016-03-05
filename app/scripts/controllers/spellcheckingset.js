@@ -56,7 +56,7 @@ angular.module('tagrefineryGuiApp')
       var index = 0;
 
       for (var i = 0; i < data.length; i++) {
-        console.log(data[i])
+        console.log(data[i]);
         if (data[i].importance < threshold) {
           if ((threshold - data[i].importance) <= (data[i - 1].importance - threshold)) {
             return i;
@@ -68,7 +68,7 @@ angular.module('tagrefineryGuiApp')
       }
 
       return index;
-    }
+    };
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -117,22 +117,25 @@ angular.module('tagrefineryGuiApp')
       that.simGrid.data = cluster;
     });
 
-    that.apply = function () {
-      that.similarity = that.newSimilarity;
-      that.importance = that.newImportance;
+    $scope.$on("apply", function() {
+      if(that.touched)
+      {
+        that.similarity = that.newSimilarity;
+        that.importance = that.newImportance;
 
-      socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+        socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
 
-      if (that.showDetails) {
-        that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+        if (that.showDetails) {
+          that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+        }
+
+        stats.writeSpell("Importance Threshold", Math.round(that.newImportance * 1000) / 1000);
+        stats.writeSpell("Similarity Threshold", Math.round(that.newSimilarity * 1000) / 1000);
+        that.touched = false;
+
+        that.getReplacements();
       }
-
-      stats.writeSpell("Importance Threshold", Math.round(that.newImportance * 1000) / 1000);
-      stats.writeSpell("Similarity Threshold", Math.round(that.newSimilarity * 1000) / 1000);
-      that.touched = false;
-
-      that.getReplacements();
-    };
+    });
 
     that.undo = function()
     {
@@ -144,7 +147,7 @@ angular.module('tagrefineryGuiApp')
       that.touched = false;
 
       that.getReplacements();
-    }
+    };
 
     that.getReplacements = function()
     {
@@ -154,14 +157,14 @@ angular.module('tagrefineryGuiApp')
       {
         socket.emit("getReplacementData", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
       }
-    }
+    };
 
     that.show = function() {
       if (that.showReplacements)
       {
         socket.emit("getReplacementData", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
       }
-    }
+    };
 
     ////////////////////////////////////////////////
     // Vocab Grid
@@ -230,12 +233,12 @@ angular.module('tagrefineryGuiApp')
     $scope.isCurrent = function(row)
     {
       return row.entity.similarity > that.newSimilarity && row.entity.importance < that.newImportance;
-    }
+    };
 
     $scope.isTruth = function(row)
     {
       return row.entity.importance >= that.newImportance;
-    }
+    };
 
     that.simGrid = {
       multiSelect: false,
