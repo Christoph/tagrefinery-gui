@@ -5,7 +5,7 @@
   <button ng-click="ctrl.switchMode()">Switch</button>
   <div ng-if="ctrl.guided" ng-include="'views/guided.html'"> </div>
   <uib-tabset justified="true" active="active" ng-show="!ctrl.guided">
-    <uib-tab index="0" disable="ctrl.disabled[0]">
+    <uib-tab index="0" disable="ctrl.disabled[0]" deselect="ctrl.apply()">
       <uib-tab-heading>
         <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>

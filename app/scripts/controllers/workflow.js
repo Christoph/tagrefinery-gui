@@ -36,6 +36,16 @@ angular.module('tagrefineryGuiApp')
     {
       that.showStep = false;
       that.currentStep++;
+
+      // Let the child apply changes
+      $scope.$broadcast("apply");
+    }
+
+    that.apply = function()
+    {
+      console.log("deselect")
+      // Let the child apply changes
+      $scope.$broadcast("apply");
     }
 
   }]);

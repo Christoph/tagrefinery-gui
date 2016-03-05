@@ -34,6 +34,17 @@ angular.module('tagrefineryGuiApp')
       that.touched = false;
     };
 
+    $scope.$on("apply", function() {
+      if(that.touched)
+      {
+        socket.emit("applySpellImportedData", JSON.stringify($scope.data));
+
+        stats.writeSpell("Number of Ground Truth Words", $scope.data.length);
+
+        that.touched = false;
+      }
+    })
+
     that.undo = function()
     {
       $scope.data = [];

@@ -86,4 +86,12 @@ angular.module('tagrefineryGuiApp')
       that.touched = false;
     };
 
+    $scope.$on("apply", function() {
+      if(that.touched)
+      {
+        socket.emit("applyPreReplaceCharacters", JSON.stringify(that.out));
+
+        that.touched = false;
+      }
+    })
   }]);

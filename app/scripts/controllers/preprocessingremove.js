@@ -32,6 +32,15 @@ angular.module('tagrefineryGuiApp')
       that.params.$setPristine();
     };
 
+    $scope.$on("apply", function() {
+      if(that.params.$dirty)
+      {
+        socket.emit("applyPreRemoveCharacters", that.newRemove);
+
+        that.params.$setPristine();
+      }
+    })
+
     that.undo = function()
     {
       that.newRemove = that.remove;
