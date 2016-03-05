@@ -63,14 +63,14 @@ angular.module('tagrefineryGuiApp')
 
     that.startWithDefaults = function()
     {
-      socket.emit("runAll", "guided");
+      socket.emit("selectMode", "guided");
 
       that.showWorkflow = true;
     };
 
     that.startCustom = function()
     {
-      socket.emit("runAll", "free");
+      socket.emit("selectMode", "free");
 
       that.showWorkflow = true;
     };
