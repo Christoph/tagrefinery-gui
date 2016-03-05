@@ -1,13 +1,13 @@
 <!--Task description-->
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="spellparams.params" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Advanced Parameters</h4>
     For more details click onto the info button on the left
   </div>
-  <div class="alert alert-info" ng-show="spellparams.params">
+  <div class="alert alert-info" ng-show="ctrl.info">
     <strong>Min Word Length</strong>
     All words below the choosen minimum word length will be salvaged with the conservative salvager and all <br>
     above with the greedy salvager.
@@ -24,11 +24,22 @@
   <div class="col-sm-12" style="text-align: left">
     <form name="ctrl.params">
       <h5>
-        Min Word Length: <input type="number" ng-model="ctrl.newMinWordLength" uib-tooltip="What is the minimum word length for greedy salvaging?">
+        <label>
+          Min Word Length:
+          <input type="number" ng-model="ctrl.newMinWordLength"
+                 uib-tooltip="What is the minimum word length for greedy salvaging?">
+        </label>
         <br>
-        Split Composite Tags: <input type="checkbox" ng-model="ctrl.newSplit" uib-tooltip="Should multiword tags be split?">
+        <label>
+          Split Composite Tags:
+          <input type="checkbox" ng-model="ctrl.newSplit" uib-tooltip="Should multiword tags be split?">
+        </label>
         <br>
-        Use All Words: <input type="checkbox" ng-model="ctrl.newUseAllWords" uib-tooltip="Should all words be used or only the filtered ones?">
+        <label>
+          Use All Words:
+          <input type="checkbox" ng-model="ctrl.newUseAllWords"
+                 uib-tooltip="Should all words be used or only the filtered ones?">
+        </label>
       </h5>
     </form>
   </div>
@@ -38,11 +49,8 @@
 <hr>
 <div class="row taskInner">
   <div class="col-sm-12" style="text-align: right">
-    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.params.$dirty">
+    <button class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.params.$dirty">
       <span class="glyphicon glyphicon-remove"></span>
-    </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.params.$dirty">
-      <span class="glyphicon glyphicon-ok"></span>
-    </label>
+    </button>
   </div>
 </div>

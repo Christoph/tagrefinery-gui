@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('PostprocessingparamsCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
+  .controller('PostprocessingparamsCtrl', ["$scope", "socket", function ($scope, socket) {
 
     // Get instance of the class
     var that = this;
@@ -39,11 +39,14 @@ angular.module('tagrefineryGuiApp')
       that.newMinWordLength = data;
     });
 
-    that.apply = function () {
-      socket.emit("applyPostParams", JSON.stringify([{minWordLength: that.newMinWordLength, useAll: that.newUseAllWords, split: that.newSplit}]));
+    $scope.$on("apply", function() {
+      if(that.params.$dirty)
+      {
+        socket.emit("applyPostParams", JSON.stringify([{minWordLength: that.newMinWordLength, useAll: that.newUseAllWords, split: that.newSplit}]));
 
-      that.params.$setPristine();
-    };
+        that.params.$setPristine();
+      }
+    });
 
     that.undo = function()
     {
