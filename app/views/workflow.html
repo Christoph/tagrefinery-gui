@@ -1,39 +1,41 @@
 <h2 style="text-align: center">TagRefinery</h2>
-<button ng-click="ctrl.goToStart()" class="btn btn-default" style="position: absolute; top: 0px; left: 0px;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="glyphicon glyphicon-arrow-left"></span></button>
+<button ng-click="ctrl.goToStart()" class="btn btn-default" style="position: absolute; top: 0; left: 0;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="glyphicon glyphicon-arrow-left"></span></button>
 <hr>
-<uib-tabset justified="true" active="active">
-  <uib-tab index="0">
-    <uib-tab-heading>
-      <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-    </uib-tab-heading>
-    <div class="row" ng-include="'views/preprocessing.html'"></div>
-  </uib-tab>
+<div ng-controller="WorkflowCtrl as ctrl">
+  <uib-tabset justified="true" active="active">
+    <uib-tab index="0">
+      <uib-tab-heading>
+        <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+      </uib-tab-heading>
+      <div class="row" ng-include="'views/preprocessing.html'"></div>
+    </uib-tab>
 
-  <uib-tab index="1">
-    <uib-tab-heading>
-      <label class="pull-left">2</label> Spell-correct <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-    </uib-tab-heading>
-    <div class="row" ng-include="'views/spellchecking.html'"></div>
-  </uib-tab>
+    <uib-tab index="1">
+      <uib-tab-heading>
+        <label class="pull-left">2</label> Spell-correct <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+      </uib-tab-heading>
+      <div class="row" ng-include="'views/spellchecking.html'"></div>
+    </uib-tab>
 
-  <uib-tab index="2">
-    <uib-tab-heading>
-      <label class="pull-left">3</label> Multiword Tags <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-    </uib-tab-heading>
-    <div class="row" ng-include="'views/composite.html'"></div>
-  </uib-tab>
+    <uib-tab index="2">
+      <uib-tab-heading>
+        <label class="pull-left">3</label> Multiword Tags <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+      </uib-tab-heading>
+      <div class="row" ng-include="'views/composite.html'"></div>
+    </uib-tab>
 
-  <uib-tab index="3">
-    <uib-tab-heading>
-      <label class="pull-left">4</label> Finalize <i class="pull-right glyphicon glyphicon-chevron-right"></i>
-    </uib-tab-heading>
-    <div class="row" ng-include="'views/postprocessing.html'"></div>
-  </uib-tab>
+    <uib-tab index="3">
+      <uib-tab-heading>
+        <label class="pull-left">4</label> Finalize <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+      </uib-tab-heading>
+      <div class="row" ng-include="'views/postprocessing.html'"></div>
+    </uib-tab>
 
-  <uib-tab index="4" select="loadStats()">
-    <uib-tab-heading>
-      Output
-    </uib-tab-heading>
-    <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
-  </uib-tab>
-</uib-tabset>
+    <uib-tab index="4" select="loadStats()">
+      <uib-tab-heading>
+        Output
+      </uib-tab-heading>
+      <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
+    </uib-tab>
+  </uib-tabset>
+</div>
