@@ -11,30 +11,20 @@ angular.module('tagrefineryGuiApp')
   .controller('MainCtrl', ["$scope", "socket", "uiGridConstants",  function ($scope, socket, uiGridConstants) {
     var that = this;
 
+    // State variables
     that.connectionStatus = false;
     that.dataLoaded = false;
+    that.showImport = false;
     that.showWorkflow = false;
     that.dataChanged = false;
     that.running = false;
 
+    // Imported data
     $scope.data = [];
 
-    socket.on('connect', function (data) {
-      that.connectionStatus = true;
-    });
-
-    socket.on('isRunning', function (data) {
-      if(data=="true") that.running = true;
-      else that.running = false;
-    });
-
-    socket.on('disconnect', function (data) {
-      that.connectionStatus = false;
-    });
-
-    socket.on('connect_error', function (data) {
-      that.connectionStatus = false;
-    });
+    ////////////////////////////////////////////////
+    // Start
+    ////////////////////////////////////////////////
 
     socket.on('mainData', function (data) {
       var json = JSON.parse(data);
@@ -45,48 +35,20 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    that.reconnect = function () {
-      socket.reconnect();
-    };
-
-    that.import = function () {
-      if(that.dataChanged)
-      {
-          var chunk = 500;
-
-          socket.emit("applyImportedDataCount", Math.ceil($scope.data.length / chunk));
-
-          for (var i = 0, j = $scope.data.length; i < j; i += chunk) {
-            socket.emit("applyImportedData", JSON.stringify(_.slice($scope.data, i, i + chunk)));
-          }
-
-          socket.emit("applyImportedDataFinished", "");
-      }
-
-      that.dataLoaded = true;
-    };
-
-    that.clear = function()
-    {
-      $scope.data.length = 0;
-    }
-
-    that.getFile = function(file)
-    {
-        $scope.$apply(function() {
-          $scope.gridApi.importer.importFile( file );
-          that.dataChanged = true;
-        })
-    }
+    socket.on('isRunning', function (data) {
+      if(data=="true") that.running = true;
+      else that.running = false;
+    });
 
     that.goToImport = function()
     {
-      that.dataLoaded = false;
+      that.showImport = true;
     }
 
     that.goToStart = function()
     {
       that.showWorkflow = false;
+      that.showImport = false;
     }
 
     that.reconnectToWorkflow = function()
@@ -107,10 +69,45 @@ angular.module('tagrefineryGuiApp')
 
       that.showWorkflow = true;
     }
+    ////////////////////////////////////////////////
+    // Import
+    ////////////////////////////////////////////////
+
+    that.import = function () {
+      that.showImport = false;
+
+      if(that.dataChanged)
+      {
+        var chunk = 500;
+
+        socket.emit("applyImportedDataCount", Math.ceil($scope.data.length / chunk));
+
+        for (var i = 0, j = $scope.data.length; i < j; i += chunk) {
+          socket.emit("applyImportedData", JSON.stringify(_.slice($scope.data, i, i + chunk)));
+        }
+
+        socket.emit("applyImportedDataFinished", "");
+      }
+
+      that.dataLoaded = true;
+    };
+
+    that.clear = function()
+    {
+      $scope.data.length = 0;
+    }
+
+    that.getFile = function(file)
+    {
+      $scope.$apply(function() {
+        $scope.gridApi.importer.importFile( file );
+        that.dataChanged = true;
+      })
+    }
 
     // Grid
     $scope.gridOptions = {
-      enableGridMenu: true,
+      enableGridMenu: false,
       showGridFooter: true,
       enableColumnMenus: false,
       enableFiltering: true,
@@ -130,5 +127,38 @@ angular.module('tagrefineryGuiApp')
       ]
     };
 
+    ////////////////////////////////////////////////
+    // Disconnect
+    ////////////////////////////////////////////////
+
+    that.reconnect = function () {
+      socket.reconnect();
+
+      // Reset all states
+      that.connectionStatus = false;
+      that.dataLoaded = false;
+      that.showImport = false;
+      that.showWorkflow = false;
+      that.dataChanged = false;
+      that.running = false;
+
+      $scope.data.length = 0;
+    };
+
+    ////////////////////////////////////////////////
+    // Global
+    ////////////////////////////////////////////////
+
+    socket.on('connect', function (data) {
+      that.connectionStatus = true;
+    });
+
+    socket.on('disconnect', function (data) {
+      that.connectionStatus = false;
+    });
+
+    socket.on('connect_error', function (data) {
+      that.connectionStatus = false;
+    });
 
   }]);
