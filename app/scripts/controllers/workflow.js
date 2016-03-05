@@ -44,6 +44,8 @@ angular.module('tagrefineryGuiApp')
     {
       // Let the child apply changes
       $scope.$broadcast("apply");
+
+      socket.emit("computeWorkflow", "");
     }
 
   }]);
