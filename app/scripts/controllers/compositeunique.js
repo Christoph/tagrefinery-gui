@@ -17,7 +17,7 @@ angular.module('tagrefineryGuiApp')
     that.touched = false;
 
     // Unique
-    that.threshold = 0;;
+    that.threshold = 0;
     that.newThreshold = 0;
     that.data = [];
 
@@ -49,7 +49,9 @@ angular.module('tagrefineryGuiApp')
       var index = 0;
 
       for (var i = 0; i < data.length; i++) {
+        //noinspection JSUnresolvedVariable
         if (data[i].strength < threshold) {
+          //noinspection JSUnresolvedVariable
           if ((threshold - data[i].strength) <= (data[i - 1].strength - threshold)) {
             return i;
           }
@@ -60,7 +62,7 @@ angular.module('tagrefineryGuiApp')
       }
 
       return index;
-    }
+    };
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -84,13 +86,16 @@ angular.module('tagrefineryGuiApp')
       stats.writeComp("Unique Threshold", Math.round(that.newThreshold * 1000) / 1000);
     });
 
-    that.apply = function () {
-      socket.emit("applyUniqueThreshold", "" + that.newThreshold);
+    $scope.$on("apply", function() {
+      if(that.touched)
+      {
+        socket.emit("applyUniqueThreshold", "" + that.newThreshold);
 
-      stats.writeComp("Unique Threshold", Math.round(that.newThreshold * 1000) / 1000);
+        stats.writeComp("Unique Threshold", Math.round(that.newThreshold * 1000) / 1000);
 
-      that.touched = false;
-    };
+        that.touched = false;
+      }
+    });
 
     that.undo = function ()
     {
@@ -99,7 +104,7 @@ angular.module('tagrefineryGuiApp')
       stats.writeComp("Unique Threshold", Math.round(that.newThreshold * 1000) / 1000);
 
       that.touched = false;
-    }
+    };
 
     ////////////////////////////////////////////////
     // Unique Grid
@@ -129,6 +134,7 @@ angular.module('tagrefineryGuiApp')
 
         // Set unique threshold
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+          //noinspection JSUnresolvedVariable
           that.newThreshold = row.entity.strength;
         });
       },
