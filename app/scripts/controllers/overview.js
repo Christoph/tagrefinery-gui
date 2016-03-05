@@ -27,7 +27,7 @@ angular.module('tagrefineryGuiApp')
       that.spell = stats.getSpell();
       that.comp = stats.getComp();
       that.post = stats.getPost();
-    }
+    };
 
 
     ////////////////////////////////////////////////
@@ -49,7 +49,7 @@ angular.module('tagrefineryGuiApp')
     that.getHistory = function(tag, item)
     {
       socket.emit("getHistory", JSON.stringify([{tag: tag, item: item}]))
-    }
+    };
 
     ////////////////////////////////////////////////
     // Overview Grid
@@ -63,18 +63,17 @@ angular.module('tagrefineryGuiApp')
       multiSelect: false,
       enableRowHeaderSelection: false,
       enableRowSelection: true,
-      enableullRowSelection: true,
       enableGridMenu: true,
       onRegisterApi: function (gridApi) {
         that.gridApi = gridApi;
 
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          that.getHistory(row.entity.tag, row.entity.carrier);
+          that.getHistory(row.entity.tag, row.entity.item);
         });
       },
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
-        {field: 'carrier', displayName: "Item", minWidth: 100, width: "*"}
+        {field: 'item', displayName: "Item", minWidth: 100, width: "*"}
       ]
     };
 
