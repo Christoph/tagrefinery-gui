@@ -69,8 +69,12 @@ angular.module('tagrefineryGuiApp')
         if (temp[0] === " ") {
           that.replace.push({replace: "<Space>", by: temp[1]});
         }
-        if (temp[1] === " ") {
+        else if (temp[1] === " ") {
           that.replace.push({replace: temp[0], by: "<Space>"});
+        }
+        else
+        {
+          that.replace.push({replace: temp[0], by: temp[1]});
         }
         that.out.push({replace: temp[0], by: temp[1]});
       })
