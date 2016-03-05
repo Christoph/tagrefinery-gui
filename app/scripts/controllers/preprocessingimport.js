@@ -22,27 +22,34 @@ angular.module('tagrefineryGuiApp')
     socket.on('preDictionaryParams', function (data) {
       _.map(data, function (d) {
         $scope.data.push({word: d});
-      })
+      });
 
       stats.writePre("Number of blacklisted Words", $scope.data.length);
     });
 
-    that.apply = function () {
-      socket.emit("applyPreImportedData", JSON.stringify($scope.data));
+    $scope.$on("apply", function() {
+      if(that.touched)
+      {
+        socket.emit("applyPreImportedData", JSON.stringify($scope.data));
 
-      stats.writePre("Number of blacklisted Words", $scope.data.length);
+        stats.writePre("Number of blacklisted Words", $scope.data.length);
 
-      that.touched = false;
+        that.touched = false;
+      }
+    });
+
+    that.clear = function()
+    {
+      $scope.data.length = 0;
     };
 
-    that.undo = function()
+    that.getFile = function(file)
     {
-      $scope.data = [];
-
-      stats.writePre("Number of blacklisted Words", $scope.data.length);
-
-      that.touched = false;
-    }
+      $scope.$apply(function() {
+        $scope.gridApi.importer.importFile( file );
+        that.dataChanged = true;
+      })
+    };
 
     ////////////////////////////////////////////////
     // Grid
@@ -51,13 +58,16 @@ angular.module('tagrefineryGuiApp')
     // Grid
     $scope.data = [];
     $scope.gridOptions = {
-      enableGridMenu: true,
-      rowEditWaitInterval: -1,
+      enableGridMenu: false,
+      showGridFooter: true,
+      enableColumnMenus: false,
+      enableFiltering: true,
       data: 'data',
       importerDataAddCallback: function (grid, newObjects) {
         $scope.data.length = 0;
         $scope.data = $scope.data.concat(newObjects);
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+        $scope.gridApi.core.refresh();
         that.touched = true;
       },
       onRegisterApi: function (gridApi) {

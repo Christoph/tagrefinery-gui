@@ -1,12 +1,12 @@
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="spellimp.imp" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Import Black List</h4>
     Import csv file with "Word" as header and one word per line.
   </div>
-  <div class="alert alert-info" ng-show="spellimp.imp">
+  <div class="alert alert-info" ng-show="ctrl.info">
     Each imported word will be removed from the whole dataset.
     <br>
     Note that this happens before spell-correct and does not affect wrong spelled versions
@@ -16,20 +16,9 @@
 </div>
 
 <!--Task content-->
-<div ng-if="status.open[3]" ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="grid"></div>
-
-<!--Footer -> Apply and Undo -->
-<hr>
-<div class="row taskInner">
-  <div class="col-sm-6" style="text-align: left">
-    <h4>Number of Black List Items: {{ data.length }}</h4>
-  </div>
-  <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-danger btn-lg" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
-      <span class="glyphicon glyphicon-remove"></span>
-    </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.touched">
-      <span class="glyphicon glyphicon-ok"></span>
-    </label>
-  </div>
+<div style="text-align: center">
+  <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Select File"></upload-button>
+  <button class="btn btn-danger" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="data.length<1">Clear</button>
 </div>
+
+<div ng-if="status.open[3]" ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="grid"></div>
