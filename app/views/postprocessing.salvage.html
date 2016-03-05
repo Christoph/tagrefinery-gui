@@ -1,13 +1,13 @@
 <!--Task description-->
 <div class="taskInner description">
-  <button class="btn btn-link infoButton" ng-model="info.one" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+  <button class="btn btn-link infoButton" ng-model="ctrl.info" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
     <h4>Salvage Important Tags</h4>
     Compute salvaging by clicking the blue button and apply it by clicking onto the ok button.
   </div>
-  <div class="alert alert-info" ng-show="info.one">
+  <div class="alert alert-info" ng-show="ctrl.info">
     This step searches for the important tags in the non-important tags. <br> <br>
     The left grid displays the final set of important tags. <br>
     After computing the salvaging the right grid displays all salvaged tags.
@@ -33,11 +33,11 @@
     <h4>Number of salvaged tags: {{ ctrl.salvage.data.length }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-info btn-lg" uib-tooltip="Salvage Data" ng-click="ctrl.salvaging()"><span
+    <button class="btn btn-info btn-lg" uib-tooltip="Salvage Data" ng-click="ctrl.salvaging()"><span
       class="glyphicon glyphicon-refresh"></span>
-    </label>
-    <label class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.salvage.data.length > 0">
+    </button>
+    <button class="btn btn-success btn-lg" uib-tooltip="Apply changes" ng-click="ctrl.apply()" ng-disabled="!ctrl.salvage.data.length > 0">
       <span class="glyphicon glyphicon-ok"></span>
-    </label>
+    </button>
   </div>
 </div>

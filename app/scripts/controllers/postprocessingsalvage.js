@@ -13,8 +13,6 @@ angular.module('tagrefineryGuiApp')
     // Get instance of the class
     var that = this;
 
-    that.old;
-
     ////////////////////////////////////////////////
     // Socket functions
     ////////////////////////////////////////////////
