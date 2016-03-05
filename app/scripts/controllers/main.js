@@ -80,6 +80,8 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     that.import = function () {
+      that.dataLoaded = false;
+      that.loading = true;
       that.showImport = false;
 
       if(that.dataChanged)
@@ -94,9 +96,6 @@ angular.module('tagrefineryGuiApp')
 
         socket.emit("applyImportedDataFinished", "");
       }
-
-      that.loading = true;
-      that.showImport = false;
     };
 
     that.clear = function()
