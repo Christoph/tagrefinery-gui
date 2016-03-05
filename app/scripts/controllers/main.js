@@ -18,6 +18,7 @@ angular.module('tagrefineryGuiApp')
     that.showWorkflow = false;
     that.dataChanged = false;
     that.running = false;
+    that.loading = false;
 
     // Imported data
     $scope.data = [];
@@ -36,39 +37,44 @@ angular.module('tagrefineryGuiApp')
     });
 
     socket.on('isRunning', function (data) {
-      if(data=="true") that.running = true;
-      else that.running = false;
+      that.running = data == "true";
+    });
+
+    socket.on('dataLoaded', function () {
+      that.dataLoaded = true;
+      that.loading = false;
     });
 
     that.goToImport = function()
     {
       that.showImport = true;
-    }
+    };
 
     that.goToStart = function()
     {
       that.showWorkflow = false;
       that.showImport = false;
-    }
+    };
 
     that.reconnectToWorkflow = function()
     {
       that.showWorkflow = true;
-    }
+    };
 
     that.startWithDefaults = function()
     {
       socket.emit("runAll", "default");
 
       that.showWorkflow = true;
-    }
+    };
 
     that.startCustom = function()
     {
       socket.emit("runAll", "custom");
 
       that.showWorkflow = true;
-    }
+    };
+
     ////////////////////////////////////////////////
     // Import
     ////////////////////////////////////////////////
@@ -89,13 +95,14 @@ angular.module('tagrefineryGuiApp')
         socket.emit("applyImportedDataFinished", "");
       }
 
-      that.dataLoaded = true;
+      that.loading = true;
+      that.showImport = false;
     };
 
     that.clear = function()
     {
       $scope.data.length = 0;
-    }
+    };
 
     that.getFile = function(file)
     {
@@ -103,7 +110,7 @@ angular.module('tagrefineryGuiApp')
         $scope.gridApi.importer.importFile( file );
         that.dataChanged = true;
       })
-    }
+    };
 
     // Grid
     $scope.gridOptions = {
@@ -149,15 +156,15 @@ angular.module('tagrefineryGuiApp')
     // Global
     ////////////////////////////////////////////////
 
-    socket.on('connect', function (data) {
+    socket.on('connect', function () {
       that.connectionStatus = true;
     });
 
-    socket.on('disconnect', function (data) {
+    socket.on('disconnect', function () {
       that.connectionStatus = false;
     });
 
-    socket.on('connect_error', function (data) {
+    socket.on('connect_error', function () {
       that.connectionStatus = false;
     });
 
