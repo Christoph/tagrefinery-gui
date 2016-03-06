@@ -1,8 +1,8 @@
 <div class="scafold">
   <uib-accordion>
-    <uib-accordion-group is-open="status.open[1]" ng-show="advanced.mode" panel-class="panel-warning">
+    <uib-accordion-group is-open="status.open[1]" ng-show="advanced.mode" panel-class="panel-primary">
       <uib-accordion-heading>
-        <div>
+        <div class="descriptionHeaderAdvanced">
           Remove Characters <i class="pull-right glyphicon"
                                ng-class="{'glyphicon-chevron-down': status.open[1], 'glyphicon-chevron-right': !status.open[1]}"></i>
           <br>
@@ -12,9 +12,9 @@
       <div class="row" ng-controller="PreprocessingremoveCtrl as ctrl"
            ng-include="'views/preprocessing.remove.html'"></div>
     </uib-accordion-group>
-    <uib-accordion-group is-open="status.open[2]" ng-show="advanced.mode" panel-class="panel-warning">
+    <uib-accordion-group is-open="status.open[2]" ng-show="advanced.mode" panel-class="panel-primary">
       <uib-accordion-heading>
-        <div>
+        <div class="descriptionHeaderAdvanced">
           Replace Characters <i class="pull-right glyphicon"
                                 ng-class="{'glyphicon-chevron-down': status.open[2], 'glyphicon-chevron-right': !status.open[2]}"></i>
           <br>
@@ -24,9 +24,9 @@
       <div class="row" ng-controller="PreprocessingreplaceCtrl as ctrl"
            ng-include="'views/preprocessing.replace.html'"></div>
     </uib-accordion-group>
-    <uib-accordion-group is-open="status.open[0]">
+    <uib-accordion-group is-open="status.open[0]" panel-class="panel-info">
       <uib-accordion-heading>
-        <div>
+        <div class="descriptionHeader">
           Filter <i class="pull-right glyphicon"
                         ng-class="{'glyphicon-chevron-down': status.open[0], 'glyphicon-chevron-right': !status.open[0]}"></i>
           <br>
@@ -37,9 +37,9 @@
       <div class="row" ng-controller="PreprocessingfilterCtrl as ctrl"
            ng-include="'views/preprocessing.filter.html'"></div>
     </uib-accordion-group>
-    <uib-accordion-group is-open="status.open[3]">
+    <uib-accordion-group is-open="status.open[3]" panel-class="panel-info">
       <uib-accordion-heading>
-        <div>
+        <div class="descriptionHeader">
           Import Blacklist <i class="pull-right glyphicon"
                                ng-class="{'glyphicon-chevron-down': status.open[3], 'glyphicon-chevron-right': !status.open[3]}"></i>
           <br>
