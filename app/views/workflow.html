@@ -8,6 +8,9 @@
       <uib-tab-heading>
         <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>
+      <div class="scafold">
+        <span class="glyphicon glyphicon-info-sign"></span><strong>Preprocess</strong> the dataset to reduce the number of words and characters.
+      </div>
       <div class="row" ng-include="'views/preprocessing.html'"></div>
     </uib-tab>
 
@@ -17,6 +20,9 @@
       </uib-tab-heading>
       <div class="alert alert-success" style="text-align: center" ng-if="ctrl.preRunning">
         <strong>Apply Preprocessing ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
+      </div>
+      <div class="scafold">
+        <span class="glyphicon glyphicon-info-sign"></span><strong>Spell-correct</strong> to reduce the number of word forms and spelling errors.
       </div>
       <div class="row" ng-include="'views/spellchecking.html'"></div>
     </uib-tab>
@@ -28,6 +34,9 @@
       <div class="alert alert-success" style="text-align: center" ng-if="ctrl.spellRunning">
         <strong>Apply Spell Correction ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
       </div>
+      <div class="scafold">
+      <span class="glyphicon glyphicon-info-sign"></span>Find meaningful <strong>Multiword Tags</strong>.
+      </div>
       <div class="row" ng-include="'views/composite.html'"></div>
     </uib-tab>
 
@@ -37,6 +46,9 @@
       </uib-tab-heading>
       <div class="alert alert-success" style="text-align: center" ng-if="ctrl.compRunning">
         <strong>Apply Multiword Tags ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
+      </div>
+      <div class="scafold">
+        <span class="glyphicon glyphicon-info-sign"></span><strong>Finalize</strong> the dataset by using a set of important tags and salvaging information in non-important ones.
       </div>
       <div class="row" ng-include="'views/postprocessing.html'"></div>
     </uib-tab>
