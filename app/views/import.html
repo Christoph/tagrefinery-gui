@@ -1,14 +1,14 @@
 <h2 style="text-align: center">TagRefinery</h2>
-<button ng-click="ctrl.goToStart()" class="btn btn-default" style="position: absolute; top: 0px; left: 0px;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="glyphicon glyphicon-arrow-left"></span></button>
+<button ng-click="ctrl.goToStart()" class="btn btn-default" style="position: absolute; top: 0; left: 0;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="glyphicon glyphicon-arrow-left"></span></button>
 <hr>
   <div style="text-align: center; margin-top: 5%" class="test">
     <h4>Import Data</h4>
-    <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Select File"></upload-button>
+    <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Upload File"></upload-button>
     <div class="btn-group">
-      <button class="btn btn-danger" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="data.length<1">Clear</button>
-      <button uib-tooltip="Import" type="button"
-              class="btn btn-success" ng-click="ctrl.import()" ng-disabled="data.length<1">
-        Import
+      <button class="btn btn-default" style="width: 75px" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="data.length<1"><span class="glyphicon glyphicon-trash"></span></button>
+      <button uib-tooltip="Save Import" type="button" style="width: 75px"
+              class="btn btn-default" ng-click="ctrl.import()" ng-disabled="data.length<1">
+        <span class="glyphicon glyphicon-save"></span>
       </button>
     </div>
 
