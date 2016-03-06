@@ -23,6 +23,7 @@ angular.module('tagrefineryGuiApp')
     socket.on('isGuided', function (data) {
       that.guided = data == "true";
 
+      console.log("getParams")
       socket.emit("getParameters", "");
     });
 
@@ -36,12 +37,14 @@ angular.module('tagrefineryGuiApp')
       that.showStep = false;
       that.currentStep++;
 
+      console.log("local broadcast")
       // Let the child apply changes
       $scope.$broadcast("apply");
     };
 
     that.apply = function()
     {
+      console.log("computeWorkflow")
       // Let the child apply changes
       $scope.$broadcast("apply");
 
