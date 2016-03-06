@@ -40,8 +40,8 @@ angular.module('tagrefineryGuiApp')
       that.running = data == "true";
     });
 
-    socket.on('dataLoaded', function () {
-      that.dataLoaded = true;
+    socket.on('dataLoaded', function (data) {
+      that.dataLoaded = data == "true";
       that.loading = false;
     });
 
@@ -58,6 +58,8 @@ angular.module('tagrefineryGuiApp')
 
     that.reconnectToWorkflow = function()
     {
+      socket.emit("selectMode", "reconnect");
+
       that.showWorkflow = true;
     };
 
@@ -138,8 +140,6 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     that.reconnect = function () {
-      socket.reconnect();
-
       // Reset all states
       that.connectionStatus = false;
       that.dataLoaded = false;
@@ -149,6 +149,8 @@ angular.module('tagrefineryGuiApp')
       that.running = false;
 
       $scope.data.length = 0;
+
+      socket.reconnect();
     };
 
     ////////////////////////////////////////////////

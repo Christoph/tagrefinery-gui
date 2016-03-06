@@ -12,7 +12,11 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     // State variables
-    that.guided = true;
+    that.guided = false;
+    that.preRunning = false;
+    that.spellRunning = false;
+    that.compRunning = false;
+
     that.showStep = false;
     that.currentStep = 0;
 
@@ -22,9 +26,18 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('isGuided', function (data) {
       that.guided = data == "true";
+    });
 
-      console.log("getParams")
-      socket.emit("getParameters", "");
+    socket.on('computePre', function (data) {
+      that.preRunning = data == "started"
+    });
+
+    socket.on('computeSpell', function (data) {
+      that.spellRunning = data == "started"
+    });
+
+    socket.on('computeComp', function (data) {
+      that.compRunning = data == "started"
     });
 
     that.ok = function()

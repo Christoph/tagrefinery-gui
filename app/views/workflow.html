@@ -15,6 +15,9 @@
       <uib-tab-heading>
         <label class="pull-left">2</label> Spell-correct <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>
+      <div class="alert alert-success" style="text-align: center" ng-if="ctrl.preRunning">
+        <strong>Apply Preprocessing ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
+      </div>
       <div class="row" ng-include="'views/spellchecking.html'"></div>
     </uib-tab>
 
@@ -22,6 +25,9 @@
       <uib-tab-heading>
         <label class="pull-left">3</label> Multiword Tags <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>
+      <div class="alert alert-success" style="text-align: center" ng-if="ctrl.spellRunning">
+        <strong>Apply Spell Correction ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
+      </div>
       <div class="row" ng-include="'views/composite.html'"></div>
     </uib-tab>
 
@@ -29,6 +35,9 @@
       <uib-tab-heading>
         <label class="pull-left">4</label> Finalize <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>
+      <div class="alert alert-success" style="text-align: center" ng-if="ctrl.compRunning">
+        <strong>Apply Multiword Tags ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
+      </div>
       <div class="row" ng-include="'views/postprocessing.html'"></div>
     </uib-tab>
 
