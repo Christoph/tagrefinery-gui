@@ -297,13 +297,23 @@ angular.module('tagrefineryGuiApp')
         {
           scope.markerArea
             .attr("x", scope.x(scope.threshold))
-            .attr("width", scope.quadrantWidth - scope.x(scope.threshold));
+            .attr("width", function() {
+              var w = scope.quadrantWidth - scope.x(scope.threshold);
+
+              if(w > 0) return w;
+              else return 0;
+            });
         }
         else
         {
           scope.markerArea
             .attr("x",0)
-            .attr("width", scope.x(scope.threshold));
+            .attr("width", function() {
+              var w = scope.x(scope.threshold);
+
+              if(w > 0) return w;
+              else return 0;
+            });
         }
       }
     };
@@ -354,9 +364,17 @@ angular.module('tagrefineryGuiApp')
 
       scope.bar.select("rect")
         .attr("x", 1)
-        .attr("width", scope.x(scope.hist[0].x + scope.hist[0].dx) - 1)
+        .attr("width", function() {
+          var w = scope.x(scope.hist[0].x + scope.hist[0].dx) - 1;
+
+          if(w > 0) return w;
+          else return 0;
+        })
         .attr("height", function (d) {
-          return scope.quadrantHeight - scope.y(d.y);
+          var h = scope.quadrantHeight - scope.y(d.y);
+
+          if(h > 0) return h;
+          else return 0;
         });
 
       // Exit
