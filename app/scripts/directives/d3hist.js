@@ -8,7 +8,7 @@
  */
 angular.module('tagrefineryGuiApp')
   .directive('d3Hist', ["d3", "$timeout", function (d3, $timeout) {
-    var basics = function (scope, element) {
+    var basics = function (scope) {
       // Number formating
       scope.formatCount = d3.format(",.0f");
 
@@ -52,16 +52,17 @@ angular.module('tagrefineryGuiApp')
             y: temp
           });
         }
-        ;
 
         return out;
       };
 
       scope.zoomed = function () {
+        //scope.svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         var t = d3.event.translate,
           s = d3.event.scale;
 
         t[0] = Math.min(0, Math.max(scope.quadrantWidth * (1 - s), t[0]));
+        t[1] = Math.min(0, Math.max(scope.quadrantHeight * (1 - s), t[1]));
 
         scope.zoom.translate(t);
 
@@ -69,26 +70,9 @@ angular.module('tagrefineryGuiApp')
 
         scope.svg.select(".x.axis").call(scope.xAxis);
         scope.svg.select(".y.axis").call(scope.yAxis);
-      }
+      };
 
-      scope.zoomend = function () {
-        scope.checkZoom();
-      }
-
-      scope.checkZoom = function () {
-        if (scope.x.domain()[0] == scope.xDomain[0] && scope.x.domain()[1] == scope.xDomain[1]) {
-          scope.$apply(function () {
-            scope.isZoomed = false;
-          })
-        }
-        else {
-          scope.$apply(function () {
-            scope.isZoomed = true;
-          })
-        }
-      }
-
-      scope.dragmove = function (d) {
+      scope.dragmove = function () {
         var x = d3.event.x;
 
         x = Math.max(0, Math.min(scope.quadrantWidth, x));
@@ -105,7 +89,7 @@ angular.module('tagrefineryGuiApp')
         }
 
         renderLine(scope);
-      }
+      };
 
       // Bring element to front
       scope.bringToFront = function () {
@@ -124,12 +108,10 @@ angular.module('tagrefineryGuiApp')
             render(scope);
             scope.svg.select(".x.axis").call(scope.xAxis);
             scope.svg.select(".y.axis").call(scope.yAxis);
-
-            scope.checkZoom();
           };
         });
       }
-    }
+    };
 
     var definitions = function (scope, element) {
       // width
@@ -174,10 +156,10 @@ angular.module('tagrefineryGuiApp')
       //Define zoom behavior
       scope.zoom = d3.behavior.zoom()
         .x(scope.x)
+        .y(scope.y)
         .scaleExtent([1, 1000])
         .size(scope.quadrantWidth, scope.quadrantHeight)
-        .on("zoom", scope.zoomed)
-        .on("zoomend", scope.zoomend);
+        .on("zoom", scope.zoomed);
 
       // Define drag beavior
       scope.drag = d3.behavior.drag()
@@ -198,7 +180,7 @@ angular.module('tagrefineryGuiApp')
         .style("background-color", "white")
         .attr("class", "chart")
         .call(scope.zoom)
-        .on('click', function (d) {
+        .on('click', function () {
           if (d3.event.defaultPrevented) return; // click suppressed
           if(scope.isFloat)
           {
@@ -310,7 +292,7 @@ angular.module('tagrefineryGuiApp')
           .attr("x2", scope.x(scope.threshold));
 
         scope.marker.select("circle")
-          .attr("cx", scope.x(scope.threshold))
+          .attr("cx", scope.x(scope.threshold));
 
         if(scope.fromRight)
         {
@@ -330,9 +312,6 @@ angular.module('tagrefineryGuiApp')
     var renderBars = function (scope) {
       // Update bins
       scope.hist = scope.customHist(scope.data);
-
-      // Update y scaling
-      scope.y.domain(scope.yScaling());
 
       // Update line position
       renderLine(scope);
@@ -437,8 +416,7 @@ angular.module('tagrefineryGuiApp')
         scope.title = attrs.title || "";
         scope.binCount = parseInt(attrs.bins) || 16;
         var temp = attrs.isFloat || "true";
-        if(temp=="true") scope.isFloat = true;
-        else scope.isFloat = false;
+        scope.isFloat = temp == "true";
         temp = attrs.fromRight || "true";
         if(temp=="true") scope.fromRight = true;
         else scope.isFloat = false;
