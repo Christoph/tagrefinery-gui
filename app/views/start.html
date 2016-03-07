@@ -8,7 +8,9 @@
     <button uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect <span class="glyphicon glyphicon-cloud-upload"></span></button>
   </div>
   <div class="row" style="margin-top: 2px">
-    <button class="btn secondaryColor" ng-click="ctrl.goToImport()">Import/Update Data</button>
+    <button ng-if="ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()">Update Data <span class="glyphicon glyphicon-save-file"></span></button>
+    <button ng-if="!ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()">Import Data <span class="glyphicon glyphicon-open-file"></span></button>
+
     <span style="font-size: large">Status:</span>
     <span style="font-size: xx-large; vertical-align: middle" ng-if="ctrl.dataLoaded"><span class=" glyphicon glyphicon-ok-circle"></span></span>
     <span style="font-size: large; color: grey" ng-if="!ctrl.dataLoaded && !ctrl.loading">no data </span>
