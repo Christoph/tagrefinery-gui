@@ -1,22 +1,51 @@
-<div class="guidedInner" xmlns:width="http://www.w3.org/1999/xhtml">
+<div class="guidedInner">
   <span ng-show="ctrl.currentStep == 0" class="guidedQuestion">Do you want to remove rare words?</span>
-  <span ng-show="ctrl.currentStep == 1" class="guidedQuestion">Do you want to import a list of words to remove?</span>
-  <span ng-show="ctrl.currentStep == 2" class="guidedQuestion">Do you want to import a list of correct words?</span>
-  <span ng-show="ctrl.currentStep == 3" class="guidedQuestion">Do you want to reduce word forms and spelling errors?</span>
-  <span ng-show="ctrl.currentStep == 4" class="guidedQuestion">Do you want to find  ?</span>
-  <span ng-show="ctrl.currentStep == 5" class="guidedQuestion">This is the question?</span>
-  <span ng-show="ctrl.currentStep == 6" class="guidedQuestion">This is the question?</span>
-  <span ng-show="ctrl.currentStep == 7" class="guidedQuestion">This is the question?</span>
-  <span ng-show="ctrl.currentStep == 8" class="guidedQuestion">This is the question?</span>
+  <span ng-show="ctrl.currentStep == 1" class="guidedQuestion">Do you want to import a list of <strong>words to remove</strong>?</span>
+  <span ng-show="ctrl.currentStep == 2" class="guidedQuestion">Do you want to import a list of <strong>correct words</strong>?</span>
+  <span ng-show="ctrl.currentStep == 3" class="guidedQuestion">Do you want to reduce <strong>word forms</strong> and <strong>spelling errors</strong>?</span>
+  <span ng-show="ctrl.currentStep == 4" class="guidedQuestion">Do you want to find <strong>word groups</strong> which appear very <strong>often</strong>?</span>
+  <span ng-show="ctrl.currentStep == 5" class="guidedQuestion">Do you want to find <strong>word groups</strong> which are <strong>unique</strong>?</span>
+  <span ng-show="ctrl.currentStep == 6" class="guidedQuestion">Do you want to reduce the total amount of <strong>important words</strong> used in your final dataset?</span>
+  <span ng-show="ctrl.currentStep == 7" class="guidedQuestion">Do you want to change those <strong>import words</strong> by hand?</span>
+  <span ng-show="ctrl.currentStep == 8" class="guidedQuestion">Do you want to search for those <strong>important words</strong> in the <strong>non-important ones</strong>?</span>
+  <span ng-show="ctrl.currentStep == 9" class="guidedQuestion">Show dataset!</span>
   <br>
   <div class="btn-group">
     <button ng-click="ctrl.ok()" class="btn primaryColor" style="width: 100px">Yes <span class="glyphicon glyphicon-ok"></span></button>
+    <button ng-show="ctrl.currentStep == 6" class="btn primaryColor" ng-click="ctrl.showResults()">Show Dataset</button>
     <button ng-click="ctrl.next()" class="btn secondaryColor" style="width: 100px">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
   </div>
   <hr>
-  <div uib-collapse="!ctrl.showStep" style="text-align: left">
+  <div uib-collapse="!ctrl.showStep" style="text-align: left" class="guidedInner">
     <div ng-show="ctrl.currentStep == 0">
-      <div ng-controller="PreprocessingremoveCtrl as ctrl" ng-include="'views/preprocessing.remove.html'"></div>
+      <div class="row" ng-controller="PreprocessingfilterCtrl as ctrl" ng-include="'views/preprocessing.filter.html'"></div>
+    </div>
+    <div ng-show="ctrl.currentStep == 1">
+      <div class="row" ng-controller="PreprocessingimportCtrl as ctrl" ng-include="'views/preprocessing.import.html'"></div>
+    </div>
+    <div ng-show="ctrl.currentStep == 2">
+      <div class="row" ng-controller="SpellcheckingimportCtrl as ctrl" ng-include="'views/spellchecking.import.html'"></div>
+    </div>
+    <div ng-show="ctrl.currentStep == 3">
+      <div class="row" ng-controller="SpellcheckingsetCtrl as ctrl" ng-include="'views/spellchecking.set.html'"></div>
+    </div>
+    <div ng-show="ctrl.currentStep == 4">
+      <div class="row" ng-controller="CompositefrequentCtrl as ctrl" ng-include="'views/composite.frequent.html'"></div>
+    </div>
+    <div ng-show="ctrl.currentStep == 5">
+      <div class="row" ng-controller="CompositeuniqueCtrl	 as ctrl" ng-include="'views/composite.unique.html'"></div>
+    </div>
+    <div ng-show="ctrl.currentStep == 6">
+      <div class="row" ng-controller="PostprocessingimportantCtrl as ctrl" ng-include="'views/postprocessing.important.html'"></div>
+    </div>
+    <div ng-show="ctrl.currentStep == 7">
+      <div class="row" ng-controller="PostprocessingreplaceCtrl as ctrl" ng-include="'views/postprocessing.replace.html'"></div>
+    </div>
+    <div ng-show="ctrl.currentStep == 8">
+      <div class="row" ng-controller="PostprocessingsalvageCtrl as ctrl" ng-include="'views/postprocessing.salvage.html'"></div>
+    </div>
+    <div ng-show="ctrl.currentStep == 9" style="text-align: center">
+      <button class="btn primaryColor" ng-click="ctrl.showResults()">Show Dataset</button>
     </div>
   </div>
 </div>
