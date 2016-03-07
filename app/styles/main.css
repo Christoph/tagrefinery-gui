@@ -264,8 +264,16 @@ button.disabled {
   color: white;
 }
 
+.primaryColor:focus,
 .primaryColor:hover {
   color: black;
+}
+
+.primaryColor:active:focus,
+.primaryColor.active:focus,
+.primaryColor.focus,
+.primaryColor:focus {
+  outline: none;
 }
 
 .secondaryColor {
@@ -273,8 +281,16 @@ button.disabled {
   color: white;
 }
 
+.secondaryColor:focus,
 .secondaryColor:hover {
   color: black;
+}
+
+.secondaryColor:active:focus,
+.secondaryColor.active:focus,
+.secondaryColor:focus,
+.secondaryColor.focus {
+  outline: none;
 }
 
 /*
