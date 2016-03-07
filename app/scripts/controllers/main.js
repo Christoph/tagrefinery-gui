@@ -82,6 +82,7 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     that.import = function () {
+      that.running = false;
       that.dataLoaded = false;
       that.loading = true;
       that.showImport = false;
