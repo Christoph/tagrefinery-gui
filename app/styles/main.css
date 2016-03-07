@@ -154,7 +154,7 @@ button.help {
   fill: steelblue;
 }
 
-.threshold rect {
+.markerArea {
   fill: steelblue;
   fill-opacity: .125;
   shape-rendering: crispEdges;

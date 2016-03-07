@@ -57,7 +57,6 @@ angular.module('tagrefineryGuiApp')
       };
 
       scope.zoomed = function () {
-        //scope.svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         var t = d3.event.translate,
           s = d3.event.scale;
 
@@ -142,7 +141,6 @@ angular.module('tagrefineryGuiApp')
       scope.hist = scope.customHist(scope.data);
 
       // y-scale and axis
-
       scope.yDomain = scope.yScaling();
 
       scope.y = d3.scale.linear()
@@ -277,8 +275,9 @@ angular.module('tagrefineryGuiApp')
         .attr("r", 10)
         .attr("cy", scope.quadrantHeight/2);
 
-      scope.marker
+      scope.markerArea = scope.bodyG
         .append("rect")
+        .attr("class", "markerArea")
         .attr("height", scope.quadrantHeight)
     };
 
@@ -296,13 +295,13 @@ angular.module('tagrefineryGuiApp')
 
         if(scope.fromRight)
         {
-          scope.marker.select("rect")
+          scope.markerArea
             .attr("x", scope.x(scope.threshold))
             .attr("width", scope.quadrantWidth - scope.x(scope.threshold));
         }
         else
         {
-          scope.marker.select("rect")
+          scope.markerArea
             .attr("x",0)
             .attr("width", scope.x(scope.threshold));
         }
