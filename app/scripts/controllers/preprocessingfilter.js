@@ -38,7 +38,7 @@ angular.module('tagrefineryGuiApp')
         }
 
         that.filteredWords = that.newCount();
-        stats.writePre("Number of Filtered Words", that.filteredWords);
+        stats.writePre("Number of Remaining Words", that.filteredWords);
 
         that.touched = true;
       });
