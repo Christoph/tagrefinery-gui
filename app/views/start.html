@@ -3,11 +3,9 @@
   <span>Tidy up your <strong>Tags</strong> by improving the quality of single words in your dataset!</span>
   <div class="row" style="margin-top: 20px">
     <span style="font-size: large">Start:</span>
-    <div class="btn-group">
-      <button uib-tooltip="Guided run with precomputed default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startWithDefaults()">Guided</button>
-      <button uib-tooltip="Unguided and without default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startCustom()">Free</button>
-      <button ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect to Active Season</button>
-    </div>
+    <button uib-tooltip="Guided run with precomputed default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startWithDefaults()">Guided</button>
+    <button uib-tooltip="Unguided and without default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startCustom()">Free</button>
+    <button uib-tooltip="Import data" ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect to Active Season</button>
   </div>
   <div class="row" style="margin-top: 2px">
     <button class="btn secondaryColor" ng-click="ctrl.goToImport()">Import/Update Data</button>
