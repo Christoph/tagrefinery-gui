@@ -1,5 +1,5 @@
 <div class="guidedInner">
-  <span ng-show="ctrl.currentStep == 0" class="guidedQuestion">Do you want to remove rare words?</span>
+  <span ng-show="ctrl.currentStep == 0" class="guidedQuestion">Do you want to remove <strong>rare words</strong>?</span>
   <span ng-show="ctrl.currentStep == 1" class="guidedQuestion">Do you want to import a list of <strong>words to remove</strong>?</span>
   <span ng-show="ctrl.currentStep == 2" class="guidedQuestion">Do you want to import a list of <strong>correct words</strong>?</span>
   <span ng-show="ctrl.currentStep == 3" class="guidedQuestion">Do you want to reduce <strong>word forms</strong> and <strong>spelling errors</strong>?</span>
@@ -8,13 +8,16 @@
   <span ng-show="ctrl.currentStep == 6" class="guidedQuestion">Do you want to reduce the total amount of <strong>important words</strong> used in your final dataset?</span>
   <span ng-show="ctrl.currentStep == 7" class="guidedQuestion">Do you want to change those <strong>import words</strong> by hand?</span>
   <span ng-show="ctrl.currentStep == 8" class="guidedQuestion">Do you want to search for those <strong>important words</strong> in the <strong>non-important ones</strong>?</span>
-  <span ng-show="ctrl.currentStep == 9" class="guidedQuestion">Show dataset!</span>
+  <span ng-show="ctrl.currentStep == 9" class="guidedQuestion">Results</span>
   <br>
   <div class="btn-group">
-    <button ng-click="ctrl.ok()" class="btn primaryColor" style="width: 100px">Yes <span class="glyphicon glyphicon-ok"></span></button>
-    <button ng-show="ctrl.currentStep == 6" class="btn primaryColor" ng-click="ctrl.showResults()">Show Dataset</button>
-    <button ng-click="ctrl.next()" class="btn secondaryColor" style="width: 100px">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+    <button ng-if="ctrl.currentStep < 9" ng-click="ctrl.custom()" class="btn secondaryColor" style="width: 100px">Custom <span class="glyphicon glyphicon-cog"></span></button>
+    <button ng-if="ctrl.currentStep < 9" ng-click="ctrl.ok()" class="btn primaryColor">Use Defaults <span class="glyphicon glyphicon-play"></span></button>
+    <button ng-if="ctrl.currentStep == 6 || ctrl.currentStep == 8" class="btn primaryColor" ng-click="ctrl.showResults()">Results <span class="glyphicon glyphicon-th-list"></span></button>
+    <button ng-if="ctrl.currentStep < 8 && ctrl.currentStep != 6" ng-click="ctrl.next()" class="btn secondaryColor" style="width: 100px">Skip <span class="glyphicon glyphicon-chevron-right"></span></button>
   </div>
+  <button ng-if="ctrl.currentStep == 9" ng-click="ctrl.reset()" class="btn primaryColor" style="width: 100px">Restart <span class="glyphicon glyphicon-refresh"></span></button>
+  <button ng-if="ctrl.currentStep == 9" ng-click="ctrl.advanced()" class="btn primaryColor">Advanced Mode <span class="glyphicon glyphicon-dashboard"></span></button>
   <hr>
   <div uib-collapse="!ctrl.showStep" style="text-align: left" class="guidedInner">
     <div ng-show="ctrl.currentStep == 0">
@@ -44,8 +47,8 @@
     <div ng-show="ctrl.currentStep == 8">
       <div class="row" ng-controller="PostprocessingsalvageCtrl as ctrl" ng-include="'views/postprocessing.salvage.html'"></div>
     </div>
-    <div ng-show="ctrl.currentStep == 9" style="text-align: center">
-      <button class="btn primaryColor" ng-click="ctrl.showResults()">Show Dataset</button>
+    <div ng-show="ctrl.currentStep == 9">
+      <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
     </div>
   </div>
 </div>

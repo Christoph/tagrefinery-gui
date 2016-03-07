@@ -58,23 +58,23 @@ angular.module('tagrefineryGuiApp')
 
     that.reconnectToWorkflow = function()
     {
-      socket.emit("selectMode", "reconnect");
-
       that.showWorkflow = true;
+
+      socket.emit("selectMode", "reconnect");
     };
 
     that.startWithDefaults = function()
     {
-      socket.emit("selectMode", "guided");
-
       that.showWorkflow = true;
+
+      socket.emit("selectMode", "guided");
     };
 
     that.startCustom = function()
     {
-      socket.emit("selectMode", "free");
-
       that.showWorkflow = true;
+
+      socket.emit("selectMode", "free");
     };
 
     ////////////////////////////////////////////////

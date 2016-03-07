@@ -3,9 +3,9 @@
   <span>Tidy up your <strong>Tags</strong> by improving the quality of single words in your dataset!</span>
   <div class="row" style="margin-top: 20px">
     <span style="font-size: large">Start:</span>
-    <button uib-tooltip="Guided run with precomputed default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startWithDefaults()">Guided</button>
-    <button uib-tooltip="Unguided and without default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startCustom()">Advanced</button>
-    <button uib-tooltip="Import data" ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect to Active Season</button>
+    <button uib-tooltip="Guided run with default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startWithDefaults()">Guided <span class="glyphicon glyphicon-plane"></span></button>
+    <button uib-tooltip="Unguided dashboard" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startCustom()">Advanced <span class="glyphicon glyphicon-dashboard"></span></button>
+    <button uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect <span class="glyphicon glyphicon-cloud-upload"></span></button>
   </div>
   <div class="row" style="margin-top: 2px">
     <button class="btn secondaryColor" ng-click="ctrl.goToImport()">Import/Update Data</button>

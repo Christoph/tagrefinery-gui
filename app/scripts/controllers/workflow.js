@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('WorkflowCtrl', ["$scope", "socket", function ($scope, socket) {
+  .controller('WorkflowCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
     var that = this;
 
     // State variables
@@ -41,19 +41,48 @@ angular.module('tagrefineryGuiApp')
       that.compRunning = data == "started"
     });
 
-    that.ok = function()
+
+    // Choose value
+    that.custom = function()
     {
       that.showStep = true;
     };
 
+    // Apply default values
+    that.ok = function()
+    {
+      that.showStep = false;
+      that.currentStep++;
+
+      that.apply();
+    };
+
+    // Apply no value
     that.next = function()
     {
       that.showStep = false;
       that.currentStep++;
 
-      // Let the child apply changes
-      $scope.$broadcast("apply");
+      that.apply();
     };
+
+    that.showResults = function()
+    {
+      that.loadStats();
+      that.currentStep = 9;
+      that.showStep = true;
+    }
+
+    that.reset = function()
+    {
+      that.currentStep = 1;
+      that.showStep = false;
+    }
+
+    that.advanced = function()
+    {
+      that.guided = false;
+    }
 
     that.apply = function()
     {
@@ -62,5 +91,13 @@ angular.module('tagrefineryGuiApp')
 
       socket.emit("computeWorkflow", "");
     }
+
+    that.loadStats = function()
+    {
+      that.pre = stats.getPre();
+      that.spell = stats.getSpell();
+      that.comp = stats.getComp();
+      that.post = stats.getPost();
+    };
 
   }]);
