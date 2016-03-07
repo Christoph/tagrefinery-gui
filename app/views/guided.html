@@ -11,10 +11,9 @@
   <span ng-show="currentStep == 9" class="guidedQuestion">Results</span>
   <br>
   <div class="btn-group">
-    <button ng-if="currentStep < 9" ng-click="ctrl.custom()" class="btn secondaryColor" style="width: 100px">Custom <span class="glyphicon glyphicon-cog"></span></button>
-    <button ng-if="currentStep < 6" ng-click="ctrl.ok()" class="btn primaryColor">Use Defaults <span class="glyphicon glyphicon-play"></span></button>
+    <button ng-if="currentStep < 9" ng-click="ctrl.custom()" class="btn secondaryColor" style="width: 150px">Custom <span class="glyphicon glyphicon-cog"></span></button>
+    <button ng-if="currentStep < 6" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Use Defaults <span class="glyphicon glyphicon-play"></span></button>
     <button ng-if="currentStep == 6 || currentStep == 8" class="btn primaryColor" ng-click="ctrl.showResults()">Results <span class="glyphicon glyphicon-th-list"></span></button>
-    <button ng-if="currentStep < 8 && currentStep != 6" ng-click="ctrl.next()" class="btn secondaryColor" style="width: 100px">Skip <span class="glyphicon glyphicon-chevron-right"></span></button>
   </div>
   <br>
   <div class="btn-group" ng-if="showStep" style="margin-top: 5px">
