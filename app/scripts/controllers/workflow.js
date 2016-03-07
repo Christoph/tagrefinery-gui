@@ -45,6 +45,15 @@ angular.module('tagrefineryGuiApp')
     that.custom = function()
     {
       $scope.showStep = true;
+
+      if($scope.currentStep == 1)
+      {
+        socket.emit("getBlacklist", "")
+      }
+      if($scope.currentStep == 2)
+      {
+        socket.emit("getWhitelist", "")
+      }
     };
 
     // Apply default values

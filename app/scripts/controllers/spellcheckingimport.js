@@ -12,27 +12,30 @@ angular.module('tagrefineryGuiApp')
 
     // Get instance of the class
     var that = this;
+
     that.touched = false;
-    $scope.data = [];
+    $scope.dataS = [];
 
     ////////////////////////////////////////////////
     // Socket functions
     ////////////////////////////////////////////////
 
     socket.on('spellDictionaryParams', function (data) {
+      $scope.dataS.length = 0;
+
       _.map(data, function (d) {
-        $scope.data.push({tag: d});
+        $scope.dataS.push({tag: d});
       });
 
-      stats.writeSpell("Number of Ground Truth Words", $scope.data.length);
+      stats.writeSpell("Number of Ground Truth Words", $scope.dataS.length);
     });
 
     $scope.$on("apply", function() {
       if(that.touched)
       {
-        socket.emit("applySpellImportedData", JSON.stringify($scope.data));
+        socket.emit("applySpellImportedData", JSON.stringify($scope.dataS));
 
-        stats.writeSpell("Number of Ground Truth Words", $scope.data.length);
+        stats.writeSpell("Number of Ground Truth Words", $scope.dataS.length);
 
         that.touched = false;
       }
@@ -40,7 +43,9 @@ angular.module('tagrefineryGuiApp')
 
     that.clear = function()
     {
-      $scope.data.length = 0;
+      $scope.dataS.length = 0;
+
+      that.touched = true;
     };
 
     that.getFile = function(file)
@@ -60,10 +65,10 @@ angular.module('tagrefineryGuiApp')
       showGridFooter: true,
       enableColumnMenus: false,
       enableFiltering: true,
-      data: 'data',
+      data: 'dataS',
       importerDataAddCallback: function (grid, newObjects) {
-        $scope.data.length = 0;
-        $scope.data = $scope.data.concat(newObjects);
+        $scope.dataS.length = 0;
+        $scope.dataS = $scope.dataS.concat(newObjects);
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
         $scope.gridApi.core.refresh();
         that.touched = true;

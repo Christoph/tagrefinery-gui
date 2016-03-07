@@ -125,6 +125,8 @@ div.guidedInner {
   position: relative;
   vertical-align: middle;
   text-align: center;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 span.guidedQuestion {

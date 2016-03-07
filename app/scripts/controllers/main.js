@@ -22,7 +22,7 @@ angular.module('tagrefineryGuiApp')
     that.touched = false;
 
     // Imported data
-    $scope.data = [];
+    $scope.dataI = [];
 
     ////////////////////////////////////////////////
     // Start
@@ -31,7 +31,7 @@ angular.module('tagrefineryGuiApp')
     socket.on('mainData', function (data) {
       var json = JSON.parse(data);
       if (json.length > 0) {
-        $scope.data = json;
+        $scope.dataI = json;
         that.dataChanged = false;
         that.dataLoaded = true;
       }
@@ -92,10 +92,10 @@ angular.module('tagrefineryGuiApp')
       {
         var chunk = 500;
 
-        socket.emit("applyImportedDataCount", Math.ceil($scope.data.length / chunk));
+        socket.emit("applyImportedDataCount", Math.ceil($scope.dataI.length / chunk));
 
-        for (var i = 0, j = $scope.data.length; i < j; i += chunk) {
-          socket.emit("applyImportedData", JSON.stringify(_.slice($scope.data, i, i + chunk)));
+        for (var i = 0, j = $scope.dataI.length; i < j; i += chunk) {
+          socket.emit("applyImportedData", JSON.stringify(_.slice($scope.dataI, i, i + chunk)));
         }
 
         socket.emit("applyImportedDataFinished", "");
@@ -106,7 +106,7 @@ angular.module('tagrefineryGuiApp')
 
     that.clear = function()
     {
-      $scope.data.length = 0;
+      $scope.dataI.length = 0;
     };
 
     that.getFile = function(file)
@@ -123,9 +123,9 @@ angular.module('tagrefineryGuiApp')
       showGridFooter: true,
       enableColumnMenus: false,
       enableFiltering: true,
-      data: 'data',
+      data: 'dataI',
       importerDataAddCallback: function (grid, newObjects) {
-        $scope.data = $scope.data.concat(newObjects);
+        $scope.dataI = $scope.dataI.concat(newObjects);
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
         $scope.gridApi.core.refresh();
 
@@ -154,7 +154,7 @@ angular.module('tagrefineryGuiApp')
       that.dataChanged = false;
       that.running = false;
 
-      $scope.data.length = 0;
+      $scope.dataI.length = 0;
 
       socket.reconnect();
     };

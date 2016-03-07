@@ -5,9 +5,9 @@
     <h4>Import Data</h4>
     <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Upload File"></upload-button>
     <div class="btn-group">
-      <button class="btn secondaryColor" style="width: 75px" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="data.length<1"><span class="glyphicon glyphicon-trash"></span></button>
+      <button class="btn secondaryColor" style="width: 75px" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="dataI.length<1"><span class="glyphicon glyphicon-trash"></span></button>
       <button uib-tooltip="Save Import" type="button" style="width: 75px"
-              class="btn secondaryColor" ng-click="ctrl.import()" ng-disabled="data.length<1 || !ctrl.touched">
+              class="btn secondaryColor" ng-click="ctrl.import()" ng-disabled="dataI.length<1 || !ctrl.touched">
         <span class="glyphicon glyphicon-save"></span>
       </button>
     </div>
