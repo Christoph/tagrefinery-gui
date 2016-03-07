@@ -12,7 +12,7 @@
   <br>
   <div class="btn-group">
     <button ng-if="currentStep < 9" ng-click="ctrl.custom()" class="btn secondaryColor" style="width: 100px">Custom <span class="glyphicon glyphicon-cog"></span></button>
-    <button ng-if="currentStep < 9" ng-click="ctrl.ok()" class="btn primaryColor">Use Defaults <span class="glyphicon glyphicon-play"></span></button>
+    <button ng-if="currentStep < 6" ng-click="ctrl.ok()" class="btn primaryColor">Use Defaults <span class="glyphicon glyphicon-play"></span></button>
     <button ng-if="currentStep == 6 || currentStep == 8" class="btn primaryColor" ng-click="ctrl.showResults()">Results <span class="glyphicon glyphicon-th-list"></span></button>
     <button ng-if="currentStep < 8 && currentStep != 6" ng-click="ctrl.next()" class="btn secondaryColor" style="width: 100px">Skip <span class="glyphicon glyphicon-chevron-right"></span></button>
   </div>

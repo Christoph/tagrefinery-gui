@@ -16,9 +16,9 @@
 </div>
 
 <!--Task content-->
-<div ng-if="status.open[3]" style="text-align: center">
+<div ng-if="status.open[3] || (currentStep == 1 && showStep)" style="text-align: center">
   <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Select File"></upload-button>
   <button class="btn btn-danger" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="data.length<1">Clear</button>
 </div>
 
-<div ng-if="status.open[3]" ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="grid"></div>
+<div ng-if="status.open[3] || (currentStep == 1 && showStep)" ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="grid"></div>

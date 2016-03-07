@@ -17,11 +17,11 @@
 <!--Task content-->
 <div class="row">
   <div class="col-sm-6">
-    <div ng-if="status.open[2]" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
+    <div ng-if="status.open[2] || (currentStep == 8 && showStep)" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
          class="taskInner"></div>
   </div>
   <div class="col-sm-6">
-    <div ng-if="status.open[2]" ui-grid="ctrl.salvage" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
+    <div ng-if="status.open[2] || (currentStep == 8 && showStep)" ui-grid="ctrl.salvage" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
          class="taskInner"></div>
   </div>
 </div>

@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div ng-if="status.open[1]" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="48" svg-height="300"
+<div ng-if="status.open[1] || (currentStep == 3 && showStep)" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="48" svg-height="300"
      type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getNewImportance(threshold)"></div>
 
 <div class="row taskInner">
@@ -31,7 +31,7 @@
   </div>
 </div>
 
-<div class="row" ng-if="ctrl.showDetails && status.open[1]">
+<div class="row" ng-if="ctrl.showDetails">
   <div class="col-sm-6">
     <h4 style="position:relative; left:25%">Vocab</h4>
     <div ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
@@ -57,7 +57,7 @@
   </div>
 </div>
 
-<div class="taskInner" d3-slider ng-if="status.open[1]" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
+<div class="taskInner" d3-slider ng-if="status.open[1] || (currentStep == 3 && showStep)" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
 
 <div class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<div ng-if="ctrl.showReplacements && status.open[1]" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+<div ng-if="ctrl.showReplacements || (currentStep == 3 && showStep)" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
 
 <hr>
 

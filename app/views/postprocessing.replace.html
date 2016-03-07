@@ -15,7 +15,7 @@
 <!--Task content-->
 <div class="row">
   <div class="col-sm-6">
-    <div ng-if="status.open[1]" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
+    <div ng-if="status.open[1] || (currentStep == 7 && showStep)" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
          ui-grid-edit ui-grid-row-edit class="taskInner"></div>
   </div>
   <div class="col-sm-6">
