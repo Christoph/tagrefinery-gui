@@ -264,9 +264,17 @@ button.disabled {
   color: white;
 }
 
+.primaryColor:hover {
+  color: black;
+}
+
 .secondaryColor {
   background-color: #e65c00;
   color: white;
+}
+
+.secondaryColor:hover {
+  color: black;
 }
 
 /*
