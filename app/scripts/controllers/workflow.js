@@ -26,6 +26,7 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('isGuided', function (data) {
       that.guided = data == "true";
+      that.guided = true;
     });
 
     socket.on('computePre', function (data) {

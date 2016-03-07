@@ -4,13 +4,13 @@
   <div class="row" style="margin-top: 20px">
     <span style="font-size: large">Start:</span>
     <div class="btn-group">
-      <button uib-tooltip="Guided run with precomputed default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-primary" ng-click="ctrl.startWithDefaults()">Guided</button>
-      <button uib-tooltip="Unguided and without default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-primary" ng-click="ctrl.startCustom()">Free</button>
-      <button ng-if="ctrl.running" class="btn btn-primary" ng-click="ctrl.reconnectToWorkflow()">Reconnect to Active Season</button>
+      <button uib-tooltip="Guided run with precomputed default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startWithDefaults()">Guided</button>
+      <button uib-tooltip="Unguided and without default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startCustom()">Free</button>
+      <button ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect to Active Season</button>
     </div>
   </div>
   <div class="row" style="margin-top: 2px">
-    <button class="btn btn-info" ng-click="ctrl.goToImport()">Import/Update Data</button>
+    <button class="btn secondaryColor" ng-click="ctrl.goToImport()">Import/Update Data</button>
     <span style="font-size: large">Status:</span>
     <span style="font-size: xx-large; vertical-align: middle" ng-if="ctrl.dataLoaded"><span class=" glyphicon glyphicon-ok-circle"></span></span>
     <span style="font-size: large; color: grey" ng-if="!ctrl.dataLoaded && !ctrl.loading">no data </span>
