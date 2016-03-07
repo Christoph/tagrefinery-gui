@@ -1,13 +1,13 @@
 <div class="guidedInner">
-  <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <strong>rare words</strong>?</span>
-  <span ng-show="currentStep == 1" class="guidedQuestion">Do you want to import a list of <strong>words to remove</strong>?</span>
-  <span ng-show="currentStep == 2" class="guidedQuestion">Do you want to import a list of <strong>correct words</strong>?</span>
-  <span ng-show="currentStep == 3" class="guidedQuestion">Do you want to reduce <strong>word forms</strong> and <strong>spelling errors</strong>?</span>
-  <span ng-show="currentStep == 4" class="guidedQuestion">Do you want to find <strong>word groups</strong> which appear very <strong>often</strong>?</span>
-  <span ng-show="currentStep == 5" class="guidedQuestion">Do you want to find <strong>word groups</strong> which are <strong>unique</strong>?</span>
-  <span ng-show="currentStep == 6" class="guidedQuestion">Do you want to reduce the total amount of <strong>important words</strong> used in your final dataset?</span>
-  <span ng-show="currentStep == 7" class="guidedQuestion">Do you want to change those <strong>import words</strong> by hand?</span>
-  <span ng-show="currentStep == 8" class="guidedQuestion">Do you want to search for those <strong>important words</strong> in the <strong>non-important ones</strong>?</span>
+  <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <span uib-tooltip="Words below a certain occurrence"><strong>rare words</strong></span>?</span>
+  <span ng-show="currentStep == 1" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Each word in the list will be removed from the dataset"><strong>words to remove</strong></span>?</span>
+  <span ng-show="currentStep == 2" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Import your Dictionary with correct words here"><strong>correct words</strong></span>?</span>
+  <span ng-show="currentStep == 3" class="guidedQuestion">Do you want to reduce <span uib-tooltip="Like - favourite, favorite, favourites or favorites"><strong>word forms</strong></span> and <span uib-tooltip="Misspelled words like - necesary"><strong>spelling errors</strong></span>?</span>
+  <span ng-show="currentStep == 4" class="guidedQuestion">Do you want to find <span uib-tooltip="A tag might be composed of multiple words like - hard rock"><strong>multiword tags</strong></span> which appear very <span uib-tooltip="Frequent multiword tags are as example genres"><strong>often</strong></span>?</span>
+  <span ng-show="currentStep == 5" class="guidedQuestion">Do you want to find <span uib-tooltip="A tag might be composed of multiple words like - hard rock"><strong>multiword tags</strong></span> which are <span uib-tooltip="Unique multiword tags are as example artist or band names"><strong>unique</strong></span>?</span>
+  <span ng-show="currentStep == 6" class="guidedQuestion">Do you want to reduce the total amount of <span uib-tooltip="Filter the tags by there tag quality to remove bad tags"><strong>important words</strong></span> used in your final dataset?</span>
+  <span ng-show="currentStep == 7" class="guidedQuestion">Do you want to change those <span uib-tooltip="Remove bad words or translate words or resolve synonyms"><strong>import tags</strong></span> by hand?</span>
+  <span ng-show="currentStep == 8" class="guidedQuestion">Do you want to search for those <span uib-tooltip="The tags above the selected tag quality value"><strong>important tags</strong></span> in the <span uib-tooltip="THe tags below the selected tag quality values"><strong>non-important ones</strong></span>?</span>
   <span ng-show="currentStep == 9" class="guidedQuestion">Results</span>
   <br>
   <div class="btn-group" style="margin-top: 20px">
