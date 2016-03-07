@@ -143,6 +143,10 @@ button.help {
   right: 20px;
 }
 
+.round {
+  border-radius: 50%
+}
+
 .threshold line {
   stroke: steelblue;
   stroke-opacity: .75;
