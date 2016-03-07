@@ -69,6 +69,19 @@ angular.module('tagrefineryGuiApp')
 
         scope.svg.select(".x.axis").call(scope.xAxis);
         scope.svg.select(".y.axis").call(scope.yAxis);
+
+        if(s > 1)
+        {
+          scope.$apply(function() {
+            scope.isZoomed = true;
+          })
+        }
+        else
+        {
+          scope.$apply(function() {
+            scope.isZoomed = false;
+          })
+        }
       };
 
       scope.dragmove = function () {
@@ -99,7 +112,7 @@ angular.module('tagrefineryGuiApp')
 
       scope.reset = function () {
         d3.transition().duration(750).tween("zoom", function () {
-          var ix = d3.interpolate(scope.x.domain(), scope.xDomain),
+          var ix = d3.interpolate(scope.x.domain(), [0,scope.xDomain[1]]),
             iy = d3.interpolate(scope.y.domain(), scope.yDomain);
           return function (t) {
             scope.zoom.x(scope.x.domain(ix(t))).y(scope.y.domain(iy(t)));
@@ -157,6 +170,12 @@ angular.module('tagrefineryGuiApp')
         .y(scope.y)
         .scaleExtent([1, 1000])
         .size(scope.quadrantWidth, scope.quadrantHeight)
+        .on("zoomstart", function() {
+          scope.svg.style("cursor", "all-scroll")
+        })
+        .on("zoomend", function() {
+          scope.svg.style("cursor", "zoom-in")
+        })
         .on("zoom", scope.zoomed);
 
       // Define drag beavior
@@ -178,6 +197,7 @@ angular.module('tagrefineryGuiApp')
         .style("background-color", "white")
         .attr("class", "chart")
         .call(scope.zoom)
+        .style("cursor", "zoom-in")
         .on('click', function () {
           if (d3.event.defaultPrevented) return; // click suppressed
           if(scope.isFloat)
