@@ -19,6 +19,7 @@ angular.module('tagrefineryGuiApp')
     that.dataChanged = false;
     that.running = false;
     that.loading = false;
+    that.touched = false;
 
     // Imported data
     $scope.data = [];
@@ -99,6 +100,8 @@ angular.module('tagrefineryGuiApp')
 
         socket.emit("applyImportedDataFinished", "");
       }
+
+      that.touched = false;
     };
 
     that.clear = function()
@@ -125,6 +128,8 @@ angular.module('tagrefineryGuiApp')
         $scope.data = $scope.data.concat(newObjects);
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
         $scope.gridApi.core.refresh();
+
+        that.touched = true;
       },
       onRegisterApi: function (gridApi) {
         $scope.gridApi = gridApi;
