@@ -10,14 +10,14 @@
   <span ng-show="currentStep == 8" class="guidedQuestion">Do you want to search for those <strong>important words</strong> in the <strong>non-important ones</strong>?</span>
   <span ng-show="currentStep == 9" class="guidedQuestion">Results</span>
   <br>
-  <div class="btn-group">
-    <button ng-if="currentStep < 9" ng-click="ctrl.custom()" class="btn secondaryColor" style="width: 150px">Custom <span class="glyphicon glyphicon-cog"></span></button>
+  <div class="btn-group" style="margin-top: 20px">
+    <button ng-if="currentStep < 9" ng-click="ctrl.custom()" class="btn secondaryColor" style="width: 150px">Customize <span class="glyphicon glyphicon-cog"></span></button>
     <button ng-if="currentStep < 6" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Use Defaults <span class="glyphicon glyphicon-play"></span></button>
     <button ng-if="currentStep == 6 || currentStep == 8" class="btn primaryColor" ng-click="ctrl.showResults()">Results <span class="glyphicon glyphicon-th-list"></span></button>
   </div>
   <br>
   <div class="btn-group" ng-if="showStep" style="margin-top: 5px">
-    <button ng-if="currentStep < 9" ng-click="ctrl.next()" class="btn primaryColor" style="width: 200px">Apply <span class="glyphicon glyphicon-ok"></span></button>
+    <button ng-if="currentStep < 9" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 200px">Apply <span class="glyphicon glyphicon-ok"></span></button>
   </div>
   <button ng-if="currentStep == 9" ng-click="ctrl.reset()" class="btn primaryColor" style="width: 100px">Restart <span class="glyphicon glyphicon-refresh"></span></button>
   <button ng-if="currentStep == 9" ng-click="ctrl.advanced()" class="btn primaryColor">Advanced Mode <span class="glyphicon glyphicon-dashboard"></span></button>

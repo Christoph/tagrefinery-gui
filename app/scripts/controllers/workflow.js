@@ -12,7 +12,9 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     // State variables
-    that.guided = false;
+    that.guided = true;
+    that.free = true;
+    that.init = false;
     that.preRunning = false;
     that.spellRunning = false;
     that.compRunning = false;
@@ -25,7 +27,19 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     socket.on('isGuided', function (data) {
-      that.guided = data == "true";
+      //that.guided = data == "true";
+      if(data == "true")
+      {
+        that.guided = true;
+        that.free = false;
+      }
+      else
+      {
+        that.guided = false;
+        that.free = true;
+      }
+
+      that.init = true;
     });
 
     socket.on('computePre', function (data) {
@@ -39,7 +53,6 @@ angular.module('tagrefineryGuiApp')
     socket.on('computeComp', function (data) {
       that.compRunning = data == "started"
     });
-
 
     // Choose value
     that.custom = function()
@@ -65,39 +78,31 @@ angular.module('tagrefineryGuiApp')
       that.apply();
     };
 
-    // Apply no value
-    that.next = function()
-    {
-      $scope.showStep = false;
-      $scope.currentStep++;
-
-      that.apply();
-    };
-
     that.showResults = function()
     {
       $scope.currentStep = 9;
       $scope.showStep = true;
       $scope.$broadcast("guidedResult");
-    }
+    };
 
     that.output = function()
     {
       $scope.$broadcast("guidedResult");
-    }
+    };
 
     that.reset = function()
     {
       $scope.currentStep = 0;
       $scope.showStep = false;
-    }
+    };
 
     that.advanced = function()
     {
       that.guided = false;
+      that.free = true;
 
       socket.emit("selectMode", "free");
-    }
+    };
 
     that.apply = function()
     {
