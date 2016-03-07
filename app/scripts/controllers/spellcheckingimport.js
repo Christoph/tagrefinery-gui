@@ -27,7 +27,7 @@ angular.module('tagrefineryGuiApp')
         $scope.dataS.push({tag: d});
       });
 
-      stats.writeSpell("Number of Ground Truth Words", $scope.dataS.length);
+      stats.writeSpell("Number of Dictionary Words", $scope.dataS.length);
     });
 
     $scope.$on("apply", function() {
@@ -35,7 +35,7 @@ angular.module('tagrefineryGuiApp')
       {
         socket.emit("applySpellImportedData", JSON.stringify($scope.dataS));
 
-        stats.writeSpell("Number of Ground Truth Words", $scope.dataS.length);
+        stats.writeSpell("Number of Dictionary Words", $scope.dataS.length);
 
         that.touched = false;
       }

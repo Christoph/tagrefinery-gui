@@ -82,16 +82,12 @@ angular.module('tagrefineryGuiApp')
     socket.on('compUniqueParams', function (data) {
       that.newThreshold = parseFloat(data);
       that.threshold = that.newThreshold;
-
-      stats.writeComp("Unique Threshold", Math.round(that.newThreshold * 1000) / 1000);
     });
 
     $scope.$on("apply", function() {
       if(that.touched)
       {
         socket.emit("applyUniqueThreshold", "" + that.newThreshold);
-
-        stats.writeComp("Unique Threshold", Math.round(that.newThreshold * 1000) / 1000);
 
         that.touched = false;
       }
@@ -100,8 +96,6 @@ angular.module('tagrefineryGuiApp')
     that.undo = function ()
     {
       that.newThreshold = that.threshold;
-
-      stats.writeComp("Unique Threshold", Math.round(that.newThreshold * 1000) / 1000);
 
       that.touched = false;
     };

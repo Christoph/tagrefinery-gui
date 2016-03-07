@@ -79,16 +79,12 @@ angular.module('tagrefineryGuiApp')
     socket.on('compFrequentParams', function (data) {
       that.newThreshold = parseFloat(data);
       that.threshold = that.newThreshold;
-
-      stats.writeComp("Frequent Threshold", Math.round(that.newThreshold * 1000) / 1000);
     });
 
     $scope.$on("apply", function() {
       if(that.touched)
       {
         socket.emit("applyFrequentThreshold", "" + that.newThreshold);
-
-        stats.writeComp("Frequent Threshold", Math.round(that.newThreshold * 1000) / 1000);
 
         that.touched = false;
       }
@@ -97,8 +93,6 @@ angular.module('tagrefineryGuiApp')
     that.undo = function ()
     {
       that.newThreshold = that.threshold;
-
-      stats.writeComp("Frequent Threshold", Math.round(that.newThreshold * 1000) / 1000);
 
       that.touched = false;
     }

@@ -81,7 +81,7 @@ angular.module('tagrefineryGuiApp')
       that.occurrences = parseFloat(data);
       that.newOccurrences = that.occurrences;
 
-      stats.writePre("Occurrence Threshold", that.newOccurrences);
+      stats.writePre("Minimum Occurrence", that.newOccurrences);
     });
 
     $scope.$on("apply", function() {
@@ -90,7 +90,7 @@ angular.module('tagrefineryGuiApp')
         socket.emit("applyPrefilter", "" + that.newOccurrences);
         that.occurrences = that.newOccurrences;
 
-        stats.writePre("Occurrence Threshold", that.newOccurrences);
+        stats.writePre("Minimum Occurrence", that.newOccurrences);
 
         that.touched = false;
       }
@@ -100,7 +100,7 @@ angular.module('tagrefineryGuiApp')
     {
       that.newOccurrences = that.occurrences;
 
-      stats.writePre("Occurrence Threshold", that.newOccurrences);
+      stats.writePre("Minimum Occurrence", that.newOccurrences);
 
       that.touched = false;
     };
