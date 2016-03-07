@@ -17,8 +17,8 @@ angular.module('tagrefineryGuiApp')
     that.spellRunning = false;
     that.compRunning = false;
 
-    that.showStep = false;
-    that.currentStep = 0;
+    $scope.showStep = false;
+    $scope.currentStep = 0;
 
     ////////////////////////////////////////////////
     // Start
@@ -44,14 +44,14 @@ angular.module('tagrefineryGuiApp')
     // Choose value
     that.custom = function()
     {
-      that.showStep = true;
+      $scope.showStep = true;
     };
 
     // Apply default values
     that.ok = function()
     {
-      that.showStep = false;
-      that.currentStep++;
+      $scope.showStep = false;
+      $scope.currentStep++;
 
       that.apply();
     };
@@ -59,16 +59,16 @@ angular.module('tagrefineryGuiApp')
     // Apply no value
     that.next = function()
     {
-      that.showStep = false;
-      that.currentStep++;
+      $scope.showStep = false;
+      $scope.currentStep++;
 
       that.apply();
     };
 
     that.showResults = function()
     {
-      that.currentStep = 9;
-      that.showStep = true;
+      $scope.currentStep = 9;
+      $scope.showStep = true;
       $scope.$broadcast("guidedResult");
     }
 
@@ -79,13 +79,15 @@ angular.module('tagrefineryGuiApp')
 
     that.reset = function()
     {
-      that.currentStep = 1;
-      that.showStep = false;
+      $scope.currentStep = 0;
+      $scope.showStep = false;
     }
 
     that.advanced = function()
     {
       that.guided = false;
+
+      socket.emit("selectMode", "free");
     }
 
     that.apply = function()
