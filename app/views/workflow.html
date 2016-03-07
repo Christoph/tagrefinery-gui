@@ -53,11 +53,14 @@
       <div class="row" ng-include="'views/postprocessing.html'"></div>
     </uib-tab>
 
-    <uib-tab index="4" select="loadStats()" disable="ctrl.disabled[4]">
+    <uib-tab index="4" select="ctrl.loadStats()" disable="ctrl.disabled[4]">
+      <div class="alert alert-success" style="text-align: center" ng-if="ctrl.compRunning">
+        <strong>Updating Data ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
+      </div>
       <uib-tab-heading>
         Output
       </uib-tab-heading>
-      <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'" ng-if="active==4" ></div>
+      <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
     </uib-tab>
   </uib-tabset>
 </div>

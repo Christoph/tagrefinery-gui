@@ -21,20 +21,16 @@ angular.module('tagrefineryGuiApp')
     that.history = [];
     that.state = "";
 
-    $scope.$parent.loadStats = function()
-    {
-      that.pre = stats.getPre();
-      that.spell = stats.getSpell();
-      that.comp = stats.getComp();
-      that.post = stats.getPost();
-    };
-
+    that.dataLoaded = false;
 
     ////////////////////////////////////////////////
     // Socket functions
     ////////////////////////////////////////////////
 
     socket.on('output', function (data) {
+      that.dataLoaded = true;
+
+      that.loadStats();
       that.grid.data = JSON.parse(data);
     });
 
@@ -49,6 +45,14 @@ angular.module('tagrefineryGuiApp')
     that.getHistory = function(tag, item)
     {
       socket.emit("getHistory", JSON.stringify([{tag: tag, item: item}]))
+    };
+
+    that.loadStats = function()
+    {
+      that.pre = stats.getPre();
+      that.spell = stats.getSpell();
+      that.comp = stats.getComp();
+      that.post = stats.getPost();
     };
 
     ////////////////////////////////////////////////
