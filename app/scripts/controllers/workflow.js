@@ -67,9 +67,14 @@ angular.module('tagrefineryGuiApp')
 
     that.showResults = function()
     {
-      that.loadStats();
       that.currentStep = 9;
       that.showStep = true;
+      $scope.$broadcast("guidedResult");
+    }
+
+    that.output = function()
+    {
+      $scope.$broadcast("guidedResult");
     }
 
     that.reset = function()

@@ -22,6 +22,7 @@ angular.module('tagrefineryGuiApp')
     that.state = "";
 
     that.dataLoaded = false;
+    that.result = false;
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -54,6 +55,10 @@ angular.module('tagrefineryGuiApp')
       that.comp = stats.getComp();
       that.post = stats.getPost();
     };
+
+    $scope.$on("guidedResult", function() {
+      that.result = true;
+    });
 
     ////////////////////////////////////////////////
     // Overview Grid
