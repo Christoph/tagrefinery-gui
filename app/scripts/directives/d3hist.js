@@ -219,7 +219,7 @@ angular.module('tagrefineryGuiApp')
 
       // title
       scope.svg.append("text")
-        .attr("class", "title")
+        .attr("class", "hist-title")
         .attr("text-anchor", "middle")
         .attr("x", (scope.width / 2))
         .attr("y", 20)
