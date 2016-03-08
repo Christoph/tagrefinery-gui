@@ -1,3 +1,29 @@
 <div ng-controller="LinkedCtrl as ctrl">
-  Linked HTML
+  <div class="row">
+    <div class="col-sm-9">
+      <div ng-if="ctrl.linked" d3-hist data="ctrl.preData" call-back="ctrl.getPre(threshold)" threshold="ctrl.newPre" is-float="false" from-right="false"
+           bins="24" svg-height="200" type-label="Number of Occurrences" y-label="Number of Words" title="Remove Rare Words"></div>
+    </div>
+    <div class="col-sm-3">
+      <h5 style="text-align: center">Preprocessing</h5>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm-9">
+
+    </div>
+    <div class="col-sm-3">
+      <h5 style="text-align: center">Spell Correct</h5>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm-9">
+
+    </div>
+    <div class="col-sm-3">
+      <h5 style="text-align: center">Multiword Tags</h5>
+    </div>
+  </div>
 </div>
