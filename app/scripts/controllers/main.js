@@ -146,15 +146,6 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     that.reconnect = function () {
-      // Reset all states
-      that.connectionStatus = false;
-      that.dataLoaded = false;
-      that.showImport = false;
-      that.showWorkflow = false;
-      that.dataChanged = false;
-      that.running = false;
-
-      $scope.dataI.length = 0;
 
       socket.reconnect();
     };
@@ -168,11 +159,31 @@ angular.module('tagrefineryGuiApp')
     });
 
     socket.on('disconnect', function () {
+      // Reset all states
       that.connectionStatus = false;
+      that.dataLoaded = false;
+      that.showImport = false;
+      that.showWorkflow = false;
+      that.dataChanged = false;
+      that.running = false;
+      that.loading = false;
+      that.touched = false;
+
+      $scope.dataI.length = 0;
     });
 
     socket.on('connect_error', function () {
+      // Reset all states
       that.connectionStatus = false;
+      that.dataLoaded = false;
+      that.showImport = false;
+      that.showWorkflow = false;
+      that.dataChanged = false;
+      that.running = false;
+      that.loading = false;
+      that.touched = false;
+
+      $scope.dataI.length = 0;
     });
 
   }]);
