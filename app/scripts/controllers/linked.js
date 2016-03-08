@@ -19,25 +19,34 @@ angular.module('tagrefineryGuiApp')
     that.pre = 0;
     that.newPre = 0;
 
+    // SPELL
+    that.spellData = [];
+    that.spellI = 0;
+    that.newSpellI = 0;
+    that.spellS = 0;
+    that.newSpellS = 0;
+
+    that.spellDomain = [0,1];
+
     ////////////////////////////////////////////////
     // D3 functions
     ////////////////////////////////////////////////
 
     that.getPre = function (occurrences) {
       $scope.$apply(function () {
-        that.newOccurrences = occurrences;
-
-        if (that.showDetails) {
-          $timeout(function () {
-            that.scrollTo(that.getAboveRow(that.grid.data, that.newOccurrences), 0);
-          })
-        }
+        that.newPre = occurrences;
 
         that.filteredWords = that.getPreCount();
         stats.writePre("Number of Remaining Words", that.filteredWords);
-
-        that.touched = true;
       });
+    };
+
+    that.getSpellI = function (threshold) {
+      $scope.$apply(function () {
+        that.newSpellI = threshold;
+      });
+
+      that.getSpellCount();
     };
 
     ////////////////////////////////////////////////
@@ -66,6 +75,26 @@ angular.module('tagrefineryGuiApp')
       stats.writePre("Minimum Occurrence", that.newPre);
     });
 
+    // SPELL
+    socket.on('spellImportance', function (data) {
+      that.spellI = parseFloat(data);
+      that.newSpellI = that.spellI;
+
+      stats.writeSpell("Minimum Word Quality", Math.round(that.newSpellI * 1000) / 1000);
+    });
+
+    socket.on('spellSimilarity', function (data) {
+      that.spellS = parseFloat(data);
+      that.newSpellS = that.spellS;
+
+      stats.writeSpell("Minimum Word Similarity ", Math.round(that.newSpellS * 1000) / 1000);
+    });
+
+    socket.on('importance', function (data) {
+      that.spellData = JSON.parse(data);
+      that.getSpellCount();
+    });
+
     ////////////////////////////////////////////////
     // Helper
     ////////////////////////////////////////////////
@@ -76,6 +105,18 @@ angular.module('tagrefineryGuiApp')
         }), function (o) {
           return o.count;
         });
+    };
 
-    }
+    that.getSpellCount = function()
+    {
+      socket.emit("getReplacements", JSON.stringify([{importance: that.newSpellI, similarity: that.newSpellS}]));
+    };
+
+    that.getSlider = function (value) {
+      $scope.$apply(function () {
+        that.newSpellS = value;
+      });
+
+      that.getSpellCount();
+    };
   }]);

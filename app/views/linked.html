@@ -11,7 +11,9 @@
   <hr>
   <div class="row">
     <div class="col-sm-9">
-
+      <div ng-if="ctrl.linked" d3-hist data="ctrl.spellData" threshold="ctrl.newSpellI" bins="48" svg-height="200"
+           type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getSpellCount(threshold)" title="Improve Tag Quality"></div>
+      <div class="taskInner" d3-slider ng-if="ctrl.linked" value="ctrl.newSpellS" call-back="ctrl.getSlider(value)" domain="ctrl.spellDomain" xlabel="Similarity"></div>
     </div>
     <div class="col-sm-3">
       <h5 style="text-align: center">Spell Correct</h5>
