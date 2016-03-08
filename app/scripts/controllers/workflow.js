@@ -27,7 +27,6 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     socket.on('isGuided', function (data) {
-      //that.guided = data == "true";
       if(data == "true")
       {
         that.guided = true;
@@ -55,7 +54,7 @@ angular.module('tagrefineryGuiApp')
     });
 
     // Choose value
-    that.custom = function()
+    that.customize = function()
     {
       $scope.showStep = true;
 
@@ -69,20 +68,18 @@ angular.module('tagrefineryGuiApp')
       }
     };
 
-    // Apply default values
     that.ok = function()
     {
       $scope.showStep = false;
       $scope.currentStep++;
 
-      that.apply();
-    };
+      if($scope.currentStep == 6)
+      {
+        $scope.showStep = true;
+        $scope.$broadcast("guidedResult");
+      }
 
-    that.showResults = function()
-    {
-      $scope.currentStep = 9;
-      $scope.showStep = true;
-      $scope.$broadcast("guidedResult");
+      that.apply();
     };
 
     that.output = function()
@@ -92,8 +89,8 @@ angular.module('tagrefineryGuiApp')
 
     that.reset = function()
     {
-      $scope.currentStep = 0;
       $scope.showStep = false;
+      $scope.currentStep = 0;
     };
 
     that.advanced = function()
@@ -110,6 +107,11 @@ angular.module('tagrefineryGuiApp')
       $scope.$broadcast("apply");
 
       socket.emit("computeWorkflow", "");
+    };
+
+    that.getPercent = function()
+    {
+      return ($scope.currentStep / 6) * 100;
     }
 
   }]);

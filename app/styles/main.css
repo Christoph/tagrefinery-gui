@@ -265,6 +265,10 @@ button.disabled {
   pointer-events: none;
 }
 
+.progress-bar {
+  background-color: #b10000;
+}
+
 .primaryColor {
   background-color: #b10000;
   color: white;
