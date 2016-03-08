@@ -22,7 +22,10 @@
   <hr>
   <div class="row">
     <div class="col-sm-9">
-
+      <div ng-if="ctrl.linked" d3-hist data="ctrl.compDataF" call-back="ctrl.getCompF(threshold)"
+           threshold="ctrl.newCompF" bins="24" svg-height="200" type-label="Group Strength" y-label="Count"></div>
+      <div ng-if="ctrl.linked" d3-hist data="ctrl.compDataU" call-back="ctrl.getCompU(threshold)"
+           threshold="ctrl.newCompU" bins="24" svg-height="200" type-label="Group Strength" y-label="Count"></div>
     </div>
     <div class="col-sm-3">
       <h5 style="text-align: center">Multiword Tags</h5>

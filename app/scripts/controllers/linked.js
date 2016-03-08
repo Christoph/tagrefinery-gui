@@ -25,8 +25,15 @@ angular.module('tagrefineryGuiApp')
     that.newSpellI = 0;
     that.spellS = 0;
     that.newSpellS = 0;
-
     that.spellDomain = [0,1];
+
+    // COMP
+    that.compDataF = [];
+    that.compDataU = [];
+    that.compF = 0;
+    that.compU = 0;
+    that.newCompF = 0;
+    that.newCompU = 0;
 
     ////////////////////////////////////////////////
     // D3 functions
@@ -47,6 +54,22 @@ angular.module('tagrefineryGuiApp')
       });
 
       that.getSpellCount();
+    };
+
+    that.getCompF = function (threshold) {
+      $scope.$apply(function () {
+        that.newCompF = threshold;
+
+        stats.writeComp("Number of Frequent Groups", that.getCompFCount());
+      });
+    };
+
+    that.getCompU = function (threshold) {
+      $scope.$apply(function () {
+        that.newCompU = threshold;
+
+        stats.writeComp("Number of Frequent Groups", that.getCompUCount());
+      });
     };
 
     ////////////////////////////////////////////////
@@ -95,6 +118,29 @@ angular.module('tagrefineryGuiApp')
       that.getSpellCount();
     });
 
+    // COMP
+    socket.on('frequentData', function (data) {
+      that.compDataF = JSON.parse(data);
+
+      stats.writeComp("Number of Frequent Groups", that.getCompFCount());
+    });
+
+    socket.on('compFrequentParams', function (data) {
+      that.newCompF = parseFloat(data);
+      that.compF = that.newCompF;
+    });
+
+    socket.on('uniqueData', function (data) {
+      that.compDataU = JSON.parse(data);
+
+      stats.writeComp("Number of Unique Groups", that.getCompUCount());
+    });
+
+    socket.on('compUniqueParams', function (data) {
+      that.newCompU = parseFloat(data);
+      that.compU = that.newCompU;
+    });
+
     ////////////////////////////////////////////////
     // Helper
     ////////////////////////////////////////////////
@@ -118,5 +164,21 @@ angular.module('tagrefineryGuiApp')
       });
 
       that.getSpellCount();
+    };
+
+    that.getCompFCount = function () {
+      return _.sum(_.filter(that.compDataF, function (d) {
+        return d.value >= that.newCompF;
+      }), function (o) {
+        return o.count;
+      });
+    };
+
+    that.getCompUCount = function () {
+      return _.sum(_.filter(that.compDataU, function (d) {
+        return d.value >= that.newCompU;
+      }), function (o) {
+        return o.count;
+      });
     };
   }]);
