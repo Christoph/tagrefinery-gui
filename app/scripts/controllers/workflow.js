@@ -14,6 +14,7 @@ angular.module('tagrefineryGuiApp')
     // State variables
     that.guided = true;
     that.free = true;
+    that.linked = false;
     that.init = false;
     that.initRunning = false;
     that.preRunning = false;
@@ -32,11 +33,13 @@ angular.module('tagrefineryGuiApp')
       {
         that.guided = true;
         that.free = false;
+        that.linked = false;
       }
       else
       {
         that.guided = false;
-        that.free = true;
+        that.free = false;
+        that.linked = true;
       }
 
       that.init = true;
