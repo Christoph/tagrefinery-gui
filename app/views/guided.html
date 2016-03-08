@@ -25,6 +25,21 @@
   </div>
   <br>
   <hr>
+  <div ng-if="currentStep == 0 && ctrl.initRunning" class="alert alert-guided" style="text-align: center">
+    Apply Preprocessing ... <br> <div spin-rect style="width: 40px; height: 40px"></div>
+  </div>
+  <div ng-if="currentStep == 3 && ctrl.preRunning" class="alert alert-guided" style="text-align: center">
+    Apply Preprocessing ... <br> <div spin-rect style="width: 40px; height: 40px"></div>
+  </div>
+  <div ng-if="currentStep == 4 && ctrl.spellRunning" class="alert alert-guided" style="text-align: center">
+    <strong>Apply Spell Correction ... </strong> <br> <div spin-rect style="width: 40px; height: 40px"></div>
+  </div>
+  <div ng-if="currentStep == 5 && ctrl.spellRunning" class="alert alert-guided" style="text-align: center">
+    <strong>Apply Spell Correction ... </strong> <br> <div spin-rect style="width: 40px; height: 40px"></div>
+  </div>
+  <div ng-if="currentStep == 6 && ctrl.compRunning" class="alert alert-guided" style="text-align: center">
+    <strong>Apply Multiword Tags ... </strong> <br> <div spin-rect style="width: 40px; height: 40px"></div>
+  </div>
   <div uib-collapse="!showStep" style="text-align: left" class="guidedInner">
     <div ng-show="currentStep == 0">
       <div class="row" ng-controller="PreprocessingfilterCtrl as ctrl" ng-include="'views/preprocessing.filter.html'"></div>

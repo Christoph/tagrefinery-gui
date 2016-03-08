@@ -8,6 +8,9 @@
       <uib-tab-heading>
         <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>
+      <div class="alert alert-info" style="text-align: center" ng-if="ctrl.initRunning">
+        <strong>Loading Data ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
+      </div>
       <div class="scafold">
         <span class="glyphicon glyphicon-info-sign"></span><strong>Preprocess</strong> the dataset to reduce the number of words and characters.
       </div>
@@ -18,7 +21,7 @@
       <uib-tab-heading>
         <label class="pull-left">2</label> Spell-correct <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>
-      <div class="alert alert-success" style="text-align: center" ng-if="ctrl.preRunning">
+      <div class="alert alert-info" style="text-align: center" ng-if="ctrl.preRunning">
         <strong>Apply Preprocessing ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
       </div>
       <div class="scafold">
@@ -31,7 +34,7 @@
       <uib-tab-heading>
         <label class="pull-left">3</label> Multiword Tags <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>
-      <div class="alert alert-success" style="text-align: center" ng-if="ctrl.spellRunning">
+      <div class="alert alert-info" style="text-align: center" ng-if="ctrl.spellRunning">
         <strong>Apply Spell Correction ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
       </div>
       <div class="scafold">
@@ -44,7 +47,7 @@
       <uib-tab-heading>
         <label class="pull-left">4</label> Finalize <i class="pull-right glyphicon glyphicon-chevron-right"></i>
       </uib-tab-heading>
-      <div class="alert alert-success" style="text-align: center" ng-if="ctrl.compRunning">
+      <div class="alert alert-info" style="text-align: center" ng-if="ctrl.compRunning">
         <strong>Apply Multiword Tags ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
       </div>
       <div class="scafold">
@@ -54,7 +57,7 @@
     </uib-tab>
 
     <uib-tab index="4" disable="ctrl.disabled[4]" select="ctrl.output()">
-      <div class="alert alert-success" style="text-align: center" ng-if="ctrl.compRunning">
+      <div class="alert alert-info" style="text-align: center" ng-if="ctrl.compRunning">
         <strong>Updating Data ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
       </div>
       <uib-tab-heading>

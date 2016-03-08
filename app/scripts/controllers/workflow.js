@@ -15,6 +15,7 @@ angular.module('tagrefineryGuiApp')
     that.guided = true;
     that.free = true;
     that.init = false;
+    that.initRunning = false;
     that.preRunning = false;
     that.spellRunning = false;
     that.compRunning = false;
@@ -39,6 +40,10 @@ angular.module('tagrefineryGuiApp')
       }
 
       that.init = true;
+    });
+
+    socket.on('computePre', function (data) {
+      that.initRunning = data == "started"
     });
 
     socket.on('computePre', function (data) {

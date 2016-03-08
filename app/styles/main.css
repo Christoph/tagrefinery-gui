@@ -291,6 +291,13 @@ button.disabled {
   color: white;
 }
 
+.alert-guided {
+  background-color: rgba(230, 92, 0, 0.71);
+  color: white;
+  font-size: medium;
+  border-color: white;
+}
+
 .secondaryColor:focus,
 .secondaryColor:hover {
   color: black;
@@ -445,7 +452,7 @@ Spinner Circle
 .sk-cube-grid .sk-cube {
   width: 33%;
   height: 33%;
-  background-color: #333;
+  background-color: white;
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
   animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
