@@ -11,7 +11,8 @@
     "lodash": "^4.2.0",
     "pdfmake": "^0.1.20",
     "CSV-JS": "csv-js#^1.1.1",
-    "angular-animate": "^1.5.1"
+    "angular-animate": "^1.5.1",
+    "font-awesome": "fontawesome#^4.5.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -30,6 +31,11 @@
       "main": [
         "themes/smoothness/jquery-ui.css",
         "ui/jquery-ui.js"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.min.css"
       ]
     }
   }
