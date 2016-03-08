@@ -14,6 +14,11 @@ angular.module('tagrefineryGuiApp')
     var that = this;
     that.linked = false;
 
+    that.initRunning = false;
+    that.preRunning = false;
+    that.spellRunning = false;
+    that.compRunning = false;
+
     // PRE
     that.preData = [];
     that.pre = 0;
@@ -26,6 +31,8 @@ angular.module('tagrefineryGuiApp')
     that.spellS = 0;
     that.newSpellS = 0;
     that.spellDomain = [0,1];
+    that.spellRepl = 0;
+    that.spellTruth = 0;
 
     // COMP
     that.compDataF = [];
@@ -46,15 +53,30 @@ angular.module('tagrefineryGuiApp')
         that.filteredWords = that.getPreCount();
         stats.writePre("Number of Remaining Words", that.filteredWords);
       });
+
+      that.applyPre();
     };
+
 
     that.getSpellI = function (threshold) {
       $scope.$apply(function () {
         that.newSpellI = threshold;
       });
 
+      that.getSpellTruth();
+      that.getSpellCount();
+      that.applySpell();
+    };
+
+    that.getSlider = function (value) {
+      $scope.$apply(function () {
+        that.newSpellS = value;
+      });
+
+      that.getSpellTruth();
       that.getSpellCount();
     };
+
 
     that.getCompF = function (threshold) {
       $scope.$apply(function () {
@@ -62,6 +84,8 @@ angular.module('tagrefineryGuiApp')
 
         stats.writeComp("Number of Frequent Groups", that.getCompFCount());
       });
+
+      that.applyCompF();
     };
 
     that.getCompU = function (threshold) {
@@ -70,6 +94,8 @@ angular.module('tagrefineryGuiApp')
 
         stats.writeComp("Number of Frequent Groups", that.getCompUCount());
       });
+
+      that.applyCompU();
     };
 
     ////////////////////////////////////////////////
@@ -81,6 +107,22 @@ angular.module('tagrefineryGuiApp')
       {
         that.linked = true;
       }
+    });
+
+    socket.on('initRunning', function (data) {
+      that.initRunning = data == "started"
+    });
+
+    socket.on('computePre', function (data) {
+      that.preRunning = data == "started"
+    });
+
+    socket.on('computeSpell', function (data) {
+      that.spellRunning = data == "started"
+    });
+
+    socket.on('computeComp', function (data) {
+      that.compRunning = data == "started"
     });
 
     // PRE
@@ -118,6 +160,12 @@ angular.module('tagrefineryGuiApp')
       that.getSpellCount();
     });
 
+    socket.on('replacements', function (data) {
+      that.spellRepl = parseInt(data);
+
+      stats.writeSpell("Number of Replacements", that.spellRepl);
+    });
+
     // COMP
     socket.on('frequentData', function (data) {
       that.compDataF = JSON.parse(data);
@@ -141,6 +189,27 @@ angular.module('tagrefineryGuiApp')
       that.compU = that.newCompU;
     });
 
+    // APPLY
+    that.applyPre = _.debounce(function() {
+      socket.emit("applyPrefilter", "" + that.newPre);
+      socket.emit("computeWorkflow", "");
+    }, 1000);
+
+    that.applySpell = _.debounce(function() {
+      socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newSpellI, similarity: that.newSpellS}]));
+      socket.emit("computeWorkflow", "");
+    }, 1000);
+
+    that.applyCompF = _.debounce(function() {
+      socket.emit("applyFrequentThreshold", "" + that.newCompF);
+      socket.emit("computeWorkflow", "");
+    }, 1000);
+
+    that.applyCompU = _.debounce(function() {
+      socket.emit("applyUniqueThreshold", "" + that.newCompU);
+      socket.emit("computeWorkflow", "");
+    }, 1000);
+
     ////////////////////////////////////////////////
     // Helper
     ////////////////////////////////////////////////
@@ -153,17 +222,17 @@ angular.module('tagrefineryGuiApp')
         });
     };
 
+    that.getSpellTruth = function () {
+      that.spellTruth =  _.sum(_.filter(that.spellData, function (d) {
+          return d.value >= that.newSpellI;
+        }), function (o) {
+          return o.count;
+        });
+    };
+
     that.getSpellCount = function()
     {
       socket.emit("getReplacements", JSON.stringify([{importance: that.newSpellI, similarity: that.newSpellS}]));
-    };
-
-    that.getSlider = function (value) {
-      $scope.$apply(function () {
-        that.newSpellS = value;
-      });
-
-      that.getSpellCount();
     };
 
     that.getCompFCount = function () {

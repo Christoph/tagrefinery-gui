@@ -45,7 +45,7 @@ angular.module('tagrefineryGuiApp')
       that.init = true;
     });
 
-    socket.on('computePre', function (data) {
+    socket.on('initRunning', function (data) {
       that.initRunning = data == "started"
     });
 
