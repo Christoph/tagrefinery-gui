@@ -301,6 +301,17 @@ angular.module('tagrefineryGuiApp')
         .attr("height", scope.quadrantHeight)
     };
 
+    var updateSkeleton = function(scope)
+    {
+      // x axis
+      scope.svg.selectAll("x axis")
+        .call(scope.xAxis);
+
+      // y axis
+      scope.svg.selectAll("y axis")
+        .call(scope.yAxis);
+    };
+
     var renderLine = function (scope) {
       if (scope.initialized) {
         scope.bodyG.selectAll(".threshold")
@@ -412,11 +423,6 @@ angular.module('tagrefineryGuiApp')
     };
 
     var init = function (scope, element) {
-      // If we don't pass any data, return out of the element
-      if (!scope.data.length) {
-        console.log("No data");
-        return;
-      }
 
       // Initialze static variables and functions
       basics(scope, element[0]);
@@ -425,7 +431,15 @@ angular.module('tagrefineryGuiApp')
       definitions(scope, element[0]);
 
       // Basic skeleton
-      skeleton(scope, element[0]);
+      if(!scope.svg) skeleton(scope, element[0]);
+      else {
+        updateSkeleton(scope);
+      }
+
+      // If we don't pass any data, add placeholder and return out of the element
+      if (!scope.data.length) {
+        return;
+      }
 
       scope.initialized = true;
 
@@ -480,7 +494,8 @@ angular.module('tagrefineryGuiApp')
           // Watch for data changes and re-render
           scope.$watch('data', function (newVals) {
             if (newVals) {
-              render(scope);
+              if(!scope.initialized) init(scope, element);
+              else render(scope);
             }
           }, true);
 
