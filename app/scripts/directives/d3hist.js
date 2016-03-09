@@ -24,7 +24,7 @@ angular.module('tagrefineryGuiApp')
       };
 
       scope.yScaling = function () {
-        // y sclaing
+        // y scaling
         var m = d3.max(scope.hist, function (d) {
           return d.y;
         });
@@ -301,17 +301,6 @@ angular.module('tagrefineryGuiApp')
         .attr("height", scope.quadrantHeight)
     };
 
-    var updateSkeleton = function(scope)
-    {
-      // x axis
-      scope.svg.selectAll("x axis")
-        .call(scope.xAxis);
-
-      // y axis
-      scope.svg.selectAll("y axis")
-        .call(scope.yAxis);
-    };
-
     var renderLine = function (scope) {
       if (scope.initialized) {
         scope.bodyG.selectAll(".threshold")
@@ -424,28 +413,19 @@ angular.module('tagrefineryGuiApp')
 
     var init = function (scope, element) {
 
-      // Initialze static variables and functions
+      // Initialize static variables and functions
       basics(scope, element[0]);
 
       // Basic definitions
       definitions(scope, element[0]);
 
       // Basic skeleton
-      if(!scope.svg) skeleton(scope, element[0]);
-      else {
-        updateSkeleton(scope);
-      }
-
-      // If we don't pass any data, add placeholder and return out of the element
-      if (!scope.data.length) {
-        return;
-      }
+      skeleton(scope, element[0]);
 
       scope.initialized = true;
 
       // Render data
       render(scope);
-
     };
 
     return {
@@ -478,9 +458,6 @@ angular.module('tagrefineryGuiApp')
 
         // Rendering
         $timeout(function () {
-          // Initial drawing
-          init(scope, element);
-
           // Listeners
           // Watch for resize event
           scope.$watch(function () {
@@ -494,8 +471,17 @@ angular.module('tagrefineryGuiApp')
           // Watch for data changes and re-render
           scope.$watch('data', function (newVals) {
             if (newVals) {
-              if(!scope.initialized) init(scope, element);
-              else render(scope);
+              if(newVals.length > 0)
+              {
+                if(scope.initialized)
+                {
+                  render(scope);
+                }
+                else
+                {
+                  init(scope, element);
+                }
+              }
             }
           }, true);
 
