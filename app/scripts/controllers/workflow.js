@@ -28,10 +28,7 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     socket.on('selectedMode', function (data) {
-      if(data != "reconnect")
-      {
-        that.mode = data;
-      }
+      that.mode = data;
 
       that.init = true;
     });

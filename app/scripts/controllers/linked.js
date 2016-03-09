@@ -222,6 +222,10 @@ angular.module('tagrefineryGuiApp')
         });
     };
 
+    that.getPreTotal = function () {
+      return _.sum(that.preData, function(d) { return d.count; });
+    };
+
     that.getSpellTruth = function () {
       that.spellTruth =  _.sum(_.filter(that.spellData, function (d) {
           return d.value >= that.newSpellI;

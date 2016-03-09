@@ -6,9 +6,8 @@
     <span style="font-size: medium">Start:</span>
     <button style="margin-right: 2px" id="start2" uib-tooltip="Guided run with default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startWithDefaults()">Guided <span class="glyphicon glyphicon-plane"></span></button>
 
-    <button uib-tooltip="Unguided dashboard" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startCustom()">Advanced <span class="glyphicon glyphicon-dashboard"></span></button>
+    <button uib-tooltip="Unguided dashboard" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.showLinkedView()"> Linked View <span class="glyphicon glyphicon-dashboard"></span></button>
     <button uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect <span class="glyphicon glyphicon-cloud-upload"></span></button>
-    <button uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.showLinkedView()">Linked View <span class="glyphicon glyphicon-cloud-upload"></span></button>
   </div>
   <div class="row" style="margin-top: 2px">
     <button uib-tooltip="Import csv file" ng-if="ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()">Update Data <span class="glyphicon glyphicon-save-file"></span></button>
