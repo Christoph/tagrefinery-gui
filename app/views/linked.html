@@ -16,7 +16,7 @@
           </div>
           <div class="col-sm-8">
             <div ng-if="ctrl.preFilter" d3-hist data="ctrl.preData" call-back="ctrl.getPre(threshold)" threshold="ctrl.newPre" is-float="false" from-right="false"
-                 bins="24" svg-height="300" type-label="Number of Occurrences" y-label="Number of Words" title="Remove Rare Words"></div>
+                 bins="18" svg-height="300" type-label="Number of Occurrences" y-label="Number of Words" title="Remove Rare Words"></div>
           </div>
           <div class="col-sm-4">
             <div ng-if="ctrl.preFilter" style="text-align: center">
@@ -38,7 +38,7 @@
         <div ng-if="ctrl.preRunning" class="overlay">
           <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
         </div>
-        <div ng-if="ctrl.linked" d3-hist data="ctrl.spellData" threshold="ctrl.newSpellI" bins="24" svg-height="200"
+        <div ng-if="ctrl.linked" d3-hist data="ctrl.spellData" threshold="ctrl.newSpellI" bins="18" svg-height="200"
              type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getSpellI(threshold)" title="Improve Tag Quality"></div>
         <div class="taskInner" d3-slider ng-if="ctrl.linked" value="ctrl.newSpellS" call-back="ctrl.getSlider(value)" domain="ctrl.spellDomain" xlabel="Similarity"></div>
       </div>
@@ -47,9 +47,9 @@
           <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
         </div>
         <div ng-if="ctrl.linked" d3-hist data="ctrl.compDataF" call-back="ctrl.getCompF(threshold)"
-             threshold="ctrl.newCompF" bins="24" svg-height="200" type-label="Group Strength" y-label="Count" title="Frequent Multiword Groups"></div>
+             threshold="ctrl.newCompF" bins="18" svg-height="200" type-label="Group Strength" y-label="Count" title="Frequent Multiword Groups"></div>
         <div ng-if="ctrl.linked" d3-hist data="ctrl.compDataU" call-back="ctrl.getCompU(threshold)"
-             threshold="ctrl.newCompU" bins="24" svg-height="200" type-label="Group Strength" y-label="Count" title="Unique Multiword Groups"></div>
+             threshold="ctrl.newCompU" bins="18" svg-height="200" type-label="Group Strength" y-label="Count" title="Unique Multiword Groups"></div>
       </div>
     </div>
     <div class="col-sm-4" style="position: relative">

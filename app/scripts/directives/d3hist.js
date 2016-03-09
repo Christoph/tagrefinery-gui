@@ -386,6 +386,9 @@ angular.module('tagrefineryGuiApp')
     };
 
     var renderBars = function (scope) {
+      // hist data
+      scope.hist = scope.customHist(scope.data);
+
       // Update line position
       renderLine(scope);
 
