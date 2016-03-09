@@ -177,6 +177,20 @@ button.help {
 
   font-size: medium;
   border-color: white;
+  shape-rendering: crispEdges;
+}
+.overlayGuided {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(230, 92, 0, 0.41);
+
+  font-size: medium;
+  border-color: white;
+  shape-rendering: crispEdges;
 }
 
 .overlayInner {
@@ -355,6 +369,31 @@ button.disabled {
 .secondaryColor:focus,
 .secondaryColor.focus {
   outline: none;
+}
+
+.guidedExplanation h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.guidedExplanation {
+  position: relative;
+  margin-top: 70px;
+
+  text-align: justify;
+  opacity: 0.4;
+
+  font-weight: 300;
+  font-size: large;
+}
+
+.center {
+  margin: auto;
+  padding: 40px;
+}
+
+.guidedExplanation:hover {
+  opacity: 1;
 }
 
 /*
