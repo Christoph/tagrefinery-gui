@@ -148,7 +148,17 @@ button.help {
 }
 
 .round {
-  border-radius: 50%
+  border-radius: 50%;
+}
+
+.btn-undo {
+  background-color: white;
+  color: #ac2925;
+  font-size: larger;
+}
+
+.btn-undo:hover {
+  border-color: #ac2925;
 }
 
 .threshold line {
@@ -297,6 +307,12 @@ button.disabled {
 .secondaryColor {
   background-color: #e65c00;
   color: white;
+}
+
+.btn-undo {
+  background-color: white;
+  color: red;
+  font-size: x-large;
 }
 
 .alert-guided {
