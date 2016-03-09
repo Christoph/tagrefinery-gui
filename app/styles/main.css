@@ -6,6 +6,10 @@
   color: black;
 }
 
+.zoomArea {
+  opacity: 0;
+}
+
 .current {
   color: steelblue;
   font-weight: bold;

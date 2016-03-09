@@ -171,10 +171,10 @@ angular.module('tagrefineryGuiApp')
         .scaleExtent([1, 1000])
         .size(scope.quadrantWidth, scope.quadrantHeight)
         .on("zoomstart", function() {
-          scope.svg.style("cursor", "all-scroll")
+          scope.bodyG.selectAll(".zoomArea").style("cursor", "all-scroll")
         })
         .on("zoomend", function() {
-          scope.svg.style("cursor", "zoom-in")
+          scope.bodyG.selectAll(".zoomArea").style("cursor", "zoom-in")
         })
         .on("zoom", scope.zoomed);
 
@@ -196,8 +196,6 @@ angular.module('tagrefineryGuiApp')
         .attr("width", '100%')
         .style("background-color", "white")
         .attr("class", "chart")
-        .call(scope.zoom)
-        .style("cursor", "zoom-in")
         .on('click', function () {
           if (d3.event.defaultPrevented) return; // click suppressed
           if(scope.isFloat)
@@ -274,6 +272,15 @@ angular.module('tagrefineryGuiApp')
         .attr("class", "body")
         .attr("transform", "translate(" + scope.marginLeft + "," + scope.margin + ")")
         .attr("clip-path", "url(#body-clip)");
+
+      // Create zoom area
+      scope.bodyG.append("rect")
+        .attr("class", "zoomArea")
+        .attr("width", scope.quadrantWidth)
+        .attr("height", scope.quadrantHeight)
+        .call(scope.zoom)
+        .style("cursor", "zoom-in");
+
 
       // Threshold line and circle
       scope.marker = scope.bodyG
@@ -402,6 +409,10 @@ angular.module('tagrefineryGuiApp')
         .data(scope.hist)
         .exit()
         .remove();
+
+      // Bring zoom area back to front
+      scope.bodyG.selectAll(".zoomArea")
+        .call(scope.bringToFront);
     };
 
     var render = function (scope) {
