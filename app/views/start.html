@@ -1,5 +1,5 @@
 <div style="text-align: center; margin: 15% auto" ng-intro-options="IntroOptions" ng-intro-method="startHelper" ng-intro-onexit="ExitEvent" ng-intro-autostart="ctrl.helper" ng-intro-oncomplete="CompletedEvent">
-  <i id="start3" class="fa fa-info" style="font-size: large; position: absolute; top: 5px; right: 5px" ng-click="startHelper();" ></i>
+  <i id="start3" class="fa fa-info" style="font-size: x-large; position: absolute; top: 10px; right: 10px" ng-click="startHelper();" ></i>
   <h1 style="font-size: 50px">TagRefinery</h1>
   <span>Tidy up your <strong>Tags</strong> by improving the quality of single words in your dataset!</span>
   <div class="row" style="margin-top: 20px">
@@ -8,10 +8,11 @@
 
     <button uib-tooltip="Unguided dashboard" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startCustom()">Advanced <span class="glyphicon glyphicon-dashboard"></span></button>
     <button uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect <span class="glyphicon glyphicon-cloud-upload"></span></button>
+    <button uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.showLinkedView()">Linked View <span class="glyphicon glyphicon-cloud-upload"></span></button>
   </div>
   <div class="row" style="margin-top: 2px">
-    <button uib-tooltip="Import csv file" id="start1" ng-if="ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()">Update Data <span class="glyphicon glyphicon-save-file"></span></button>
-    <button uib-tooltip="Update csv file" ng-if="!ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()">Import Data <span class="glyphicon glyphicon-open-file"></span></button>
+    <button uib-tooltip="Import csv file" ng-if="ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()">Update Data <span class="glyphicon glyphicon-save-file"></span></button>
+    <button uib-tooltip="Update csv file" id="start1" ng-if="!ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()">Import Data <span class="glyphicon glyphicon-open-file"></span></button>
 
     <span style="font-size: medium">Status:</span>
     <span style="font-size: xx-large; vertical-align: middle" ng-if="ctrl.dataLoaded"><span class=" glyphicon glyphicon-ok-circle"></span></span>

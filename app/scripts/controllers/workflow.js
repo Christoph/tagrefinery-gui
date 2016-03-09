@@ -12,14 +12,13 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     // State variables
-    that.guided = true;
-    that.free = true;
-    that.linked = true;
     that.init = false;
     that.initRunning = false;
     that.preRunning = false;
     that.spellRunning = false;
     that.compRunning = false;
+
+    that.mode = "";
 
     $scope.showStep = false;
     $scope.currentStep = 0;
@@ -28,18 +27,10 @@ angular.module('tagrefineryGuiApp')
     // Start
     ////////////////////////////////////////////////
 
-    socket.on('isGuided', function (data) {
-      if(data == "true")
+    socket.on('selectedMode', function (data) {
+      if(data != "reconnect")
       {
-        that.guided = true;
-        that.free = false;
-        that.linked = false;
-      }
-      else
-      {
-        that.guided = false;
-        that.free = true;
-        that.linked = false;
+        that.mode = data;
       }
 
       that.init = true;

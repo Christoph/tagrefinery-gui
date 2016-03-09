@@ -12,7 +12,7 @@ angular.module('tagrefineryGuiApp')
 
     // Get instance of the class
     var that = this;
-    that.linked = false;
+    that.linked = true;
 
     that.initRunning = false;
     that.preRunning = false;
@@ -102,8 +102,8 @@ angular.module('tagrefineryGuiApp')
     // Socket functions
     ////////////////////////////////////////////////
 
-    socket.on('isGuided', function (data) {
-      if (data == "false")
+    socket.on('selectedMode', function (data) {
+      if (data == "linked")
       {
         that.linked = true;
       }

@@ -41,6 +41,11 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('isRunning', function (data) {
       that.running = data == "true";
+
+      if(that.running == true)
+      {
+        that.helper = false;
+      }
     });
 
     socket.on('dataLoaded', function (data) {
@@ -64,6 +69,13 @@ angular.module('tagrefineryGuiApp')
       that.showWorkflow = true;
 
       socket.emit("selectMode", "reconnect");
+    };
+
+    that.showLinkedView = function()
+    {
+      that.showWorkflow = true;
+
+      socket.emit("selectMode", "linked");
     };
 
     that.startWithDefaults = function()
@@ -207,7 +219,7 @@ angular.module('tagrefineryGuiApp')
         },
         {
           element: '#start3',
-          intro: "Restart the introduction by clicking on the small <i class='fa fa-info'></i> in the right upper corner.",
+          intro: "In each screen just click onto the small <i class='fa fa-info'></i> to show the introduction.",
           position: 'left'
         }
       ],
