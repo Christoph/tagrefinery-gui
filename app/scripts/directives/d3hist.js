@@ -12,6 +12,17 @@ angular.module('tagrefineryGuiApp')
       // Number formating
       scope.formatCount = d3.format(",.0f");
 
+      if(scope.isFloat)
+      {
+        scope.formatMarker = d3.format(",.3f");
+        scope.formatTicks = d3.format(",.2f");
+      }
+      else
+      {
+        scope.formatMarker = d3.format(",.0f");
+        scope.formatTicks = d3.format(",.0f");
+      }
+
       // Custom x scaling function
       scope.xScaling = function () {
         scope.ticks = [];
@@ -151,6 +162,7 @@ angular.module('tagrefineryGuiApp')
       scope.xAxis = d3.svg.axis()
         .scale(scope.x)
         .tickValues(scope.ticks)
+        .tickFormat(scope.formatTicks)
         .orient("bottom");
 
       // y-scale and axis
@@ -194,28 +206,26 @@ angular.module('tagrefineryGuiApp')
         return d.value;
       });
 
-      scope.x = d3.scale.linear()
+      scope.x
         .domain(scope.xDomain).nice()
         .range([0, scope.quadrantWidth]);
 
       // hist data
       scope.hist = scope.customHist(scope.data);
 
-      scope.xAxis = d3.svg.axis()
+      scope.xAxis
         .scale(scope.x)
-        .tickValues(scope.ticks)
-        .orient("bottom");
+        .tickValues(scope.ticks);
 
       // Y-AXIS
       scope.yDomain = scope.yScaling();
 
-      scope.y = d3.scale.linear()
+      scope.y
         .domain(scope.yDomain)
         .range([scope.quadrantHeight, 0]);
 
-      scope.yAxis = d3.svg.axis()
-        .scale(scope.y)
-        .orient("left");
+      scope.yAxis
+        .scale(scope.y);
 
       // DRAWING
       scope.svg.selectAll(".x.axis").call(scope.xAxis);
@@ -321,12 +331,16 @@ angular.module('tagrefineryGuiApp')
         .call(scope.zoom)
         .style("cursor", "zoom-in");
 
-
       // Threshold line and circle
       scope.marker = scope.bodyG
         .append("g")
         .attr("class", "threshold")
         .call(scope.drag);
+
+      scope.marker
+        .append("text")
+        .attr("class","markerValue")
+        .attr("y", scope.quadrantHeight/2 + 5);
 
       scope.marker
         .append("line")
@@ -359,6 +373,23 @@ angular.module('tagrefineryGuiApp')
 
         scope.marker.select("circle")
           .attr("cx", scope.x(scope.threshold));
+
+        if(scope.threshold >= scope.xDomain[1]/2)
+        {
+          scope.marker.select("text")
+            .attr("x", scope.x(scope.threshold)-10)
+            .style("text-anchor", "end")
+            .text(scope.formatMarker(scope.threshold));
+        }
+        else
+        {
+          scope.marker.select("text")
+            .attr("x", scope.x(scope.threshold)+10)
+            .style("text-anchor", "start")
+            .text(scope.formatMarker(scope.threshold));
+        }
+
+        scope.marker.call(scope.bringToFront);
 
         if(scope.fromRight)
         {

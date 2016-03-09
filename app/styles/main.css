@@ -48,6 +48,11 @@
   fill: #000;
 }
 
+.markerText {
+  font-size: 9pt;
+  fill: #000;
+}
+
 .hist.highlight {
   stroke: black;
   stroke-width: 5;
