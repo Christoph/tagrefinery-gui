@@ -64,11 +64,6 @@ angular.module('tagrefineryGuiApp')
       that.showImport = false;
     };
 
-    that.goToLinked = function()
-    {
-      socket.emit("selectMode", "linked");
-    };
-
     that.reconnectToWorkflow = function()
     {
       that.showWorkflow = true;
@@ -81,6 +76,13 @@ angular.module('tagrefineryGuiApp')
       that.showWorkflow = true;
 
       socket.emit("selectMode", "linked");
+    };
+
+    that.showAdvancedView = function()
+    {
+      that.showWorkflow = true;
+
+      socket.emit("selectMode", "free");
     };
 
     that.startWithDefaults = function()
