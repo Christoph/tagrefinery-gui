@@ -145,13 +145,13 @@ angular.module('tagrefineryGuiApp')
         .domain([0, scope.quadrantWidth])
         .range([0, 1]);
 
+      // hist data
+      scope.hist = scope.customHist(scope.data);
+
       scope.xAxis = d3.svg.axis()
         .scale(scope.x)
         .tickValues(scope.ticks)
         .orient("bottom");
-
-      // hist data
-      scope.hist = scope.customHist(scope.data);
 
       // y-scale and axis
       scope.yDomain = scope.yScaling();
@@ -185,6 +185,46 @@ angular.module('tagrefineryGuiApp')
         })
         .on("drag", scope.dragmove);
 
+    };
+
+    var updateDefs = function(scope)
+    {
+      // X-AXIS
+      scope.xDomain = d3.extent(scope.data, function (d) {
+        return d.value;
+      });
+
+      scope.x = d3.scale.linear()
+        .domain(scope.xDomain).nice()
+        .range([0, scope.quadrantWidth]);
+
+      // hist data
+      scope.hist = scope.customHist(scope.data);
+
+      scope.xAxis = d3.svg.axis()
+        .scale(scope.x)
+        .tickValues(scope.ticks)
+        .orient("bottom");
+
+      // Y-AXIS
+      scope.yDomain = scope.yScaling();
+
+      scope.y = d3.scale.linear()
+        .domain(scope.yDomain)
+        .range([scope.quadrantHeight, 0]);
+
+      scope.yAxis = d3.svg.axis()
+        .scale(scope.y)
+        .orient("left");
+
+      // DRAWING
+      scope.svg.selectAll(".x.axis").call(scope.xAxis);
+      scope.svg.selectAll(".y.axis").call(scope.yAxis);
+
+      // ZOOM
+      scope.zoom
+        .x(scope.x)
+        .y(scope.y);
     };
 
     var skeleton = function (scope, element) {
@@ -346,9 +386,6 @@ angular.module('tagrefineryGuiApp')
     };
 
     var renderBars = function (scope) {
-      // Update bins
-      scope.hist = scope.customHist(scope.data);
-
       // Update line position
       renderLine(scope);
 
@@ -486,6 +523,7 @@ angular.module('tagrefineryGuiApp')
               {
                 if(scope.initialized)
                 {
+                  updateDefs(scope);
                   render(scope);
                 }
                 else
