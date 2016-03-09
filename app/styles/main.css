@@ -161,6 +161,24 @@ button.help {
   border-color: #ac2925;
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(49, 112, 143, 0.4);
+
+  font-size: medium;
+  border-color: white;
+}
+
+.overlayInner {
+  position: absolute;
+  top: 35%;
+}
+
 .threshold line {
   stroke: steelblue;
   stroke-opacity: .75;
