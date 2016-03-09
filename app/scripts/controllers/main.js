@@ -21,6 +21,8 @@ angular.module('tagrefineryGuiApp')
     that.loading = false;
     that.touched = false;
 
+    that.helper = true;
+
     // Imported data
     $scope.dataI = [];
 
@@ -185,5 +187,46 @@ angular.module('tagrefineryGuiApp')
 
       $scope.dataI.length = 0;
     });
+
+    ////////////////////////////////////////////////
+    // Guide
+    ////////////////////////////////////////////////
+
+    $scope.IntroOptions = {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#start1',
+          intro: "Import your csv file ...",
+          position: 'top'
+        },
+        {
+          element: '#start2',
+          intro: "... and tidy up your tags!",
+          position: 'bottom-middle-aligned'
+        },
+        {
+          element: '#start3',
+          intro: "Restart the introduction by clicking on the small <i class='fa fa-info'></i> in the right upper corner.",
+          position: 'left'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
+
+    $scope.ExitEvent = function () {
+      that.helper = false;
+    };
+
+    $scope.CompletedEvent = function () {
+      that.helper = false;
+    };
 
   }]);

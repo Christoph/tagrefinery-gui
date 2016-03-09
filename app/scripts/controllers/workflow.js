@@ -38,8 +38,8 @@ angular.module('tagrefineryGuiApp')
       else
       {
         that.guided = false;
-        that.free = false;
-        that.linked = true;
+        that.free = true;
+        that.linked = false;
       }
 
       that.init = true;
