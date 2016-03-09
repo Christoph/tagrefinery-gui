@@ -1,5 +1,6 @@
 <h2 style="text-align: center">TagRefinery</h2>
 <button ng-click="ctrl.goToStart()" class="btn btn-default" style="position: absolute; top: 0; left: 0;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="glyphicon glyphicon-arrow-left"></span></button>
+<button ng-click="ctrl.goToLinked()" class="btn btn-default" style="position: absolute; top: 0; right: 0;" uib-tooltip="Go to the Linked mode" tooltip-placement="left"><span class="fa fa-link"></span></button>
 <hr>
 <div ng-controller="WorkflowCtrl as ctrl" ng-show="ctrl.init">
   <div ng-if="ctrl.mode == 'guided'" ng-include="'views/guided.html'"></div>

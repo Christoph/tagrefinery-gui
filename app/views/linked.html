@@ -1,49 +1,89 @@
 <div ng-controller="LinkedCtrl as ctrl" class="guidedInner">
   <div class="row">
-    <div class="col-sm-9">
-      <div ng-if="ctrl.initRunning" class="alert alert-guided" style="text-align: center">
-        Loading Data ... <br> <div spin-rect style="width: 40px; height: 40px"></div>
-      </div>
-      <div ng-if="ctrl.linked" d3-hist data="ctrl.preData" call-back="ctrl.getPre(threshold)" threshold="ctrl.newPre" is-float="false" from-right="false"
-           bins="24" svg-height="200" type-label="Number of Occurrences" y-label="Number of Words" title="Remove Rare Words"></div>
-    </div>
-    <div class="col-sm-3">
-      <h5 style="text-align: center">Preprocessing</h5>
-      Number of words: {{ctrl.getPreTotal()}} <br>
-      Number of remaining words: {{ctrl.getPreCount()}}
-      <h5 style="text-align: center">Spell Correct</h5>
-      Number of Correct Words: {{ctrl.spellTruth}} <br>
-      Number of Replacements: {{ctrl.spellRepl}}
-    </div>
+    <uib-accordion>
+      <uib-accordion-group is-open="ctrl.preFilter" panel-class="panel-info">
+        <uib-accordion-heading>
+          <div class="descriptionHeader">
+             Preprocessing <i class="pull-right glyphicon"
+                                   ng-class="{'glyphicon-chevron-down': ctrl.preFilter, 'glyphicon-chevron-right': !ctrl.preFilter}"></i>
+            <br>
+            <p class="descriptionText">Apply an word occurrence filter and import a list of words to remove.</p>
+          </div>
+        </uib-accordion-heading>
+
+        <div ng-if="ctrl.initRunning" class="alert alert-guided" style="text-align: center">
+          Loading Data ... <br> <div spin-rect style="width: 40px; height: 40px"></div>
+        </div>
+        <div class="col-sm-8">
+          <div ng-if="ctrl.preFilter" d3-hist data="ctrl.preData" call-back="ctrl.getPre(threshold)" threshold="ctrl.newPre" is-float="false" from-right="false"
+               bins="24" svg-height="300" type-label="Number of Occurrences" y-label="Number of Words" title="Remove Rare Words"></div>
+        </div>
+        <div class="col-sm-4">
+          <div ng-if="ctrl.preFilter" style="text-align: center">
+            <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Select File"></upload-button>
+            <button class="btn btn-danger" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="dataBlacklist.length<1">Clear</button>
+          </div>
+
+          <div style="text-align: left; height: 300px" ng-if="ctrl.preFilter" ui-grid="blacklistGrid" ui-grid-importer ui-grid-edit></div>
+        </div>
+      </uib-accordion-group>
+    </uib-accordion>
   </div>
   <hr>
   <div class="row">
-    <div class="col-sm-9">
-      <div ng-if="ctrl.preRunning" class="alert alert-guided" style="text-align: center">
+    <h3 style="margin-top: -15px">Apply Spell Correction and find meaningful Multiword Tags</h3>
+    <div class="col-sm-8">
+      <div>
+        <div ng-if="ctrl.preRunning" class="alert alert-guided" style="text-align: center">
+          Loading Data ... <br> <div spin-rect style="width: 40px; height: 40px"></div>
+        </div>
+        <div ng-if="ctrl.linked" d3-hist data="ctrl.spellData" threshold="ctrl.newSpellI" bins="24" svg-height="200"
+             type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getSpellI(threshold)" title="Improve Tag Quality"></div>
+        <div class="taskInner" d3-slider ng-if="ctrl.linked" value="ctrl.newSpellS" call-back="ctrl.getSlider(value)" domain="ctrl.spellDomain" xlabel="Similarity"></div>
+      </div>
+      <div>
+        <div ng-if="ctrl.spellRunning" class="alert alert-guided" style="text-align: center">
+          Loading Data ... <br> <div spin-rect style="width: 40px; height: 40px"></div>
+        </div>
+        <div ng-if="ctrl.linked" d3-hist data="ctrl.compDataF" call-back="ctrl.getCompF(threshold)"
+             threshold="ctrl.newCompF" bins="24" svg-height="200" type-label="Group Strength" y-label="Count" title="Frequent Multiword Groups"></div>
+        <div ng-if="ctrl.linked" d3-hist data="ctrl.compDataU" call-back="ctrl.getCompU(threshold)"
+             threshold="ctrl.newCompU" bins="24" svg-height="200" type-label="Group Strength" y-label="Count" title="Unique Multiword Groups"></div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div ng-if="ctrl.compRunning" class="alert alert-guided" style="text-align: center">
         Loading Data ... <br> <div spin-rect style="width: 40px; height: 40px"></div>
       </div>
-      <div ng-if="ctrl.linked" d3-hist data="ctrl.spellData" threshold="ctrl.newSpellI" bins="24" svg-height="200"
-           type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getSpellI(threshold)" title="Improve Tag Quality"></div>
-      <div class="taskInner" d3-slider ng-if="ctrl.linked" value="ctrl.newSpellS" call-back="ctrl.getSlider(value)" domain="ctrl.spellDomain" xlabel="Similarity"></div>
-    </div>
-    <div class="col-sm-3">
-    </div>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-sm-9">
-      <div ng-if="ctrl.spellRunning" class="alert alert-guided" style="text-align: center">
-        Loading Data ... <br> <div spin-rect style="width: 40px; height: 40px"></div>
+      <div class="row">
+        <div class="col-sm-4">
+          <h5 style="text-align: center">Preprocessing</h5>
+          <hr>
+          Total Number of Words: <strong>{{ctrl.getPreTotal()}}</strong> <br>
+          <br>
+          Number of remaining words: <strong>{{ctrl.getPreCount()}}</strong>
+        </div>
+        <div class="col-sm-4">
+          <h5 style="text-align: center">Spell Correct</h5>
+          <hr>
+          Number of Correct Words: <strong>{{ctrl.spellTruth}}</strong> <br>
+          <br>
+          Number of Replacements: <strong>{{ctrl.spellRepl}}</strong>
+        </div>
+        <div class="col-sm-4">
+          <h5 style="text-align: center">Multiword Tags</h5>
+          <hr>
+          Number of Frequent Groups: <strong>{{ctrl.getCompFCount()}}</strong>
+          <br>
+          Number of Unique Groups: <strong>{{ctrl.getCompUCount()}}</strong>
+        </div>
       </div>
-      <div ng-if="ctrl.linked" d3-hist data="ctrl.compDataF" call-back="ctrl.getCompF(threshold)"
-           threshold="ctrl.newCompF" bins="24" svg-height="200" type-label="Group Strength" y-label="Count" title="Frequent Multiword Groups"></div>
-      <div ng-if="ctrl.linked" d3-hist data="ctrl.compDataU" call-back="ctrl.getCompU(threshold)"
-           threshold="ctrl.newCompU" bins="24" svg-height="200" type-label="Group Strength" y-label="Count" title="Unique Multiword Groups"></div>
-    </div>
-    <div class="col-sm-3">
-      <h5 style="text-align: center">Multiword Tags</h5>
-      Number of Frequent Groups {{that.getCompFCount()}}
-      Number of Unique Groups {{that.getCompUCount()}}
+      <div class="row">
+        <div style="text-align: left; height: 475px" ng-if="ctrl.linked" ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+      </div>
+      <div class="row">
+        <button class="btn btn-group-justified btn-info" ng-click="ctrl.goToAdvanced()">Advanced</button>
+      </div>
     </div>
   </div>
 </div>

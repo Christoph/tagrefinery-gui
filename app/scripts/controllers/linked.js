@@ -19,6 +19,9 @@ angular.module('tagrefineryGuiApp')
     that.spellRunning = false;
     that.compRunning = false;
 
+    that.preFilter = false;
+    $scope.dataBlacklist = [];
+
     // PRE
     that.preData = [];
     that.pre = 0;
@@ -140,6 +143,16 @@ angular.module('tagrefineryGuiApp')
       stats.writePre("Minimum Occurrence", that.newPre);
     });
 
+    socket.on('preDictionaryParams', function (data) {
+      $scope.dataBlacklist.length = 0;
+
+      _.map(data, function (d) {
+        $scope.dataBlacklist.push({word: d});
+      });
+
+      stats.writePre("Number of blacklisted Words", $scope.dataBlacklist.length);
+    });
+
     // SPELL
     socket.on('spellImportance', function (data) {
       that.spellI = parseFloat(data);
@@ -189,6 +202,11 @@ angular.module('tagrefineryGuiApp')
       that.compU = that.newCompU;
     });
 
+    socket.on('postFilterGrid', function (data) {
+      that.vocabGrid.data = JSON.parse(data);
+    });
+
+
     // APPLY
     that.applyPre = _.debounce(function() {
       socket.emit("applyPrefilter", "" + that.newPre);
@@ -213,6 +231,88 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
     // Helper
     ////////////////////////////////////////////////
+
+    that.vocabGrid = {
+      enableFiltering: true,
+      showGridFooter: true,
+      enableColumnMenus: false,
+      enableGridMenu: true,
+      fastWatch: true,
+      multiSelect: false,
+      enableRowHeaderSelection: false,
+      enableRowSelection: true,
+      enableFullRowSelection: true,
+      onRegisterApi: function (gridApi) {
+        that.vocabGridApi = gridApi;
+
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+        });
+      },
+      columnDefs: [
+        {field: 'tag', minWidth: 100, width: "*"},
+        {
+          field: 'importance', minWidth: 100, width: "*",
+          sort: {
+            direction: uiGridConstants.DESC,
+            priority: 1
+          },
+          cellFilter: 'number:6', filters: [
+          {
+            condition: uiGridConstants.filter.GREATER_THAN,
+            placeholder: 'greater than'
+          },
+          {
+            condition: uiGridConstants.filter.LESS_THAN,
+            placeholder: 'less than'
+          }
+        ]
+        }
+      ]
+    };
+
+    $scope.blacklistGrid = {
+      enableGridMenu: false,
+      showGridFooter: true,
+      enableColumnMenus: false,
+      enableFiltering: true,
+      data: 'dataBlacklist',
+      importerDataAddCallback: function (grid, newObjects) {
+        $scope.dataBlacklist.length = 0;
+        $scope.dataBlacklist = $scope.dataBlacklist.concat(newObjects);
+        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+        $scope.gridApi.core.refresh();
+        that.touched = true;
+      },
+      onRegisterApi: function (gridApi) {
+        $scope.gridApi = gridApi;
+      },
+      columnDefs: [
+        {field: 'word', minWidth: 100, width: "*"}
+      ]
+    };
+    ////////////////////////////////////////////////
+    // Helper
+    ////////////////////////////////////////////////
+
+    that.clear = function()
+    {
+      $scope.dataBlacklist.length = 0;
+
+      that.touched = true;
+    };
+
+    that.getFile = function(file)
+    {
+      $scope.$apply(function() {
+        $scope.gridApi.importer.importFile( file );
+        that.dataChanged = true;
+      })
+    };
+
+    that.goToAdvanced = function()
+    {
+      socket.emit("selectMode", "free");
+    }
 
     that.getPreCount = function () {
       return _.sum(that.preData, function(d) { return d.count; }) - _.sum(_.filter(that.preData, function (d) {

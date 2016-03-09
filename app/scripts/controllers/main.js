@@ -64,6 +64,11 @@ angular.module('tagrefineryGuiApp')
       that.showImport = false;
     };
 
+    that.goToLinked = function()
+    {
+      socket.emit("selectMode", "linked");
+    };
+
     that.reconnectToWorkflow = function()
     {
       that.showWorkflow = true;
