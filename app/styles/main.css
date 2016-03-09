@@ -71,7 +71,7 @@
 }
 
 .bar.select rect {
-  fill: steelblue;
+  fill: #333;
   shape-rendering: crispEdges;
 }
 
@@ -185,18 +185,18 @@ button.help {
 }
 
 .threshold line {
-  stroke: steelblue;
+  stroke: #333;
   stroke-opacity: .75;
   shape-rendering: crispEdges;
 }
 
 .threshold circle {
   border-radius: 50%;
-  fill: steelblue;
+  fill: #333;
 }
 
 .markerArea {
-  fill: steelblue;
+  fill: #333;
   fill-opacity: .125;
   shape-rendering: crispEdges;
 }
