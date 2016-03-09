@@ -78,6 +78,7 @@ angular.module('tagrefineryGuiApp')
 
       that.getSpellTruth();
       that.getSpellCount();
+      that.applySpell();
     };
 
 
@@ -228,8 +229,13 @@ angular.module('tagrefineryGuiApp')
       socket.emit("computeWorkflow", "");
     }, 1000);
 
+    that.applyPreB = _.debounce(function() {
+      socket.emit("applyPreImportedData", JSON.stringify($scope.dataBlacklist));
+      socket.emit("computeWorkflow", "");
+    }, 1000);
+
     ////////////////////////////////////////////////
-    // Helper
+    // Grids
     ////////////////////////////////////////////////
 
     that.vocabGrid = {
@@ -281,7 +287,8 @@ angular.module('tagrefineryGuiApp')
         $scope.dataBlacklist = $scope.dataBlacklist.concat(newObjects);
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
         $scope.gridApi.core.refresh();
-        that.touched = true;
+
+        that.applyPreB();
       },
       onRegisterApi: function (gridApi) {
         $scope.gridApi = gridApi;
@@ -298,14 +305,13 @@ angular.module('tagrefineryGuiApp')
     {
       $scope.dataBlacklist.length = 0;
 
-      that.touched = true;
+      that.applyPreB();
     };
 
     that.getFile = function(file)
     {
       $scope.$apply(function() {
         $scope.gridApi.importer.importFile( file );
-        that.dataChanged = true;
       })
     };
 
