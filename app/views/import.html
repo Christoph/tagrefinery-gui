@@ -1,10 +1,15 @@
-<h2 style="text-align: center">TagRefinery</h2>
-<button ng-click="ctrl.goToStart()" class="btn btn-helper" style="position: absolute; top: 5px; left: 0;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="glyphicon glyphicon-arrow-left"></span></button>
-<hr>
+<div ng-intro-options="ctrl.introImport" ng-intro-method="ctrl.startHelper">
+  <h2 style="text-align: center">TagRefinery</h2>
+  <button ng-click="ctrl.goToStart()" class="btn btn-helper" style="position: absolute; top: 5px; left: 0;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="glyphicon glyphicon-arrow-left"></span></button>
+  <button class="btn btn-helper" ng-click="ctrl.startHelper();" uib-tooltip="Shows the Introduction for this Page" tooltip-placement="left">
+    <i id="start3" class="fa fa-film"></i>
+  </button>
+  <hr>
   <div style="text-align: center; margin-top: 5%" class="test">
     <h4>Import Data</h4>
-    <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Upload File"></upload-button>
-    <div class="btn-group">
+    <upload-button id="import1" get-file="ctrl.getFile(file)" uib-tooltip="Upload File"></upload-button>
+
+    <div class="btn-group" id="import3">
       <button class="btn secondaryColor" style="width: 75px" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="dataI.length<1"><span class="fa fa-trash"></span></button>
       <button uib-tooltip="Save Import" type="button" style="width: 75px"
               class="btn secondaryColor" ng-click="ctrl.import()" ng-disabled="dataI.length<1 || !ctrl.touched">
@@ -12,8 +17,7 @@
       </button>
     </div>
 
-  <div ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="inner" style="text-align: left"></div>
-
+  <div id="import2" ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="inner" style="text-align: left"></div>
       <div class="well inner">
         <p>
           Import one or multiple files by adding them with "Select File". <br>
@@ -21,3 +25,4 @@
         </p>
       </div>
   </div>
+</div>

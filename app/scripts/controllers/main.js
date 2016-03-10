@@ -210,17 +210,22 @@ angular.module('tagrefineryGuiApp')
       steps:[
         {
           element: '#start1',
-          intro: "Import your csv file ...",
+          intro: "Import your csv file.",
           position: 'top'
         },
         {
           element: '#start2',
-          intro: "... and start the guided!",
+          intro: "The guided Mode provides default values and guides you through the process.",
           position: 'top'
         },
         {
           element: '#start3',
-          intro: "In each screen just click onto the small <i class='fa fa-info'></i> to show the introduction.",
+          intro: "The advanced mode provides additional parameters and options but is unguided.",
+          position: 'top'
+        },
+        {
+          element: '#start4',
+          intro: "In each screen just click onto the small <i class='fa fa-film'></i> to show the introduction.",
           position: 'left'
         }
       ],
@@ -247,6 +252,43 @@ angular.module('tagrefineryGuiApp')
         {
           element: '#update2',
           intro: "Update your data here.",
+          position: 'top'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
+
+    that.ExitEvent = function () {
+      that.helper = false;
+    };
+
+    that.CompletedEvent = function () {
+      that.helper = false;
+    };
+
+    that.introImport = {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#import1',
+          intro: "Upload a csv file or add another file.",
+          position: 'top'
+        },
+        {
+          element: '#import2',
+          intro: "Review the uploaded data.",
+          position: 'top'
+        },
+        {
+          element: '#import3',
+          intro: '<span class="fa fa-trash"></span> Clear or <span class="fa fa-floppy-o"></span> Save the uploaded data.',
           position: 'top'
         }
       ],

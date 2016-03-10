@@ -1,6 +1,6 @@
 <div style="text-align: center; margin: 15% auto" ng-intro-options="ctrl.intro" ng-intro-method="ctrl.startHelper" ng-intro-onexit="ctrl.ExitEvent" ng-intro-autostart="ctrl.helper" ng-intro-oncomplete="ctrl.CompletedEvent">
   <button class="btn btn-helper" ng-click="ctrl.startHelper();" uib-tooltip="Shows the Introduction for this Page" tooltip-placement="left">
-    <i id="start3" class="fa fa-film"></i>
+    <i id="start4" class="fa fa-film"></i>
   </button>
   <h1 style="font-size: 50px">TagRefinery</h1>
   <span>Tidy up your <strong>Tags</strong> by improving the quality of single words in your dataset!</span>
@@ -8,7 +8,7 @@
     <span style="font-size: medium">Start:</span>
     <button style="margin-right: 2px" id="start2" uib-tooltip="Guided run with default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startWithDefaults()">Guided <span class="fa fa-book"></span></button>
 
-    <button uib-tooltip="Unguided dashboard" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.showLinkedView()"> Advanced <span class="fa fa-list-alt"></span></button>
+    <button id="start3" uib-tooltip="Unguided dashboard" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.showLinkedView()"> Advanced <span class="fa fa-list-alt"></span></button>
     <button id="update1" uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect <span class="fa fa-refresh"></span></button>
   </div>
   <div class="row" style="margin-top: 2px">
