@@ -52,7 +52,7 @@ angular.module('tagrefineryGuiApp')
     // Choose value
     that.customize = function()
     {
-      $scope.showStep = true;
+      $scope.showStep =! $scope.showStep;
 
       if($scope.currentStep == 1)
       {
