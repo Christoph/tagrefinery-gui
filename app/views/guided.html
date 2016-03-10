@@ -78,49 +78,49 @@
       <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
     </div>
   </div>
-  <div ng-if="!showStep">
-    <div ng-if="currentStep == 0" class="guidedExplanation">
-      <div class="well well-large center" style="width: 600px">
-        <h2>Rare Words - Default</h2>
-        <p>As default <strong>no words </strong>will be removed. The removal of words is necessary if your dataset is quite big and uses a lot of computation time.</p>
-        <p>You might wanna start with a small dataset to find good parameters - and add later the filtered ones.</p>
+    <div ng-if="!showStep">
+      <div ng-if="currentStep == 0" class="guidedExplanation">
+        <div class="well well-large center" style="width: 600px">
+          <h2>Rare Words - Default</h2>
+          <p>As default <strong>no words </strong>will be removed. The removal of words is necessary if your dataset is quite big and uses a lot of computation time.</p>
+          <p>You might wanna start with a small dataset to find good parameters - and add later the filtered ones.</p>
+        </div>
+      </div>
+      <div ng-if="currentStep == 1" class="guidedExplanation">
+        <div class="well well-large center" style="width: 600px">
+          <h2>Blacklist - Default</h2>
+          <p>As default <strong>english stop words </strong>will be removed. This redices computation time and might improve the detection of meaningful single word tags./p>
+          <p>The drawback is that multiword tag quality might be lower due to the fact that <span uib-tooltip="Like and, or, the, ..."><strong>stopwords</strong></span> are used to build those.</p>
+          <p>Example: Rock and Roll</p>
+        </div>
+      </div>
+      <div ng-if="currentStep == 2" class="guidedExplanation">
+        <div class="well well-large center" style="width: 600px">
+          <h2>Dictionary - Default</h2>
+          <p>As default <strong>no  dictionary </strong>will be imported.</p>
+          <p>Especially in small datasets you might wanna add a list of correct words like genres to <span uib-tooltip="First the algorithm looks for similar words to the importet dictionary."><strong>improve the quality</strong></span> of the spell correction algorithm.</p>
+        </div>
+      </div>
+      <div ng-if="currentStep == 3" class="guidedExplanation">
+        <div class="well well-large center" style="width: 600px">
+          <h2>Spell Correction - Default</h2>
+          <p>As default words with a word quality above <strong>0.7 </strong> will be treated as correct and words with a similarity above <strong> 70%</strong> will be replaced by the word with the higher quality.</p>
+        </div>
+      </div>
+      <div ng-if="currentStep == 4" class="guidedExplanation">
+        <div class="well well-large center" style="width: 600px">
+          <h2>Frequent Multiword Tags - Default</h2>
+          <p>As default a group strength of <strong>0.35 </strong>is used.</p>
+          <p>1 Means this group appeared most often and 0 it appeared never.</p>
+        </div>
+      </div>
+      <div ng-if="currentStep == 5" class="guidedExplanation">
+        <div class="well well-large center" style="width: 600px">
+          <h2>Unique Multiword Tags - Default</h2>
+          <p>As default a group strength of <strong>0.7 </strong>will be used.</p>
+          <p>1 Means this two words occur very often together an are less separated and 0 means the words are never together and often separated</p>
+        </div>
       </div>
     </div>
-    <div ng-if="currentStep == 1" class="guidedExplanation">
-      <div class="well well-large center" style="width: 600px">
-        <h2>Blacklist - Default</h2>
-        <p>As default <strong>engish stop words </strong>will be removed. This redices computation time and might improve the detection of meaningful single word tags./p>
-        <p>The drawback is that multiword tag quality might be lower due to the fact that <span uib-tooltip="Like and, or, the, ..."><strong>stopwords</strong></span> are used to build those.</p>
-        <p>Example: Rock and Roll</p>
-      </div>
-    </div>
-    <div ng-if="currentStep == 2" class="guidedExplanation">
-      <div class="well well-large center" style="width: 600px">
-        <h2>Dictionary - Default</h2>
-        <p>As default <strong>no  dictionary </strong>will be imported.</p>
-        <p>Especially in small datasets you might wanna add a list of correct words like genres to <span uib-tooltip="First the algorithm looks for similar words to the importet dictionary."><strong>improve the quality</strong></span> of the spell correction algorithm.</p>
-      </div>
-    </div>
-    <div ng-if="currentStep == 3" class="guidedExplanation">
-      <div class="well well-large center" style="width: 600px">
-        <h2>Spell Correction - Default</h2>
-        <p>As default words with a word quality above <strong>0.7 </strong> will be treated as correct and words with a similarity above <strong> 70%</strong> will be replaced by the word with the higher quality.</p>
-      </div>
-    </div>
-    <div ng-if="currentStep == 4" class="guidedExplanation">
-      <div class="well well-large center" style="width: 600px">
-        <h2>Frequent Multiword Tags - Default</h2>
-        <p>As default a group strength of <strong>0.35 </strong>is used.</p>
-        <p>1 Means this group appeared most often and 0 it appeared never.</p>
-      </div>
-    </div>
-    <div ng-if="currentStep == 5" class="guidedExplanation">
-      <div class="well well-large center" style="width: 600px">
-        <h2>Unique Multiword Tags - Default</h2>
-        <p>As default a group strength of <strong>0.7 </strong>will be used.</p>
-        <p>1 Means this two words occur very often together an are less separated and 0 means the words are never together and often separated</p>
-      </div>
-    </div>
-  </div>
   </div>
 </div>
