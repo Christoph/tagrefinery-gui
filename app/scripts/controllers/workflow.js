@@ -95,12 +95,20 @@ angular.module('tagrefineryGuiApp')
       $scope.currentStep = 0;
     };
 
-    that.advanced = function()
+    that.goToAdvanced = function()
     {
       that.guided = false;
       that.free = true;
 
       socket.emit("selectMode", "free");
+    };
+
+    that.goToLinked = function()
+    {
+      that.guided = false;
+      that.linked = true;
+
+      socket.emit("selectMode", "linked");
     };
 
     that.apply = function()

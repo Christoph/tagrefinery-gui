@@ -157,6 +157,6 @@ angular.module('tagrefineryGuiApp')
         return o.count;
       });
 
-    }
+    };
 
   }]);

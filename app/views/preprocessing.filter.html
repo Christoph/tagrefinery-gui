@@ -21,11 +21,11 @@
 </div>
 
 <!--Task content-->
-<div ng-if="status.open[0] || (currentStep == 0 && showStep)" d3-hist data="ctrl.data" call-back="ctrl.getOccurrences(threshold)" threshold="ctrl.newOccurrences" is-float="false" from-right="false"
+<div id="pre1" ng-if="status.open[0] || (currentStep == 0 && showStep)" d3-hist data="ctrl.data" call-back="ctrl.getOccurrences(threshold)" threshold="ctrl.newOccurrences" is-float="false" from-right="false"
      bins="24" svg-height="300" type-label="Number of Occurrences" y-label="Number of Words"></div>
 
 <!--Task Parameters and details-->
-<div class="row taskInner">
+<div id="pre2" class="row taskInner">
   <div class="col-sm-6" style="text-align: left">
     <h4 uib-tooltip="All words below the selected number of occurrences will be removed.">Threshold: {{ctrl.newOccurrences}} Occurrences</h4>
     <h4>Number of remaining words: {{ ctrl.filteredWords }}</h4>
@@ -40,7 +40,7 @@
 
 <!--Task advanced content-->
 <div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="taskInner"
-       ng-if="ctrl.showDetails"></div>
+     ng-if="ctrl.showDetails"></div>
 
 <!--Footer -> Apply and Undo -->
 <hr>

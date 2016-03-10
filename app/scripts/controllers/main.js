@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants",  function ($scope, socket, uiGridConstants) {
+  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", "intros",  function ($scope, socket, uiGridConstants, intros) {
     var that = this;
 
     // State variables
@@ -22,6 +22,8 @@ angular.module('tagrefineryGuiApp')
     that.touched = false;
 
     that.helper = true;
+    that.intro = that.initalIntro;
+    $scope.state = intros.state;
 
     // Imported data
     $scope.dataI = [];
@@ -45,7 +47,7 @@ angular.module('tagrefineryGuiApp')
       if(that.running == true)
       {
         that.helper = false;
-        that.intro = that.updateHelper;
+        intros.set("running");
       }
     });
 
@@ -57,12 +59,14 @@ angular.module('tagrefineryGuiApp')
     that.goToImport = function()
     {
       that.showImport = true;
+      intros.set("import");
     };
 
     that.goToStart = function()
     {
       that.showWorkflow = false;
       that.showImport = false;
+      intros.set("running");
     };
 
     that.reconnectToWorkflow = function()
@@ -102,6 +106,7 @@ angular.module('tagrefineryGuiApp')
       that.dataLoaded = false;
       that.loading = true;
       that.showImport = false;
+      that.intro = that.initalIntro;
 
       if(that.dataChanged)
       {
@@ -205,7 +210,22 @@ angular.module('tagrefineryGuiApp')
     // Guide
     ////////////////////////////////////////////////
 
-    that.startHelper = {
+    that.ExitEvent = function () {
+      that.helper = false;
+    };
+
+    that.CompletedEvent = function () {
+      that.helper = false;
+    };
+
+    $scope.$watch("state", function(newVals) {
+      if(newVals)
+      {
+        that.intro = newVals.current;
+      }
+    },1);
+
+    that.initalIntro = {
       overlayOpacity: 0.3,
       steps:[
         {
@@ -237,77 +257,6 @@ angular.module('tagrefineryGuiApp')
       prevLabel: 'Previous',
       skipLabel: 'Exit',
       doneLabel: 'Done'
-    };
-
-    that.intro = that.startHelper;
-
-    that.updateHelper = {
-      overlayOpacity: 0.3,
-      steps:[
-        {
-          element: '#update1',
-          intro: "Reconnect to the current Season.",
-          position: 'top'
-        },
-        {
-          element: '#update2',
-          intro: "Update your data here.",
-          position: 'top'
-        }
-      ],
-      showStepNumbers: false,
-      showBullets: true,
-      exitOnOverlayClick: true,
-      exitOnEsc: true,
-      nextLabel: '<strong>Next</strong>',
-      prevLabel: 'Previous',
-      skipLabel: 'Exit',
-      doneLabel: 'Done'
-    };
-
-    that.ExitEvent = function () {
-      that.helper = false;
-    };
-
-    that.CompletedEvent = function () {
-      that.helper = false;
-    };
-
-    that.introImport = {
-      overlayOpacity: 0.3,
-      steps:[
-        {
-          element: '#import1',
-          intro: "Upload a csv file or add another file.",
-          position: 'top'
-        },
-        {
-          element: '#import2',
-          intro: "Review the uploaded data.",
-          position: 'top'
-        },
-        {
-          element: '#import3',
-          intro: '<span class="fa fa-trash"></span> Clear or <span class="fa fa-floppy-o"></span> Save the uploaded data.',
-          position: 'top'
-        }
-      ],
-      showStepNumbers: false,
-      showBullets: true,
-      exitOnOverlayClick: true,
-      exitOnEsc: true,
-      nextLabel: '<strong>Next</strong>',
-      prevLabel: 'Previous',
-      skipLabel: 'Exit',
-      doneLabel: 'Done'
-    };
-
-    that.ExitEvent = function () {
-      that.helper = false;
-    };
-
-    that.CompletedEvent = function () {
-      that.helper = false;
     };
 
   }]);
