@@ -166,6 +166,17 @@ button.help {
   border-color: #ac2925;
 }
 
+.btn-back {
+  height: 34px;
+  background-color: white;
+  color: #333;
+  font-size: larger;
+}
+ .btn-back:hover {
+   border-color: #333;
+ }
+
+
 .overlay {
   position: absolute;
   top: 0;

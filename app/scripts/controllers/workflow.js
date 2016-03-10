@@ -78,6 +78,12 @@ angular.module('tagrefineryGuiApp')
       that.apply();
     };
 
+    that.back = function()
+    {
+      $scope.showStep = false;
+      $scope.currentStep--;
+    }
+
     that.output = function()
     {
       $scope.$broadcast("guidedResult");
