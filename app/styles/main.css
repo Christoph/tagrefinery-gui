@@ -181,6 +181,25 @@ button.help {
    border-color: #333;
  }
 
+ .btn-helper {
+   position: absolute;
+   top: 5px;
+   right: 5px;
+   height: 35px;
+   background-color: white;
+   color: #333;
+   font-size: larger;
+ }
+
+ .btn-helper i {
+   position: relative;
+   top: -3px;
+ }
+
+ .btn-helper:hover {
+   border-color: #333;
+ }
+
 
 .overlay {
   position: absolute;

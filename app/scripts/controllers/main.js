@@ -45,6 +45,7 @@ angular.module('tagrefineryGuiApp')
       if(that.running == true)
       {
         that.helper = false;
+        that.intro = that.updateHelper;
       }
     });
 
@@ -204,7 +205,7 @@ angular.module('tagrefineryGuiApp')
     // Guide
     ////////////////////////////////////////////////
 
-    $scope.IntroOptions = {
+    that.startHelper = {
       overlayOpacity: 0.3,
       steps:[
         {
@@ -214,8 +215,8 @@ angular.module('tagrefineryGuiApp')
         },
         {
           element: '#start2',
-          intro: "... and tidy up your tags!",
-          position: 'bottom-middle-aligned'
+          intro: "... and start the guided!",
+          position: 'top'
         },
         {
           element: '#start3',
@@ -233,11 +234,37 @@ angular.module('tagrefineryGuiApp')
       doneLabel: 'Done'
     };
 
-    $scope.ExitEvent = function () {
+    that.intro = that.startHelper;
+
+    that.updateHelper = {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#update1',
+          intro: "Reconnect to the current Season.",
+          position: 'top'
+        },
+        {
+          element: '#update2',
+          intro: "Update your data here.",
+          position: 'top'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
+
+    that.ExitEvent = function () {
       that.helper = false;
     };
 
-    $scope.CompletedEvent = function () {
+    that.CompletedEvent = function () {
       that.helper = false;
     };
 

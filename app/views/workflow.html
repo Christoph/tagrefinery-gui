@@ -1,10 +1,12 @@
 <div class="navbar navbar-fixed-top tagrefinery">
   <h2 style="text-align: center; margin-bottom: 15px">TagRefinery</h2>
-  <button ng-click="ctrl.goToStart()" class="btn btn-default" style="position: absolute; top: 0; left: 0;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="glyphicon glyphicon-arrow-left"></span></button>
-  <button ng-click="ctrl.showLinkedView()" class="btn btn-default" style="position: absolute; top: 0; right: 0;" uib-tooltip="Go to the Linked mode" tooltip-placement="left"><span class="fa fa-link"></span></button>
-  <button ng-click="ctrl.startWithDefaults()" class="btn btn-default" style="position: absolute; top: 0; right: 40px;" uib-tooltip="Go to the Guided mode" tooltip-placement="left"><span class="fa fa-plane"></span></button>
-  <button ng-click="ctrl.showAdvancedView()" class="btn btn-default" style="position: absolute; top: 0; right: 80px;" uib-tooltip="Go to the Advanced mode" tooltip-placement="left"><span class="glyphicon glyphicon-dashboard"></span></button>
-  <i id="start3" class="fa fa-info" style="font-size: x-large; position: absolute; top: 38px; right: 15px" ng-click="startHelper();" ></i>
+  <button ng-click="ctrl.goToStart()" class="btn btn-helper" style="position: absolute; top: 5px; left: 0;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="glyphicon glyphicon-arrow-left"></span></button>
+  <button ng-click="ctrl.showLinkedView()" class="btn btn-helper" style="position: absolute; top: 5px; left: 50px;" uib-tooltip="Go to the Linked mode" tooltip-placement="right"><span class="fa fa-bar-chart"></span></button>
+  <button ng-click="ctrl.startWithDefaults()" class="btn btn-helper" style="position: absolute; top: 5px; left: 100px;" uib-tooltip="Go to the Guided mode" tooltip-placement="right"><span class="fa fa-book"></span></button>
+  <button ng-click="ctrl.showAdvancedView()" class="btn btn-helper" style="position: absolute; top: 5px; left: 150px;" uib-tooltip="Go to the Advanced mode" tooltip-placement="right"><span class="fa fa-list-alt"></span></button>
+  <button class="btn btn-helper" ng-click="ctrl.startHelper();" uib-tooltip="Shows the Introduction for this Page" tooltip-placement="left">
+    <i id="start3" class="fa fa-film"></i>
+  </button>
   <hr style="margin: 0 auto">
 </div>
 <div ng-controller="WorkflowCtrl as ctrl" ng-show="ctrl.init" style="margin-top: 95px">
