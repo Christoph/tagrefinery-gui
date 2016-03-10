@@ -23,7 +23,7 @@
   <div class="btn-group" style="margin-top: 20px" ng-if="currentStep == 6 || currentStep == 10">
     <button ng-click="ctrl.reset()" class="btn secondaryColor" style="width: 100px">Refine <span class="glyphicon glyphicon-refresh"></span></button>
     <button ng-click="ctrl.advanced()" class="btn primaryColor">Advanced Mode <span class="glyphicon glyphicon-dashboard"></span></button>
-    <button ng-click="ctrl.ok()" class="btn secondaryColor" style="width: 100px">Finalize <span class="glyphicon glyphicon-cog"></span></button>
+    <button ng-disabled="true" ng-click="ctrl.ok()" class="btn secondaryColor" style="width: 100px">Finalize <span class="glyphicon glyphicon-cog"></span></button>
   </div>
   <hr>
   <div style="position: relative; height: 100%">
