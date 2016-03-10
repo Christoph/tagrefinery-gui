@@ -161,8 +161,6 @@ angular.module('tagrefineryGuiApp')
 
       scope.xAxis = d3.svg.axis()
         .scale(scope.x)
-        .tickValues(scope.ticks)
-        .tickFormat(scope.formatTicks)
         .orient("bottom");
 
       // y-scale and axis
@@ -182,11 +180,9 @@ angular.module('tagrefineryGuiApp')
         .y(scope.y)
         .scaleExtent([1, 1000])
         .size(scope.quadrantWidth, scope.quadrantHeight)
-        .on("zoomstart", function() {
-          scope.bodyG.selectAll(".zoomArea").style("cursor", "all-scroll")
-        })
         .on("zoomend", function() {
-          scope.bodyG.selectAll(".zoomArea").style("cursor", "zoom-in")
+          scope.bodyG.selectAll(".threshold")
+            .call(scope.bringToFront);
         })
         .on("zoom", scope.zoomed);
 
@@ -214,8 +210,7 @@ angular.module('tagrefineryGuiApp')
       scope.hist = scope.customHist(scope.data);
 
       scope.xAxis
-        .scale(scope.x)
-        .tickValues(scope.ticks);
+        .scale(scope.x);
 
       // Y-AXIS
       scope.yDomain = scope.yScaling();
@@ -328,8 +323,7 @@ angular.module('tagrefineryGuiApp')
         .attr("class", "zoomArea")
         .attr("width", scope.quadrantWidth)
         .attr("height", scope.quadrantHeight)
-        .call(scope.zoom)
-        .style("cursor", "zoom-in");
+        .call(scope.zoom);
 
       // Threshold line and circle
       scope.marker = scope.bodyG
@@ -389,8 +383,6 @@ angular.module('tagrefineryGuiApp')
             .text(scope.formatMarker(scope.threshold));
         }
 
-        scope.marker.call(scope.bringToFront);
-
         if(scope.fromRight)
         {
           scope.markerArea
@@ -419,6 +411,9 @@ angular.module('tagrefineryGuiApp')
     var renderBars = function (scope) {
       // hist data
       scope.hist = scope.customHist(scope.data);
+
+      scope.xAxis
+        .scale(scope.x);
 
       // Update line position
       renderLine(scope);
