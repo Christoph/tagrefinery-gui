@@ -76,7 +76,7 @@ angular.module('tagrefineryGuiApp')
           position: 'top'
         },{
           element: '#guided2',
-          intro: "... in the lower area. Mouse over the area to highlight it.",
+          intro: "... in the lower area. Mouse over the area to highlight it. <strong>Bolt</strong> words provide additional information on mouse over.",
           position: 'top'
         },{
           element: '#guided3',
@@ -149,6 +149,35 @@ angular.module('tagrefineryGuiApp')
         },
         {
           element: '#preB3',
+          intro: "Clear the list.",
+          position: 'top'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
+
+    that.list.spellTruth= {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#spellT1',
+          intro: "The currently used list of words which are treated as correct words and used as seeds for the spell correction.",
+          position: 'top'
+        },
+        {
+          element: '#spellT2',
+          intro: "Add words from a new file to the list.",
+          position: 'top'
+        },
+        {
+          element: '#spellT3',
           intro: "Clear the list.",
           position: 'top'
         }

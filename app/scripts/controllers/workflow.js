@@ -73,6 +73,10 @@ angular.module('tagrefineryGuiApp')
         {
           intros.set("preBlacklist");
         }
+        if($scope.currentStep == 2)
+        {
+          intros.set("spellTruth");
+        }
       }
       else
       {
