@@ -70,12 +70,17 @@ angular.module('tagrefineryGuiApp')
           intros.set("preFilter");
         }
       }
+      else
+      {
+        intros.set("guided");
+      }
     };
 
     that.ok = function()
     {
       $scope.showStep = false;
       $scope.currentStep++;
+      intros.set("guided");
 
       if($scope.currentStep == 6)
       {
@@ -90,6 +95,7 @@ angular.module('tagrefineryGuiApp')
     {
       $scope.showStep = false;
       $scope.currentStep--;
+      intros.set("guided");
     };
 
     that.output = function()
