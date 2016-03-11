@@ -87,6 +87,7 @@ angular.module('tagrefineryGuiApp')
     that.showAdvancedView = function()
     {
       that.showWorkflow = true;
+      that.running = true;
 
       socket.emit("selectMode", "free");
     };
@@ -94,6 +95,7 @@ angular.module('tagrefineryGuiApp')
     that.startWithDefaults = function()
     {
       that.showWorkflow = true;
+      that.running = true;
 
       socket.emit("selectMode", "guided");
       intros.set("guided");
@@ -223,6 +225,7 @@ angular.module('tagrefineryGuiApp')
     $scope.$watch("state", function(newVals) {
       if(newVals)
       {
+        //noinspection JSUnresolvedVariable
         that.intro = newVals.current;
       }
     },1);
