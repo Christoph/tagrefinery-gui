@@ -1,7 +1,7 @@
   <uib-tabset justified="true" active="active" ng-if="ctrl.mode == 'free'">
     <uib-tab index="0" disable="ctrl.disabled[0]" deselect="ctrl.apply()">
       <uib-tab-heading>
-        <label class="pull-left">1</label> Preprocessing <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+        <label class="pull-left">1</label> Preprocessing
       </uib-tab-heading>
       <div class="alert alert-info" style="text-align: center" ng-if="ctrl.initRunning">
         <strong>Loading Data ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
@@ -14,7 +14,7 @@
 
     <uib-tab index="1" disable="ctrl.disabled[1]" deselect="ctrl.apply()">
       <uib-tab-heading>
-        <label class="pull-left">2</label> Spell-correct <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+        <label class="pull-left">2</label> Spell-correct
       </uib-tab-heading>
       <div class="alert alert-info" style="text-align: center" ng-if="ctrl.preRunning">
         <strong>Apply Preprocessing ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
@@ -27,7 +27,7 @@
 
     <uib-tab index="2" disable="ctrl.disabled[2]" deselect="ctrl.apply()">
       <uib-tab-heading>
-        <label class="pull-left">3</label> Multiword Tags <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+        <label class="pull-left">3</label> Multiword Tags
       </uib-tab-heading>
       <div class="alert alert-info" style="text-align: center" ng-if="ctrl.spellRunning">
         <strong>Apply Spell Correction ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
@@ -40,7 +40,7 @@
 
     <uib-tab index="3" disable="ctrl.disabled[3]">
       <uib-tab-heading>
-        <label class="pull-left">4</label> Finalize <i class="pull-right glyphicon glyphicon-chevron-right"></i>
+        <label class="pull-left">4</label> Finalize
       </uib-tab-heading>
       <div class="alert alert-info" style="text-align: center" ng-if="ctrl.compRunning">
         <strong>Apply Multiword Tags ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
@@ -56,7 +56,7 @@
         <strong>Updating Data ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
       </div>
       <uib-tab-heading>
-        Output
+        Result
       </uib-tab-heading>
       <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
     </uib-tab>
