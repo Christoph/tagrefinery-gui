@@ -1,9 +1,9 @@
 <div class="scafold">
   <uib-accordion>
-    <uib-accordion-group is-open="status.open[3]" ng-show="advanced.mode" panel-class="panel-primary">
+    <uib-accordion-group is-open="status.open[3]" panel-class="panel-primary">
       <uib-accordion-heading>
         <div class="descriptionHeaderAdvanced">
-          Advanced Parameter <i class="pull-right glyphicon"
+          Advanced - Parameters <i class="pull-right glyphicon"
                                ng-class="{'glyphicon-chevron-down': status.open[3], 'glyphicon-chevron-right': !status.open[3]}"></i>
           <br>
           <p class="descriptionText">Set the minimum word length for replacements.</p>
@@ -35,6 +35,5 @@
       </uib-accordion-heading>
       <div class="row" ng-controller="SpellcheckingsetCtrl as ctrl" ng-include="'views/spellchecking.set.html'"></div>
     </uib-accordion-group>
-    <button style="margin-top: 5px" class="btn btn-default" uib-tooltip="Show advanced options" ng-click="" ng-model="advanced.mode" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Advanced</button>
   </uib-accordion>
 </div>
