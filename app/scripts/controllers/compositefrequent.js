@@ -149,6 +149,11 @@ angular.module('tagrefineryGuiApp')
       }), function (o) {
         return o.count;
       });
-    }
+    };
+
+    that.openDetails = function()
+    {
+      if(that.showDetails) document.getElementById("compFgrid").scrollIntoView()
+    };
 
   }]);

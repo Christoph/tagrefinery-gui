@@ -81,6 +81,14 @@ angular.module('tagrefineryGuiApp')
         {
           intros.set("spellCorrect");
         }
+        if($scope.currentStep == 4)
+        {
+          intros.set("compF");
+        }
+        if($scope.currentStep == 5)
+        {
+          intros.set("compU");
+        }
       }
       else
       {

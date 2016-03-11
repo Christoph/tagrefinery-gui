@@ -237,6 +237,66 @@ angular.module('tagrefineryGuiApp')
       doneLabel: 'Done'
     };
 
+    that.list.compF= {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#compF1',
+          intro: "The plot shows how many multiword tags have a certain group strength. <br> You can <strong>zoom and pan</strong> into sensitive areas and " +
+          "select a value by dragging the horizontal bar or clicking into the plot.",
+          position: 'top'
+        },
+        {
+          element: '#compF2',
+          intro: "The current threshold and the number of accepted groups.",
+          position: 'top'
+        },
+        {
+          element: '#compF3',
+          intro: "Shows a list of all groups.",
+          position: 'top'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
+
+    that.list.compU= {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#compU1',
+          intro: "The plot shows how many multiword tags have a certain group strength. <br> You can <strong>zoom and pan</strong> into sensitive areas and " +
+          "select a value by dragging the horizontal bar or clicking into the plot.",
+          position: 'top'
+        },
+        {
+          element: '#compU2',
+          intro: "The current threshold and the number of accepted groups.",
+          position: 'top'
+        },
+        {
+          element: '#compU3',
+          intro: "Shows a list of all groups.",
+          position: 'top'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
+
     return {
       state: state,
       set: function(page)
