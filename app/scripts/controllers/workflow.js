@@ -69,6 +69,10 @@ angular.module('tagrefineryGuiApp')
         {
           intros.set("preFilter");
         }
+        if($scope.currentStep == 1)
+        {
+          intros.set("preBlacklist");
+        }
       }
       else
       {

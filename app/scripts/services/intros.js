@@ -134,6 +134,35 @@ angular.module('tagrefineryGuiApp')
       doneLabel: 'Done'
     };
 
+    that.list.preBlacklist= {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#preB1',
+          intro: "The currently used list of words which will be removed from the dataset.",
+          position: 'top'
+        },
+        {
+          element: '#preB2',
+          intro: "Add words from a new file to the list.",
+          position: 'top'
+        },
+        {
+          element: '#preB3',
+          intro: "Clear the list.",
+          position: 'top'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
+
     return {
       state: state,
       set: function(page)
