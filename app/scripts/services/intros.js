@@ -89,7 +89,7 @@ angular.module('tagrefineryGuiApp')
         },
         {
           element: '#guided5',
-          intro: "Switch between the different modes.",
+          intro: "Switch between the different modes.    ",
           position: 'right'
         }
       ],
