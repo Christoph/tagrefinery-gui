@@ -24,7 +24,7 @@
     <h4>Current threshold: {{ctrl.newImportance | number:4 }}</h4>
   </div>
   <div class="col-sm-6" style="text-align: right">
-    <label class="btn btn-primary" ng-model="ctrl.showDetails" uib-btn-checkbox
+    <label class="btn btn-primary" ng-click="ctrl.openDetails()" ng-model="ctrl.showDetails" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
       Inspect Words
     </label>
@@ -34,7 +34,7 @@
 <div class="row" ng-if="ctrl.showDetails">
   <div class="col-sm-6">
     <h4 style="position:relative; left:25%">Vocab</h4>
-    <div ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+    <div id="spellCdetails" ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
   </div>
   <div class="col-sm-6">
     <h4 style="position:relative; left:25%">Replacements</h4>
@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<div ng-if="ctrl.showReplacements" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+<div id="spellCrepl" ng-if="ctrl.showReplacements" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
 
 <hr>
 

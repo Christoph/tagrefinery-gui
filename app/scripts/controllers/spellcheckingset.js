@@ -163,6 +163,7 @@ angular.module('tagrefineryGuiApp')
       if (that.showReplacements)
       {
         socket.emit("getReplacementData", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+        document.getElementById("spellCrepl").scrollIntoView()
       }
     };
 
@@ -338,6 +339,11 @@ angular.module('tagrefineryGuiApp')
             placeholder: 'less than'
           }
         ]}]
+    };
+
+    that.openDetails = function()
+    {
+      if(that.showDetails) document.getElementById("spellCdetails").scrollIntoView()
     };
 
   }]);
