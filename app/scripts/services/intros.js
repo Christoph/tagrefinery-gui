@@ -104,18 +104,24 @@ angular.module('tagrefineryGuiApp')
     };
 
 
-    that.preFilterIntro = {
+    that.list.preFilter= {
       overlayOpacity: 0.3,
       steps:[
         {
-          element: '#guided1',
-          intro: "Use the default values described ...",
+          element: '#preF1',
+          intro: "The plot shows how many words occur how often. Find the minimum occurrence a word should have. <br> You can <strong>zoom and pan</strong> into sensitive areas and " +
+          "select a value by dragging the horizontal bar or clicking into the plot.",
           position: 'top'
         },
         {
-          element: '#guided1',
-          intro: "In each screen just click onto the small <i class='fa fa-film'></i> to show the introduction.",
-          position: 'left'
+          element: '#preF2',
+          intro: "You can see/update the threshold and the number of words in the dataset using the current threshold.",
+          position: 'top'
+        },
+        {
+          element: '#preF3',
+          intro: "Inspect Words opens a grid view where you can see all words and there occurrence.",
+          position: 'top'
         }
       ],
       showStepNumbers: false,

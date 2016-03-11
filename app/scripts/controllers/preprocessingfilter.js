@@ -150,6 +150,11 @@ angular.module('tagrefineryGuiApp')
     // Helper functions
     ////////////////////////////////////////////////
 
+    that.openGrid = function()
+    {
+      if(that.showDetails) document.getElementById("preFscroll").scrollIntoView()
+    };
+
     that.newCount = function () {
       return _.sum(that.data, function(d) { return d.count; }) - _.sum(_.filter(that.data, function (d) {
         return d.value < that.newOccurrences;

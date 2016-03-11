@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('WorkflowCtrl', ["$scope", "socket", function ($scope, socket) {
+  .controller('WorkflowCtrl', ["$scope", "socket", "intros", function ($scope, socket, intros) {
     var that = this;
 
     // State variables
@@ -62,6 +62,14 @@ angular.module('tagrefineryGuiApp')
       {
         socket.emit("getWhitelist", "")
       }
+
+      if($scope.showStep)
+      {
+        if($scope.currentStep == 0)
+        {
+          intros.set("preFilter");
+        }
+      }
     };
 
     that.ok = function()
@@ -82,7 +90,7 @@ angular.module('tagrefineryGuiApp')
     {
       $scope.showStep = false;
       $scope.currentStep--;
-    }
+    };
 
     that.output = function()
     {
