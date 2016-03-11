@@ -346,4 +346,12 @@ angular.module('tagrefineryGuiApp')
       if(that.showDetails) document.getElementById("spellCdetails").scrollIntoView()
     };
 
+    that.countGroundTruth = function () {
+      return _.sum(_.filter(that.data, function (d) {
+        return d.value >= that.newImportance;
+      }), function (o) {
+        return o.count;
+      });
+    }
+
   }]);

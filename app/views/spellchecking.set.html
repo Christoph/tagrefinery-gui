@@ -16,14 +16,15 @@
   </div>
 </div>
 
-<div ng-if="status.open[1] || (currentStep == 3 && showStep)" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="24" svg-height="300"
+<div id="spellC1" ng-if="status.open[1] || (currentStep == 3 && showStep)" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="24" svg-height="300"
      type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getNewImportance(threshold)"></div>
 
 <div class="row taskInner">
-  <div class="col-sm-6" style="text-align: left">
-    <h4>Current threshold: {{ctrl.newImportance | number:4 }}</h4>
+  <div id="spellC2" class="col-sm-6" style="text-align: left">
+    <h4>Current threshold: {{ ctrl.newImportance | number:4}}</h4>
+    <h4>Number of ground truth words: {{ctrl.countGroundTruth() | number:0 }}</h4>
   </div>
-  <div class="col-sm-6" style="text-align: right">
+  <div id="spellC3" class="col-sm-6" style="text-align: right">
     <label class="btn btn-primary" ng-click="ctrl.openDetails()" ng-model="ctrl.showDetails" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
       Inspect Words
@@ -57,13 +58,14 @@
   </div>
 </div>
 
-<div class="taskInner" d3-slider ng-if="status.open[1] || (currentStep == 3 && showStep)" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
+<div id="spellC4" class="taskInner" d3-slider ng-if="status.open[1] || (currentStep == 3 && showStep)" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
 
 <div class="row taskInner">
-  <div class="col-sm-6" style="text-align: left">
+  <div id="spellC5" class="col-sm-6" style="text-align: left">
+    <h4>Current threshold: {{ ctrl.newSimilarity | number:4}}</h4>
     <h4>Number of replacements: {{ ctrl.replacements }}</h4>
   </div>
-  <div class="col-sm-6" style="text-align: right">
+  <div id="spellC6" class="col-sm-6" style="text-align: right">
     <label class="btn btn-primary" ng-model="ctrl.showReplacements" ng-click="ctrl.show()" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
       Inspect Replacements

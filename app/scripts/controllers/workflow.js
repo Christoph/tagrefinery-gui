@@ -77,6 +77,10 @@ angular.module('tagrefineryGuiApp')
         {
           intros.set("spellTruth");
         }
+        if($scope.currentStep == 3)
+        {
+          intros.set("spellCorrect");
+        }
       }
       else
       {
