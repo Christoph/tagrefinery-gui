@@ -1,7 +1,7 @@
 <div ng-controller="LinkedCtrl as ctrl" class="guidedInner">
   <div class="row">
     <uib-accordion>
-      <uib-accordion-group is-open="ctrl.preFilter" panel-class="panel-secondary">
+      <uib-accordion-group id="linked1" is-open="ctrl.preFilter" panel-class="panel-secondary">
         <uib-accordion-heading>
           <div class="descriptionHeaderAdvanced">
              Preprocessing <i class="pull-right glyphicon"
@@ -38,17 +38,17 @@
         <div ng-if="ctrl.preRunning" class="overlay">
           <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
         </div>
-        <div ng-if="ctrl.linked" d3-hist data="ctrl.spellData" threshold="ctrl.newSpellI" bins="18" svg-height="200"
+        <div id="linked2" ng-if="ctrl.linked" d3-hist data="ctrl.spellData" threshold="ctrl.newSpellI" bins="18" svg-height="200"
              type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getSpellI(threshold)" title="Improve Tag Quality"></div>
-        <div class="taskInner" d3-slider ng-if="ctrl.linked" value="ctrl.newSpellS" call-back="ctrl.getSlider(value)" domain="ctrl.spellDomain" xlabel="Similarity"></div>
+        <div id="linked3" class="taskInner" d3-slider ng-if="ctrl.linked" value="ctrl.newSpellS" call-back="ctrl.getSlider(value)" domain="ctrl.spellDomain" xlabel="Similarity"></div>
       </div>
       <div style="position: relative">
         <div ng-if="ctrl.spellRunning" class="overlay">
           <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
         </div>
-        <div ng-if="ctrl.linked" d3-hist data="ctrl.compDataF" call-back="ctrl.getCompF(threshold)"
+        <div id="linked4" ng-if="ctrl.linked" d3-hist data="ctrl.compDataF" call-back="ctrl.getCompF(threshold)"
              threshold="ctrl.newCompF" bins="18" svg-height="200" type-label="Group Strength" y-label="Count" title="Frequent Multiword Groups"></div>
-        <div ng-if="ctrl.linked" d3-hist data="ctrl.compDataU" call-back="ctrl.getCompU(threshold)"
+        <div id="linked5" ng-if="ctrl.linked" d3-hist data="ctrl.compDataU" call-back="ctrl.getCompU(threshold)"
              threshold="ctrl.newCompU" bins="18" svg-height="200" type-label="Group Strength" y-label="Count" title="Unique Multiword Groups"></div>
       </div>
     </div>
@@ -56,7 +56,7 @@
       <div ng-if="ctrl.compRunning" class="overlay">
         <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
       </div>
-      <div class="row">
+      <div id="linked6" class="row">
         <div class="col-sm-4">
           <h5 style="text-align: center">Preprocessing</h5>
           <hr>
@@ -80,13 +80,13 @@
         </div>
       </div>
       <div class="row" style="position: relative">
-        <div style="text-align: left; height: 475px" ng-if="ctrl.linked" ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter>
+        <div id="linked7" style="text-align: left; height: 475px" ng-if="ctrl.linked" ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter>
           <div ng-if="ctrl.compRunning" class="overlay" style="text-align: center">
             <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
           </div>
         </div>
       </div>
-      <div class="row">
+      <div id="linked8" class="row">
         <button class="btn btn-group-justified secondaryColor" ng-click="ctrl.goToResult()">Result Page</button>
       </div>
     </div>

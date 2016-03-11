@@ -124,19 +124,15 @@ angular.module('tagrefineryGuiApp')
       $scope.$broadcast("guidedResult");
     };
 
-    that.reset = function()
-    {
-      $scope.showStep = false;
-      $scope.currentStep = 0;
-    };
-
     that.goToAdvanced = function()
     {
+      intros.set("advanced");
       socket.emit("selectMode", "free");
     };
 
     that.goToLinked = function()
     {
+      intros.set("linked");
       socket.emit("selectMode", "linked");
     };
 

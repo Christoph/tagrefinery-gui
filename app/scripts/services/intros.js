@@ -340,6 +340,61 @@ angular.module('tagrefineryGuiApp')
       skipLabel: 'Exit',
       doneLabel: 'Done'
     };
+
+    that.list.linked= {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#linked1',
+          intro: "Set preprocessing parameters like occurrence filter and blacklist words.",
+          position: 'bottom'
+        },
+        {
+          element: '#linked2',
+          intro: "Define which words should be treated as correct.",
+          position: 'top'
+        },
+        {
+          element: '#linked3',
+          intro: "Set a similarity for the replacement algorithm.",
+          position: 'top'
+        },
+        {
+          element: '#linked4',
+          intro: "Find frequent multiword tags.",
+          position: 'top'
+        },
+        {
+          element: '#linked5',
+          intro: "Find unique multiword tags.",
+          position: 'top'
+        },
+        {
+          element: '#linked6',
+          intro: "A summary of the parameters.",
+          position: 'top'
+        },
+        {
+          element: '#linked7',
+          intro: "The resulting vocabulary. (Not the whole dataset!)",
+          position: 'top'
+        },
+        {
+          element: '#linked8',
+          intro: "Go back to the result page.",
+          position: 'top'
+        },
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
+
     return {
       state: state,
       set: function(page)
