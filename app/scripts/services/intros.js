@@ -67,18 +67,30 @@ angular.module('tagrefineryGuiApp')
       doneLabel: 'Done'
     };
 
-    that.intro = {
+    that.list.guided = {
       overlayOpacity: 0.3,
       steps:[
-        {
-          element: '#pre1',
-          intro: "Import your csv file.",
+         {
+          element: '#guided1',
+          intro: "Use the default values described ...",
+          position: 'top'
+        },{
+          element: '#guided2',
+          intro: "... in the lower area. Mouse over the area to highlight it.",
+          position: 'top'
+        },{
+          element: '#guided3',
+          intro: "Click here to customize the step.",
+          position: 'top'
+        },{
+          element: '#guided4',
+          intro: "Each <strong>bold</strong> word provides additional informations by mouseover.",
           position: 'top'
         },
         {
-          element: '#pre2',
-          intro: "In each screen just click onto the small <i class='fa fa-film'></i> to show the introduction.",
-          position: 'left'
+          element: '#guided5',
+          intro: "Switch between the different modes.",
+          position: 'right'
         }
       ],
       showStepNumbers: false,
@@ -96,12 +108,12 @@ angular.module('tagrefineryGuiApp')
       overlayOpacity: 0.3,
       steps:[
         {
-          element: '#pre1',
-          intro: "Import your csv file.",
+          element: '#guided1',
+          intro: "Use the default values described ...",
           position: 'top'
         },
         {
-          element: '#pre2',
+          element: '#guided1',
           intro: "In each screen just click onto the small <i class='fa fa-film'></i> to show the introduction.",
           position: 'left'
         }

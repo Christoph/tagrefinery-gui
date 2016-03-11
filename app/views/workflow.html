@@ -1,10 +1,12 @@
 <div class="navbar navbar-fixed-top tagrefinery">
   <h2 style="text-align: center; margin-bottom: 15px">TagRefinery</h2>
-  <button ng-click="ctrl.goToStart()" class="btn btn-helper" style="position: absolute; top: 5px; left: 0;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="fa fa-home"></span></button>
-  <button ng-click="ctrl.showLinkedView()" class="btn btn-helper" style="position: absolute; top: 5px; left: 50px;" uib-tooltip="Go to the Linked mode" tooltip-placement="right"><span class="fa fa-bar-chart"></span></button>
-  <button ng-click="ctrl.startWithDefaults()" class="btn btn-helper" style="position: absolute; top: 5px; left: 100px;" uib-tooltip="Go to the Guided mode" tooltip-placement="right"><span class="fa fa-book"></span></button>
-  <button ng-click="ctrl.showAdvancedView()" class="btn btn-helper" style="position: absolute; top: 5px; left: 150px;" uib-tooltip="Go to the Advanced mode" tooltip-placement="right"><span class="fa fa-list-alt"></span></button>
-  <button class="btn btn-helper" ng-click="ctrl.startHelper();" uib-tooltip="Shows the Introduction for this Page" tooltip-placement="left">
+  <div id="guided5" style="position: absolute; width: 200px; height: 55px;top: 0;left: 0;">
+    <button ng-click="ctrl.goToStart()" class="btn btn-helper" style="position: absolute; top: 5px; left: 0;" uib-tooltip="Back to the Start Screen" tooltip-placement="right"><span class="fa fa-home"></span></button>
+    <button ng-click="ctrl.showLinkedView()" class="btn btn-helper" style="position: absolute; top: 5px; left: 50px;" uib-tooltip="Go to the Linked mode" tooltip-placement="right"><span class="fa fa-bar-chart"></span></button>
+    <button ng-click="ctrl.startWithDefaults()" class="btn btn-helper" style="position: absolute; top: 5px; left: 100px;" uib-tooltip="Go to the Guided mode" tooltip-placement="right"><span class="fa fa-book"></span></button>
+    <button ng-click="ctrl.showAdvancedView()" class="btn btn-helper" style="position: absolute; top: 5px; left: 150px;" uib-tooltip="Go to the Advanced mode" tooltip-placement="right"><span class="fa fa-list-alt"></span></button>
+  </div>
+  <button class="btn btn-helper" ng-click="CallMe();" uib-tooltip="Shows the Introduction for this Page" tooltip-placement="left">
     <i id="start3" class="fa fa-film"></i>
   </button>
   <hr style="margin: 0 auto">

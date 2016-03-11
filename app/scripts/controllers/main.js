@@ -47,7 +47,7 @@ angular.module('tagrefineryGuiApp')
       if(that.running == true)
       {
         that.helper = false;
-        intros.set("running");
+        //intros.set("running");
       }
     });
 
@@ -59,7 +59,7 @@ angular.module('tagrefineryGuiApp')
     that.goToImport = function()
     {
       that.showImport = true;
-      intros.set("import");
+      //intros.set("import");
     };
 
     that.goToStart = function()
@@ -74,6 +74,7 @@ angular.module('tagrefineryGuiApp')
       that.showWorkflow = true;
 
       socket.emit("selectMode", "reconnect");
+      intros.set("guided");
     };
 
     that.showLinkedView = function()
@@ -95,6 +96,7 @@ angular.module('tagrefineryGuiApp')
       that.showWorkflow = true;
 
       socket.emit("selectMode", "guided");
+      intros.set("guided");
     };
 
     ////////////////////////////////////////////////
