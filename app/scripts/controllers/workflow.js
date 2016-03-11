@@ -97,17 +97,11 @@ angular.module('tagrefineryGuiApp')
 
     that.goToAdvanced = function()
     {
-      that.guided = false;
-      that.free = true;
-
       socket.emit("selectMode", "free");
     };
 
     that.goToLinked = function()
     {
-      that.guided = false;
-      that.linked = true;
-
       socket.emit("selectMode", "linked");
     };
 

@@ -1,9 +1,9 @@
 <div ng-controller="LinkedCtrl as ctrl" class="guidedInner">
   <div class="row">
     <uib-accordion>
-      <uib-accordion-group is-open="ctrl.preFilter" panel-class="panel-info">
+      <uib-accordion-group is-open="ctrl.preFilter" panel-class="panel-secondary">
         <uib-accordion-heading>
-          <div class="descriptionHeader">
+          <div class="descriptionHeaderAdvanced">
              Preprocessing <i class="pull-right glyphicon"
                                    ng-class="{'glyphicon-chevron-down': ctrl.preFilter, 'glyphicon-chevron-right': !ctrl.preFilter}"></i>
             <br>
@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="row">
-        <button class="btn btn-group-justified btn-info" ng-click="ctrl.goToAdvanced()">Advanced</button>
+        <button class="btn btn-group-justified secondaryColor" ng-click="ctrl.goToResult()">Result Page</button>
       </div>
     </div>
   </div>

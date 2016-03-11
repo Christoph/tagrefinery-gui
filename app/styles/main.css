@@ -262,8 +262,8 @@ button.help {
 }
 
 .descriptionText {
-  font-size: 10pt;
-  font-weight: normal;
+  font-size: 11pt;
+  font-weight: 300;
 }
 
 .descriptionHeader {
@@ -272,6 +272,8 @@ button.help {
 
 .descriptionHeaderAdvanced {
   color: white !important;
+  font-size: 13pt;
+  font-weight: 400;
 }
 
 div.alert-info {
@@ -331,7 +333,11 @@ input.ng-invalid {
 }
 
 .left {
-  fill: steelblue;
+  fill: #e65c00;
+}
+
+.leftlabel {
+  color: white;
 }
 
 .fileUpload {
@@ -374,6 +380,15 @@ button.disabled {
 .primaryColor.focus,
 .primaryColor:focus {
   outline: none;
+}
+
+.panel-secondary {
+  border-color: rgba(51, 51, 51, 0.21);
+}
+
+.panel-secondary > .panel-heading {
+  background: #e65c00;
+  color: white;
 }
 
 .secondaryColor {

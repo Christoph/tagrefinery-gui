@@ -315,9 +315,9 @@ angular.module('tagrefineryGuiApp')
       })
     };
 
-    that.goToAdvanced = function()
+    that.goToResult = function()
     {
-      socket.emit("selectMode", "free");
+      socket.emit("selectMode", "guided");
     }
 
     that.getPreCount = function () {
