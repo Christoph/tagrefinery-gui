@@ -139,7 +139,7 @@ angular.module('tagrefineryGuiApp')
         {
           field: 'importance', displayName: "Occurrences", minWidth: 100, width: "*",
           sort: {
-            direction: uiGridConstants.DESC,
+            direction: uiGridConstants.ASC,
             priority: 1
           }
         }
