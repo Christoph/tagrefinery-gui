@@ -106,6 +106,7 @@ angular.module('tagrefineryGuiApp')
       {
         $scope.showStep = true;
         $scope.$broadcast("guidedResult");
+        intros.set("result");
       }
 
       that.apply();

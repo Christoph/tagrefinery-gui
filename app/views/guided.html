@@ -22,9 +22,9 @@
     <button ng-if="currentStep < 6 && showStep" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Apply <span class="glyphicon glyphicon-ok"></span></button>
   </div>
   <div class="btn-group" style="margin-top: 20px" ng-if="currentStep == 6 || currentStep == 10">
-    <button ng-click="ctrl.goToLinked()" class="btn secondaryColor" style="width: 100px">Refine <span class="fa fa-bar-chart"></span></button>
-    <button ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
-    <button ng-disabled="true" ng-click="ctrl.ok()" class="btn secondaryColor" style="width: 100px">Finalize <span class="glyphicon glyphicon-cog"></span></button>
+    <button id="result4" ng-click="ctrl.goToLinked()" class="btn secondaryColor" style="width: 100px">Refine <span class="fa fa-bar-chart"></span></button>
+    <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
+    <button id="result6" ng-disabled="true" ng-click="ctrl.ok()" class="btn secondaryColor" style="width: 100px">Finalize <span class="glyphicon glyphicon-cog"></span></button>
   </div>
   <hr>
   <div style="position: relative; height: 100%">

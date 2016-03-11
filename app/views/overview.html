@@ -2,11 +2,11 @@
   <div class="col-sm-8" style="text-align: center">
     <h4> Final Dataset </h4>
     <span>Last applied step: {{ctrl.state}}</span>
-    <div ng-if="ctrl.result" style="text-align: left" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
+    <div id="result1" ng-if="ctrl.result" style="text-align: left" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
          class="taskInner"></div>
     <h4>History</h4>
 
-    <div class="taskInner">
+    <div id="result2" class="taskInner">
     <table class="table">
       <thead>
       <tr>
@@ -29,7 +29,7 @@
     </table>
     </div>
   </div>
-  <div class="col-sm-4">
+  <div id="result3" class="col-sm-4">
     <h4> Parameters </h4>
     <table class="table" style="width:95% ">
       <tbody>

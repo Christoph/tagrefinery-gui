@@ -297,6 +297,49 @@ angular.module('tagrefineryGuiApp')
       doneLabel: 'Done'
     };
 
+    that.list.result= {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#result1',
+          intro: "The list shows the final dataset. By selecting an element ...",
+          position: 'top'
+        },
+        {
+          element: '#result2',
+          intro: "... the history of the selected row will be shown.",
+          position: 'top'
+        },
+        {
+          element: '#result3',
+          intro: "This is a summary all parameters.",
+          position: 'top'
+        },
+        {
+          element: '#result4',
+          intro: "Refine shows the linked view and allows further parameter refinement.",
+          position: 'top'
+        },
+        {
+          element: '#result5',
+          intro: "The advanced mode gives more freedom and less guidance.",
+          position: 'top'
+        },
+        {
+          element: '#result6',
+          intro: "Finalize the dataset.",
+          position: 'top'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
     return {
       state: state,
       set: function(page)
