@@ -240,25 +240,7 @@ angular.module('tagrefineryGuiApp')
         .attr("height", scope.height)
         .attr("width", '100%')
         .style("background-color", "white")
-        .attr("class", "chart")
-        .on('click', function () {
-          if (d3.event.defaultPrevented) return; // click suppressed
-          if(scope.isFloat)
-          {
-            scope.threshold = scope.x.invert(d3.mouse(this)[0] - scope.marginLeft);
-          }
-          else
-          {
-            scope.threshold = Math.round(scope.x.invert(d3.mouse(this)[0] - scope.marginLeft));
-          }
-
-          scope.callBack({threshold: scope.threshold});
-
-          renderLine(scope);
-        });
-
-      // Detach dbl click from zoom
-      scope.svg.on("dblclick.zoom", null);
+        .attr("class", "chart");
 
       // title
       scope.svg.append("text")
@@ -323,7 +305,25 @@ angular.module('tagrefineryGuiApp')
         .attr("class", "zoomArea")
         .attr("width", scope.quadrantWidth)
         .attr("height", scope.quadrantHeight)
-        .call(scope.zoom);
+        .call(scope.zoom)
+        .on('click', function () {
+          if (d3.event.defaultPrevented) return; // click suppressed
+          if(scope.isFloat)
+          {
+            scope.threshold = scope.x.invert(d3.mouse(this)[0]);
+          }
+          else
+          {
+            scope.threshold = Math.round(scope.x.invert(d3.mouse(this)[0]));
+          }
+
+          scope.callBack({threshold: scope.threshold});
+
+          renderLine(scope);
+        });
+
+      // Detach dbl click from zoom
+      scope.bodyG.selectAll(".zoomArea").on("dblclick.zoom", null);
 
       // Threshold line and circle
       scope.marker = scope.bodyG
