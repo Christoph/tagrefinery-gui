@@ -17,6 +17,7 @@ angular.module('tagrefineryGuiApp')
     that.preRunning = false;
     that.spellRunning = false;
     that.compRunning = false;
+    that.postRunning = false;
 
     that.mode = "";
 
@@ -47,6 +48,10 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('computeComp', function (data) {
       that.compRunning = data == "started"
+    });
+
+    socket.on('computePost', function (data) {
+      that.postRunning = data == "started"
     });
 
     // Choose value

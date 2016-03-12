@@ -52,7 +52,7 @@
     </uib-tab>
 
     <uib-tab index="4" disable="ctrl.disabled[4]" select="ctrl.output()">
-      <div class="alert alert-info" style="text-align: center" ng-if="ctrl.compRunning">
+      <div class="alert alert-info" style="text-align: center" ng-if="ctrl.postRunning || ctrl.compRunning">
         <strong>Updating Data ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
       </div>
       <uib-tab-heading>

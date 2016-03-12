@@ -14,12 +14,20 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     that.touched = false;
+    that.salvagingRunning = false;
 
     that.replace = [];
+    that.replace.push({});
+
     that.replaceOriginal = [];
+    that.replaceOriginal.push({});
+
 
     that.remove = [];
+    that.remove.push({});
+
     that.removeOriginal = [];
+    that.removeOriginal.push({});
 
     that.original = [];
 
@@ -31,13 +39,14 @@ angular.module('tagrefineryGuiApp')
       var temp = JSON.parse(data);
 
       that.original = _.map(temp, function(d) {
-        if(that.replace[d.tag])
-        {
-          return {tag: d.tag, replace: that.replace[d.tag], remove: false}
-        }
-        else if(that.remove[d.tag])
+
+        if(that.remove[0][d.tag])
         {
           return {tag: d.tag, replace: "", remove: true}
+        }
+        else if(that.replace[0][d.tag])
+        {
+          return {tag: d.tag, replace: that.replace[0][d.tag], remove: false}
         }
         else
         {
@@ -49,28 +58,26 @@ angular.module('tagrefineryGuiApp')
     });
 
     socket.on('postReplaceParams', function (data) {
-      that.replace.length = 0;
-      that.replaceOriginal.length = 0;
-
       _.each(data, function (d) {
         var temp = d.split(",");
 
-        that.replace[temp[0]] = temp[1];
-        that.replaceOriginal[temp[0]] = temp[1];
+        that.replace[0][temp[0]] = temp[1];
+        that.replaceOriginal[0][temp[0]] = temp[1];
       });
 
     });
 
     socket.on('postRemoveParams', function (data) {
-      that.remove.length = 0;
-      that.removeOriginal.length = 0;
-
       _.each(data, function (d) {
-        that.remove[d] = true;
-        that.removeOriginal[d] = true;
+        that.remove[0][d] = true;
+        that.removeOriginal[0][d] = true;
       });
-
     });
+
+    socket.on('postSalvaging', function (data) {
+      that.salvagingRunning = data == true;
+    });
+
 
     socket.on('postSalvageData', function (data) {
       that.salvage.data = JSON.parse(data);
@@ -150,26 +157,25 @@ angular.module('tagrefineryGuiApp')
             that.touched = true;
 
             if(colDef.name == 'replace') {
-              if(rowEntity.tag in that.replace)
+              if(rowEntity.tag in that.replace[0])
               {
-                if(that.replace[rowEntity.tag] != newValue)
+                if(that.replace[0][rowEntity.tag] != newValue)
                 {
-                  that.replace[rowEntity.tag] = newValue;
+                  that.replace[0][rowEntity.tag] = newValue;
 
                   socket.emit("applyPostReplace", JSON.stringify(that.replace));
                 }
               }
               else
               {
-                that.replace[rowEntity.tag] = newValue;
+                that.replace[0][rowEntity.tag] = newValue;
 
                 socket.emit("applyPostReplace", JSON.stringify(that.replace));
               }
             }
 
-            if(colDef.name == 'remove' && !rowEntity.tag in that.remove) {
-              if(newValue == true) that.remove[rowEntity.tag] = true;
-
+            if(colDef.name == 'remove' && !(rowEntity.tag in that.remove[0])) {
+              if(newValue == true) that.remove[0][rowEntity.tag] = true;
 
               socket.emit("applyPostRemove", JSON.stringify(that.remove));
             }
@@ -178,13 +184,13 @@ angular.module('tagrefineryGuiApp')
           if(oldValue)
           {
             if(colDef.name == 'replace') {
-              delete that.replace[rowEntity.tag];
+              delete that.replace[0][rowEntity.tag];
 
               socket.emit("applyPostReplace", JSON.stringify(that.replace));
             }
 
             if(colDef.name == 'remove') {
-              delete that.remove[rowEntity.tag];
+              delete that.remove[0][rowEntity.tag];
 
               socket.emit("applyPostRemove", JSON.stringify(that.remove));
             }
