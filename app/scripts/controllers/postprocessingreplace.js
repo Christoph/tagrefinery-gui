@@ -89,6 +89,7 @@ angular.module('tagrefineryGuiApp')
     {
       that.edit.data = _.cloneDeep(that.original);
       that.replace = _.cloneDeep(that.replaceOriginal);
+      that.remove = _.cloneDeep(that.removeOriginal);
       that.touched = false;
     };
 
