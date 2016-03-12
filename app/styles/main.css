@@ -7,12 +7,12 @@
   opacity: 1;
 }
 
-.default {
-  color: black;
-}
-
 .zoomArea {
   opacity: 0;
+}
+
+.default {
+  color: black;
 }
 
 .current {
@@ -22,6 +22,15 @@
 
 .truth {
   color: green;
+  font-weight: bold;
+}
+
+.removed {
+  opacity: 0.5;
+}
+
+.edited {
+  color: #b10000;
   font-weight: bold;
 }
 

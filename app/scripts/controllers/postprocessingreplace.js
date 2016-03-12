@@ -16,101 +16,198 @@ angular.module('tagrefineryGuiApp')
     that.touched = false;
 
     that.replace = [];
-    that.replacements = [];
-    that.old = "";
-    that.original = [];
+    that.replaceOriginal = [];
 
-    that.remove = function (index) {
-      that.replace.splice(index, 1);
-    };
+    that.remove = [];
+    that.removeOriginal = [];
+
+    that.original = [];
 
     ////////////////////////////////////////////////
     // Socket functions
     ////////////////////////////////////////////////
 
     socket.on('postImportantWords', function (data) {
-      that.grid.data = JSON.parse(data);
-      that.original = JSON.parse(data);
+      var temp = JSON.parse(data);
+
+      that.original = _.map(temp, function(d) {
+        if (_.findIndex(that.replace, ['replace', d.tag])>=0)
+        {
+          return {tag: d.tag, replace: that.replace[d.tag], remove: false}
+        }
+        else
+        {
+          return {tag: d.tag, replace: "", remove: false }
+        }
+      });
+
+      that.edit.data = _.cloneDeep(that.original)
     });
 
     socket.on('postReplaceParams', function (data) {
       that.replace.length = 0;
-      that.replacements.length = 0;
+      that.replaceOriginal.length = 0;
 
       _.each(data, function (d) {
         var temp = d.split(",");
 
-        that.replace.push({replace: temp[0], by: temp[1]});
-        that.replacements.push({replace: temp[0], by: temp[1]});
+        that.replace[temp[0]] = temp[1];
+        that.replaceOriginal[temp[0]] = temp[1];
       });
 
-      stats.writePost("Number of Replaced Tags", that.replace.length);
     });
 
-    $scope.$on("apply", function() {
-      if(that.touched)
-      {
-        socket.emit("applyPostReplace", JSON.stringify(that.replace));
+    socket.on('postRemoveParams', function (data) {
+      that.remove.length = 0;
+      that.removeOriginal.length = 0;
 
-        stats.writePost("Number of Replaced Tags", that.replace.length);
+      _.each(data, function (d) {
+        that.remove[d] = true;
+        that.removeOriginal[d] = true;
+      });
 
-        that.touched = false;
-      }
     });
 
-    ////////////////////////////////////////////////
-    // Grid
-    ////////////////////////////////////////////////
+    socket.on('postSalvageData', function (data) {
+      that.salvage.data = JSON.parse(data);
 
-    that.deleteRow = function (row) {
-      var index = that.grid.data.indexOf(row.entity);
-      that.grid.data.splice(index, 1);
+      stats.writePost("Number of Salvaged Tags", that.salvage.data.length);
+    });
+
+    that.apply = function () {
+      socket.emit("applySalvaging", "");
+
+      that.replaceOriginal = _.cloneDeep(that.replace);
+      that.removeOriginal = _.clone(that.remove);
     };
 
-
-    that.undo = function () {
-      that.replace = _.clone(that.replacements);
-      that.grid.data = _.clone(that.original);
-
-      stats.writePost("Number of Replaced Tags", that.replace.length);
-
+    that.undo = function()
+    {
+      that.edit.data = _.cloneDeep(that.original);
+      that.replace = _.cloneDeep(that.replaceOriginal);
       that.touched = false;
     };
 
-    that.saveRow = function (rowEntity) {
-      var promise = $q.defer();
-      that.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
-
-      that.replace.push({replace: that.old, by: rowEntity.tag});
-
-      promise.resolve();
-
-      that.touched = true;
-    };
+    ////////////////////////////////////////////////
+    // Salvaging
+    ////////////////////////////////////////////////
 
     // Grid
 
-    that.grid = {
+    that.salvage = {
       enableFiltering: true,
       enableColumnMenus: false,
       multiSelect: false,
+      showGridFooter: true,
       enableRowHeaderSelection: false,
       enableRowSelection: true,
-      enableullRowSelection: true,
       enableGridMenu: true,
       onRegisterApi: function (gridApi) {
-        that.gridApi = gridApi;
+        that.salvageGridApi = gridApi;
 
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          that.old = row.entity.tag;
         });
-
-        gridApi.rowEdit.on.saveRow($scope, that.saveRow);
       },
       columnDefs: [
-        {field: 'tag', minWidth: 100, width: "*"}
+        {field: 'truth', displayName: 'Important Tag', minWidth: 100, width: "*"},
+        {field: 'replacement', displayName: 'Salvaged Tag', minWidth: 100, width: "*"}
       ]
     };
 
+    ////////////////////////////////////////////////
+    // Edit
+    ////////////////////////////////////////////////
+
+    var rowtpl = '<div ng-class="{\'default\':true,  \'removed\': grid.appScope.isRemoved( row ), \'edited\': grid.appScope.isEdited( row ) }"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div></div>';
+
+    $scope.isRemoved = function(row)
+    {
+      return row.entity.remove == true;
+    };
+
+    $scope.isEdited = function(row)
+    {
+      return row.entity.replace.length > 0;
+    };
+
+    that.sendRemove = function()
+    {
+        console.log(that.remove)
+
+        socket.emit("applyPostRemove", JSON.stringify(that.remove));
+
+    };
+
+    that.edit = {
+      enableFiltering: true,
+      enableColumnMenus: false,
+      enableGridMenu: true,
+      enableCellEditOnFocus: true,
+      rowTemplate: rowtpl,
+      onRegisterApi: function (gridApi) {
+        that.editApi = gridApi;
+
+        gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+          if(newValue)
+          {
+            that.touched = true;
+
+            if(colDef.name == 'replace') {
+              if(rowEntity.tag in that.replace)
+              {
+                if(that.replace[rowEntity.tag] != newValue)
+                {
+                  that.replace[rowEntity.tag] = newValue;
+
+                  socket.emit("applyPostReplace", JSON.stringify(that.replace));
+                }
+              }
+              else
+              {
+                that.replace[rowEntity.tag] = newValue;
+
+                socket.emit("applyPostReplace", JSON.stringify(that.replace));
+              }
+            }
+
+            if(colDef.name == 'remove' && !rowEntity.tag in that.remove) {
+              if(newValue == true) that.remove[rowEntity.tag] = true;
+
+
+              socket.emit("applyPostRemove", JSON.stringify(that.remove));
+            }
+          }
+
+          if(oldValue)
+          {
+            if(colDef.name == 'replace') {
+              delete that.replace[rowEntity.tag]
+
+              socket.emit("applyPostReplace", JSON.stringify(that.replace));
+            }
+
+            if(colDef.name == 'remove') {
+              delete that.remove[rowEntity.tag]
+
+              socket.emit("applyPostRemove", JSON.stringify(that.remove));
+            }
+          }
+        })
+
+      },
+      columnDefs: [
+        {field: 'tag', displayName: 'Tag', minWidth: 100, width: "*", enableCellEdit: false },
+        {field: 'replace', displayName: 'Replace By', minWidth: 100, width: "*"},
+        {field: 'remove', displayName: 'Remove', minWidth: 100, width: "*", type:'boolean'}
+      ]
+    };
+
+    that.openGrid = function()
+    {
+      if(that.showDetails) {
+        socket.emit("computeSalvaging", "");
+        document.getElementById("postEscroll").scrollIntoView()
+      }
+    };
 
   }]);
