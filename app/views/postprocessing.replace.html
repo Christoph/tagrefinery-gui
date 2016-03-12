@@ -28,6 +28,9 @@
   </div>
 </div>
 
+<div class="alert alert-info taskInner" style="text-align: center" ng-if="ctrl.salvagingRunning && ctrl.showDetails">
+  <strong>Updating Data ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
+</div>
 <div style="margin-top: 20px" id="postEscroll" ng-if="ctrl.showDetails" ui-grid="ctrl.salvage" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="taskInner"></div>
 
 <!--Footer -> Apply and Undo -->

@@ -75,7 +75,7 @@ angular.module('tagrefineryGuiApp')
     });
 
     socket.on('postSalvaging', function (data) {
-      that.salvagingRunning = data == true;
+      that.salvagingRunning = data == "true";
     });
 
 
