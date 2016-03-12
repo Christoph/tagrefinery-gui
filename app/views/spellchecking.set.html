@@ -35,11 +35,11 @@
 <div class="row" ng-if="ctrl.showDetails">
   <div class="col-sm-6">
     <h4 style="position:relative; left:25%">Vocab</h4>
-    <div id="spellCdetails" ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+    <div id="spellCdetails" ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div>
   </div>
   <div class="col-sm-6">
     <h4 style="position:relative; left:25%">Replacements</h4>
-    <div ui-grid="ctrl.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+    <div ui-grid="ctrl.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div>
   </div>
 </div>
 
@@ -73,7 +73,7 @@
   </div>
 </div>
 
-<div id="spellCrepl" ng-if="ctrl.showReplacements" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+<div id="spellCrepl" ng-if="ctrl.showReplacements" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="taskInner"></div>
 
 <hr>
 
