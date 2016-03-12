@@ -21,7 +21,7 @@
     <button id="guided1" ng-if="currentStep < 6" ng-if="!showStep" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Use Default <span class="glyphicon glyphicon-play"></span></button>
     <button ng-if="showStep" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Apply <span class="glyphicon glyphicon-ok"></span></button>
   </div>
-  <div class="btn-group" style="margin-top: 20px" ng-if="currentStep == 6 || currentStep == 9">
+  <div class="btn-group" ng-if="currentStep == 6 || currentStep == 9">
     <button ng-if="currentStep == 9" ng-click="ctrl.restartFinalize()" class="btn secondaryColor" style="width: 100px">Refine <span class="fa fa-flask"></span></button>
     <button id="result4" ng-if="currentStep < 9" ng-click="ctrl.goToLinked()" class="btn secondaryColor" style="width: 100px">Refine <span class="fa fa-bar-chart"></span></button>
     <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>

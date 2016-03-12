@@ -13,16 +13,16 @@
 </div>
 
 <!--Task content-->
-<div ng-if="status.open[0] || currentStep == 7" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
+<div id="postF1" ng-if="status.open[0] || currentStep == 7" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
      threshold="ctrl.newThreshold" bins="24" svg-height="300" type-label="Tag Quality" y-label="Number of Words"></div>
 
 <!--Task Parameters and details-->
 <div class="row taskInner">
-  <div class="col-sm-6" style="text-align: left">
+  <div id="postF2" class="col-sm-6" style="text-align: left">
     <h4>Threshold: {{ctrl.newThreshold | number:4 }}</h4>
     <h4>Number of important Tags: {{ ctrl.count }}</h4>
   </div>
-  <div class="col-sm-6" style="text-align: right">
+  <div id="postF3" class="col-sm-6" style="text-align: right">
     <label class="btn btn-default" ng-model="ctrl.showDetails" uib-btn-checkbox
            btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
       Inspect Tags

@@ -395,6 +395,69 @@ angular.module('tagrefineryGuiApp')
       doneLabel: 'Done'
     };
 
+    that.list.postF= {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#postF1',
+          intro: "The graph shows the number of tags with a certain word quality. <br> You can <strong>zoom and pan</strong> into sensitive areas and " +
+          "select a value by dragging the horizontal bar or clicking into the plot.",
+          position: 'top'
+        },
+        {
+          element: '#postF2',
+          intro: "Shows the current threshold and the number of important tags.",
+          position: 'top'
+        },
+        {
+          element: '#postF3',
+          intro: "Shows a list of all tags.",
+          position: 'top'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
+
+    that.list.postS= {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#postS1',
+          intro: "The list shows the selected important tags. You can rename a tag by writting the new name into the Replace by column and remove tags by switching the Remove column to true.",
+          position: 'top'
+        },
+        {
+          element: '#postS2',
+          intro: "Shows a list with all salvaged items.",
+          position: 'top'
+        },
+        {
+          element: '#postS3',
+          intro: "Undo all chages.",
+          position: 'top'
+        },
+        {
+          element: '#postS4',
+          intro: "Apply the changes from the grid to the dataset.",
+          position: 'top'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
     return {
       state: state,
       set: function(page)

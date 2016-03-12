@@ -94,10 +94,6 @@ angular.module('tagrefineryGuiApp')
         {
           intros.set("compU");
         }
-        if($scope.currentStep == 6 || $scope.currentStep == 9)
-        {
-          intros.set("result");
-        }
         if($scope.currentStep == 7)
         {
           intros.set("postF");
