@@ -1,5 +1,6 @@
 <div class="guidedInner">
-  <uib-progressbar ng-if="currentStep < 7" max="6" value="currentStep">{{ctrl.getPercent() | number:0}}%</uib-progressbar>
+  <uib-progressbar ng-if="currentStep < 7" max="6" value="currentStep">{{ctrl.getPercent(6) | number:0}}%</uib-progressbar>
+  <uib-progressbar ng-if="currentStep > 6" max="9" value="currentStep">{{ctrl.getPercent(9) | number:0}}%</uib-progressbar>
   <div id="guided4" style="margin-top: 30px">
     <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <span uib-tooltip="Words below a certain occurrence"><strong>rare words</strong></span>?</span>
     <span ng-show="currentStep == 1" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Each word in the list will be removed from the dataset"><strong>words to remove</strong></span>?</span>
@@ -10,21 +11,21 @@
     <span ng-show="currentStep == 6" class="guidedQuestion">Results</span>
     <span ng-show="currentStep == 7" class="guidedQuestion">Do you want to reduce the total amount of <span uib-tooltip="Filter the tags by there tag quality to remove bad tags"><strong>important words</strong></span> used in your final dataset?</span>
     <span ng-show="currentStep == 8" class="guidedQuestion">Do you want to change those <span uib-tooltip="Remove bad words or translate words or resolve synonyms"><strong>import tags</strong></span> by hand?</span>
-    <span ng-show="currentStep == 9" class="guidedQuestion">Do you want to search for those <span uib-tooltip="The tags above the selected tag quality value"><strong>important tags</strong></span> in the <span uib-tooltip="THe tags below the selected tag quality values"><strong>non-important ones</strong></span>?</span>
-    <span ng-show="currentStep == 10" class="guidedQuestion">Results</span>
+    <span ng-show="currentStep == 9" class="guidedQuestion">Results</span>
   </div>
   <br>
-  <div class="btn-group" ng-if="currentStep != 6">
-    <button ng-if="currentStep > 0" class="btn btn-back round" ng-click="ctrl.back()"><i class="fa fa-chevron-left"></i></button>
-    <button id="guided3" ng-if="currentStep < 6" ng-click="ctrl.customize()" class="btn secondaryColor" style="width: 150px">Customize <span class="glyphicon glyphicon-cog"></span></button>
+  <button ng-if="currentStep > 0" class="btn btn-back" ng-click="ctrl.back()"><i class="fa fa-chevron-left" style="position: relative; top:-2px"></i></button>
+  <div class="btn-group" ng-if="currentStep != 6 && currentStep != 9">
+    <button id="guided3" ng-click="ctrl.customize()" class="btn secondaryColor" style="width: 150px">Customize <span class="fa fa-gears"></span></button>
 
-    <button id="guided1" ng-if="currentStep < 6 && !showStep" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Use Default <span class="glyphicon glyphicon-play"></span></button>
-    <button ng-if="currentStep < 6 && showStep" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Apply <span class="glyphicon glyphicon-ok"></span></button>
+    <button id="guided1" ng-if="currentStep < 6" ng-if="!showStep" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Use Default <span class="glyphicon glyphicon-play"></span></button>
+    <button ng-if="showStep" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Apply <span class="glyphicon glyphicon-ok"></span></button>
   </div>
-  <div class="btn-group" style="margin-top: 20px" ng-if="currentStep == 6 || currentStep == 10">
-    <button id="result4" ng-click="ctrl.goToLinked()" class="btn secondaryColor" style="width: 100px">Refine <span class="fa fa-bar-chart"></span></button>
+  <div class="btn-group" style="margin-top: 20px" ng-if="currentStep == 6 || currentStep == 9">
+    <button ng-if="currentStep == 9" ng-click="ctrl.restartFinalize()" class="btn secondaryColor" style="width: 100px">Refine <span class="fa fa-flask"></span></button>
+    <button id="result4" ng-if="currentStep < 9" ng-click="ctrl.goToLinked()" class="btn secondaryColor" style="width: 100px">Refine <span class="fa fa-bar-chart"></span></button>
     <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
-    <button id="result6" ng-disabled="true" ng-click="ctrl.ok()" class="btn secondaryColor" style="width: 100px">Finalize <span class="glyphicon glyphicon-cog"></span></button>
+    <button id="result6" ng-if="currentStep < 9" ng-click="ctrl.ok()" class="btn secondaryColor" style="width: 100px">Finalize <span class="fa fa-flask"></span></button>
   </div>
   <hr>
   <div style="position: relative; height: 100%">
@@ -43,6 +44,9 @@
   <div ng-if="currentStep == 6 && ctrl.compRunning" class="overlayGuided">
     <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
   </div>
+    <div ng-if="currentStep == 9 && ctrl.postRunning" class="overlayGuided">
+      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+    </div>
   <div uib-collapse="!showStep" style="text-align: left" class="guidedInner">
     <div ng-show="currentStep == 0">
       <div class="row" ng-controller="PreprocessingfilterCtrl as ctrl" ng-include="'views/preprocessing.filter.html'"></div>
@@ -72,9 +76,6 @@
       <div class="row" ng-controller="PostprocessingreplaceCtrl as ctrl" ng-include="'views/postprocessing.replace.html'"></div>
     </div>
     <div ng-show="currentStep == 9">
-      <div class="row" ng-controller="PostprocessingsalvageCtrl as ctrl" ng-include="'views/postprocessing.salvage.html'"></div>
-    </div>
-    <div ng-show="currentStep == 10">
       <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
     </div>
   </div>
@@ -118,6 +119,21 @@
           <h2>Unique Multiword Tags - Default</h2>
           <p>By default a group strength of <strong>0.7 </strong>will be used.</p>
           <p>1 Means this two words occur very often together an are less separated and 0 means the words are never together and often separated</p>
+        </div>
+      </div>
+      <div ng-if="currentStep == 7" class="guidedExplanation">
+        <div class="well well-large center" style="width: 600px">
+          <h2>Final Filtering</h2>
+          <p>Select a set of <strong>important tags</strong>.</p>
+          <p>Only the select tags <span class="descMarker" uib-tooltip="There is a option in the advanced mode to use all tags at the end but only the selected ones for the following salvage step.">remain</span> in the dataset.</p>
+          <p>The following step searches in the tags below the selected threshold for the words above or equal the threshold.</p>
+        </div>
+      </div>
+      <div ng-if="currentStep == 8" class="guidedExplanation">
+        <div class="well well-large center" style="width: 600px">
+          <h2>Salvager</h2>
+          <p>You can change or remove tags from the selected tags. You might want to remove non-informative words or fix synonyms by hand.</p>
+          <p>Afterwards the salvager searches for the updated important tags in the not important tags. This increases the total dataset coverage.</p>
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@
 
 <!--Task content-->
 {{that.replace.length}}
-<div ng-if="status.open[1]" ui-grid="ctrl.edit" ui-grid-edit ui-grid-cellNav ui-grid-exporter class="taskInner"></div>
+<div ng-if="status.open[1] || currentStep == 8" ui-grid="ctrl.edit" ui-grid-edit ui-grid-cellNav ui-grid-exporter class="taskInner"></div>
 <div class="row taskInner" style="margin-top: 10px">
   <div id="preF3" style="text-align: right">
     <label class="btn btn-default" ng-model="ctrl.showDetails" ng-click="ctrl.openGrid()" uib-btn-checkbox

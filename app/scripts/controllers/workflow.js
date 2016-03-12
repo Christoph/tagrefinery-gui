@@ -94,6 +94,18 @@ angular.module('tagrefineryGuiApp')
         {
           intros.set("compU");
         }
+        if($scope.currentStep == 6 || $scope.currentStep == 9)
+        {
+          intros.set("result");
+        }
+        if($scope.currentStep == 7)
+        {
+          intros.set("postF");
+        }
+        if($scope.currentStep == 8)
+        {
+          intros.set("postS");
+        }
       }
       else
       {
@@ -107,7 +119,7 @@ angular.module('tagrefineryGuiApp')
       $scope.currentStep++;
       intros.set("guided");
 
-      if($scope.currentStep == 6)
+      if($scope.currentStep == 6 || $scope.currentStep == 9)
       {
         $scope.showStep = true;
         intros.set("result");
@@ -121,6 +133,12 @@ angular.module('tagrefineryGuiApp')
       $scope.showStep = false;
       $scope.currentStep--;
       intros.set("guided");
+    };
+
+    that.restartFinalize = function()
+    {
+      $scope.showStep = false;
+      $scope.currentStep = 7;
     };
 
     that.goToAdvanced = function()
@@ -143,9 +161,9 @@ angular.module('tagrefineryGuiApp')
       socket.emit("computeWorkflow", "");
     };
 
-    that.getPercent = function()
+    that.getPercent = function(max)
     {
-      return ($scope.currentStep / 6) * 100;
+      return ($scope.currentStep / max) * 100;
     }
 
   }]);

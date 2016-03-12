@@ -7,7 +7,7 @@
   <span>Tidy up your <strong>Tags</strong> by improving the quality of single words in your dataset!</span>
   <div class="row" style="margin-top: 20px">
     <span style="font-size: medium">Start:</span>
-    <button style="margin-right: 2px" id="start2" uib-tooltip="Guided run with default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startWithDefaults()">Guided <span class="fa fa-book"></span></button>
+    <button style="margin-right: 2px" id="start2" uib-tooltip="Guided run with default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.startWithDefaults()">Guided <span class="fa fa-compass"></span></button>
 
     <button id="start3" uib-tooltip="Unguided dashboard" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn primaryColor" ng-click="ctrl.showAdvancedView()"> Advanced <span class="fa fa-list-alt"></span></button>
     <button id="update1" uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect <span class="fa fa-refresh"></span></button>
