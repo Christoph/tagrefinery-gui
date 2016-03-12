@@ -29,7 +29,7 @@
   <div id="preF2" class="col-sm-6" style="text-align: left">
 <h4 uib-tooltip="All words below the selected number of occurrences will be removed."><label>
   Threshold:
-  <input type="number" ng-model="ctrl.newOccurrences" style="width: 50px">
+  <input type="number" min="0" ng-model="ctrl.newOccurrences" style="width: 50px">
 </label> Occurrences</h4>
     <h4>Number of remaining words: {{ ctrl.filteredWords }}</h4>
   </div>
