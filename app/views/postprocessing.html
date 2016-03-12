@@ -27,27 +27,14 @@
     <uib-accordion-group is-open="status.open[1]" panel-class="panel-info">
       <uib-accordion-heading>
         <div class="descriptionHeader">
-          Replace Tags <i class="pull-right glyphicon"
+          Edit the filtered tags <i class="pull-right glyphicon"
                           ng-class="{'glyphicon-chevron-down': status.open[1], 'glyphicon-chevron-right': !status.open[1]}"></i>
           <br>
-          <p class="descriptionText">Make last changes to the dataset</p>
+          <p class="descriptionText">Review and edit the final set of tags</p>
         </div>
       </uib-accordion-heading>
       <div class="row" ng-controller="PostprocessingreplaceCtrl as ctrl"
            ng-include="'views/postprocessing.replace.html'"></div>
     </uib-accordion-group>
-    <uib-accordion-group is-open="status.open[2]" panel-class="panel-info">
-      <uib-accordion-heading>
-        <div class="descriptionHeader">
-          Salvage Information <i class="pull-right glyphicon"
-                                 ng-class="{'glyphicon-chevron-down': status.open[2], 'glyphicon-chevron-right': !status.open[2]}"></i>
-          <br>
-          <p class="descriptionText">Find and salvage important tags in the unimportant ones</p>
-        </div>
-      </uib-accordion-heading>
-      <div class="row" ng-controller="PostprocessingsalvageCtrl as ctrl"
-           ng-include="'views/postprocessing.salvage.html'"></div>
-    </uib-accordion-group>
-    <button style="margin-top: 5px" class="btn btn-default" uib-tooltip="Show advanced options" ng-click="" ng-model="advanced.mode" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Advanced</button>
   </uib-accordion>
 </div>
