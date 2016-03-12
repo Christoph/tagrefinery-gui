@@ -105,7 +105,6 @@ angular.module('tagrefineryGuiApp')
       if($scope.currentStep == 6)
       {
         $scope.showStep = true;
-        $scope.$broadcast("guidedResult");
         intros.set("result");
       }
 
@@ -117,11 +116,6 @@ angular.module('tagrefineryGuiApp')
       $scope.showStep = false;
       $scope.currentStep--;
       intros.set("guided");
-    };
-
-    that.output = function()
-    {
-      $scope.$broadcast("guidedResult");
     };
 
     that.goToAdvanced = function()
