@@ -13,7 +13,7 @@
 </div>
 
 <!--Task content-->
-<div ng-if="status.open[0] || (currentStep == 6 && showStep)" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
+<div ng-if="status.open[0]" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
      threshold="ctrl.newThreshold" bins="24" svg-height="300" type-label="Tag Quality" y-label="Number of Words"></div>
 
 <!--Task Parameters and details-->
@@ -33,13 +33,3 @@
 <!--Task advanced content-->
 <div ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="taskInner"
      ng-if="ctrl.showDetails"></div>
-
-<!--Footer -> Apply and Undo -->
-<hr>
-<div class="row taskInner">
-  <div class="col-sm-12" style="text-align: right">
-    <button class="btn btn-undo round" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
-      <span class="fa fa-undo"></span>
-    </button>
-  </div>
-</div>

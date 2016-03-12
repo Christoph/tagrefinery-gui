@@ -39,7 +39,7 @@ angular.module('tagrefineryGuiApp')
         that.count = that.newCount();
         stats.writePost("Number of Important Tags", that.count);
 
-        that.touched = true;
+        that.apply();
       });
     };
 
@@ -79,29 +79,11 @@ angular.module('tagrefineryGuiApp')
     socket.on('postFilterParams', function (data) {
       that.newThreshold = parseFloat(data);
       that.threshold = that.newThreshold;
-
-      stats.writePost("Importance Threshold", Math.round(that.newThreshold * 1000) / 1000);
     });
 
-    $scope.$on("apply", function() {
-      if(that.touched)
-      {
-        socket.emit("applyPostFilter", "" + that.newThreshold);
-
-        stats.writePost("Importance Threshold", Math.round(that.newThreshold * 1000) / 1000);
-
-        that.touched = false;
-      }
-    });
-
-    that.undo = function()
-    {
-      that.newThreshold = that.threshold;
-
-      stats.writePost("Importance Threshold", Math.round(that.newThreshold * 1000) / 1000);
-
-      that.touched = false;
-    };
+    that.apply = _.debounce(function() {
+      socket.emit("applyPostFilter", "" + that.newThreshold);
+    }, 1500);
 
     ////////////////////////////////////////////////
     // requent Grid
