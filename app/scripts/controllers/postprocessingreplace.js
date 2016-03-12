@@ -31,9 +31,13 @@ angular.module('tagrefineryGuiApp')
       var temp = JSON.parse(data);
 
       that.original = _.map(temp, function(d) {
-        if (_.findIndex(that.replace, ['replace', d.tag])>=0)
+        if(that.replace[d.tag])
         {
           return {tag: d.tag, replace: that.replace[d.tag], remove: false}
+        }
+        else if(that.remove[d.tag])
+        {
+          return {tag: d.tag, replace: "", remove: true}
         }
         else
         {
@@ -130,14 +134,6 @@ angular.module('tagrefineryGuiApp')
       return row.entity.replace.length > 0;
     };
 
-    that.sendRemove = function()
-    {
-        console.log(that.remove)
-
-        socket.emit("applyPostRemove", JSON.stringify(that.remove));
-
-    };
-
     that.edit = {
       enableFiltering: true,
       enableColumnMenus: false,
@@ -181,13 +177,13 @@ angular.module('tagrefineryGuiApp')
           if(oldValue)
           {
             if(colDef.name == 'replace') {
-              delete that.replace[rowEntity.tag]
+              delete that.replace[rowEntity.tag];
 
               socket.emit("applyPostReplace", JSON.stringify(that.replace));
             }
 
             if(colDef.name == 'remove') {
-              delete that.remove[rowEntity.tag]
+              delete that.remove[rowEntity.tag];
 
               socket.emit("applyPostRemove", JSON.stringify(that.remove));
             }
