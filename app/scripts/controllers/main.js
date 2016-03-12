@@ -21,6 +21,8 @@ angular.module('tagrefineryGuiApp')
     that.loading = false;
     that.touched = false;
 
+    that.mode = "";
+
     that.helper = true;
     that.intro = that.initalIntro;
     $scope.state = intros.state;
@@ -54,6 +56,10 @@ angular.module('tagrefineryGuiApp')
     socket.on('dataLoaded', function (data) {
       that.dataLoaded = data == "true";
       that.loading = false;
+    });
+
+    socket.on('selectedMode', function (data) {
+      that.mode = data;
     });
 
     that.goToImport = function()
