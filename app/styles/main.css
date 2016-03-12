@@ -164,7 +164,7 @@ button.help {
 .btn-undo {
   background-color: white;
   color: #ac2925;
-  font-size: larger;
+  font-size: x-large;
 }
 
 .btn-undo:hover {
@@ -394,12 +394,6 @@ button.disabled {
 .secondaryColor {
   background-color: #e65c00;
   color: white;
-}
-
-.btn-undo {
-  background-color: white;
-  color: red;
-  font-size: x-large;
 }
 
 .alert-guided {
