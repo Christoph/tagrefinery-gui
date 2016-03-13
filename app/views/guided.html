@@ -5,7 +5,7 @@
     <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <span uib-tooltip="As example words which occur only once or twice in the dataset."><strong>extremely rare words</strong></span> to reduce computation time?</span>
     <span ng-show="currentStep == 1" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Each word in the list will be removed from the dataset"><strong>words to remove</strong></span>?</span>
     <span ng-show="currentStep == 2" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Import your Dictionary with correct words here"><strong>correct words</strong></span>?</span>
-    <span ng-show="currentStep == 3" class="guidedQuestion">Do you want to reduce <span uib-tooltip="Like - favourite, favorite, favourites or favorites"><strong>word forms</strong></span> and <span uib-tooltip="Misspelled words like - necesary"><strong>spelling errors</strong></span>?</span>
+    <span ng-show="currentStep == 3" class="guidedQuestion">Do you want to consolidate <span uib-tooltip="Like - favourite, favorite, favourites or favorites"><strong>word forms</strong></span> and reduce <span class="descMarker" uib-tooltip="Misspelled words like - necesary">spelling errors</span>?</span>
     <span ng-show="currentStep == 4" class="guidedQuestion">Do you want to find <span uib-tooltip="A tag might be composed of multiple words like - hard rock"><strong>multiword tags</strong></span> which appear very <span uib-tooltip="Frequent multiword tags are as example genres"><strong>often</strong></span>?</span>
     <span ng-show="currentStep == 5" class="guidedQuestion">Do you want to find <span uib-tooltip="A tag might be composed of multiple words like - hard rock"><strong>multiword tags</strong></span> which are <span uib-tooltip="Unique multiword tags are as example artist or band names"><strong>unique</strong></span>?</span>
     <span ng-show="currentStep == 6" class="guidedQuestion">Results</span>
@@ -83,7 +83,7 @@
     <div id="guided2" ng-if="!showStep">
       <div ng-if="currentStep == 0" class="guidedExplanation">
         <div class="well well-large center" style="width: 600px">
-          <h2>Words - Default</h2>
+          <h2>Words</h2>
           <p>We look first at all words separately and polish them. Later, we rebuild all meaningful <span class="descMarker" uib-tooltip="Like: 'Rock n Roll'">multiword tags </span>with the polished words.</p>
           <p>By default no words will be filtered. The removal of words is necessary if your dataset is big and uses a lot of computation time.</p>
           <p>You might wanna start with a small dataset to find good parameters - and run the workflow afterwards with all words.</p>
@@ -91,22 +91,23 @@
       </div>
       <div ng-if="currentStep == 1" class="guidedExplanation">
         <div class="well well-large center" style="width: 600px">
-          <h2>Blacklist - Default</h2>
+          <h2>Blacklist</h2>
           <p>By default <span uib-tooltip="Like: and, or, the, ..."><strong>English stopwords </strong></span> and <span class="descMarker" uib-tooltip="Like: a, b, ... , 1, 2, ..."> single characters</span> will be removed. This reduces computation time and might improves the detection of meaningful single word tags.</p>
           <p>The removal of stopwords reduces the quality of some multiword tags (Rock and Roll) - on the other hand keeping them creates nonsense groups like "of the"</p>
         </div>
       </div>
       <div ng-if="currentStep == 2" class="guidedExplanation">
         <div class="well well-large center" style="width: 600px">
-          <h2>Dictionary - Default</h2>
+          <h2>Dictionary</h2>
           <p>By default the <span class="descMarker" uib-tooltip="The most important words for second language learners of English.">General Service List </span>will be imported.</p>
           <p>In small datasets in particular, you might want to import your own list, e.g. genres, to <span uib-tooltip="First the algorithm looks for similar words to the importet dictionary."><strong>improve the quality</strong></span> of the spell correction algorithm.</p>
         </div>
       </div>
       <div ng-if="currentStep == 3" class="guidedExplanation">
         <div class="well well-large center" style="width: 600px">
-          <h2>Spell Correction - Default</h2>
-          <p>By default, words with a <span uib-tooltip="Is computed from the intial weights"><strong>word quality</strong></span> above <strong>0.7 </strong> will be treated as correct and words with a similarity above <strong> 0.7</strong> will be replaced by the word with the higher quality.</p>
+          <h2>Spell Correction</h2>
+          <p>The algorithm searches for similar words and replaces the lower quality one by the higher quality one. You can choose which words shouldn't be changed and how <span class="descMarker" uib-tooltip="The algorithm works on character level.">similar</span> words should be.</p>
+          <p>By default, words with a <span uib-tooltip="Is computed from the initial weights"><strong>word quality</strong></span> above <strong>0.7 </strong> will be treated as correct and words with a similarity above <strong> 0.7</strong> will be replaced by the word with the higher quality.</p>
         </div>
       </div>
       <div ng-if="currentStep == 4" class="guidedExplanation">
