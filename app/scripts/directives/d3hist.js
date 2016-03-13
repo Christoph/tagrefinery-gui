@@ -133,6 +133,20 @@ angular.module('tagrefineryGuiApp')
             scope.svg.select(".y.axis").call(scope.yAxis);
           };
         });
+      };
+
+      scope.make_x_axis = function()
+      {
+        return d3.svg.axis()
+          .scale(scope.x)
+          .orient("bottom")
+      };
+
+      scope.make_y_axis = function()
+      {
+        return d3.svg.axis()
+          .scale(scope.y)
+          .orient("left")
       }
     };
 
@@ -329,6 +343,22 @@ angular.module('tagrefineryGuiApp')
           renderLine(scope);
         });
 
+      // Grid Lines
+      scope.bodyG.append("g")
+        .attr("class", "x gridLine")
+        .attr("transform", "translate(0," + scope.quadrantHeight + ")")
+        .call(scope.make_x_axis()
+          .tickSize(-scope.quadrantHeight, 0, 0)
+          .tickFormat("")
+        );
+
+      scope.bodyG.append("g")
+        .attr("class", "y gridLine")
+        .call(scope.make_y_axis()
+          .tickSize(-scope.quadrantWidth, 0, 0)
+          .tickFormat("")
+        );
+
       // Detach dbl click from zoom
       scope.bodyG.selectAll(".zoomArea").on("dblclick.zoom", null);
 
@@ -424,6 +454,19 @@ angular.module('tagrefineryGuiApp')
 
       // Update line position
       renderLine(scope);
+
+      // Update Grid
+      scope.bodyG.selectAll(".x.gridLine")
+        .call(scope.make_x_axis()
+          .tickSize(-scope.quadrantHeight, 0, 0)
+          .tickFormat("")
+        );
+
+      scope.bodyG.selectAll(".y.gridLine")
+        .call(scope.make_y_axis()
+          .tickSize(-scope.quadrantWidth, 0, 0)
+          .tickFormat("")
+        );
 
       // Enter
       scope.bar = scope.bodyG.selectAll(".bar")
