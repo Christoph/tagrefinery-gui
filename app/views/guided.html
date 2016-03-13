@@ -18,7 +18,7 @@
   <div class="btn-group" ng-if="currentStep != 6 && currentStep != 9">
     <button id="guided3" ng-click="ctrl.customize()" class="btn secondaryColor" style="width: 150px">Customize <span class="fa fa-gears"></span></button>
 
-    <button id="guided1" ng-if="currentStep < 6" ng-if="!showStep" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Use Default <span class="glyphicon glyphicon-play"></span></button>
+    <button id="guided1" ng-if="currentStep < 6 && !showStep" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Use Default <span class="glyphicon glyphicon-play"></span></button>
     <button ng-if="showStep" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Apply <span class="glyphicon glyphicon-ok"></span></button>
   </div>
   <div class="btn-group" ng-if="currentStep == 6 || currentStep == 9">
