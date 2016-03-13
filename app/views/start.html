@@ -7,16 +7,16 @@
   <span>Find the most important <strong>Tags</strong> in your dataset!</span>
   <div class="row" style="margin-top: 20px">
     <span style="font-size: x-large">Start:</span>
-    <button style="margin-right: 2px" id="start2" uib-tooltip="Guided run with default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-lg primaryColor" ng-click="ctrl.startWithDefaults()">Guided <span class="fa fa-compass"></span></button>
+    <button style="margin-right: 2px; width: 175px" id="start2" uib-tooltip="Guided run with default values" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-lg primaryColor" ng-click="ctrl.startWithDefaults()">Guided <span class="fa fa-compass"></span></button>
 
-    <button id="start3" uib-tooltip="Unguided dashboard" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-lg primaryColor" ng-click="ctrl.showAdvancedView()"> Advanced <span class="fa fa-list-alt"></span></button>
-    <button id="update1" uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn btn-lg primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect <span class="fa fa-refresh"></span></button>
+    <button id="start3" style="width: 175px" uib-tooltip="Unguided dashboard" ng-if="!ctrl.running" ng-disabled="!ctrl.dataLoaded" class="btn btn-lg primaryColor" ng-click="ctrl.showAdvancedView()"> Advanced <span class="fa fa-list-alt"></span></button>
+    <button id="update1" style="width: 200px" uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn btn-lg primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect <span class="fa fa-refresh"></span></button>
   </div>
   <div class="row" style="margin-top: 2px">
     <button uib-tooltip="Update csv file" id="update2" ng-if="ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()">Update Data <span class="fa fa-table"></span></button>
     <button uib-tooltip="Import csv file" id="start1" ng-if="!ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()">Import Data <span class="fa fa-upload"></span></button>
 
-    <span style="font-size: medium">Status:</span>
+    <span style="font-size: medium"> Status:</span>
     <span style="font-size: xx-large; vertical-align: middle" ng-if="ctrl.dataLoaded"><span class=" glyphicon glyphicon-ok-circle"></span></span>
     <span style="font-size: large; color: grey" ng-if="!ctrl.dataLoaded && !ctrl.loading">no data </span>
     <span style="font-size: large; color: grey" ng-if="ctrl.loading"><span spin-circle style="width: 30px; height: 30px"></span></span>
