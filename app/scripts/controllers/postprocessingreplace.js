@@ -92,6 +92,13 @@ angular.module('tagrefineryGuiApp')
       that.removeOriginal = _.clone(that.remove);
     };
 
+    $scope.$on("undo", function() {
+      if(that.touched)
+      {
+        that.undo();
+      }
+    });
+
     that.undo = function()
     {
       that.edit.data = _.cloneDeep(that.original);

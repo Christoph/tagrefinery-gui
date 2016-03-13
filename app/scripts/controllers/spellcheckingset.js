@@ -137,6 +137,13 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
+    $scope.$on("undo", function() {
+      if(that.touched)
+      {
+        that.undo();
+      }
+    });
+
     that.undo = function()
     {
       that.newSimilarity = that.similarity;

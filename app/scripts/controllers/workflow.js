@@ -124,6 +124,21 @@ angular.module('tagrefineryGuiApp')
       that.apply();
     };
 
+    that.default = function()
+    {
+      $scope.showStep = false;
+      $scope.currentStep++;
+      intros.set("guided");
+
+      if($scope.currentStep == 6 || $scope.currentStep == 9)
+      {
+        $scope.showStep = true;
+        intros.set("result");
+      }
+
+      $scope.$broadcast("undo");
+    };
+
     that.back = function()
     {
       $scope.showStep = false;
