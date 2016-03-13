@@ -34,11 +34,13 @@
 
 <div class="row" ng-if="ctrl.showDetails">
   <div class="col-sm-6">
-    <h4 style="position:relative; left:25%">Vocab</h4>
+    <h4 style="position:relative; left:25%">Vocabulary</h4>
+    <p style="margin-left: 5px">This list shows all words in the dataset. <br> Select a row to see all similar words in the right list.</p>
     <div id="spellCdetails" ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div>
   </div>
   <div class="col-sm-6">
     <h4 style="position:relative; left:25%">Replacements</h4>
+    <p style="margin-left: 5px"><span style="color: green">Green</span>: Ground-truth words <br> <span style="color: steelblue">Blue</span>: Words which will be replaced</p>
     <div ui-grid="ctrl.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div>
   </div>
 </div>

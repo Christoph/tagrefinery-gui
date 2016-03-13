@@ -240,7 +240,7 @@ angular.module('tagrefineryGuiApp')
 
     $scope.isCurrent = function(row)
     {
-      return row.entity.similarity > that.newSimilarity && row.entity.importance < that.newImportance;
+      return row.entity.similarity >= that.newSimilarity && row.entity.importance < that.newImportance;
     };
 
     $scope.isTruth = function(row)
@@ -318,7 +318,6 @@ angular.module('tagrefineryGuiApp')
       enableRowHeaderSelection: false,
       enableRowSelection: true,
       enableFullRowSelection: true,
-      rowTemplate:rowtpl,
       onRegisterApi: function (gridApi) {
         that.replGridApi = gridApi;
 
@@ -327,9 +326,8 @@ angular.module('tagrefineryGuiApp')
         });
       },
       columnDefs: [
-        {field: 'truth', displayName: "Tag", minWidth: 100, width: "*"},
-        {field: 'replacement', displayName: "Replaced", minWidth: 100, width: "*"},
-
+        {field: 'replacement', displayName: "Low Quality Word", minWidth: 100, width: "*"},
+        {field: 'truth', displayName: "Replaced by higher quality word", minWidth: 100, width: "*"},
         {
           field: 'similarity', minWidth: 100, width: "*",
           sort: {
