@@ -1,40 +1,15 @@
 <div ng-controller="LinkedCtrl as ctrl" class="guidedInner">
   <div class="row">
-    <uib-accordion>
-      <uib-accordion-group id="linked1" is-open="ctrl.preFilter" panel-class="panel-secondary">
-        <uib-accordion-heading>
-          <div class="descriptionHeaderAdvanced">
-             Preprocessing <i class="pull-right glyphicon"
-                                   ng-class="{'glyphicon-chevron-down': ctrl.preFilter, 'glyphicon-chevron-right': !ctrl.preFilter}"></i>
-            <br>
-            <p class="descriptionText">Apply an word occurrence filter and import a list of words to remove.</p>
-          </div>
-        </uib-accordion-heading>
-        <div style="position: relative">
+    <h3 style="margin-top: -15px">Refine your Parameters</h3>
+    <div class="col-sm-8">
+      <div style="position: relative">
+        <div uib-collapse="!ctrl.showPrefilter">
           <div ng-if="ctrl.initRunning" class="overlay">
             <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
           </div>
-          <div class="col-sm-8">
-            <div ng-if="ctrl.preFilter" d3-hist data="ctrl.preData" call-back="ctrl.getPre(threshold)" threshold="ctrl.newPre" is-float="false" from-right="false"
-                 bins="18" svg-height="300" type-label="Number of Occurrences" y-label="Number of Words" title="Remove Rare Words"></div>
-          </div>
-          <div class="col-sm-4">
-            <div ng-if="ctrl.preFilter" style="text-align: center">
-              <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Select File"></upload-button>
-              <button class="btn btn-danger" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="dataBlacklist.length<1">Clear</button>
-            </div>
-
-            <div style="text-align: left; height: 300px" ng-if="ctrl.preFilter" ui-grid="blacklistGrid" ui-grid-importer ui-grid-edit></div>
-          </div>
+          <div ng-if="ctrl.showPrefilter" d3-hist data="ctrl.preData" call-back="ctrl.getPre(threshold)" threshold="ctrl.newPre" is-float="false" from-right="false"
+               bins="18" svg-height="200" type-label="Number of Occurrences" y-label="Number of Words" title="Remove Rare Words"></div>
         </div>
-      </uib-accordion-group>
-    </uib-accordion>
-  </div>
-  <hr>
-  <div class="row">
-    <h3 style="margin-top: -15px">Apply Spell Correction and find meaningful Multiword Tags</h3>
-    <div class="col-sm-8">
-      <div style="position: relative">
         <div ng-if="ctrl.preRunning" class="overlay">
           <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
         </div>
@@ -53,6 +28,12 @@
       </div>
     </div>
     <div class="col-sm-4" style="position: relative">
+      <div class="row" style="margin-bottom: 2px">
+        <button class="btn btn-group-justified btn-primary" ng-model="ctrl.showPrefilter" uib-btn-checkbox btn-checkbox-true=true btn-checkbox-false=false style="text-align: left">Pre Filter</button>
+      </div>
+      <div id="linked8" class="row">
+        <button style="text-align: left" class="btn btn-group-justified btn-info" ng-click="ctrl.goToResult()">Goto Results</button>
+      </div>
       <div ng-if="ctrl.compRunning" class="overlay">
         <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
       </div>
@@ -85,9 +66,6 @@
             <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
           </div>
         </div>
-      </div>
-      <div id="linked8" class="row">
-        <button class="btn btn-group-justified secondaryColor" ng-click="ctrl.goToResult()">Result Page</button>
       </div>
     </div>
   </div>

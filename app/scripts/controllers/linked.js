@@ -318,7 +318,7 @@ angular.module('tagrefineryGuiApp')
     that.goToResult = function()
     {
       socket.emit("selectMode", "guided");
-    }
+    };
 
     that.getPreCount = function () {
       return _.sum(that.preData, function(d) { return d.count; }) - _.sum(_.filter(that.preData, function (d) {
