@@ -92,8 +92,8 @@
       <div ng-if="currentStep == 1" class="guidedExplanation">
         <div class="well well-large center" style="width: 600px">
           <h2>Blacklist - Default</h2>
-          <p>By default <span uib-tooltip="Like: and, or, the, ..."><strong>English stopwords </strong></span> and <span class="descMarker" uib-tooltip="Like: a, b, ... , 1, 2, ..."> single characters</span> will be removed. This reduces computation time and might improve the detection of meaningful single word tags.</p>
-          <p>On the other hand stopwords can be an integral part of multiword tags, e.g. "Rock and Roll".</p>
+          <p>By default <span uib-tooltip="Like: and, or, the, ..."><strong>English stopwords </strong></span> and <span class="descMarker" uib-tooltip="Like: a, b, ... , 1, 2, ..."> single characters</span> will be removed. This reduces computation time and might improves the detection of meaningful single word tags.</p>
+          <p>The removal of stopwords reduces the quality of some multiword tags (Rock and Roll) - on the other hand keeping them creates nonsense groups like "of the"</p>
         </div>
       </div>
       <div ng-if="currentStep == 2" class="guidedExplanation">
