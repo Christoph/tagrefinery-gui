@@ -180,9 +180,16 @@ angular.module('tagrefineryGuiApp')
         .y(scope.y)
         .scaleExtent([1, 1000])
         .size(scope.quadrantWidth, scope.quadrantHeight)
+        .on("zoomstart", function() {
+          scope.bodyG.selectAll(".zoomArea")
+          .style("cursor", "move")
+        })
         .on("zoomend", function() {
           scope.bodyG.selectAll(".threshold")
             .call(scope.bringToFront);
+
+          scope.bodyG.selectAll(".zoomArea")
+            .style("cursor", "auto")
         })
         .on("zoom", scope.zoomed);
 
