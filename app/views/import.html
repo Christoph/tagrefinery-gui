@@ -6,21 +6,23 @@
   </button>
   <hr>
   <div style="text-align: center; margin-top: 5%" class="test">
-    <h4>Import Data</h4>
-    <upload-button id="import1" get-file="ctrl.getFile(file)" uib-tooltip="Upload File"></upload-button>
+    <h3>Import Data</h3>
+    <div id="import1">
+      <upload-button get-file="ctrl.getFile(file)" uib-tooltip="Upload File"></upload-button>
+    </div>
 
-    <div class="btn-group" id="import3">
-      <button class="btn secondaryColor" style="width: 75px" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="dataI.length<1"><span class="fa fa-trash"></span></button>
-      <button uib-tooltip="Save Import" type="button" style="width: 75px"
+    <div class="btn-group" id="import3" style="display: inline-block">
+      <button class="btn secondaryColor" style="width: 100px" ng-click="ctrl.clear()" uib-tooltip="Clear Import" ng-disabled="dataI.length<1"> Clear <span class="fa fa-trash"></span></button>
+      <button uib-tooltip="Apply Import" type="button" style="width: 100px"
               class="btn secondaryColor" ng-click="ctrl.import()" ng-disabled="dataI.length<1 || !ctrl.touched">
-        <span class="fa fa-floppy-o"></span>
+        Apply <span class="fa fa-check"></span>
       </button>
     </div>
 
   <div id="import2" ui-grid="gridOptions" ui-grid-importer ui-grid-edit class="inner" style="text-align: left"></div>
       <div class="well inner">
         <p>
-          Import one or multiple files by adding them with "Select File". <br>
+          Import one or multiple files by adding them with Select File <span class="fa fa-upload"></span> and send it to the server by pressing Apply <span class="fa fa-check"></span>. <br>
           The file needs to be a csv file with exact the same column headers as in the grid shown.
         </p>
       </div>
