@@ -8,8 +8,32 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", "intros",  function ($scope, socket, uiGridConstants, intros) {
+  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", "intros", "$timeout", function ($scope, socket, uiGridConstants, intros, $timeout) {
     var that = this;
+
+    that.intro = {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          intro: "<h3>Welcome! </h3><br>" +
+          "If you need help in any of the pages ...",
+          position: 'top-center'
+        },
+        {
+          element: '#start4',
+          intro: "... start the introduction for the page by clicking onto <i class='fa fa-film'></i> in the right upper corner of the screen.",
+          position: 'left'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
 
     // State variables
     that.connectionStatus = false;
@@ -20,18 +44,19 @@ angular.module('tagrefineryGuiApp')
     that.running = false;
     that.loading = false;
     that.touched = false;
-
     that.mode = "";
 
-    that.helper = true;
-    that.intro = that.initalIntro;
+    $timeout(function() {
+      $scope.introCurrent = that.intro;
+    }, 1);
+
     $scope.state = intros.state;
 
     // Imported data
     $scope.dataI = [];
 
     ////////////////////////////////////////////////
-    // Start
+    // Socket
     ////////////////////////////////////////////////
 
     socket.on('mainData', function (data) {
@@ -48,7 +73,6 @@ angular.module('tagrefineryGuiApp')
 
       if(that.running == true)
       {
-        that.helper = false;
         intros.set("running");
       }
     });
@@ -72,7 +96,13 @@ angular.module('tagrefineryGuiApp')
     {
       that.showWorkflow = false;
       that.showImport = false;
-      intros.set("running");
+      if(that.running){
+        intros.set("running");
+      }
+      else
+      {
+        intros.set("initial");
+      }
     };
 
     that.reconnectToWorkflow = function()
@@ -220,54 +250,12 @@ angular.module('tagrefineryGuiApp')
     // Guide
     ////////////////////////////////////////////////
 
-    that.ExitEvent = function () {
-      that.helper = false;
-    };
-
-    that.CompletedEvent = function () {
-      that.helper = false;
-    };
-
     $scope.$watch("state", function(newVals) {
       if(newVals)
       {
         //noinspection JSUnresolvedVariable
-        that.intro = newVals.current;
+        $scope.introCurrent = newVals.current;
       }
     },1);
-
-    that.initalIntro = {
-      overlayOpacity: 0.3,
-      steps:[
-        {
-          element: '#start1',
-          intro: "Import your csv file.",
-          position: 'top'
-        },
-        {
-          element: '#start2',
-          intro: "The guided Mode provides default values and guides you through the process.",
-          position: 'top'
-        },
-        {
-          element: '#start3',
-          intro: "The advanced mode provides additional parameters and options but is unguided.",
-          position: 'top'
-        },
-        {
-          element: '#start4',
-          intro: "In each screen just click onto the small <i class='fa fa-film'></i> to show the introduction.",
-          position: 'left'
-        }
-      ],
-      showStepNumbers: false,
-      showBullets: true,
-      exitOnOverlayClick: true,
-      exitOnEsc: true,
-      nextLabel: '<strong>Next</strong>',
-      prevLabel: 'Previous',
-      skipLabel: 'Exit',
-      doneLabel: 'Done'
-    };
 
   }]);

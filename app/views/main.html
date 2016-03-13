@@ -1,6 +1,4 @@
-<div  ng-intro-options="ctrl.intro" ng-intro-method="CallMe"
-      ng-intro-oncomplete="ctrl.CompletedEvent" ng-intro-onexit="ctrl.ExitEvent"
-      ng-intro-autostart="ctrl.helper">
+<div ng-intro-options="introCurrent" ng-intro-method="CallMe" ng-intro-autostart="true" ng-intro-autorefresh="true">
   <div ng-include="'views/start.html'" ng-if="ctrl.connectionStatus && !ctrl.showWorkflow && !ctrl.showImport"></div>
   <div ng-include="'views/import.html'" ng-if="ctrl.showImport && ctrl.connectionStatus"></div>
   <div ng-include="'views/disconnected.html'" ng-if="!ctrl.connectionStatus"></div>

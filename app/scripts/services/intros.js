@@ -14,6 +14,35 @@ angular.module('tagrefineryGuiApp')
     that.list = {};
     var state = {};
 
+    that.list.initial = {
+      overlayOpacity: 0.3,
+      steps:[
+        {
+          element: '#update2',
+          intro: "Import your csv file.",
+          position: 'top'
+        },
+        {
+          element: '#start2',
+          intro: "The guided Mode provides default values and guides you through the process.",
+          position: 'top'
+        },
+        {
+          element: '#start3',
+          intro: "The advanced mode provides additional parameters and options but is unguided.",
+          position: 'top'
+        }
+      ],
+      showStepNumbers: false,
+      showBullets: true,
+      exitOnOverlayClick: true,
+      exitOnEsc: true,
+      nextLabel: '<strong>Next</strong>',
+      prevLabel: 'Previous',
+      skipLabel: 'Exit',
+      doneLabel: 'Done'
+    };
+
     that.list.running = {
       overlayOpacity: 0.3,
       steps:[
