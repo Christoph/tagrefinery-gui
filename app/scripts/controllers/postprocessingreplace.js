@@ -102,6 +102,9 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("postSalvage", function() {
+      socket.emit("applyPostReplace", JSON.stringify(that.replace));
+      socket.emit("applyPostRemove", JSON.stringify(that.remove));
+
       that.apply();
     });
 
