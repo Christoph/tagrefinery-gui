@@ -40,7 +40,7 @@
   <button ng-if="showStep && !(currentStep == 6 || currentStep == 10)" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px; margin-top: 2px">Apply <span class="glyphicon glyphicon-ok"></span></button>
   <div class="btn-group" ng-if="currentStep == 6 || currentStep == 10">
     <button ng-if="currentStep > 0" class="btn btn-back" ng-click="ctrl.back()"><i class="fa fa-chevron-left" style="position: relative; top:-2px"></i></button>
-    <button ng-if="currentStep == 9" ng-click="ctrl.restartFinalize()" class="btn primaryColor" style="width: 100px">Change Selected Tags <span class="fa fa-flask"></span></button>
+    <button ng-if="currentStep == 10" ng-click="ctrl.restartFinalize()" class="btn primaryColor" style="width: 100px">Change Selected Tags <span class="fa fa-flask"></span></button>
     <button id="result4" ng-if="currentStep < 9" ng-click="ctrl.goToLinked()" class="btn primaryColor" style="width: 100px">Overview <span class="fa fa-bar-chart"></span></button>
     <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
     <button id="result6" ng-if="currentStep < 9" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 100px">Finalize <span class="fa fa-flask"></span></button>
@@ -146,14 +146,19 @@
           <h2>Final Filtering</h2>
           <p>Select a set of <strong>important tags</strong>.</p>
           <p>Only the select tags <span class="descMarker" uib-tooltip="There is a option in the advanced mode to use all tags at the end but only the selected ones for the following salvage step.">remain</span> in the dataset.</p>
-          <p>The following step searches in the tags below the selected threshold for the words above or equal the threshold.</p>
         </div>
       </div>
       <div ng-if="currentStep == 8" class="guidedExplanation">
         <div class="well well-large center" style="width: 600px">
-          <h2>Salvager</h2>
-          <p>You can change or remove tags from the selected tags. You might want to remove non-informative words or fix synonyms by hand.</p>
-          <p>Afterwards the salvager searches for the updated important tags in the not important tags. This increases the total dataset coverage.</p>
+          <h2>Tag Polishing</h2>
+          <p>You can change or remove tags from the selected tags. You might want to remove non-informative words or fix synonyms or translations by hand.</p>
+        </div>
+      </div>
+      <div ng-if="currentStep == 9" class="guidedExplanation">
+        <div class="well well-large center" style="width: 600px">
+          <h2>Salvage</h2>
+          <p>The salvager searches for the important words in the remaining words and increases data coverage.</p>
+          <p>As example: If "rock" is important and "some rock" is not important - the salvager would turn "some rock" into "rock". Without salvaging the tag "some rock" would be thrown away.</p>
         </div>
       </div>
     </div>

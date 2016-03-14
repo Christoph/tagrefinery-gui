@@ -100,6 +100,10 @@ angular.module('tagrefineryGuiApp')
         }
         if($scope.currentStep == 8)
         {
+          intros.set("postR");
+        }
+        if($scope.currentStep == 9)
+        {
           intros.set("postS");
         }
       }
