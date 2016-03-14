@@ -36,7 +36,7 @@ angular.module('tagrefineryGuiApp')
           })
         }
 
-        that.touched == true;
+        that.touched = true;
         that.count = that.newCount();
       });
     };
