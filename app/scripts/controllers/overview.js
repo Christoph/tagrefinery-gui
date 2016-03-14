@@ -55,6 +55,12 @@ angular.module('tagrefineryGuiApp')
       that.post = stats.getPost();
     };
 
+    that.exportCSV = function()
+    {
+      var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+      that.gridApi.exporter.csvExport( 'all', 'all', myElement );
+    };
+
     ////////////////////////////////////////////////
     // Overview Grid
     ////////////////////////////////////////////////
@@ -68,6 +74,12 @@ angular.module('tagrefineryGuiApp')
       enableRowHeaderSelection: false,
       enableRowSelection: true,
       enableGridMenu: true,
+      exporterPdfDefaultStyle: {fontSize: 9},
+      exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+      exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+      exporterPdfOrientation: 'portrait',
+      exporterPdfPageSize: 'LETTER',
+      exporterPdfMaxGridWidth: 500,
       onRegisterApi: function (gridApi) {
         that.gridApi = gridApi;
 
