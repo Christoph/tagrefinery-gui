@@ -39,7 +39,7 @@ angular.module('tagrefineryGuiApp')
         that.touched = true;
         that.count = that.newCount();
 
-        if($scope.status.open[0])
+        if($scope.currentStep != 7)
         {
           that.applyDebounced();
         }
