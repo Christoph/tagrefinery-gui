@@ -1,5 +1,6 @@
 <div class="guidedInner">
   <uib-progress max="130"><uib-bar ng-repeat="bar in ctrl.progress track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 1">{{bar.text | number: 0}}%</span></uib-bar></uib-progress>
+  <div style="position: relative; top: -20px"><span style="position: absolute; left: 35%">Refine Parameters</span><span style="position: absolute; left: 76.6%">|</span><span style="position: absolute; left: 87%">Finalize</span></div>
   <div id="guided4" style="margin-top: 30px">
     <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <span uib-tooltip="As example words which occur only once or twice in the dataset."><strong>extremely rare words</strong></span> to reduce computation time?</span>
     <span ng-show="currentStep == 1" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Each word in the list will be removed from the dataset"><strong>words to remove</strong></span>?</span>
