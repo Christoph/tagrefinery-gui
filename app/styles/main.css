@@ -399,6 +399,7 @@ button.disabled {
 .primaryColor {
   background-color: #b10000;
   color: white;
+  border-color: white;
 }
 
 .primaryColor:focus,
@@ -425,6 +426,7 @@ button.disabled {
 .secondaryColor {
   background-color: #e65c00;
   color: white;
+  border-color: white;
 }
 
 .alert-guided {

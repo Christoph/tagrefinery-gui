@@ -10,7 +10,7 @@
     <span ng-show="currentStep == 5" class="guidedQuestion">Do you want to find <span uib-tooltip="A tag might be composed of multiple words like - hard rock"><strong>multiword tags</strong></span> which are <span uib-tooltip="Unique multiword tags are as example artist or band names"><strong>unique</strong></span>?</span>
     <span ng-show="currentStep == 6" class="guidedQuestion">What we have so far</span>
     <span ng-show="currentStep == 7" class="guidedQuestion">Do you want to reduce the total amount of <span uib-tooltip="Filter the tags by there tag quality to remove bad tags"><strong>important words</strong></span> used in your final dataset?</span>
-    <span ng-show="currentStep == 8" class="guidedQuestion">Do you want to polish those <span uib-tooltip="Remove bad words or translate words or resolve synonyms"><strong>import tags</strong></span> by hand?</span>
+    <span ng-show="currentStep == 8" class="guidedQuestion">Do you want to <span class="descMarker" uib-tooltip="Resolving synonyms, translations, groups and remove non-informative tags">polish</span> your tags manually?</span>
     <span ng-show="currentStep == 9" class="guidedQuestion">Do you want to salvage those <span uib-tooltip="Remove bad words or translate words or resolve synonyms"><strong>polished tags</strong></span> from the unimportant tags?</span>
     <span ng-show="currentStep == 10" class="guidedQuestion">Results</span>
   </div>
@@ -43,8 +43,8 @@
     <button ng-if="currentStep == 10" ng-click="ctrl.restartFinalize()" class="btn primaryColor">Change Selected Tags <span class="fa fa-flask"></span></button>
     <button id="result4" ng-if="currentStep < 9" ng-click="ctrl.goToLinked()" class="btn primaryColor" style="width: 100px">Overview <span class="fa fa-bar-chart"></span></button>
     <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
-    <button id="result6" ng-if="currentStep < 9" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 100px">Finalize <span class="fa fa-flask"></span></button>
   </div>
+  <button id="result6" ng-if="currentStep < 9" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 100px">Finalize <span class="fa fa-flask"></span></button>
   <hr>
   <div style="position: relative; height: 100%">
   <div ng-if="currentStep == 0 && ctrl.initRunning" class="overlayGuided">
