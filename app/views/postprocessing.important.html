@@ -13,7 +13,7 @@
 </div>
 
 <!--Task content-->
-<div id="postF1" ng-if="status.open[0] || currentStep == 7" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
+<div id="postF1" ng-if="status.open[0] || (currentStep == 7 && showStep)" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
      threshold="ctrl.newThreshold" bins="24" svg-height="300" type-label="Tag Quality" y-label="Number of Words"></div>
 
 <!--Task Parameters and details-->
