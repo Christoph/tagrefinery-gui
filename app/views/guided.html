@@ -40,11 +40,11 @@
   <button ng-if="showStep && !(currentStep == 6 || currentStep == 10)" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px; margin-top: 2px">Apply <span class="glyphicon glyphicon-ok"></span></button>
   <div class="btn-group" ng-if="currentStep == 6 || currentStep == 10">
     <button ng-if="currentStep > 0" class="btn btn-back" ng-click="ctrl.back()"><i class="fa fa-chevron-left" style="position: relative; top:-2px"></i></button>
-    <button ng-if="currentStep == 10" ng-click="ctrl.restartFinalize()" class="btn primaryColor">Change Selected Tags <span class="fa fa-flask"></span></button>
-    <button id="result4" ng-if="currentStep < 9" ng-click="ctrl.goToLinked()" class="btn primaryColor" style="width: 100px">Overview <span class="fa fa-bar-chart"></span></button>
-    <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
+    <button ng-if="currentStep == 10" ng-click="ctrl.restartFinalize()" class="btn secondaryColor">Change Selected Tags <span class="fa fa-flask"></span></button>
+    <button id="result4" ng-if="currentStep < 9" ng-click="ctrl.goToLinked()" class="btn secondaryColor" style="width: 100px">Overview <span class="fa fa-bar-chart"></span></button>
+    <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn secondaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
   </div>
-  <button id="result6" ng-if="currentStep < 9" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 100px">Finalize <span class="fa fa-flask"></span></button>
+  <button id="result6" ng-if="currentStep == 6" ng-click="ctrl.ok()" class="btn secondaryColor" style="width: 100px">Finalize <span class="fa fa-flask"></span></button>
   <hr>
   <div style="position: relative; height: 100%">
   <div ng-if="currentStep == 0 && ctrl.initRunning" class="overlayGuided">
