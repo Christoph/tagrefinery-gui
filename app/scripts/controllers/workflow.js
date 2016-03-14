@@ -181,11 +181,6 @@ angular.module('tagrefineryGuiApp')
     that.getPercent = function(max)
     {
       return ($scope.currentStep / max) * 100;
-    }
-
-    that.yes7 = function()
-    {
-      $scope.showStep = true;
     };
 
     that.no7 = function()
@@ -197,14 +192,9 @@ angular.module('tagrefineryGuiApp')
       $scope.$broadcast("noPostI");
     };
 
-    that.yes8 = function()
-    {
-
-      $scope.showStep = true;
-    };
-
     that.no8 = function()
     {
+      $scope.$broadcast("undo");
 
       $scope.showStep = false;
       $scope.currentStep++;
@@ -213,12 +203,16 @@ angular.module('tagrefineryGuiApp')
 
     that.yes9 = function()
     {
+      $scope.$broadcast("postSalvage");
+
+      $scope.currentStep++;
       $scope.showStep = true;
       intros.set("result");
     };
 
     that.no9 = function()
     {
+      $scope.currentStep++;
       $scope.showStep = true;
       intros.set("result");
     };

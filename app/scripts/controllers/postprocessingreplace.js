@@ -96,7 +96,13 @@ angular.module('tagrefineryGuiApp')
       if(that.touched)
       {
         that.undo();
+        socket.emit("applyPostReplace", JSON.stringify(that.replace));
+        socket.emit("applyPostRemove", JSON.stringify(that.remove));
       }
+    });
+
+    $scope.$on("postSalvage", function() {
+      that.apply();
     });
 
     that.undo = function()
