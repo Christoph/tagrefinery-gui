@@ -1,6 +1,5 @@
 <div class="guidedInner">
-  <uib-progressbar ng-if="currentStep < 7" max="6" value="currentStep">{{ctrl.getPercent(6) | number:0}}%</uib-progressbar>
-  <uib-progressbar ng-if="currentStep > 6" max="9" value="currentStep">{{ctrl.getPercent(9) | number:0}}%</uib-progressbar>
+  <uib-progress max="130"><uib-bar ng-repeat="bar in ctrl.progress track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 1">{{bar.text | number: 0}}%</span></uib-bar></uib-progress>
   <div id="guided4" style="margin-top: 30px">
     <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <span uib-tooltip="As example words which occur only once or twice in the dataset."><strong>extremely rare words</strong></span> to reduce computation time?</span>
     <span ng-show="currentStep == 1" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Each word in the list will be removed from the dataset"><strong>words to remove</strong></span>?</span>
@@ -40,7 +39,7 @@
   <button ng-if="showStep && !(currentStep == 6 || currentStep == 10)" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px; margin-top: 2px">Apply <span class="glyphicon glyphicon-ok"></span></button>
   <div class="btn-group" ng-if="currentStep == 6 || currentStep == 10">
     <button ng-if="currentStep > 0" class="btn btn-back" ng-click="ctrl.back()"><i class="fa fa-chevron-left" style="position: relative; top:-2px"></i></button>
-    <button ng-if="currentStep == 10" ng-click="ctrl.restartFinalize()" class="btn primaryColor" style="width: 100px">Change Selected Tags <span class="fa fa-flask"></span></button>
+    <button ng-if="currentStep == 10" ng-click="ctrl.restartFinalize()" class="btn primaryColor">Change Selected Tags <span class="fa fa-flask"></span></button>
     <button id="result4" ng-if="currentStep < 9" ng-click="ctrl.goToLinked()" class="btn primaryColor" style="width: 100px">Overview <span class="fa fa-bar-chart"></span></button>
     <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
     <button id="result6" ng-if="currentStep < 9" ng-click="ctrl.ok()" class="btn primaryColor" style="width: 100px">Finalize <span class="fa fa-flask"></span></button>

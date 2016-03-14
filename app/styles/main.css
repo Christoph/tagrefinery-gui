@@ -388,8 +388,12 @@ button.disabled {
   pointer-events: none;
 }
 
-.progress-bar {
-  background-color: #b10000;
+.progress-bar-success {
+  background-color: #b10000 !important;
+}
+
+.progress-bar-warning {
+  background-color: #e65c00 !important;
 }
 
 .primaryColor {

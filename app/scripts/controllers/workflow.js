@@ -24,6 +24,25 @@ angular.module('tagrefineryGuiApp')
     $scope.showStep = false;
     $scope.currentStep = 0;
 
+    that.progress = [];
+    that.progress.push({value: 0, text: 0, type: 'success'});
+    that.progress.push({value: 0, text: 0, type: 'warning'});
+
+    that.updateProgress = function()
+    {
+      if($scope.currentStep < 7)
+      {
+        that.progress[0].value = ($scope.currentStep/6)*100;
+        that.progress[0].text = ($scope.currentStep/6)*100;
+      }
+
+      if($scope.currentStep >= 7)
+      {
+        that.progress[1].value = ((($scope.currentStep-7)/3)*100)/3;
+        that.progress[1].text = (($scope.currentStep-7)/3)*100;
+      }
+    };
+
     ////////////////////////////////////////////////
     // Start
     ////////////////////////////////////////////////
@@ -119,6 +138,8 @@ angular.module('tagrefineryGuiApp')
       $scope.currentStep++;
       intros.set("guided");
 
+      that.updateProgress();
+
       if($scope.currentStep == 6 || $scope.currentStep == 10)
       {
         $scope.showStep = true;
@@ -133,6 +154,8 @@ angular.module('tagrefineryGuiApp')
       $scope.showStep = false;
       $scope.currentStep++;
       intros.set("guided");
+
+      that.updateProgress();
 
       if($scope.currentStep == 6)
       {
@@ -154,12 +177,16 @@ angular.module('tagrefineryGuiApp')
       $scope.showStep = false;
       $scope.currentStep--;
       intros.set("guided");
+
+      that.updateProgress();
     };
 
     that.restartFinalize = function()
     {
       $scope.showStep = false;
       $scope.currentStep = 7;
+
+      that.updateProgress();
     };
 
     that.goToAdvanced = function()
@@ -193,6 +220,8 @@ angular.module('tagrefineryGuiApp')
       $scope.currentStep++;
       intros.set("guidedFinal");
 
+      that.updateProgress();
+
       $scope.$broadcast("noPostI");
     };
 
@@ -203,6 +232,8 @@ angular.module('tagrefineryGuiApp')
       $scope.showStep = false;
       $scope.currentStep++;
       intros.set("guidedFinal");
+
+      that.updateProgress();
     };
 
     that.yes9 = function()
@@ -212,6 +243,8 @@ angular.module('tagrefineryGuiApp')
       $scope.currentStep++;
       $scope.showStep = true;
       intros.set("result");
+
+      that.updateProgress();
     };
 
     that.no9 = function()
@@ -219,6 +252,8 @@ angular.module('tagrefineryGuiApp')
       $scope.currentStep++;
       $scope.showStep = true;
       intros.set("result");
+
+      that.updateProgress();
     };
 
 
