@@ -38,6 +38,12 @@ angular.module('tagrefineryGuiApp')
 
         that.touched = true;
         that.count = that.newCount();
+
+        if($scope.status.open[0])
+        {
+          that.applyDebounced();
+        }
+
       });
     };
 
