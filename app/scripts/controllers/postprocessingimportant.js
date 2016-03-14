@@ -36,10 +36,8 @@ angular.module('tagrefineryGuiApp')
           })
         }
 
+        that.touched == true;
         that.count = that.newCount();
-        stats.writePost("Number of Important Tags", that.count);
-
-        that.apply();
       });
     };
 
@@ -81,9 +79,27 @@ angular.module('tagrefineryGuiApp')
       that.threshold = that.newThreshold;
     });
 
-    that.apply = _.debounce(function() {
-      socket.emit("applyPostFilter", "" + that.newThreshold);
+    that.applyDebounced = _.debounce(function() {
+      that.apply();
     }, 1500);
+
+    $scope.$on("apply", function() {
+      if(that.touched)
+      {
+        that.apply();
+      }
+    });
+
+    $scope.$on("noPostI", function() {
+      that.newThreshold = 0;
+      that.apply();
+    });
+
+    that.apply = function()
+    {
+      socket.emit("applyPostFilter", "" + that.newThreshold);
+      stats.writePost("Number of Important Tags", that.count);
+    };
 
     ////////////////////////////////////////////////
     // requent Grid

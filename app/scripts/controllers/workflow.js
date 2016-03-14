@@ -115,7 +115,7 @@ angular.module('tagrefineryGuiApp')
       $scope.currentStep++;
       intros.set("guided");
 
-      if($scope.currentStep == 6 || $scope.currentStep == 9)
+      if($scope.currentStep == 6 || $scope.currentStep == 10)
       {
         $scope.showStep = true;
         intros.set("result");
@@ -130,10 +130,16 @@ angular.module('tagrefineryGuiApp')
       $scope.currentStep++;
       intros.set("guided");
 
-      if($scope.currentStep == 6 || $scope.currentStep == 9)
+      if($scope.currentStep == 6)
       {
         $scope.showStep = true;
         intros.set("result");
+      }
+
+      if($scope.currentStep == 7)
+      {
+        $scope.showStep = true;
+        intros.set("guidedFinal");
       }
 
       $scope.$broadcast("undo");
@@ -176,5 +182,46 @@ angular.module('tagrefineryGuiApp')
     {
       return ($scope.currentStep / max) * 100;
     }
+
+    that.yes7 = function()
+    {
+      $scope.showStep = true;
+    };
+
+    that.no7 = function()
+    {
+      $scope.showStep = false;
+      $scope.currentStep++;
+      intros.set("guidedFinal");
+
+      $scope.$broadcast("noPostI");
+    };
+
+    that.yes8 = function()
+    {
+
+      $scope.showStep = true;
+    };
+
+    that.no8 = function()
+    {
+
+      $scope.showStep = false;
+      $scope.currentStep++;
+      intros.set("guidedFinal");
+    };
+
+    that.yes9 = function()
+    {
+      $scope.showStep = true;
+      intros.set("result");
+    };
+
+    that.no9 = function()
+    {
+      $scope.showStep = true;
+      intros.set("result");
+    };
+
 
   }]);
