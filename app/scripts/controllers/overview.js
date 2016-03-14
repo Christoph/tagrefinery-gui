@@ -89,7 +89,8 @@ angular.module('tagrefineryGuiApp')
       },
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
-        {field: 'item', displayName: "Item", minWidth: 100, width: "*"}
+        {field: 'item', displayName: "Item", minWidth: 100, width: "*"},
+        {field: 'weight', displayName: "Weight", minWidth: 100, width: "*"}
       ]
     };
 
