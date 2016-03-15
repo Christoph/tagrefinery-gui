@@ -236,7 +236,7 @@ angular.module('tagrefineryGuiApp')
 
     // Grid
 
-    var rowtpl = '<div ng-class="{\'default\':true,  \'current\': grid.appScope.isCurrent( row ), \'truth\': grid.appScope.isTruth( row ) }"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div></div>';
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'current\': grid.appScope.isCurrent( row ), \'truth\': grid.appScope.isTruth( row ) }" ui-grid-cell></div>';
 
     $scope.isCurrent = function(row)
     {
@@ -257,7 +257,7 @@ angular.module('tagrefineryGuiApp')
       enableRowHeaderSelection: false,
       enableRowSelection: true,
       enableFullRowSelection: true,
-      rowTemplate:rowtpl,
+      rowTemplate:rowtemplate,
       onRegisterApi: function (gridApi) {
         that.simGridApi = gridApi;
 

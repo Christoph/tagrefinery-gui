@@ -66,8 +66,15 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     // Grid
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'current\': grid.appScope.isCurrent( row ) }" ui-grid-cell></div>';
+
+    $scope.isCurrent = function(row)
+    {
+      return row.entity.changed == 1;
+    };
 
     that.grid = {
+      rowTemplate: rowtemplate,
       enableFiltering: true,
       enableColumnMenus: false,
       multiSelect: false,
@@ -90,7 +97,8 @@ angular.module('tagrefineryGuiApp')
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
         {field: 'item', displayName: "Item", minWidth: 100, width: "*"},
-        {field: 'weight', displayName: "Weight", minWidth: 100, width: "*"}
+        {field: 'weight', displayName: "Weight", minWidth: 50, width: 100},
+        {field: 'changed', displayName: "Tag has Changed", minWidth: 50, width: "*", visible: false}
       ]
     };
 
