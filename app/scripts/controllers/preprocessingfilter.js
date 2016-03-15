@@ -46,10 +46,10 @@ angular.module('tagrefineryGuiApp')
 
     // This function needs decreasing sorted data from the server
     that.getAboveRow = function (data, occurrences) {
-      var index = 0;
+      var index = data.length;
 
       for (var i = 0; i < data.length; i++) {
-        if (data[i].importance > occurrences) {
+        if (data[i].importance < occurrences) {
           if ((occurrences - data[i].importance) <= (data[i - 1].importance - occurrences)) {
             return i;
           }
@@ -123,8 +123,15 @@ angular.module('tagrefineryGuiApp')
     };
 
     // Grid
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'current\': grid.appScope.isCurrent( row ) }" ui-grid-cell></div>';
+
+    $scope.isCurrent = function(row)
+    {
+      return row.entity.importance <= that.newOccurrences;
+    };
 
     that.grid = {
+      rowTemplate: rowtemplate,
       enableFiltering: true,
       enableColumnMenus: false,
       enableGridMenu: true,
@@ -164,7 +171,7 @@ angular.module('tagrefineryGuiApp')
 
     that.newCount = function () {
       return _.sum(that.data, function(d) { return d.count; }) - _.sum(_.filter(that.data, function (d) {
-        return d.value < that.newOccurrences;
+        return d.value <= that.newOccurrences;
       }), function (o) {
         return o.count;
       });

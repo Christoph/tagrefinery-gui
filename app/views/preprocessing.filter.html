@@ -6,10 +6,10 @@
   <div style="display: inline-block">
     <span class="taskTitle">Filter Words before the Pipeline</span>
     <br>
-    The occurrences of single words and <strong>not tags</strong> are shown.
+    Remove <strong>words</strong> below or equal the selected occurrence threshold.
   </div>
   <div class="alert alert-info" ng-show="ctrl.info">
-    The filter allows you to remove words below a certain occurrence threshold.
+    The filter allows you to remove words below  or equal to the occurrence threshold.
     <br>
     Single words are used instead of tags. The reason is that word combinations are far less frequent
     <br>
@@ -43,8 +43,10 @@
 </div>
 
 <!--Task advanced content-->
-<div id="preFscroll" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="taskInner"
-     ng-if="ctrl.showDetails"></div>
+<div ng-if="ctrl.showDetails" class="taskInner" >
+  <p style="text-align: left; position: relative;bottom: 2px; margin-bottom: -5px"> <span style="color: #b10000; font-weight: bold">Red</span>: Words which will be removed </p>
+  <div id="preFscroll" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+</div>
 
 <!--Footer -> Apply and Undo -->
 <hr>

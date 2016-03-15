@@ -24,17 +24,13 @@
   opacity: 0;
 }
 
-.default {
-  color: black;
-}
-
 .current {
-  color: steelblue;
+  color: #b10000;
   font-weight: bold;
 }
 
 .truth {
-  color: green;
+  color: #e65c00;
   font-weight: bold;
 }
 
