@@ -2,11 +2,10 @@
   <div class="col-sm-8" style="text-align: center">
     <div class="row taskInner">
       <h4> Final Dataset </h4>
-      <span>Last applied step: {{ctrl.state}}</span>
       <button class="btn btn-default pull-right" ng-click="ctrl.exportCSV()">Export <i class="fa fa-download"></i></button>
-      <p style="text-align: left; position: relative;bottom: 2px; margin-bottom: -5px"> <span style="color: #b10000; font-weight: bold">Red</span>: Changed Tags </p>
+      <p style="text-align: left; position: relative;bottom: -15px; margin-bottom: 0"> <span style="color: #b10000; font-weight: bold">Red</span>: Changed Tags </p>
     </div>
-    <div id="result1" ng-if="currentStep == 6 || active == 4 || currentStep == 10" style="text-align: left" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter
+    <div id="result1" style="text-align: left" ui-grid="ctrl.grid" ui-grid-auto-resize ui-grid-selection ui-grid-resize-columns ui-grid-exporter
          class="taskInner"></div>
     <h4>History</h4>
 

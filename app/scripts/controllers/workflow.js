@@ -86,6 +86,13 @@ angular.module('tagrefineryGuiApp')
       {
         socket.emit("getWhitelist", "")
       }
+      if($scope.currentStep == 9)
+      {
+        $scope.$broadcast("postSalvage");
+        $scope.currentStep++;
+        
+        that.updateProgress();
+      }
 
       if($scope.showStep)
       {
@@ -145,36 +152,8 @@ angular.module('tagrefineryGuiApp')
         $scope.showStep = true;
         intros.set("result");
       }
-      if($scope.currentStep == 9)
-      {
-        $scope.$broadcast("postSalvage");
-      }
-
 
       that.apply();
-    };
-
-    that.default = function()
-    {
-      $scope.showStep = false;
-      $scope.currentStep++;
-      intros.set("guided");
-
-      that.updateProgress();
-
-      if($scope.currentStep == 6)
-      {
-        $scope.showStep = true;
-        intros.set("result");
-      }
-
-      if($scope.currentStep == 7)
-      {
-        $scope.showStep = true;
-        intros.set("guidedFinal");
-      }
-
-      $scope.$broadcast("undo");
     };
 
     that.back = function()
