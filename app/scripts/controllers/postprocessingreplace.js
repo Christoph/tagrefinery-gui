@@ -31,15 +31,19 @@ angular.module('tagrefineryGuiApp')
     that.removeOriginal.push({});
 
     that.original = [];
+    that.raw = [];
 
     ////////////////////////////////////////////////
     // Socket functions
     ////////////////////////////////////////////////
 
     socket.on('postImportantWords', function (data) {
+      var tempRaw = JSON.parse(data);
       var temp = JSON.parse(data);
 
-      that.postRunning = false;
+      that.raw = _.map(tempRaw, function(d) {
+        return {tag: d.tag, replace: "", remove: false}
+      });
 
       that.original = _.map(temp, function(d) {
 
@@ -122,6 +126,14 @@ angular.module('tagrefineryGuiApp')
       that.replace = _.cloneDeep(that.replaceOriginal);
       that.remove = _.cloneDeep(that.removeOriginal);
       that.touched = false;
+    };
+
+    that.clearAll = function()
+    {
+      that.edit.data = _.cloneDeep(that.raw);
+      that.replace.length = 0;
+      that.remove.length = 0;
+      that.touched = true;
     };
 
     ////////////////////////////////////////////////

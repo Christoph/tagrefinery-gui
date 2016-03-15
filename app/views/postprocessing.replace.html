@@ -36,6 +36,9 @@
 <hr>
 <div class="row taskInner">
   <div class="col-sm-12" style="text-align: right">
+    <button id="postS6" class="btn btn-undo round" uib-tooltip="Clear all" ng-click="ctrl.clearAll()">
+      <span class="fa fa-trash"></span>
+    </button>
     <button id="postS3" class="btn btn-undo round" uib-tooltip="Undo changes" ng-click="ctrl.undo()" ng-disabled="!ctrl.touched">
       <span class="fa fa-undo"></span>
     </button>
