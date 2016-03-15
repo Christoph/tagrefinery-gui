@@ -115,8 +115,15 @@ angular.module('tagrefineryGuiApp')
     };
 
     // Grid
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'current\': grid.appScope.isCurrent( row ) }" ui-grid-cell></div>';
+
+    $scope.isCurrent = function(row)
+    {
+      return row.entity.strength >= that.newThreshold;
+    };
 
     that.frequentGrid = {
+      rowTemplate: rowtemplate,
       enableFiltering: true,
       enableColumnMenus: false,
       enableGridMenu: true,
