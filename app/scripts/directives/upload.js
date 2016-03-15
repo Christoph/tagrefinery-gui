@@ -33,7 +33,7 @@ angular.module('tagrefineryGuiApp')
           if ( fileChooser.length !== 1 ){
             console.log('Found > 1 or < 1 file choosers within the menu item, error, cannot continue');
           } else {
-            fileChooser[0].addEventListener('change', handleFileSelect, false);  // TODO: why the false on the end?  Google
+            fileChooser[0].addEventListener('change', handleFileSelect, false);
           }
         }, 100);
       }

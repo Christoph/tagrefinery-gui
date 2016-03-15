@@ -24,7 +24,7 @@ angular.module('tagrefineryGuiApp')
       $scope.dataS.length = 0;
 
       _.map(data, function (d) {
-        $scope.dataS.push({tag: d});
+        $scope.dataS.push({word: d});
       });
 
       stats.writeSpell("Number of Dictionary Words", $scope.dataS.length);
@@ -87,7 +87,7 @@ angular.module('tagrefineryGuiApp')
         $scope.gridApi = gridApi;
       },
       columnDefs: [
-        {field: 'tag', minWidth: 100, width: "*"}
+        {field: 'word', minWidth: 100, width: "*"}
       ]
     };
 
