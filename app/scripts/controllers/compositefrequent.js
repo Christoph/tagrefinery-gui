@@ -40,6 +40,8 @@ angular.module('tagrefineryGuiApp')
         stats.writeComp("Number of Frequent Groups", that.replacements);
 
         that.touched = true;
+
+        that.applyDebounced();
       });
     };
 
@@ -89,6 +91,10 @@ angular.module('tagrefineryGuiApp')
         that.touched = false;
       }
     });
+
+    that.applyDebounced = _.debounce(function() {
+      socket.emit("applyFrequentThreshold", "" + that.newThreshold);
+    }, 1000);
 
     $scope.$on("noCompF", function() {
       that.newThreshold = 1.5;

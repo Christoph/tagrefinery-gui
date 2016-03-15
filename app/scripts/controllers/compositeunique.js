@@ -41,6 +41,8 @@ angular.module('tagrefineryGuiApp')
         stats.writeComp("Number of Unique Groups", that.replacements);
 
         that.touched = true;
+
+        that.applyDebounced();
       });
     };
 
@@ -100,6 +102,10 @@ angular.module('tagrefineryGuiApp')
 
       that.touched = false;
     });
+
+    that.applyDebounced = _.debounce(function() {
+      socket.emit("applyUniqueThreshold", "" + that.newThreshold);
+    }, 1000);
 
     $scope.$on("undo", function() {
       if(that.touched)
