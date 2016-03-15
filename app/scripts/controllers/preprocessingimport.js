@@ -41,6 +41,16 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
+    $scope.$on("noPreB", function() {
+      that.clear();
+
+      socket.emit("applyPreImportedData", JSON.stringify($scope.dataP));
+
+      stats.writePre("Number of blacklisted Words", $scope.dataP.length);
+
+      that.touched = false;
+    });
+
     that.clear = function()
     {
       $scope.dataP.length = 0;

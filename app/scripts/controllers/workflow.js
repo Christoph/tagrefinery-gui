@@ -145,6 +145,11 @@ angular.module('tagrefineryGuiApp')
         $scope.showStep = true;
         intros.set("result");
       }
+      if($scope.currentStep == 9)
+      {
+        $scope.$broadcast("postSalvage");
+      }
+
 
       that.apply();
     };
@@ -214,7 +219,7 @@ angular.module('tagrefineryGuiApp')
       return ($scope.currentStep / max) * 100;
     };
 
-    that.no7 = function()
+    that.no = function()
     {
       $scope.showStep = false;
       $scope.currentStep++;
@@ -222,39 +227,38 @@ angular.module('tagrefineryGuiApp')
 
       that.updateProgress();
 
-      $scope.$broadcast("noPostI");
+      if($scope.currentStep == 1)
+      {
+        $scope.$broadcast("noPreB");
+      }
+      if($scope.currentStep == 2)
+      {
+        $scope.$broadcast("noSpellT");
+      }
+      if($scope.currentStep == 3)
+      {
+        $scope.$broadcast("noSpellR");
+      }
+      if($scope.currentStep == 4)
+      {
+        $scope.$broadcast("noCompF");
+      }
+      if($scope.currentStep == 5)
+      {
+        $scope.$broadcast("noCompU");
+      }
+      if($scope.currentStep == 6)
+      {
+        $scope.showStep = true;
+      }
+      if($scope.currentStep == 7)
+      {
+        $scope.$broadcast("noPostI");
+      }
+      if($scope.currentStep == 10)
+      {
+        $scope.showStep = true;
+      }
     };
-
-    that.no8 = function()
-    {
-      $scope.$broadcast("undo");
-
-      $scope.showStep = false;
-      $scope.currentStep++;
-      intros.set("guidedFinal");
-
-      that.updateProgress();
-    };
-
-    that.yes9 = function()
-    {
-      $scope.$broadcast("postSalvage");
-
-      $scope.currentStep++;
-      $scope.showStep = true;
-      intros.set("result");
-
-      that.updateProgress();
-    };
-
-    that.no9 = function()
-    {
-      $scope.currentStep++;
-      $scope.showStep = true;
-      intros.set("result");
-
-      that.updateProgress();
-    };
-
 
   }]);
