@@ -223,6 +223,7 @@ angular.module('tagrefineryGuiApp')
       if($scope.currentStep == 5)
       {
         $scope.$broadcast("noCompU");
+        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 7)
       {
