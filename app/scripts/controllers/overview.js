@@ -75,6 +75,7 @@ angular.module('tagrefineryGuiApp')
 
     that.grid = {
       rowTemplate: rowtemplate,
+      showGridFooter: true,
       enableFiltering: true,
       enableColumnMenus: false,
       multiSelect: false,

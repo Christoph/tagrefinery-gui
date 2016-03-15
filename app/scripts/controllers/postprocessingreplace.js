@@ -32,6 +32,8 @@ angular.module('tagrefineryGuiApp')
 
     that.original = [];
     that.raw = [];
+    that.delete = [];
+    that.delete.push({});
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -98,6 +100,9 @@ angular.module('tagrefineryGuiApp')
     });
 
     that.apply = function () {
+      socket.emit("applyPostReplace", JSON.stringify(that.replace));
+      socket.emit("applyPostRemove", JSON.stringify(that.remove));
+
       socket.emit("applySalvaging", "");
 
       that.replaceOriginal = _.cloneDeep(that.replace);
@@ -114,9 +119,6 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("postSalvage", function() {
-      socket.emit("applyPostReplace", JSON.stringify(that.replace));
-      socket.emit("applyPostRemove", JSON.stringify(that.remove));
-
       that.apply();
     });
 
@@ -131,9 +133,10 @@ angular.module('tagrefineryGuiApp')
     that.clearAll = function()
     {
       that.edit.data = _.cloneDeep(that.raw);
-      that.replace.length = 0;
-      that.remove.length = 0;
+      that.replace = _.cloneDeep(that.delete);
+      that.remove = _.cloneDeep(that.delete);
       that.touched = true;
+
     };
 
     ////////////////////////////////////////////////
@@ -199,21 +202,21 @@ angular.module('tagrefineryGuiApp')
                 {
                   that.replace[0][rowEntity.tag] = newValue;
 
-                  socket.emit("applyPostReplace", JSON.stringify(that.replace));
+                  //socket.emit("applyPostReplace", JSON.stringify(that.replace));
                 }
               }
               else
               {
                 that.replace[0][rowEntity.tag] = newValue;
 
-                socket.emit("applyPostReplace", JSON.stringify(that.replace));
+                //socket.emit("applyPostReplace", JSON.stringify(that.replace));
               }
             }
 
             if(colDef.name == 'remove' && !(rowEntity.tag in that.remove[0])) {
               if(newValue == true) that.remove[0][rowEntity.tag] = true;
 
-              socket.emit("applyPostRemove", JSON.stringify(that.remove));
+              //socket.emit("applyPostRemove", JSON.stringify(that.remove));
             }
           }
 
@@ -222,13 +225,13 @@ angular.module('tagrefineryGuiApp')
             if(colDef.name == 'replace') {
               delete that.replace[0][rowEntity.tag];
 
-              socket.emit("applyPostReplace", JSON.stringify(that.replace));
+              //socket.emit("applyPostReplace", JSON.stringify(that.replace));
             }
 
             if(colDef.name == 'remove') {
               delete that.remove[0][rowEntity.tag];
 
-              socket.emit("applyPostRemove", JSON.stringify(that.remove));
+              //socket.emit("applyPostRemove", JSON.stringify(that.remove));
             }
           }
         })
