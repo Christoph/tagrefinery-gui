@@ -221,12 +221,10 @@ angular.module('tagrefineryGuiApp')
 
     that.no = function()
     {
-      $scope.showStep = false;
-      $scope.currentStep++;
-      intros.set("guidedFinal");
-
-      that.updateProgress();
-
+      if($scope.currentStep == 0)
+      {
+        $scope.$broadcast("noPreF");
+      }
       if($scope.currentStep == 1)
       {
         $scope.$broadcast("noPreB");
@@ -247,18 +245,26 @@ angular.module('tagrefineryGuiApp')
       {
         $scope.$broadcast("noCompU");
       }
-      if($scope.currentStep == 6)
-      {
-        $scope.showStep = true;
-      }
       if($scope.currentStep == 7)
       {
         $scope.$broadcast("noPostI");
+      }
+
+      $scope.showStep = false;
+      $scope.currentStep++;
+      intros.set("guided");
+
+      that.updateProgress();
+
+      if($scope.currentStep == 6)
+      {
+        $scope.showStep = true;
       }
       if($scope.currentStep == 10)
       {
         $scope.showStep = true;
       }
+
     };
 
   }]);

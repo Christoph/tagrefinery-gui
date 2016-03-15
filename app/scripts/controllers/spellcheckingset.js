@@ -77,15 +77,11 @@ angular.module('tagrefineryGuiApp')
     socket.on('spellImportance', function (data) {
       that.importance = parseFloat(data);
       that.newImportance = that.importance;
-
-      stats.writeSpell("Minimum Word Quality", Math.round(that.newImportance * 1000) / 1000);
     });
 
     socket.on('spellSimilarity', function (data) {
       that.similarity = parseFloat(data);
       that.newSimilarity = that.similarity;
-
-      stats.writeSpell("Minimum Word Similarity ", Math.round(that.newSimilarity * 1000) / 1000);
     });
 
     socket.on('vocab', function (data) {
