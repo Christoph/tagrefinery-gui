@@ -129,8 +129,6 @@ angular.module('tagrefineryGuiApp')
           that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
         }
 
-        stats.writeSpell("Minimum Word Quality", Math.round(that.newImportance * 1000) / 1000);
-        stats.writeSpell("Minimum Word Similarity ", Math.round(that.newSimilarity * 1000) / 1000);
         that.touched = false;
 
         that.getReplacements();
@@ -144,13 +142,22 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
+    $scope.$on("noSpellR", function() {
+      that.newSimilarity = 1.5;
+      that.newImportance = 1.5;
+
+      socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+
+      that.touched = false;
+
+      that.getReplacements();
+    });
+
     that.undo = function()
     {
       that.newSimilarity = that.similarity;
       that.newImportance = that.importance;
 
-      stats.writeSpell("Minimum Word Quality", Math.round(that.newImportance * 1000) / 1000);
-      stats.writeSpell("Minimum Word Similarity ", Math.round(that.newSimilarity * 1000) / 1000);
       that.touched = false;
 
       that.getReplacements();

@@ -90,6 +90,14 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
+    $scope.$on("noCompF", function() {
+      that.newThreshold = 1.5;
+
+      socket.emit("applyFrequentThreshold", "" + that.newThreshold);
+
+      that.touched = false;
+    });
+
     $scope.$on("undo", function() {
       if(that.touched)
       {

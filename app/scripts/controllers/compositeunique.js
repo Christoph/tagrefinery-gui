@@ -93,6 +93,14 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
+    $scope.$on("noCompU", function() {
+      that.newThreshold = 1.5;
+
+      socket.emit("applyUniqueThreshold", "" + that.newThreshold);
+
+      that.touched = false;
+    });
+
     $scope.$on("undo", function() {
       if(that.touched)
       {

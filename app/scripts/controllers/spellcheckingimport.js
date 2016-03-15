@@ -41,6 +41,16 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
+    $scope.$on("noSpellT", function() {
+      that.clear();
+
+      socket.emit("applySpellImportedData", JSON.stringify($scope.dataS));
+
+      stats.writeSpell("Number of Dictionary Words", $scope.dataS.length);
+
+      that.touched = false;
+    });
+
     that.clear = function()
     {
       $scope.dataS.length = 0;
