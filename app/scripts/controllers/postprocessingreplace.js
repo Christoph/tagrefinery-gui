@@ -15,6 +15,7 @@ angular.module('tagrefineryGuiApp')
 
     that.touched = false;
     that.salvagingRunning = false;
+    that.postRunning = false;
 
     that.replace = [];
     that.replace.push({});
@@ -37,6 +38,8 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('postImportantWords', function (data) {
       var temp = JSON.parse(data);
+
+      that.postRunning = false;
 
       that.original = _.map(temp, function(d) {
 
@@ -73,6 +76,11 @@ angular.module('tagrefineryGuiApp')
         that.removeOriginal[0][d] = true;
       });
     });
+
+    socket.on('computePost', function (data) {
+      that.postRunning = data == "started"
+    });
+
 
     socket.on('postSalvaging', function (data) {
       that.salvagingRunning = data == "true";
@@ -138,7 +146,7 @@ angular.module('tagrefineryGuiApp')
       },
       columnDefs: [
         {field: 'truth', displayName: 'Important Tag', minWidth: 100, width: "*"},
-        {field: 'replacement', displayName: 'Salvaged Tag', minWidth: 100, width: "*"}
+        {field: 'replacement', displayName: 'Salvaged From', minWidth: 100, width: "*"}
       ]
     };
 

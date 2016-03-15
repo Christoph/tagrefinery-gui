@@ -90,7 +90,7 @@ angular.module('tagrefineryGuiApp')
       {
         $scope.$broadcast("postSalvage");
         $scope.currentStep++;
-        
+
         that.updateProgress();
       }
 
