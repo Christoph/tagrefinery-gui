@@ -97,19 +97,25 @@ angular.module('tagrefineryGuiApp')
     }, 1000);
 
     $scope.$on("noCompF", function() {
-      that.newThreshold = 1.5;
+      if(that.newThreshold != 1.5)
+      {
+        that.newThreshold = 1.5;
 
-      socket.emit("applyFrequentThreshold", "" + that.newThreshold);
+        socket.emit("applyFrequentThreshold", "" + that.newThreshold);
 
-      that.touched = false;
+        that.touched = false;
+      }
     });
 
     $scope.$on("dCompF", function() {
-      that.newThreshold = 0.1;
+      if(that.newThreshold != 0.1)
+      {
+        that.newThreshold = 0.1;
 
-      socket.emit("applyFrequentThreshold", "" + that.newThreshold);
+        socket.emit("applyFrequentThreshold", "" + that.newThreshold);
 
-      that.touched = false;
+        that.touched = false;
+      }
     });
 
     $scope.$on("undo", function() {

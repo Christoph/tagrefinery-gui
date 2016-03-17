@@ -43,27 +43,32 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("noSpellT", function() {
-      that.clear();
+      if(!that.dataS.length == 0)
+      {
+        that.clear();
 
-      socket.emit("applySpellImportedData", JSON.stringify($scope.dataS));
+        socket.emit("applySpellImportedData", JSON.stringify($scope.dataS));
 
-      stats.writeSpell("Number of Dictionary Words", $scope.dataS.length);
+        stats.writeSpell("Number of Dictionary Words", $scope.dataS.length);
 
-      that.touched = false;
+        that.touched = false;
+      }
     });
 
     $scope.$on("dSpellT", function() {
-      that.clear();
+      if(!that.dataS.length == 0) {
+        that.clear();
 
-      _.map(that.default.split(","), function (d) {
-        $scope.dataS.push({word: d});
-      });
+        _.map(that.default.split(","), function (d) {
+          $scope.dataS.push({word: d});
+        });
 
-      socket.emit("applySpellImportedData", JSON.stringify($scope.dataS));
+        socket.emit("applySpellImportedData", JSON.stringify($scope.dataS));
 
-      stats.writeSpell("Number of Dictionary Words", $scope.dataS.length);
+        stats.writeSpell("Number of Dictionary Words", $scope.dataS.length);
 
-      that.touched = false;
+        that.touched = false;
+      }
     });
 
     that.clear = function()

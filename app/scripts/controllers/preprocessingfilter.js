@@ -97,25 +97,30 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("noPreF", function() {
-      that.newOccurrences = 0;
+      if(that.newOccurrences != 0)
+      {
+        that.newOccurrences = 0;
 
-      socket.emit("applyPrefilter", "" + that.newOccurrences);
-      that.occurrences = that.newOccurrences;
+        socket.emit("applyPrefilter", "" + that.newOccurrences);
+        that.occurrences = that.newOccurrences;
 
-      stats.writePre("Minimum Occurrence", that.newOccurrences);
+        stats.writePre("Minimum Occurrence", that.newOccurrences);
 
-      that.touched = false;
+        that.touched = false;
+      }
     });
 
     $scope.$on("dPreF", function() {
-      that.newOccurrences = 0;
+      if(that.newOccurrences != 0) {
+        that.newOccurrences = 0;
 
-      socket.emit("applyPrefilter", "" + that.newOccurrences);
-      that.occurrences = that.newOccurrences;
+        socket.emit("applyPrefilter", "" + that.newOccurrences);
+        that.occurrences = that.newOccurrences;
 
-      stats.writePre("Minimum Occurrence", that.newOccurrences);
+        stats.writePre("Minimum Occurrence", that.newOccurrences);
 
-      that.touched = false;
+        that.touched = false;
+      }
     });
 
     $scope.$on("undo", function() {

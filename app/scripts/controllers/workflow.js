@@ -154,6 +154,7 @@ angular.module('tagrefineryGuiApp')
       }
 
       that.apply();
+      if($scope.currentStep == 6) socket.emit("computeWorkflow", "");
     };
 
     that.back = function()
@@ -202,8 +203,6 @@ angular.module('tagrefineryGuiApp')
     {
       // Let the child apply changes
       $scope.$broadcast("apply");
-
-      socket.emit("computeWorkflow", "");
     };
 
     that.getPercent = function(max)
@@ -237,6 +236,7 @@ angular.module('tagrefineryGuiApp')
       {
         $scope.$broadcast("dCompU");
         that.apply();
+        socket.emit("computeWorkflow", "");
       }
 
       $scope.showStep = false;
@@ -281,6 +281,7 @@ angular.module('tagrefineryGuiApp')
       {
         $scope.$broadcast("noCompU");
         that.apply();
+        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 7)
       {

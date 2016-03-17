@@ -96,19 +96,25 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("noCompU", function() {
-      that.newThreshold = 1.5;
+      if(that.newThreshold != 1.5)
+      {
+        that.newThreshold = 1.5;
 
-      socket.emit("applyUniqueThreshold", "" + that.newThreshold);
+        socket.emit("applyUniqueThreshold", "" + that.newThreshold);
 
-      that.touched = false;
+        that.touched = false;
+      }
     });
 
     $scope.$on("dCompU", function() {
-      that.newThreshold = 0.9;
+      if(that.newThreshold != 0.9)
+      {
+        that.newThreshold = 0.9;
 
-      socket.emit("applyUniqueThreshold", "" + that.newThreshold);
+        socket.emit("applyUniqueThreshold", "" + that.newThreshold);
 
-      that.touched = false;
+        that.touched = false;
+      }
     });
 
     that.applyDebounced = _.debounce(function() {

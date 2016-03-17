@@ -139,25 +139,33 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("noSpellR", function() {
-      that.newSimilarity = 1.5;
-      that.newImportance = 1.5;
+      if(!that.newSimilarity == 1.5 && !that.newImportance == 1.5) {
+        that.newSimilarity = 1.5;
+        that.newImportance = 1.5;
 
-      socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+        socket.emit("applySpellCorrect", JSON.stringify([{
+          importance: that.newImportance,
+          similarity: that.newSimilarity
+        }]));
 
-      that.touched = false;
+        that.touched = false;
 
-      that.getReplacements();
+        that.getReplacements();
+      }
     });
 
     $scope.$on("dSpellR", function() {
-      that.newSimilarity = 0.75;
-      that.newImportance = 0.1;
+      if(!that.newSimilarity == 0.75 && !that.newImportance == 0.1)
+      {
+        that.newSimilarity = 0.75;
+        that.newImportance = 0.1;
 
-      socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+        socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
 
-      that.touched = false;
+        that.touched = false;
 
-      that.getReplacements();
+        that.getReplacements();
+      }
     });
 
     that.undo = function()
