@@ -16,13 +16,8 @@ angular.module('tagrefineryGuiApp')
       steps:[
         {
           intro: "<h3>Welcome! </h3><br>" +
-          "If you need help in any of the pages ...",
+          "If you need help in any of the pages start the introduction for the page by clicking <i class='fa fa-film'></i> in the right upper corner of the screen.",
           position: 'top-center'
-        },
-        {
-          element: '#start4',
-          intro: "... start the introduction for the page by clicking onto <i class='fa fa-film'></i> in the right upper corner of the screen.",
-          position: 'left'
         }
       ],
       showStepNumbers: false,

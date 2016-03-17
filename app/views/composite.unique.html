@@ -4,11 +4,11 @@
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
-    <span class="taskTitle">Select how many multiword tags should be considered</span><br>
-    A high group strength means that the words of this group appear mostly in this combination
+    <span class="taskTitle">Select how many multi-word tags should be considered</span><br>
+    A high group strength indicates the the sequence of words appears mostly in this combination and can be a multi-word tag
   </div>
   <div class="alert alert-info" ng-show="ctrl.info">
-    The groups strength is the number of multiword tag occurrences divided by the sum of the single occurrences. <br>
+    The groups strength is the number of multi-word tag occurrences divided by the sum of the single occurrences. <br>
     This brings up unique groups like artist names.
   </div>
 </div>
@@ -21,7 +21,7 @@
 <div class="row taskInner">
   <div id="compU2" class="col-sm-6" style="text-align: left">
     <h4>Threshold: {{ctrl.newThreshold | number:4 }}</h4>
-    <h4>Number of used multiword Tags: {{ ctrl.replacements }}</h4>
+    <h4>Number of accepted multi-word Tags: {{ ctrl.replacements }}</h4>
   </div>
   <div id="compU3" class="col-sm-6" style="text-align: right">
     <button class="btn btn-default" ng-click="ctrl.openDetails()" ng-model="ctrl.showDetails" uib-btn-checkbox
@@ -33,7 +33,7 @@
 
 <!--Task advanced content-->
 <div ng-if="ctrl.showDetails" class="taskInner" >
-  <p style="text-align: left; position: relative;bottom: 2px; margin-bottom: -5px"> <span style="color: #b10000; font-weight: bold">Red</span>: Used multiword Tags </p>
+  <p style="text-align: left; position: relative;bottom: 2px; margin-bottom: -5px"> <span style="color: #b10000; font-weight: bold">Red</span>: Accepted multi-word Tags </p>
   <div id="compUgrid" ui-grid="ctrl.uniqueGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
 </div>
 

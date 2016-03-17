@@ -21,6 +21,7 @@
 
 <div class="row taskInner">
   <div id="spellC2" class="col-sm-6" style="text-align: left">
+    <h4>Suggested default threshold: 0.050</h4>
     <h4>Current threshold: {{ ctrl.newImportance | number:4}}</h4>
     <h4>Number of ground truth words: {{ctrl.countGroundTruth() | number:0 }}</h4>
   </div>
@@ -64,6 +65,7 @@
 
 <div class="row taskInner">
   <div id="spellC5" class="col-sm-6" style="text-align: left">
+    <h4>Suggested default threshold: 0.700</h4>
     <h4>Current threshold: {{ ctrl.newSimilarity | number:4}}</h4>
     <h4>Number of replacements: {{ ctrl.replacements }}</h4>
   </div>

@@ -4,12 +4,12 @@
   <div id="guided4" style="margin-top: 30px">
     <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <span uib-tooltip="As example words which occur only once or twice in the dataset."><strong>extremely rare words</strong></span> to reduce computation time?</span>
     <span ng-show="currentStep == 1" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Each word in the list will be removed from the dataset"><strong>words to remove</strong></span>?</span>
-    <span ng-show="currentStep == 2" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Import your Dictionary with correct words here"><strong>correct words</strong></span>?</span>
+    <span ng-show="currentStep == 2" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Import your Dictionary with correct words here"><strong>tags</strong></span> as ground truth?</span>
     <span ng-show="currentStep == 3" class="guidedQuestion">Do you want to consolidate <span uib-tooltip="Like - favourite, favorite, favourites or favorites"><strong>word forms</strong></span> and reduce <span class="descMarker" uib-tooltip="Misspelled words like - necesary">spelling errors</span>?</span>
     <span ng-show="currentStep == 4" class="guidedQuestion">Do you want to find <span uib-tooltip="A tag might be composed of multiple words like - hard rock"><strong>multiword tags</strong></span> which appear very <span uib-tooltip="Frequent multiword tags are as example genres"><strong>often</strong></span>?</span>
     <span ng-show="currentStep == 5" class="guidedQuestion">Do you want to find <span uib-tooltip="A tag might be composed of multiple words like - hard rock"><strong>multiword tags</strong></span> which are <span uib-tooltip="Unique multiword tags are as example artist or band names"><strong>unique</strong></span>?</span>
     <span ng-show="currentStep == 6" class="guidedQuestion">What we have so far</span>
-    <span ng-show="currentStep == 7" class="guidedQuestion">Do you want to reduce the total amount of <span uib-tooltip="Filter the tags by there tag quality to remove bad tags"><strong>important words</strong></span> used in your final dataset?</span>
+    <span ng-show="currentStep == 7" class="guidedQuestion">Do you want to reduce the size of the final set of tags by keeping only the highest quality tags?</span>
     <span ng-show="currentStep == 8" class="guidedQuestion">Do you want to <span class="descMarker" uib-tooltip="Resolving synonyms, translations, groups and remove non-informative tags">polish</span> your tags manually?</span>
     <span ng-show="currentStep == 9" class="guidedQuestion">Do you want to salvage those <span uib-tooltip="Remove bad words or translate words or resolve synonyms"><strong>polished tags</strong></span> from the unimportant tags?</span>
     <span ng-show="currentStep == 10" class="guidedQuestion">Results</span>
@@ -100,64 +100,64 @@
     <div ng-if="currentStep == 0" class="guidedExplanation">
       <div class="well well-large center" style="width: 600px">
         <h2>Words</h2>
-        <p>We look first at all words separately and polish them. Later, we rebuild all meaningful <span class="descMarker" uib-tooltip="Like: 'Rock n Roll'">multiword tags </span>with the polished words.</p>
-        <p>By default no words will be filtered. The removal of words is necessary if your dataset is big and uses a lot of computation time.</p>
-        <p>You might wanna start with a small dataset to find good parameters - and run the workflow afterwards with all words.</p>
+        <p>We start by separating all tags into single words and assessing the quality of the words. Later, we will reconstruct <span class="descMarker" uib-tooltip="Like: Rock and Roll">multi-word</span> tags.</p>
+        <p>By default, no words will be filtered in this step. Removal of words is strongly recommended if your dataset contains more than 10,000 unique words.</p>
+        <p>One suggestion is to start with a small dataset to find good parameters, and then run the workflow on the complete dataset.</p>
       </div>
     </div>
     <div ng-if="currentStep == 1" class="guidedExplanation">
       <div class="well well-large center" style="width: 600px">
         <h2>Blacklist</h2>
-        <p>By default <span uib-tooltip="Like: and, or, the, ..."><strong>English stopwords </strong></span> and <span class="descMarker" uib-tooltip="Like: a, b, ... , 1, 2, ..."> single characters</span> will be removed. This reduces computation time and might improves the detection of meaningful single word tags.</p>
-        <p>The removal of stopwords reduces the quality of some multiword tags (Rock and Roll) - on the other hand keeping them creates nonsense groups like "of the"</p>
+        <p>The default setting removes English <span class="descMarker" uib-tooltip="Like: a, and, or, ...">stop-words</span>, prepositions, and single characters. This reduces computation time and also helps eliminate awkward but frequent phrases such as “of 10 stars” and “of the” later on in multi-word tag detection.</p>
+        <p>On the other hand, tags such as “Rock and Roll” will suffer from this step. You will have a chance to inspect and fix these in the final step.</p>
       </div>
     </div>
     <div ng-if="currentStep == 2" class="guidedExplanation">
       <div class="well well-large center" style="width: 600px">
         <h2>Dictionary</h2>
-        <p>By default the <span class="descMarker" uib-tooltip="The most important words for second language learners of English.">General Service List </span>will be imported.</p>
-        <p>In small datasets in particular, you might want to import your own list, e.g. genres, to <span uib-tooltip="First the algorithm looks for similar words to the importet dictionary."><strong>improve the quality</strong></span> of the spell correction algorithm.</p>
+        <p>By default a list of the <span class="descMarker" uib-tooltip="The General Service List is used.">most important words </span> for second language learners will be imported.</p>
+        <p>Here, you can import your own domain specific lists to improve the quality of the spell correction algorithm. For instance, a list of genres for music.</p>
+        <p>The lust can contain both single-word and multi-word tags.</p>
       </div>
     </div>
     <div ng-if="currentStep == 3" class="guidedExplanation">
       <div class="well well-large center" style="width: 600px">
         <h2>Spell Correction</h2>
-        <p>The algorithm searches for similar words and replaces the lower quality one by the higher quality one. You can choose which words shouldn't be changed and how <span class="descMarker" uib-tooltip="The algorithm works on character level.">similar</span> words should be.</p>
-        <p>By default, words with a <span uib-tooltip="Is computed from the initial weights"><strong>word quality</strong></span> above <strong>0.7 </strong> will be treated as correct and words with a similarity above <strong> 0.7</strong> will be replaced by the word with the higher quality.</p>
+        <p>This step is performed by replacing low <span class="descMarker" uib-tooltip="Computed from your initial weights">quality</span> words (below a certain threshold) with high quality ones that are similarly spelled. Two words are deemed similar if their similarity is higher than a threshold.</p>
+        <p>Both quality and similarity are between 0 and 1. By default, a word quality of 0.05 and a similarity of 0.7 are chosen as thresholds.</p>
       </div>
     </div>
     <div ng-if="currentStep == 4" class="guidedExplanation">
       <div class="well well-large center" style="width: 600px">
-        <h2>Frequent Multiword Tags - Default</h2>
-        <p>By default a group strength of <strong>0.35 </strong>is used.</p>
-        <p>1 Means this group appeared most often and 0 it appeared never.</p>
+        <h2>Frequent Multiword Tags</h2>
+        <p>Sequences of words that appear frequently are grouped into multi-word tags, such as "hard rock" and "female vocalists".</p>
+        <p>Group frequency is between 0 and 1, with 0 meaning no occurrence and 1 meaning the most frequent group. By default, a value of 0.35 is used.</p>
       </div>
     </div>
     <div ng-if="currentStep == 5" class="guidedExplanation">
       <div class="well well-large center" style="width: 600px">
-        <h2>Unique Multiword Tags - Default</h2>
-        <p>By default a group strength of <strong>0.7 </strong>will be used.</p>
-        <p>1 Means this two words occur very often together an are less separated and 0 means the words are never together and often separated</p>
+        <h2>Unique Multiword Tags</h2>
+        <p>Sequences of words that appear together frequently, but rarely by themselves, are grouped into multi-word tags, such as “Jon Bon Jovi” or “bay area”.</p>
+        <p>Group strength is between 0 and 1, with 0 meaning the words are never together and 1 meaning the words are most often together. By default, a value of 0.35 is used.</p>
       </div>
     </div>
     <div ng-if="currentStep == 7" class="guidedExplanation">
       <div class="well well-large center" style="width: 600px">
         <h2>Final Filtering</h2>
-        <p>Select a set of <strong>important tags</strong>.</p>
-        <p>Only the select tags <span class="descMarker" uib-tooltip="There is a option in the advanced mode to use all tags at the end but only the selected ones for the following salvage step.">remain</span> in the dataset.</p>
+        <p>Narrow your dataset to a final size depending on your intended use for the tags.</p>
       </div>
     </div>
     <div ng-if="currentStep == 8" class="guidedExplanation">
       <div class="well well-large center" style="width: 600px">
         <h2>Tag Polishing</h2>
-        <p>You can change or remove tags from the selected tags. You might want to remove non-informative words or fix synonyms or translations by hand.</p>
+        <p>In this step you can manually inspect your final dataset and fix problems. You can remove undesirable tags, such as subjective or non-informative terms. You can also replace tags them with other tags (such as fixing synonyms, translations, etc.).</p>
       </div>
     </div>
     <div ng-if="currentStep == 9" class="guidedExplanation">
       <div class="well well-large center" style="width: 600px">
         <h2>Salvage</h2>
-        <p>The salvager searches for the important words in the remaining words and increases data coverage.</p>
-        <p>As example: If "rock" is important and "some rock" is not important - the salvager would turn "some rock" into "rock". Without salvaging the tag "some rock" would be thrown away.</p>
+        <p>The salvager goes through all the tags that have been previously removed and looks for informative tags within them. </p>
+        <p>For instance, if “rock” is in your final dataset and “some weird rock” is not, the salvager will turn the latter into “rock”. By performing this step, the amount of information we have on the items in your library (songs, papers, etc.) can increase significantly.</p>
       </div>
     </div>
   </div>

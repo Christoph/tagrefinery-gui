@@ -4,12 +4,12 @@
     <span class="glyphicon glyphicon-info-sign"></span>
   </button>
   <div style="display: inline-block">
-    <span class="taskTitle">Select how many multiword tags should be considered</span><br>
-    A high group strength mean this multiword tag appears many time.
+    <span class="taskTitle">Select how many multi-word tags should be considered</span><br>
+    A high group strength indicates the the sequence of words appears frequently and can be a multi-word tag
   </div>
   <div class="alert alert-info" ng-show="ctrl.info">
     The <b>group strength</b> is the normalized frequency of the tag. <br>
-    1 means this multiword tag appeared most often and 0 means it appeared never.
+    1 means this multi-word tag appeared most often and 0 means it appeared never.
   </div>
 </div>
 
@@ -21,7 +21,7 @@
 <div class="row taskInner">
   <div id="compF2" class="col-sm-6" style="text-align: left">
     <h4>Threshold: {{ctrl.newThreshold | number:4 }}</h4>
-    <h4>Number of used multiword Tags: {{ ctrl.replacements }}</h4>
+    <h4>Number of accepted multi-word Tags: {{ ctrl.replacements }}</h4>
   </div>
   <div id="compF3" class="col-sm-6" style="text-align: right">
     <button class="btn btn-default" ng-click="ctrl.openDetails()" ng-model="ctrl.showDetails" uib-btn-checkbox
@@ -33,7 +33,7 @@
 
 <!--Task advanced content-->
 <div ng-if="ctrl.showDetails" class="taskInner" >
-  <p style="text-align: left; position: relative;bottom: 2px; margin-bottom: -5px"> <span style="color: #b10000; font-weight: bold">Red</span>: Used multiword Tags </p>
+  <p style="text-align: left; position: relative;bottom: 2px; margin-bottom: -5px"> <span style="color: #b10000; font-weight: bold">Red</span>: Accepted multi-word Tags </p>
   <div id="compFgrid" ui-grid="ctrl.frequentGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
   </div>
 

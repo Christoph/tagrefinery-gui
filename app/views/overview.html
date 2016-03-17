@@ -56,7 +56,7 @@
         <td>{{ value }}</td>
       </tr>
       <th>Finalize</th>
-      <tr ng-repeat="(key, value) in ctrl.post">
+      <tr ng-repeat="(key, value) in ctrl.post" ng-show="ctrl.state == 'Finalize'">
         <td>{{ key }}</td>
         <td>{{ value }}</td>
       </tr>
