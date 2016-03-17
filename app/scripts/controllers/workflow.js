@@ -173,6 +173,14 @@ angular.module('tagrefineryGuiApp')
       that.updateProgress();
     };
 
+    that.restart = function()
+    {
+      $scope.showStep = false;
+      $scope.currentStep = 0;
+
+      that.updateProgress();
+    };
+
     that.goToAdvanced = function()
     {
       intros.set("advanced");

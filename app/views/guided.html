@@ -30,6 +30,7 @@
   <div class="btn-group" ng-if="currentStep == 6 || currentStep == 10">
     <button ng-if="currentStep > 0" class="btn btn-back" ng-click="ctrl.back()"><i class="fa fa-chevron-left" style="position: relative; top:-2px"></i></button>
     <button ng-if="currentStep == 10" ng-click="ctrl.restartFinalize()" class="btn primaryColor">Change Selected Tags <span class="fa fa-flask"></span></button>
+    <button id="result8" ng-if="currentStep < 9" ng-click="ctrl.restart()" class="btn primaryColor" style="width: 100px">Restart <span class="fa fa-compass"></span></button>
     <button id="result4" ng-if="currentStep < 9" ng-click="ctrl.goToLinked()" class="btn primaryColor" style="width: 100px">Overview <span class="fa fa-bar-chart"></span></button>
     <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
   </div>
