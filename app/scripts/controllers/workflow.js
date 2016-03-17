@@ -219,10 +219,14 @@ angular.module('tagrefineryGuiApp')
       if($scope.currentStep == 1)
       {
         $scope.$broadcast("dPreB");
+        that.apply();
+        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 2)
       {
         $scope.$broadcast("dSpellT");
+        that.apply();
+        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 3)
       {
@@ -264,10 +268,14 @@ angular.module('tagrefineryGuiApp')
       if($scope.currentStep == 1)
       {
         $scope.$broadcast("noPreB");
+        that.apply();
+        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 2)
       {
         $scope.$broadcast("noSpellT");
+        that.apply();
+        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 3)
       {
