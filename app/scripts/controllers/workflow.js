@@ -163,6 +163,11 @@ angular.module('tagrefineryGuiApp')
       intros.set("guided");
 
       that.updateProgress();
+
+      if($scope.currentStep == 6)
+      {
+        $scope.showStep = true;
+      }
     };
 
     that.restartFinalize = function()

@@ -22,6 +22,8 @@ angular.module('tagrefineryGuiApp')
     that.state = "";
 
     that.dataLoaded = false;
+    that.compRunning = false;
+    that.postRunning = false;
 
     ////////////////////////////////////////////////
     // Socket functions
@@ -42,6 +44,13 @@ angular.module('tagrefineryGuiApp')
       that.state = data;
     });
 
+    socket.on('computeComp', function (data) {
+      that.compRunning = data == "started"
+    });
+
+    socket.on('computePost', function (data) {
+      that.postRunning = data == "started"
+    });
     that.getHistory = function(tag, item)
     {
       socket.emit("getHistory", JSON.stringify([{tag: tag, item: item}]))

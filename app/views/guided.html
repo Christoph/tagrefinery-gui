@@ -24,7 +24,7 @@
   </div>
   <br>
   <div class="btn-group" ng-if="showStep && !(currentStep == 6 || currentStep == 10)">
-    <button ng-click="ctrl.ok()" class="btn primaryColor" style="width: 150px">Apply <span class="glyphicon glyphicon-ok"></span></button>
+    <button ng-click="ctrl.ok()" class="btn primaryColor" style="width: 200px">Apply <span class="glyphicon glyphicon-ok"></span></button>
   </div>
 
   <div class="btn-group" ng-if="currentStep == 6 || currentStep == 10">
@@ -38,120 +38,126 @@
   <button id="result6" ng-if="currentStep == 6" ng-click="ctrl.ok()" class="btn secondaryColor" style="width: 100px">Finalize <span class="fa fa-flask"></span></button>
 
   <hr>
-  <div style="position: relative; height: 100%">
-    <div ng-if="currentStep == 0 && ctrl.initRunning" class="overlayGuided">
-      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-    </div>
-    <div ng-if="currentStep == 3 && ctrl.preRunning" class="overlayGuided">
-      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-    </div>
-    <div ng-if="currentStep == 4 && ctrl.spellRunning" class="overlayGuided">
-      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-    </div
-    <div ng-if="currentStep == 5 && ctrl.spellRunning" class="overlayGuided">
-      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-    </div>
-    <div ng-if="currentStep == 6 && ctrl.compRunning" class="overlayGuided">
-      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-    </div>
-    <div ng-if="currentStep == 10 && ctrl.postRunning" class="overlayGuided">
-      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-    </div>
-  <div uib-collapse="!showStep" style="text-align: left" class="guidedInner">
-    <div ng-show="currentStep == 0">
-      <div class="row" ng-controller="PreprocessingfilterCtrl as ctrl" ng-include="'views/preprocessing.filter.html'"></div>
-    </div>
-    <div ng-show="currentStep == 1">
-      <div class="row" ng-controller="PreprocessingimportCtrl as ctrl" ng-include="'views/preprocessing.import.html'"></div>
-    </div>
-    <div ng-show="currentStep == 2">
-      <div class="row" ng-controller="SpellcheckingimportCtrl as ctrl" ng-include="'views/spellchecking.import.html'"></div>
-    </div>
-    <div ng-show="currentStep == 3">
-      <div class="row" ng-controller="SpellcheckingsetCtrl as ctrl" ng-include="'views/spellchecking.set.html'"></div>
-    </div>
-    <div ng-show="currentStep == 4">
-      <div class="row" ng-controller="CompositefrequentCtrl as ctrl" ng-include="'views/composite.frequent.html'"></div>
-    </div>
-    <div ng-show="currentStep == 5">
-      <div class="row" ng-controller="CompositeuniqueCtrl	 as ctrl" ng-include="'views/composite.unique.html'"></div>
-    </div>
-    <div ng-show="currentStep == 6">
-      <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
-    </div>
-    <div ng-show="currentStep == 7">
-      <div class="row" ng-controller="PostprocessingimportantCtrl as ctrl" ng-include="'views/postprocessing.important.html'"></div>
-    </div>
-    <div ng-show="currentStep == 8 || currentStep == 9">
-      <div class="row" ng-controller="PostprocessingreplaceCtrl as ctrl" ng-include="'views/postprocessing.replace.html'"></div>
-    </div>
-    <div ng-show="currentStep == 10">
-      <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
+  <div>
+    <div uib-collapse="!showStep" style="text-align: left" class="guidedInner">
+      <div style="position: relative">
+        <div ng-if="currentStep == 0 && ctrl.initRunning" class="overlayGuided">
+          <div class="overlayInnerGuided" spin-rect style="width: 80px; height: 80px"></div>
+        </div>
+        <div ng-show="currentStep == 0">
+          <div class="row" ng-controller="PreprocessingfilterCtrl as ctrl" ng-include="'views/preprocessing.filter.html'"></div>
+        </div>
+      </div>
+      <div ng-show="currentStep == 1">
+        <div class="row" ng-controller="PreprocessingimportCtrl as ctrl" ng-include="'views/preprocessing.import.html'"></div>
+      </div>
+      <div ng-show="currentStep == 2">
+        <div class="row" ng-controller="SpellcheckingimportCtrl as ctrl" ng-include="'views/spellchecking.import.html'"></div>
+      </div>
+      <div style="position: relative">
+        <div ng-if="currentStep == 3 && ctrl.preRunning" class="overlayGuided">
+          <div class="overlayInnerGuided" spin-rect style="width: 80px; height: 80px"></div>
+        </div>
+        <div ng-show="currentStep == 3">
+          <div class="row" ng-controller="SpellcheckingsetCtrl as ctrl" ng-include="'views/spellchecking.set.html'"></div>
+        </div>
+      </div>
+      <div style="position: relative">
+        <div ng-if="currentStep == 4 && ctrl.spellRunning" class="overlayGuided">
+          <div class="overlayInnerGuided" spin-rect style="width: 80px; height: 80px"></div>
+        </div>
+        <div ng-show="currentStep == 4">
+          <div class="row" ng-controller="CompositefrequentCtrl as ctrl" ng-include="'views/composite.frequent.html'"></div>
+        </div>
+      </div>
+      <div style="position: relative">
+        <div ng-if="currentStep == 5 && ctrl.spellRunning" class="overlayGuided">
+          <div class="overlayInnerGuided" spin-rect style="width: 80px; height: 80px"></div>
+        </div>
+        <div ng-show="currentStep == 5">
+          <div class="row" ng-controller="CompositeuniqueCtrl	 as ctrl" ng-include="'views/composite.unique.html'"></div>
+        </div>
+      </div>
+      <div style="position: relative">
+        <div ng-show="currentStep == 6">
+          <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
+        </div>
+      </div>
+      <div ng-show="currentStep == 7">
+        <div class="row" ng-controller="PostprocessingimportantCtrl as ctrl" ng-include="'views/postprocessing.important.html'"></div>
+      </div>
+      <div ng-show="currentStep == 8 || currentStep == 9">
+        <div class="row" ng-controller="PostprocessingreplaceCtrl as ctrl" ng-include="'views/postprocessing.replace.html'"></div>
+      </div>
+      <div style="position: relative">
+        <div ng-show="currentStep == 10">
+          <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
+        </div>
+      </div>
     </div>
   </div>
-    <div id="guided2" ng-if="!showStep">
-      <div ng-if="currentStep == 0" class="guidedExplanation">
-        <div class="well well-large center" style="width: 600px">
-          <h2>Words</h2>
-          <p>We look first at all words separately and polish them. Later, we rebuild all meaningful <span class="descMarker" uib-tooltip="Like: 'Rock n Roll'">multiword tags </span>with the polished words.</p>
-          <p>By default no words will be filtered. The removal of words is necessary if your dataset is big and uses a lot of computation time.</p>
-          <p>You might wanna start with a small dataset to find good parameters - and run the workflow afterwards with all words.</p>
-        </div>
+  <div id="guided2" ng-if="!showStep">
+    <div ng-if="currentStep == 0" class="guidedExplanation">
+      <div class="well well-large center" style="width: 600px">
+        <h2>Words</h2>
+        <p>We look first at all words separately and polish them. Later, we rebuild all meaningful <span class="descMarker" uib-tooltip="Like: 'Rock n Roll'">multiword tags </span>with the polished words.</p>
+        <p>By default no words will be filtered. The removal of words is necessary if your dataset is big and uses a lot of computation time.</p>
+        <p>You might wanna start with a small dataset to find good parameters - and run the workflow afterwards with all words.</p>
       </div>
-      <div ng-if="currentStep == 1" class="guidedExplanation">
-        <div class="well well-large center" style="width: 600px">
-          <h2>Blacklist</h2>
-          <p>By default <span uib-tooltip="Like: and, or, the, ..."><strong>English stopwords </strong></span> and <span class="descMarker" uib-tooltip="Like: a, b, ... , 1, 2, ..."> single characters</span> will be removed. This reduces computation time and might improves the detection of meaningful single word tags.</p>
-          <p>The removal of stopwords reduces the quality of some multiword tags (Rock and Roll) - on the other hand keeping them creates nonsense groups like "of the"</p>
-        </div>
+    </div>
+    <div ng-if="currentStep == 1" class="guidedExplanation">
+      <div class="well well-large center" style="width: 600px">
+        <h2>Blacklist</h2>
+        <p>By default <span uib-tooltip="Like: and, or, the, ..."><strong>English stopwords </strong></span> and <span class="descMarker" uib-tooltip="Like: a, b, ... , 1, 2, ..."> single characters</span> will be removed. This reduces computation time and might improves the detection of meaningful single word tags.</p>
+        <p>The removal of stopwords reduces the quality of some multiword tags (Rock and Roll) - on the other hand keeping them creates nonsense groups like "of the"</p>
       </div>
-      <div ng-if="currentStep == 2" class="guidedExplanation">
-        <div class="well well-large center" style="width: 600px">
-          <h2>Dictionary</h2>
-          <p>By default the <span class="descMarker" uib-tooltip="The most important words for second language learners of English.">General Service List </span>will be imported.</p>
-          <p>In small datasets in particular, you might want to import your own list, e.g. genres, to <span uib-tooltip="First the algorithm looks for similar words to the importet dictionary."><strong>improve the quality</strong></span> of the spell correction algorithm.</p>
-        </div>
+    </div>
+    <div ng-if="currentStep == 2" class="guidedExplanation">
+      <div class="well well-large center" style="width: 600px">
+        <h2>Dictionary</h2>
+        <p>By default the <span class="descMarker" uib-tooltip="The most important words for second language learners of English.">General Service List </span>will be imported.</p>
+        <p>In small datasets in particular, you might want to import your own list, e.g. genres, to <span uib-tooltip="First the algorithm looks for similar words to the importet dictionary."><strong>improve the quality</strong></span> of the spell correction algorithm.</p>
       </div>
-      <div ng-if="currentStep == 3" class="guidedExplanation">
-        <div class="well well-large center" style="width: 600px">
-          <h2>Spell Correction</h2>
-          <p>The algorithm searches for similar words and replaces the lower quality one by the higher quality one. You can choose which words shouldn't be changed and how <span class="descMarker" uib-tooltip="The algorithm works on character level.">similar</span> words should be.</p>
-          <p>By default, words with a <span uib-tooltip="Is computed from the initial weights"><strong>word quality</strong></span> above <strong>0.7 </strong> will be treated as correct and words with a similarity above <strong> 0.7</strong> will be replaced by the word with the higher quality.</p>
-        </div>
+    </div>
+    <div ng-if="currentStep == 3" class="guidedExplanation">
+      <div class="well well-large center" style="width: 600px">
+        <h2>Spell Correction</h2>
+        <p>The algorithm searches for similar words and replaces the lower quality one by the higher quality one. You can choose which words shouldn't be changed and how <span class="descMarker" uib-tooltip="The algorithm works on character level.">similar</span> words should be.</p>
+        <p>By default, words with a <span uib-tooltip="Is computed from the initial weights"><strong>word quality</strong></span> above <strong>0.7 </strong> will be treated as correct and words with a similarity above <strong> 0.7</strong> will be replaced by the word with the higher quality.</p>
       </div>
-      <div ng-if="currentStep == 4" class="guidedExplanation">
-        <div class="well well-large center" style="width: 600px">
-          <h2>Frequent Multiword Tags - Default</h2>
-          <p>By default a group strength of <strong>0.35 </strong>is used.</p>
-          <p>1 Means this group appeared most often and 0 it appeared never.</p>
-        </div>
+    </div>
+    <div ng-if="currentStep == 4" class="guidedExplanation">
+      <div class="well well-large center" style="width: 600px">
+        <h2>Frequent Multiword Tags - Default</h2>
+        <p>By default a group strength of <strong>0.35 </strong>is used.</p>
+        <p>1 Means this group appeared most often and 0 it appeared never.</p>
       </div>
-      <div ng-if="currentStep == 5" class="guidedExplanation">
-        <div class="well well-large center" style="width: 600px">
-          <h2>Unique Multiword Tags - Default</h2>
-          <p>By default a group strength of <strong>0.7 </strong>will be used.</p>
-          <p>1 Means this two words occur very often together an are less separated and 0 means the words are never together and often separated</p>
-        </div>
+    </div>
+    <div ng-if="currentStep == 5" class="guidedExplanation">
+      <div class="well well-large center" style="width: 600px">
+        <h2>Unique Multiword Tags - Default</h2>
+        <p>By default a group strength of <strong>0.7 </strong>will be used.</p>
+        <p>1 Means this two words occur very often together an are less separated and 0 means the words are never together and often separated</p>
       </div>
-      <div ng-if="currentStep == 7" class="guidedExplanation">
-        <div class="well well-large center" style="width: 600px">
-          <h2>Final Filtering</h2>
-          <p>Select a set of <strong>important tags</strong>.</p>
-          <p>Only the select tags <span class="descMarker" uib-tooltip="There is a option in the advanced mode to use all tags at the end but only the selected ones for the following salvage step.">remain</span> in the dataset.</p>
-        </div>
+    </div>
+    <div ng-if="currentStep == 7" class="guidedExplanation">
+      <div class="well well-large center" style="width: 600px">
+        <h2>Final Filtering</h2>
+        <p>Select a set of <strong>important tags</strong>.</p>
+        <p>Only the select tags <span class="descMarker" uib-tooltip="There is a option in the advanced mode to use all tags at the end but only the selected ones for the following salvage step.">remain</span> in the dataset.</p>
       </div>
-      <div ng-if="currentStep == 8" class="guidedExplanation">
-        <div class="well well-large center" style="width: 600px">
-          <h2>Tag Polishing</h2>
-          <p>You can change or remove tags from the selected tags. You might want to remove non-informative words or fix synonyms or translations by hand.</p>
-        </div>
+    </div>
+    <div ng-if="currentStep == 8" class="guidedExplanation">
+      <div class="well well-large center" style="width: 600px">
+        <h2>Tag Polishing</h2>
+        <p>You can change or remove tags from the selected tags. You might want to remove non-informative words or fix synonyms or translations by hand.</p>
       </div>
-      <div ng-if="currentStep == 9" class="guidedExplanation">
-        <div class="well well-large center" style="width: 600px">
-          <h2>Salvage</h2>
-          <p>The salvager searches for the important words in the remaining words and increases data coverage.</p>
-          <p>As example: If "rock" is important and "some rock" is not important - the salvager would turn "some rock" into "rock". Without salvaging the tag "some rock" would be thrown away.</p>
-        </div>
+    </div>
+    <div ng-if="currentStep == 9" class="guidedExplanation">
+      <div class="well well-large center" style="width: 600px">
+        <h2>Salvage</h2>
+        <p>The salvager searches for the important words in the remaining words and increases data coverage.</p>
+        <p>As example: If "rock" is important and "some rock" is not important - the salvager would turn "some rock" into "rock". Without salvaging the tag "some rock" would be thrown away.</p>
       </div>
     </div>
   </div>
