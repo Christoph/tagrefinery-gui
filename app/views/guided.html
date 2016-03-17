@@ -18,8 +18,8 @@
   <button ng-if="currentStep > 0 && !(currentStep == 6 || currentStep == 10)" class="btn btn-back" ng-click="ctrl.back()"><i class="fa fa-chevron-left" style="position: relative; top:-2px"></i></button>
 
   <div class="btn-group" ng-if="currentStep != 6 && currentStep != 10">
-    <button id="guided3" ng-click="ctrl.customize()" class="btn primaryColor" style="width: 150px">Yes <span class="fa fa-check"></span></button>
-
+    <button id="guided3" ng-click="ctrl.customize()" class="btn primaryColor" style="width: 150px">Yes <span class="fa fa-gear"></span></button>
+    <button ng-if="currentStep < 6" id="guided0" ng-click="ctrl.default()" class="btn primaryColor" style="width: 150px">Default <span class="fa fa-check"></span></button>
     <button id="guided1" ng-click="ctrl.no()" class="btn secondaryColor" style="width: 150px">No <span class="fa fa-close"></span></button>
   </div>
   <br>
@@ -38,21 +38,21 @@
 
   <hr>
   <div style="position: relative; height: 100%">
-  <div ng-if="currentStep == 0 && ctrl.initRunning" class="overlayGuided">
-    <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-  </div>
-  <div ng-if="currentStep == 3 && ctrl.preRunning" class="overlayGuided">
-    <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-  </div>
-  <div ng-if="currentStep == 4 && ctrl.spellRunning" class="overlayGuided">
-    <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-  </div>
-  <div ng-if="currentStep == 5 && ctrl.spellRunning" class="overlayGuided">
-    <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-  </div>
-  <div ng-if="currentStep == 6 && ctrl.compRunning" class="overlayGuided">
-    <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-  </div>
+    <div ng-if="currentStep == 0 && ctrl.initRunning" class="overlayGuided">
+      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+    </div>
+    <div ng-if="currentStep == 3 && ctrl.preRunning" class="overlayGuided">
+      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+    </div>
+    <div ng-if="currentStep == 4 && ctrl.spellRunning" class="overlayGuided">
+      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+    </div
+    <div ng-if="currentStep == 5 && ctrl.spellRunning" class="overlayGuided">
+      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+    </div>
+    <div ng-if="currentStep == 6 && ctrl.compRunning" class="overlayGuided">
+      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+    </div>
     <div ng-if="currentStep == 10 && ctrl.postRunning" class="overlayGuided">
       <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
     </div>

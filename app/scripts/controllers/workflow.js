@@ -198,6 +198,50 @@ angular.module('tagrefineryGuiApp')
       return ($scope.currentStep / max) * 100;
     };
 
+    that.default = function()
+    {
+      if($scope.currentStep == 0)
+      {
+        $scope.$broadcast("dPreF");
+      }
+      if($scope.currentStep == 1)
+      {
+        $scope.$broadcast("dPreB");
+      }
+      if($scope.currentStep == 2)
+      {
+        $scope.$broadcast("dSpellT");
+      }
+      if($scope.currentStep == 3)
+      {
+        $scope.$broadcast("dSpellR");
+      }
+      if($scope.currentStep == 4)
+      {
+        $scope.$broadcast("dCompF");
+      }
+      if($scope.currentStep == 5)
+      {
+        $scope.$broadcast("dCompU");
+        that.apply();
+      }
+
+      $scope.showStep = false;
+      $scope.currentStep++;
+      intros.set("guided");
+
+      that.updateProgress();
+
+      if($scope.currentStep == 6)
+      {
+        $scope.showStep = true;
+      }
+      if($scope.currentStep == 10)
+      {
+        $scope.showStep = true;
+      }
+
+    };
     that.no = function()
     {
       if($scope.currentStep == 0)
@@ -223,7 +267,7 @@ angular.module('tagrefineryGuiApp')
       if($scope.currentStep == 5)
       {
         $scope.$broadcast("noCompU");
-        socket.emit("computeWorkflow", "");
+        that.apply();
       }
       if($scope.currentStep == 7)
       {

@@ -107,6 +107,17 @@ angular.module('tagrefineryGuiApp')
       that.touched = false;
     });
 
+    $scope.$on("dPreF", function() {
+      that.newOccurrences = 0;
+
+      socket.emit("applyPrefilter", "" + that.newOccurrences);
+      that.occurrences = that.newOccurrences;
+
+      stats.writePre("Minimum Occurrence", that.newOccurrences);
+
+      that.touched = false;
+    });
+
     $scope.$on("undo", function() {
       if(that.touched)
       {

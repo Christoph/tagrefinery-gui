@@ -104,6 +104,14 @@ angular.module('tagrefineryGuiApp')
       that.touched = false;
     });
 
+    $scope.$on("dCompF", function() {
+      that.newThreshold = 0.1;
+
+      socket.emit("applyFrequentThreshold", "" + that.newThreshold);
+
+      that.touched = false;
+    });
+
     $scope.$on("undo", function() {
       if(that.touched)
       {

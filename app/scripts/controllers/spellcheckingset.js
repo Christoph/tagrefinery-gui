@@ -149,6 +149,17 @@ angular.module('tagrefineryGuiApp')
       that.getReplacements();
     });
 
+    $scope.$on("dSpellR", function() {
+      that.newSimilarity = 0.75;
+      that.newImportance = 0.1;
+
+      socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+
+      that.touched = false;
+
+      that.getReplacements();
+    });
+
     that.undo = function()
     {
       that.newSimilarity = that.similarity;

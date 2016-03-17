@@ -103,6 +103,14 @@ angular.module('tagrefineryGuiApp')
       that.touched = false;
     });
 
+    $scope.$on("dCompU", function() {
+      that.newThreshold = 0.9;
+
+      socket.emit("applyUniqueThreshold", "" + that.newThreshold);
+
+      that.touched = false;
+    });
+
     that.applyDebounced = _.debounce(function() {
       socket.emit("applyUniqueThreshold", "" + that.newThreshold);
     }, 1000);
