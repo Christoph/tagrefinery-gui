@@ -10,17 +10,15 @@ angular.module('tagrefineryGuiApp')
   .directive('d3Bar', ["d3", "$timeout", function (d3, $timeout) {
     function svgController() {
       var that = this;
-      var svg, x, bodyG, width, height, xAxis;
+      var svg, x, bodyG, width, height;
 
       that.init = function(element, scope)
       {
-        scope.width = d3.select(element[0]).node().offsetWidth;
-
-        width = scope.width - 10;
+        width = scope.width;
         height = scope.height ;
 
         svg = d3.select(element[0]).append("svg")
-          .attr("width", scope.width)
+          .attr("width", width)
           .attr("height", height);
 
         x = d3.scale.linear()
@@ -30,16 +28,16 @@ angular.module('tagrefineryGuiApp')
         bodyG = svg.append('g')
           .attr("height", height)
           .attr("width", width)
-          .attr('transform', 'translate(5,0)');
+          .attr('transform', 'translate(0,0)');
 
         bodyG.append("rect")
-          .attr("class", "left")
+          .attr("class", "leftCell")
           .attr("y", 0)
           .attr("width", x(scope.value))
           .attr("height", height);
 
         bodyG.append("rect")
-          .attr("class", "right")
+          .attr("class", "rightCell")
           .attr("y", 0)
           .attr("width", function () {
             return width - x(scope.value);
@@ -53,10 +51,11 @@ angular.module('tagrefineryGuiApp')
 
       that.update = function(scope)
       {
-        bodyG.selectAll(".left")
+        console.log(scope.value)
+        bodyG.selectAll(".leftCell")
           .attr("width", x(scope.value));
 
-        bodyG.selectAll(".right")
+        bodyG.selectAll(".rightCell")
           .attr("width", function () {
             return width - x(scope.value);
           })
@@ -64,27 +63,22 @@ angular.module('tagrefineryGuiApp')
             return x(scope.value);
           });
       };
-
-      that.scale = function(value)
-      {
-        return x(value);
-      }
     }
     return {
       restrict: "A",
       controller: svgController,
       scope: {
-        "value": "=",
+        "value": "@",
         "domain": "="
       },
       link: function(scope, element, attrs, ctrl) {
         scope.height = parseInt(attrs.height) || 20;
+        scope.width = parseInt(attrs.width) || 100;
 
         $timeout(function () {
           ctrl.init(element, scope);
 
           // Listeners
-
           // Watch for external threshold changes and re-render
           scope.$watch('value', function (newVals) {
             if (newVals) {

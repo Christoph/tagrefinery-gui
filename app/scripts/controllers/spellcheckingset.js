@@ -307,22 +307,12 @@ angular.module('tagrefineryGuiApp')
           }
           ]
         },
-        {
-          field: 'similarity', minWidth: 100, width: "*",
+        {field: 'similarity', cellTemplate: 'views/cellSimilarity.html', width: 100, enableFiltering: false,
           sort: {
             direction: uiGridConstants.DESC,
             priority: 1
-          },
-          cellFilter: 'number:6', filters: [
-          {
-            condition: uiGridConstants.filter.GREATER_THAN,
-            placeholder: 'greater than'
-          },
-          {
-            condition: uiGridConstants.filter.LESS_THAN,
-            placeholder: 'less than'
           }
-        ]}]
+        }]
     };
 
     ////////////////////////////////////////////////
@@ -343,15 +333,11 @@ angular.module('tagrefineryGuiApp')
       enableFullRowSelection: true,
       onRegisterApi: function (gridApi) {
         that.replGridApi = gridApi;
-
-        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-
-        });
       },
       columnDefs: [
         {field: 'replacement', displayName: "Low Quality Word", minWidth: 100, width: "*"},
         {field: 'truth', displayName: "Replaced by higher quality word", minWidth: 100, width: "*"},
-        {field: 'similarity', cellTemplate: 'views/cellReplacement.html', width: 100, enableFiltering: false,
+        {field: 'similarity', cellTemplate: 'views/cellSimilarity.html', width: 100, enableFiltering: false,
           sort: {
             direction: uiGridConstants.ASC,
             priority: 1
