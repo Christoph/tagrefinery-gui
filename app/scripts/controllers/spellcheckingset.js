@@ -333,6 +333,7 @@ angular.module('tagrefineryGuiApp')
 
     that.replGrid = {
       multiSelect: false,
+      rowHeight: 33,
       enableColumnMenus: false,
       enableFiltering: true,
       showGridFooter: true,
@@ -350,22 +351,12 @@ angular.module('tagrefineryGuiApp')
       columnDefs: [
         {field: 'replacement', displayName: "Low Quality Word", minWidth: 100, width: "*"},
         {field: 'truth', displayName: "Replaced by higher quality word", minWidth: 100, width: "*"},
-        {
-          field: 'similarity', minWidth: 100, width: "*",
+        {field: 'similarity', cellTemplate: 'views/cellReplacement.html', width: 100, enableFiltering: false,
           sort: {
-            direction: uiGridConstants.DESC,
+            direction: uiGridConstants.ASC,
             priority: 1
-          },
-          cellFilter: 'number:6', filters: [
-          {
-            condition: uiGridConstants.filter.GREATER_THAN,
-            placeholder: 'greater than'
-          },
-          {
-            condition: uiGridConstants.filter.LESS_THAN,
-            placeholder: 'less than'
           }
-        ]}]
+        }]
     };
 
     that.openDetails = function()

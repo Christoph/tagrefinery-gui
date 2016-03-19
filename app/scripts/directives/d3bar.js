@@ -15,41 +15,22 @@ angular.module('tagrefineryGuiApp')
       that.init = function(element, scope)
       {
         scope.width = d3.select(element[0]).node().offsetWidth;
-        scope.height = d3.select(element[0]).node().offsetHeight;
 
-        width = scope.width - 20;
-        height = scope.height - 20;
+        width = scope.width - 10;
+        height = scope.height ;
 
         svg = d3.select(element[0]).append("svg")
           .attr("width", scope.width)
-          .attr("height", scope.height);
+          .attr("height", height);
 
         x = d3.scale.linear()
           .domain(scope.domain)
           .range([0, width]);
 
-        xAxis = d3.svg.axis()
-          .scale(x)
-          .ticks(2)
-          .orient("bottom");
-
-        svg.append("g")
-          .attr("class", "x axis")
-          .attr("transform", function () {
-            return "translate(" + 10 + "," + (height) + ")";
-          })
-          .call(xAxis);
-
-        svg.append("text")
-          .attr("class", "x label")
-          .attr("text-anchor", "middle")
-          .attr("x", (width / 2))
-          .attr("y", height);
-
         bodyG = svg.append('g')
           .attr("height", height)
           .attr("width", width)
-          .attr('transform', 'translate(10,0)');
+          .attr('transform', 'translate(5,0)');
 
         bodyG.append("rect")
           .attr("class", "left")
@@ -70,6 +51,20 @@ angular.module('tagrefineryGuiApp')
 
       };
 
+      that.update = function(scope)
+      {
+        bodyG.selectAll(".left")
+          .attr("width", x(scope.value));
+
+        bodyG.selectAll(".right")
+          .attr("width", function () {
+            return width - x(scope.value);
+          })
+          .attr("x", function () {
+            return x(scope.value);
+          });
+      };
+
       that.scale = function(value)
       {
         return x(value);
@@ -83,15 +78,17 @@ angular.module('tagrefineryGuiApp')
         "domain": "="
       },
       link: function(scope, element, attrs, ctrl) {
+        scope.height = parseInt(attrs.height) || 20;
+
         $timeout(function () {
           ctrl.init(element, scope);
 
           // Listeners
-          // Watch for resize event
-          scope.$watch(function () {
-            return angular.element(window)[0].innerWidth;
-          }, function (newVals) {
+
+          // Watch for external threshold changes and re-render
+          scope.$watch('value', function (newVals) {
             if (newVals) {
+              ctrl.update(scope);
             }
           });
         },100)
