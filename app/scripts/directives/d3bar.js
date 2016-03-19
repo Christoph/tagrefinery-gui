@@ -51,7 +51,6 @@ angular.module('tagrefineryGuiApp')
 
       that.update = function(scope)
       {
-        console.log(scope.value)
         bodyG.selectAll(".leftCell")
           .attr("width", x(scope.value));
 

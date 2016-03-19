@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div id="spellC1" ng-if="status.open[1] || (currentStep == 3 && showStep)" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="24" svg-height="300"
+<div class="importance" id="spellC1" ng-if="status.open[1] || (currentStep == 3 && showStep)" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="24" svg-height="300"
      type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getNewImportance(threshold)"></div>
 
 <div class="row taskInner">

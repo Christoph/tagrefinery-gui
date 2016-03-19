@@ -232,22 +232,11 @@ angular.module('tagrefineryGuiApp')
       },
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
-        {
-          field: 'importance', minWidth: 100, width: "*",
+        {field: 'importance',name: 'Word Quality', cellClass: 'current', cellTemplate: 'views/cellImportance.html', width: 100, enableFiltering: false,
           sort: {
             direction: uiGridConstants.DESC,
             priority: 1
-          },
-          cellFilter: 'number:6', filters: [
-          {
-            condition: uiGridConstants.filter.GREATER_THAN,
-            placeholder: 'greater than'
-          },
-          {
-            condition: uiGridConstants.filter.LESS_THAN,
-            placeholder: 'less than'
           }
-        ]
         }
       ]
     };
@@ -294,8 +283,7 @@ angular.module('tagrefineryGuiApp')
       },
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
-        {
-          field: 'importance', minWidth: 100, width: "*",
+        {field: 'importance',name: 'Word Quality', cellTemplate: 'views/cellImportance.html', width: 100, enableFiltering: false,
           cellFilter: 'number:6', filters: [
           {
             condition: uiGridConstants.filter.GREATER_THAN,
@@ -320,6 +308,12 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     // Grid
+    var rowtemplateRepl = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'current\': grid.appScope.isCurrentRepl( row ) }" ui-grid-cell></div>';
+
+    $scope.isCurrentRepl = function(row)
+    {
+      return row.entity.similarity >= that.newSimilarity;
+    };
 
     that.replGrid = {
       multiSelect: false,
@@ -331,8 +325,18 @@ angular.module('tagrefineryGuiApp')
       enableRowHeaderSelection: false,
       enableRowSelection: true,
       enableFullRowSelection: true,
+      rowTemplate:rowtemplateRepl,
       onRegisterApi: function (gridApi) {
         that.replGridApi = gridApi;
+
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+          if (row.entity.similarity > 0) {
+            that.newSimilarity = row.entity.similarity;
+          }
+
+          // Tells the grid to redraw after click
+          gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+        });
       },
       columnDefs: [
         {field: 'replacement', displayName: "Low Quality Word", minWidth: 100, width: "*"},
