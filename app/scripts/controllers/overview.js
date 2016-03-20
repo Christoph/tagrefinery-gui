@@ -17,6 +17,8 @@ angular.module('tagrefineryGuiApp')
     that.spell = [];
     that.comp = [];
     that.post = [];
+    that.vocabCount = [];
+    that.datasetCount = [];
 
     that.history = [];
     that.state = "";
@@ -67,6 +69,8 @@ angular.module('tagrefineryGuiApp')
       that.spell = stats.getSpell();
       that.comp = stats.getComp();
       that.post = stats.getPost();
+      that.vocabCount = stats.getVocab();
+      that.datasetCount = stats.getDataset();
     };
 
     that.exportCSV = function()
