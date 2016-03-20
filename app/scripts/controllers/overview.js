@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('OverviewCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
+  .controller('OverviewCtrl', ["$scope", "socket", "stats", "uiGridConstants", function ($scope, socket, stats, uiGridConstants) {
 
     // Get instance of the class
     var that = this;
@@ -51,6 +51,11 @@ angular.module('tagrefineryGuiApp')
     socket.on('computePost', function (data) {
       that.postRunning = data == "started"
     });
+
+    socket.on('resultVocab', function (data) {
+      that.vocab.data = JSON.parse(data);
+    });
+
     that.getHistory = function(tag, item)
     {
       socket.emit("getHistory", JSON.stringify([{tag: tag, item: item}]))
@@ -108,7 +113,36 @@ angular.module('tagrefineryGuiApp')
         {field: 'tag', minWidth: 100, width: "*"},
         {field: 'item', displayName: "Item", minWidth: 100, width: "*"},
         {field: 'weight', displayName: "Weight", minWidth: 50, width: 100},
-        {field: 'changed', displayName: "Tag has Changed", minWidth: 50, width: "*", visible: false}
+        {field: 'changed', displayName: "Tag has Changed", minWidth: 50, width: "*", visible: false,
+          sort: {
+            direction: uiGridConstants.DESC,
+            priority: 1
+          }
+        }
+      ]
+    };
+
+    that.vocab = {
+      enableFiltering: true,
+      enableColumnMenus: false,
+      enableGridMenu: true,
+      showGridFooter: true,
+      fastWatch: true,
+      multiSelect: false,
+      enableRowHeaderSelection: false,
+      enableRowSelection: true,
+      onRegisterApi: function (gridApi) {
+        that.vocabGridApi = gridApi;
+      },
+      columnDefs: [
+        {field: 'tag', minWidth: 100, width: "*"},
+        {
+          field: 'importance', minWidth: 100, width: "*", cellFilter: 'number:4',
+          sort: {
+            direction: uiGridConstants.DESC,
+            priority: 1
+          }
+        }
       ]
     };
 

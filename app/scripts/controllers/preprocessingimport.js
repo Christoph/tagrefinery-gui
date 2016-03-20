@@ -43,7 +43,7 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("noPreB", function() {
-      if(!that.dataP.length == 0)
+      if(!$scope.dataP.length == 0)
       {
         that.clear();
 
@@ -56,7 +56,7 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("dPreB", function() {
-      if(!that.dataP.length == 0)
+      if(!$scope.dataP.length == 0)
       {
         that.clear();
 

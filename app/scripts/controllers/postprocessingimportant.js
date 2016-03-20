@@ -120,10 +120,10 @@ angular.module('tagrefineryGuiApp')
     // Grid
 
     that.grid = {
-      enableFiltering: false,
+      enableFiltering: true,
       enableColumnMenus: false,
       enableGridMenu: true,
-      showGridooter: false,
+      showGridFooter: true,
       fastWatch: true,
       multiSelect: false,
       enableRowHeaderSelection: false,

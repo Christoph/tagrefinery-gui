@@ -43,7 +43,7 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("noSpellT", function() {
-      if(!that.dataS.length == 0)
+      if(!$scope.dataS.length == 0)
       {
         that.clear();
 
@@ -56,7 +56,7 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("dSpellT", function() {
-      if(!that.dataS.length == 0) {
+      if(!$scope.dataS.length == 0) {
         that.clear();
 
         _.map(that.default.split(","), function (d) {

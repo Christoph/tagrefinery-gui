@@ -203,6 +203,7 @@ angular.module('tagrefineryGuiApp')
     {
       // Let the child apply changes
       $scope.$broadcast("apply");
+      socket.emit("computeWorkflow", "");
     };
 
     that.getPercent = function(max)
@@ -220,13 +221,11 @@ angular.module('tagrefineryGuiApp')
       {
         $scope.$broadcast("dPreB");
         that.apply();
-        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 2)
       {
         $scope.$broadcast("dSpellT");
         that.apply();
-        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 3)
       {
@@ -240,7 +239,6 @@ angular.module('tagrefineryGuiApp')
       {
         $scope.$broadcast("dCompU");
         that.apply();
-        socket.emit("computeWorkflow", "");
       }
 
       $scope.showStep = false;
@@ -269,13 +267,11 @@ angular.module('tagrefineryGuiApp')
       {
         $scope.$broadcast("noPreB");
         that.apply();
-        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 2)
       {
         $scope.$broadcast("noSpellT");
         that.apply();
-        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 3)
       {
@@ -289,7 +285,6 @@ angular.module('tagrefineryGuiApp')
       {
         $scope.$broadcast("noCompU");
         that.apply();
-        socket.emit("computeWorkflow", "");
       }
       if($scope.currentStep == 7)
       {

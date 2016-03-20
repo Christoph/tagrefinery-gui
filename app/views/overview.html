@@ -1,15 +1,28 @@
 <div class="row">
   <div class="col-sm-8" style="text-align: center">
     <div class="row taskInner">
-      <h4> Final Dataset </h4>
-      <button class="btn btn-default pull-right" ng-click="ctrl.exportCSV()">Export <i class="fa fa-download"></i></button>
-      <p style="text-align: left; position: relative;bottom: -15px; margin-bottom: 0"> <span style="color: #b10000; font-weight: bold">Red</span>: Changed Tags </p>
-    </div>
-    <div id="result1" style="text-align: left" ui-grid="ctrl.grid" ui-grid-auto-resize ui-grid-selection ui-grid-resize-columns ui-grid-exporter
-         class="taskInner">
-      <div ng-if="ctrl.compRunning || ctrl.postRunning" class="overlay">
-        <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
-      </div>
+      <uib-tabset active="activeJustified" justified="true">
+        <uib-tab index="0" heading="Dataset">
+          <div class="row taskInner">
+            <button class="btn btn-default pull-right" ng-click="ctrl.exportCSV()">Export <i class="fa fa-download"></i></button>
+            <p style="text-align: left; position: relative;bottom: -15px; margin-bottom: 0"> <span style="color: #b10000; font-weight: bold">Red</span>: Changed Tags </p>
+          </div>
+          <div id="result1" style="text-align: left" ui-grid="ctrl.grid" ui-grid-auto-resize ui-grid-selection ui-grid-resize-columns ui-grid-exporter>
+            <div ng-if="ctrl.compRunning || ctrl.postRunning" class="overlay">
+              <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+            </div>
+          </div>
+        </uib-tab>
+        <uib-tab index="1" heading="Vocabulary">
+          <div style="text-align: left" ui-grid="ctrl.vocab" ui-grid-auto-resize ui-grid-selection ui-grid-resize-columns ui-grid-exporter>
+            <div ng-if="ctrl.compRunning || ctrl.postRunning" class="overlay">
+              <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+            </div>
+          </div>
+        </uib-tab>
+        <uib-tab index="2" heading="Item View">
+        </uib-tab>
+      </uib-tabset>
     </div>
     <h4>History</h4>
 
