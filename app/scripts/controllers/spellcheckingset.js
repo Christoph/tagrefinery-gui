@@ -39,6 +39,7 @@ angular.module('tagrefineryGuiApp')
       });
 
       stats.writeSpell("Number of Replacements", that.getReplacementCount());
+      stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
     };
 
     that.slider = function (value) {
@@ -61,7 +62,7 @@ angular.module('tagrefineryGuiApp')
         that.zero = true;
       }
 
-      that.getReplacementCount();
+      stats.writeSpell("Number of Replacements", that.getReplacementCount());
     };
 
     // This function needs decreasing sorted data from the server
@@ -100,6 +101,7 @@ angular.module('tagrefineryGuiApp')
       that.replGrid.data = JSON.parse(data);
 
       stats.writeSpell("Number of Replacements", that.getReplacementCount());
+      stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
     });
 
     that.getReplacements = function(sim)
@@ -122,6 +124,7 @@ angular.module('tagrefineryGuiApp')
         that.touched = false;
 
         stats.writeSpell("Number of Replacements", that.getReplacementCount());
+        stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
       }
     });
 
@@ -155,7 +158,9 @@ angular.module('tagrefineryGuiApp')
         that.newImportance = 0.80;
 
         socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+
         stats.writeSpell("Number of Replacements", that.getReplacementCount());
+        stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
 
         that.touched = false;
       }
@@ -169,6 +174,7 @@ angular.module('tagrefineryGuiApp')
       that.touched = false;
 
       stats.writeSpell("Number of Replacements", that.getReplacementCount());
+      stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
     };
 
     ////////////////////////////////////////////////
