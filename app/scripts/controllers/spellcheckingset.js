@@ -25,6 +25,9 @@ angular.module('tagrefineryGuiApp')
     that.replacements = 0;
     that.showReplacements = false;
 
+    that.twentyfive = false;
+    that.zero = false;
+
     ////////////////////////////////////////////////
     // D3 functions
     ////////////////////////////////////////////////
@@ -35,7 +38,7 @@ angular.module('tagrefineryGuiApp')
         that.touched = true;
       });
 
-      that.getReplacementCount();
+      stats.writeSpell("Number of Replacements", that.getReplacementCount());
     };
 
     that.slider = function (value) {
@@ -46,14 +49,16 @@ angular.module('tagrefineryGuiApp')
 
       that.scrollToR(that.getAboveRow(that.replGrid.data, that.newSimilarity),0);
 
-      if(that.newSimilarity < 0.5)
+      if(that.newSimilarity < 0.5 && !that.twentyfive)
       {
-        that.getReplacements(0.25)
+        that.getReplacements(0.25);
+        that.twentyfive = true;
       }
 
-      if(that.newSimilarity < 0.25)
+      if(that.newSimilarity < 0.25 && !that.zero)
       {
-        that.getReplacements(0)
+        that.getReplacements(0);
+        that.zero = true;
       }
 
       that.getReplacementCount();
@@ -94,7 +99,7 @@ angular.module('tagrefineryGuiApp')
     socket.on('replacementData', function (data) {
       that.replGrid.data = JSON.parse(data);
 
-      that.getReplacementCount();
+      stats.writeSpell("Number of Replacements", that.getReplacementCount());
     });
 
     that.getReplacements = function(sim)
@@ -116,7 +121,7 @@ angular.module('tagrefineryGuiApp')
 
         that.touched = false;
 
-        that.getReplacementCount();
+        stats.writeSpell("Number of Replacements", that.getReplacementCount());
       }
     });
 
@@ -150,10 +155,9 @@ angular.module('tagrefineryGuiApp')
         that.newImportance = 0.80;
 
         socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+        stats.writeSpell("Number of Replacements", that.getReplacementCount());
 
         that.touched = false;
-
-        that.getReplacementCount();
       }
     });
 
@@ -164,7 +168,7 @@ angular.module('tagrefineryGuiApp')
 
       that.touched = false;
 
-      that.getReplacementCount();
+      stats.writeSpell("Number of Replacements", that.getReplacementCount());
     };
 
     ////////////////////////////////////////////////
