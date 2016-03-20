@@ -37,8 +37,7 @@ angular.module('tagrefineryGuiApp')
           })
         }
 
-        that.filteredWords = that.newCount();
-        stats.writePre("Number of Remaining Words", that.filteredWords);
+        stats.writePre("Number of Remaining Words", that.newCount());
 
         that.touched = true;
       });
@@ -69,8 +68,7 @@ angular.module('tagrefineryGuiApp')
     socket.on('preFilterData', function (data) {
       that.data = JSON.parse(data);
 
-      that.filteredWords = that.newCount();
-      stats.writePre("Number of Filtered Words", that.filteredWords);
+      stats.writePre("Number of Remaining Words", that.newCount());
     });
 
     socket.on('preFilterGrid', function (data) {
@@ -162,7 +160,7 @@ angular.module('tagrefineryGuiApp')
       enableFiltering: true,
       enableColumnMenus: false,
       enableGridMenu: true,
-      showGridooter: false,
+      showGridFooter: false,
       fastWatch: true,
       multiSelect: false,
       enableRowHeaderSelection: false,

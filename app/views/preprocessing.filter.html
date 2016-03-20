@@ -32,7 +32,7 @@
   Threshold:
   <input type="number" min="0" ng-model="ctrl.newOccurrences" style="width: 50px">
 </label> Occurrences</h4>
-    <h4>Number of remaining words: {{ ctrl.filteredWords }}</h4>
+    <h4>Number of remaining words: {{ ctrl.newCount() }}</h4>
   </div>
   <div id="preF3" class="col-sm-6" style="text-align: right">
     <button class="btn btn-default" ng-model="ctrl.showDetails" ng-click="ctrl.openGrid()" uib-btn-checkbox
