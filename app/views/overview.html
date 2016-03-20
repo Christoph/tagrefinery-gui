@@ -61,32 +61,32 @@
       <th>Vocab</th>
       <tr ng-repeat="(key, value) in ctrl.vocabCount">
         <td>{{ key }}</td>
-        <td>{{ value }}</td>
+        <td style="font-weight: bold">{{ value }}</td>
       </tr>
       <th>Dataset</th>
       <tr ng-repeat="(key, value) in ctrl.datasetCount">
         <td>{{ key }}</td>
-        <td>{{ value }}</td>
+        <td style="font-weight: bold">{{ value }}</td>
       </tr>
       <th>Preprocessing</th>
       <tr ng-repeat="(key, value) in ctrl.pre">
         <td>{{ key }}</td>
-        <td>{{ value }}</td>
+        <td style="font-weight: bold">{{ value }}</td>
       </tr>
       <th>Spell-correct</th>
       <tr ng-repeat="(key, value) in ctrl.spell">
         <td>{{ key }}</td>
-        <td>{{ value }}</td>
+        <td style="font-weight: bold">{{ value }}</td>
       </tr>
       <th>Multiword Tags</th>
       <tr ng-repeat="(key, value) in ctrl.comp">
         <td>{{ key }}</td>
-        <td>{{ value }}</td>
+        <td style="font-weight: bold">{{ value }}</td>
       </tr>
       <th>Finalize</th>
       <tr ng-repeat="(key, value) in ctrl.post" ng-show="ctrl.state == 'Finalize'">
         <td>{{ key }}</td>
-        <td>{{ value }}</td>
+        <td style="font-weight: bold">{{ value }}</td>
       </tr>
       </tbody>
     </table>
