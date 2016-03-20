@@ -43,7 +43,7 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("noPreB", function() {
-      if(!$scope.dataP.length == 0)
+      if($scope.dataP.length != 0)
       {
         that.clear();
 
@@ -56,20 +56,17 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("dPreB", function() {
-      if(!$scope.dataP.length == 0)
-      {
-        that.clear();
+      that.clear();
 
-        _.map(that.default.split(","), function (d) {
-          $scope.dataP.push({word: d});
-        });
+      _.map(that.default.split(","), function (d) {
+        $scope.dataP.push({word: d});
+      });
 
-        socket.emit("applyPreImportedData", JSON.stringify($scope.dataP));
+      socket.emit("applyPreImportedData", JSON.stringify($scope.dataP));
 
-        stats.writePre("Number of blacklisted Words", $scope.dataP.length);
+      stats.writePre("Number of blacklisted Words", $scope.dataP.length);
 
-        that.touched = false;
-      }
+      that.touched = false;
     });
 
     that.clear = function()
