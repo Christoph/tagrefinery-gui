@@ -38,23 +38,28 @@
     <div id="spellC4" class="similarity" d3-slider ng-if="status.open[1] || (currentStep == 3 && showStep)" name="similarity" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
   </div>
 </div>
-<div class="taskInner">
-  <h4 style="text-align: center">Replacements</h4>
-  <div ng-if="status.open[1] || (currentStep == 3 && showStep)" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div>
+<div class="taskInner row">
+  <div class="col-sm-2">
+    <div id="spellC2" class="col-sm-6" style="text-align: justify">
+      <p>Suggested default threshold: <strong>0.800</strong></p>
+      <p>Current threshold: <strong>{{ ctrl.newImportance | number:4}}</strong></p>
+      <p>Number of ground truth words: <strong>{{ctrl.countGroundTruth() | number:0 }}</strong></p>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div ng-if="status.open[1] || (currentStep == 3 && showStep)" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid" style="height: 600px"></div>
+  </div>
+  <div class="col-sm-2">
+    <div id="spellC3" class="col-sm-6" style="text-align: justify">
+      <p>Suggested default threshold: <strong>0.750</strong></p>
+      <p>Current threshold: <strong>{{ ctrl.newSimilarity | number:4}}</strong></p>
+      <p>Number of replacements: <strong>{{ ctrl.getReplacementCount() }}</strong></p>
+    </div>
+  </div>
 </div>
 
 
 <div class="row taskInner">
-  <div id="spellC2" class="col-sm-6" style="text-align: left">
-    <h4>Suggested default threshold: 0.050</h4>
-    <h4>Current threshold: {{ ctrl.newImportance | number:4}}</h4>
-    <h4>Number of ground truth words: {{ctrl.countGroundTruth() | number:0 }}</h4>
-  </div>
-  <div id="spellC3" class="col-sm-6" style="text-align: right">
-    <h4>Suggested default threshold: 0.700</h4>
-    <h4>Current threshold: {{ ctrl.newSimilarity | number:4}}</h4>
-    <h4>Number of replacements: {{ ctrl.getReplacementCount() }}</h4>
-  </div>
 </div>
 
 <hr>
