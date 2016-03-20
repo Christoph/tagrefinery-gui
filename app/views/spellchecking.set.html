@@ -39,18 +39,18 @@
   </div>
 </div>
 <div class="taskInner row">
-  <div class="col-sm-2">
-    <div id="spellC2" class="col-sm-6" style="text-align: justify">
+  <div class="col-sm-1" style="text-align: right">
+    <div id="spellC2">
       <p>Suggested default threshold: <strong>0.800</strong></p>
       <p>Current threshold: <strong>{{ ctrl.newImportance | number:4}}</strong></p>
       <p>Number of ground truth words: <strong>{{ctrl.countGroundTruth() | number:0 }}</strong></p>
     </div>
   </div>
-  <div class="col-sm-8">
+  <div class="col-sm-10">
     <div ng-if="status.open[1] || (currentStep == 3 && showStep)" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid" style="height: 600px"></div>
   </div>
-  <div class="col-sm-2">
-    <div id="spellC3" class="col-sm-6" style="text-align: justify">
+  <div class="col-sm-1">
+    <div id="spellC3" style="text-align: justify">
       <p>Suggested default threshold: <strong>0.750</strong></p>
       <p>Current threshold: <strong>{{ ctrl.newSimilarity | number:4}}</strong></p>
       <p>Number of replacements: <strong>{{ ctrl.getReplacementCount() }}</strong></p>

@@ -224,14 +224,14 @@ angular.module('tagrefineryGuiApp')
       },
       columnDefs: [
         {field: 'replacement', displayName: "Replaced Word", minWidth: 100, width: "*", cellClass: "textRight"},
-        {field: 'importanceReplacement',name: 'Lower Word Quality', cellTemplate: 'views/cellImportanceReplacement.html', width: 150, enableFiltering: false},
-        {field: 'similarity', cellTemplate: 'views/cellSimilarity.html', width: 110, enableFiltering: false,
+        {field: 'importanceReplacement',name: 'Lower Word Quality', cellTemplate: 'views/cellImportanceReplacement.html', width: 120, enableFiltering: false},
+        {field: 'similarity', cellTemplate: 'views/cellSimilarity.html', width: 120, enableFiltering: false,
           sort: {
             direction: uiGridConstants.DESC,
             priority: 1
           }
         },
-        {field: 'importanceTag',name: 'Higher Word Quality', cellTemplate: 'views/cellImportanceTag.html', width: 150, enableFiltering: false},
+        {field: 'importanceTag',name: 'Higher Word Quality', cellTemplate: 'views/cellImportanceTag.html', width: 120, enableFiltering: false},
         {field: 'tag', displayName: "Higher Quality Word", minWidth: 100, width: "*"}
       ]
     };

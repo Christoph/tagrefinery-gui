@@ -14,6 +14,8 @@ angular.module('tagrefineryGuiApp')
 
       that.init = function(element, scope)
       {
+        scope.width = d3.select(element[0]).node().offsetWidth;
+
         width = scope.width;
         height = scope.height ;
 
