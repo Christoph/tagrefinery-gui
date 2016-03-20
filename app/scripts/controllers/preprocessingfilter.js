@@ -48,8 +48,8 @@ angular.module('tagrefineryGuiApp')
       var index = data.length;
 
       for (var i = 0; i < data.length; i++) {
-        if (data[i].importance < occurrences) {
-          if ((occurrences - data[i].importance) <= (data[i - 1].importance - occurrences)) {
+        if (data[i].occurrence < occurrences) {
+          if ((occurrences - data[i].occurrence) <= (data[i - 1].occurrence - occurrences)) {
             return i;
           }
           else {
@@ -148,11 +148,11 @@ angular.module('tagrefineryGuiApp')
     };
 
     // Grid
-    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'current\': grid.appScope.isCurrent( row ) }" ui-grid-cell></div>';
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'removed\': grid.appScope.isRemoved( row ) }" ui-grid-cell></div>';
 
-    $scope.isCurrent = function(row)
+    $scope.isRemoved = function(row)
     {
-      return row.entity.importance <= that.newOccurrences;
+      return row.entity.occurrence <= that.newOccurrences;
     };
 
     that.grid = {
@@ -170,13 +170,16 @@ angular.module('tagrefineryGuiApp')
 
         // Set frequent occurrences
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          that.newOccurrences = row.entity.importance;
+          that.newOccurrences = row.entity.occurrence;
+
+          // Tells the grid to redraw after click
+          gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
         });
       },
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
         {
-          field: 'importance', displayName: "Occurrences", minWidth: 100, width: "*",
+          field: 'occurrence', displayName: "Occurrences", minWidth: 100, width: "*",
           sort: {
             direction: uiGridConstants.ASC,
             priority: 1
