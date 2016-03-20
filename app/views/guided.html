@@ -18,8 +18,9 @@
   <button ng-if="currentStep > 0 && !(currentStep == 6 || currentStep == 10)" class="btn btn-back" ng-click="ctrl.back()"><i class="fa fa-chevron-left" style="position: relative; top:-2px"></i></button>
 
   <div class="btn-group" ng-if="currentStep != 6 && currentStep != 10">
-    <button id="guided3" ng-click="ctrl.customize()" class="btn primaryColor" style="width: 150px">Yes <span class="fa fa-gear"></span></button>
-    <button ng-if="currentStep < 6" id="guided0" ng-click="ctrl.default()" class="btn primaryColor" style="width: 150px">Default <span class="fa fa-check"></span></button>
+    <button ng-if="!showStep" id="guided3" ng-click="ctrl.customize()" class="btn primaryColor" style="width: 150px">Yes <span class="fa fa-gear"></span></button>
+    <button ng-if="showStep" ng-click="ctrl.customize()" class="btn primaryColor" style="width: 150px">Close <span class="fa fa-minus"></span></button>
+    <button ng-if="currentStep < 6" id="guided0" ng-click="ctrl.default()" class="btn primaryColor" style="width: 150px">Default <span class="fa fa-play"></span></button>
     <button id="guided1" ng-click="ctrl.no()" class="btn secondaryColor" style="width: 150px">No <span class="fa fa-close"></span></button>
   </div>
   <br>
@@ -30,7 +31,7 @@
   <div class="btn-group" ng-if="currentStep == 6 || currentStep == 10">
     <button ng-if="currentStep > 0" class="btn btn-back" ng-click="ctrl.back()"><i class="fa fa-chevron-left" style="position: relative; top:-2px"></i></button>
     <button ng-if="currentStep == 10" ng-click="ctrl.restartFinalize()" class="btn primaryColor">Change Selected Tags <span class="fa fa-flask"></span></button>
-    <button id="result8" ng-if="currentStep < 9" ng-click="ctrl.restart()" class="btn primaryColor" style="width: 100px">Restart <span class="fa fa-compass"></span></button>
+    <button id="result8" ng-if="currentStep < 9" ng-click="ctrl.restart()" class="btn primaryColor" style="width: 100px">Refine <span class="fa fa-compass"></span></button>
     <button id="result4" ng-if="currentStep < 9" ng-click="ctrl.goToLinked()" class="btn primaryColor" style="width: 100px">Overview <span class="fa fa-bar-chart"></span></button>
     <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
   </div>
