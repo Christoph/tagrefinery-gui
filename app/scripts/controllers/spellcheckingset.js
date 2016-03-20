@@ -48,7 +48,7 @@ angular.module('tagrefineryGuiApp')
         that.touched = true;
       });
 
-      that.scrollToR(that.getAboveRow(that.replGrid.data, that.newSimilarity),0);
+      //that.scrollToR(that.getAboveRow(that.replGrid.data, that.newSimilarity),0);
 
       if(that.newSimilarity < 0.5 && !that.twentyfive)
       {

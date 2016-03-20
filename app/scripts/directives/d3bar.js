@@ -47,6 +47,14 @@ angular.module('tagrefineryGuiApp')
           })
           .attr("height", height);
 
+        bodyG.append("line")
+          .attr("stroke", "white")
+          .attr("stroke-width", 2)
+          .attr("class", "innerMarker")
+          .attr("x1", x(scope.marker))
+          .attr("x2", x(scope.marker))
+          .attr("y1", 0)
+          .attr("y2", height);
       };
 
       that.update = function(scope)
@@ -61,6 +69,11 @@ angular.module('tagrefineryGuiApp')
           .attr("x", function () {
             return x(scope.value);
           });
+
+        bodyG.selectAll(".innerMarker")
+          .attr("x1", x(scope.marker))
+          .attr("x2", x(scope.marker))
+
       };
     }
     return {
@@ -68,7 +81,8 @@ angular.module('tagrefineryGuiApp')
       controller: svgController,
       scope: {
         "value": "@",
-        "domain": "="
+        "domain": "=",
+        "marker": "@"
       },
       link: function(scope, element, attrs, ctrl) {
         scope.height = parseInt(attrs.height) || 20;
@@ -80,6 +94,12 @@ angular.module('tagrefineryGuiApp')
           // Listeners
           // Watch for external threshold changes and re-render
           scope.$watch('value', function (newVals) {
+            if (newVals) {
+              ctrl.update(scope);
+            }
+          });
+
+          scope.$watch('marker', function (newVals) {
             if (newVals) {
               ctrl.update(scope);
             }
