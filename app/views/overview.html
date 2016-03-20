@@ -12,41 +12,46 @@
               <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
             </div>
           </div>
+          <h4>History</h4>
+
+          <div id="result2">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Raw Tag</th>
+                <th>Preprocess</th>
+                <th>Spellcorrect</th>
+                <th>Multiword</th>
+                <th>Postprocess</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="x in ctrl.history">
+                <td>{{ x.original }}</td>
+                <td>{{ x.pre }}</td>
+                <td>{{ x.spell }}</td>
+                <td>{{ x.composite }}</td>
+                <td>{{ x.post }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </uib-tab>
         <uib-tab index="1" heading="Vocabulary">
-          <div style="text-align: left" ui-grid="ctrl.vocab" ui-grid-auto-resize ui-grid-selection ui-grid-resize-columns ui-grid-exporter>
+          <div style="text-align: left" ui-grid="ctrl.vocab" ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter>
             <div ng-if="ctrl.compRunning || ctrl.postRunning" class="overlay">
               <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
             </div>
           </div>
         </uib-tab>
         <uib-tab index="2" heading="Item View">
+          <div style="text-align: left" ui-grid="ctrl.group" ui-grid-grouping ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter>
+            <div ng-if="ctrl.compRunning || ctrl.postRunning" class="overlay">
+              <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+            </div>
+          </div>
         </uib-tab>
       </uib-tabset>
-    </div>
-    <h4>History</h4>
-
-    <div id="result2" class="taskInner">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Raw Tag</th>
-        <th>Preprocess</th>
-        <th>Spellcorrect</th>
-        <th>Multiword</th>
-        <th>Postprocess</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr ng-repeat="x in ctrl.history">
-        <td>{{ x.original }}</td>
-        <td>{{ x.pre }}</td>
-        <td>{{ x.spell }}</td>
-        <td>{{ x.composite }}</td>
-        <td>{{ x.post }}</td>
-      </tr>
-      </tbody>
-    </table>
     </div>
   </div>
   <div id="result3" class="col-sm-4">

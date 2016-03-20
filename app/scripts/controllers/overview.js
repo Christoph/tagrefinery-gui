@@ -36,6 +36,7 @@ angular.module('tagrefineryGuiApp')
 
       that.loadStats();
       that.grid.data = JSON.parse(data);
+      that.group.data = JSON.parse(data);
     });
 
     socket.on('history', function (data) {
@@ -147,6 +148,21 @@ angular.module('tagrefineryGuiApp')
             priority: 1
           }
         }
+      ]
+    };
+
+    that.group = {
+      enableFiltering: true,
+      enableColumnMenus: false,
+      enableGridMenu: true,
+      showGridFooter: true,
+      onRegisterApi: function (gridApi) {
+        that.vocabGridApi = gridApi;
+      },
+      columnDefs: [
+        {field: 'tag', minWidth: 100, width: "*"},
+        {field: 'item', displayName: "Item", minWidth: 100, width: "*", grouping: {groupPriority: 0}},
+        {field: 'weight', displayName: "Weight", minWidth: 50, width: 100}
       ]
     };
 
