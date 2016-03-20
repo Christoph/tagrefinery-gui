@@ -1,23 +1,48 @@
-<div class="taskInner">
-  <button class="btn btn-link infoButton" ng-model="ctrl.infoI" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-    <span class="glyphicon glyphicon-info-sign"></span>
-  </button>
-  <div style="display: inline-block">
-    <span class="taskTitle">Define ground truth</span><br>
-    Choose a threshold on word quality to distinguish a group of tags as ground-truth
+<div class="row taskInner">
+  <div class="col-sm-6">
+    <button class="btn btn-link infoButton" ng-model="ctrl.infoI" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+      <span class="glyphicon glyphicon-info-sign"></span>
+    </button>
+    <div style="display: inline-block">
+      <span class="taskTitle">Define ground truth</span><br>
+      Choose a threshold on word quality to distinguish a group of tags as ground-truth
+    </div>
+    <div class="alert alert-info" ng-show="ctrl.infoI">
+      Each word has a word quality which is computed from your tag weight. <br>
+      1 means most important and 0 not important at all. <br><br>
+      Everything above the selected threshold will be treated as correct and will not be touched. <br><br>
+      In the <b>Inspect Words</b> dialog shows the left grid the whole vocabulary and after clicking on <br>
+      on word - the right one shows all possible replacements. The green words are above the selected <br>
+      tag quality and the blue words will be replaced at the current similarity value.
+    </div>
   </div>
-  <div class="alert alert-info" ng-show="ctrl.infoI">
-    Each word has a word quality which is computed from your tag weight. <br>
-    1 means most important and 0 not important at all. <br><br>
-    Everything above the selected threshold will be treated as correct and will not be touched. <br><br>
-    In the <b>Inspect Words</b> dialog shows the left grid the whole vocabulary and after clicking on <br>
-    on word - the right one shows all possible replacements. The green words are above the selected <br>
-    tag quality and the blue words will be replaced at the current similarity value.
+  <div class="col-sm-6" style="text-align: right">
+    <div style="display: inline-block">
+      <span class=taskTitle>Modify degree of similarity</span><br>
+      Choose a value for spelling similarity, above which two tags will be considered the same.
+    </div>
+    <button class="btn btn-link infoButton" ng-model="ctrl.infoS" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+      <span class="glyphicon glyphicon-info-sign"></span>
+    </button>
+    <div class="alert alert-info" ng-show="ctrl.infoS">
+      The value displays the similarity from 0 (completely different) to 1 (the same).
+    </div>
   </div>
 </div>
 
-<div class="importance" id="spellC1" ng-if="status.open[1] || (currentStep == 3 && showStep)" d3-hist data="ctrl.data" threshold="ctrl.newImportance" bins="24" svg-height="300"
-     type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getNewImportance(threshold)"></div>
+<div class="row taskInner">
+  <div class="col-sm-6">
+    <div id="spellC0" class="importance" d3-slider ng-if="status.open[1] || (currentStep == 3 && showStep)" name="importance" value="ctrl.newImportance" call-back="ctrl.getNewImportance(value)" domain="ctrl.domain" xlabel="Word Quality"></div>
+  </div>
+  <div class="col-sm-6">
+    <div id="spellC4" class="similarity" d3-slider ng-if="status.open[1] || (currentStep == 3 && showStep)" name="similarity" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
+  </div>
+</div>
+<div class="taskInner">
+  <h4 style="text-align: center">Replacements</h4>
+  <div ng-if="status.open[1] || (currentStep == 3 && showStep)" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div>
+</div>
+
 
 <div class="row taskInner">
   <div id="spellC2" class="col-sm-6" style="text-align: left">
@@ -26,58 +51,11 @@
     <h4>Number of ground truth words: {{ctrl.countGroundTruth() | number:0 }}</h4>
   </div>
   <div id="spellC3" class="col-sm-6" style="text-align: right">
-    <button class="btn btn-default" ng-click="ctrl.openDetails()" ng-model="ctrl.showDetails" uib-btn-checkbox
-           btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
-      Inspect Words
-    </button>
-  </div>
-</div>
-
-<div class="row" ng-if="ctrl.showDetails">
-  <div class="col-sm-6">
-    <h4 style="position:relative; left:25%">Vocabulary</h4>
-    <p style="margin-left: 5px">This list shows all words in the dataset. <br> Select a row to see all similar words in the right list.</p>
-    <div id="spellCdetails" ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div>
-  </div>
-  <div class="col-sm-6">
-    <h4 style="position:relative; left:25%">Replacements</h4>
-    <p style="margin-left: 5px"><span style="color: #e65c00; font-weight: bold">Orange</span>: Ground-truth words <br> <span style="color: #b10000; font-weight: bold">Red</span>: Words which will be replaced</p>
-    <div ui-grid="ctrl.simGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div>
-  </div>
-</div>
-
-<hr>
-
-<div class="taskInner">
-  <button class="btn btn-link infoButton" ng-model="ctrl.infoS" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-    <span class="glyphicon glyphicon-info-sign"></span>
-  </button>
-  <div style="display: inline-block">
-    <span class=taskTitle>Modify degree of similarity</span><br>
-    Choose a value for spelling similarity, above which two tags will be considered the same.
-  </div>
-  <div class="alert alert-info" ng-show="ctrl.infoS">
-    The value displays the similarity from 0 (completely different) to 1 (the same).
-  </div>
-</div>
-
-<div id="spellC4" class="taskInner" d3-slider ng-if="status.open[1] || (currentStep == 3 && showStep)" value="ctrl.newSimilarity" call-back="ctrl.slider(value)" domain="ctrl.domain" xlabel="Similarity"></div>
-
-<div class="row taskInner">
-  <div id="spellC5" class="col-sm-6" style="text-align: left">
     <h4>Suggested default threshold: 0.700</h4>
     <h4>Current threshold: {{ ctrl.newSimilarity | number:4}}</h4>
-    <h4>Number of replacements: {{ ctrl.replacements }}</h4>
-  </div>
-  <div id="spellC6" class="col-sm-6" style="text-align: right">
-    <button class="btn btn-default" ng-model="ctrl.showReplacements" ng-click="ctrl.show()" uib-btn-checkbox
-           btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
-      Inspect Replacements
-    </button>
+    <h4>Number of replacements: {{ ctrl.getReplacementCount() }}</h4>
   </div>
 </div>
-
-<div id="spellCrepl" ng-if="ctrl.showReplacements" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="taskInner"></div>
 
 <hr>
 

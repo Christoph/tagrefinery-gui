@@ -342,7 +342,7 @@ angular.module('tagrefineryGuiApp')
 
     that.getSpellCount = function()
     {
-      socket.emit("getReplacements", JSON.stringify([{importance: that.newSpellI, similarity: that.newSpellS}]));
+      socket.emit("getReplacementCount", JSON.stringify([{importance: that.newSpellI, similarity: that.newSpellS}]));
     };
 
     that.getCompFCount = function () {

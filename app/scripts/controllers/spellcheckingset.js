@@ -35,7 +35,7 @@ angular.module('tagrefineryGuiApp')
         that.touched = true;
       });
 
-      that.getReplacements();
+      that.getReplacementCount();
     };
 
     that.slider = function (value) {
@@ -44,11 +44,19 @@ angular.module('tagrefineryGuiApp')
         that.touched = true;
       });
 
-      if (that.showDetails) {
-        that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+      that.scrollToR(that.getAboveRow(that.replGrid.data, that.newSimilarity),0);
+
+      if(that.newSimilarity < 0.5)
+      {
+        that.getReplacements(0.25)
       }
 
-      that.getReplacements();
+      if(that.newSimilarity < 0.25)
+      {
+        that.getReplacements(0)
+      }
+
+      that.getReplacementCount();
     };
 
     // This function needs decreasing sorted data from the server
@@ -56,9 +64,8 @@ angular.module('tagrefineryGuiApp')
       var index = 0;
 
       for (var i = 0; i < data.length; i++) {
-        console.log(data[i]);
-        if (data[i].importance < threshold) {
-          if ((threshold - data[i].importance) <= (data[i - 1].importance - threshold)) {
+        if (data[i].similarity <= threshold) {
+          if ((threshold - data[i].similarity) <= (data[i - 1].similarity - threshold)) {
             return i;
           }
           else {
@@ -84,34 +91,16 @@ angular.module('tagrefineryGuiApp')
       that.newSimilarity = that.similarity;
     });
 
-    socket.on('vocab', function (data) {
-      that.vocabGrid.data = JSON.parse(data);
-    });
-
     socket.on('replacementData', function (data) {
       that.replGrid.data = JSON.parse(data);
+
+      that.getReplacementCount();
     });
 
-    socket.on('importance', function (data) {
-      that.data = JSON.parse(data);
-      that.getReplacements();
-    });
-
-    socket.on('replacements', function (data) {
-      that.replacements = parseInt(data);
-
-      stats.writeSpell("Number of Replacements", that.replacements);
-    });
-
-    socket.on('cluster', function (data) {
-      var cluster = JSON.parse(data);
-
-      if (cluster.length < 1) {
-        cluster.push({tag: "No cluster", similarity: 0});
-      }
-
-      that.simGrid.data = cluster;
-    });
+    that.getReplacements = function(sim)
+    {
+      socket.emit("getReplacements", sim);
+    };
 
     $scope.$on("apply", function() {
       if(that.touched)
@@ -127,7 +116,7 @@ angular.module('tagrefineryGuiApp')
 
         that.touched = false;
 
-        that.getReplacements();
+        that.getReplacementCount();
       }
     });
 
@@ -139,9 +128,9 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("noSpellR", function() {
-      if(!that.newSimilarity == 1.5 && !that.newImportance == 1.5) {
-        that.newSimilarity = 1.5;
-        that.newImportance = 1.5;
+      if(!that.newSimilarity == 1 && !that.newImportance == 1) {
+        that.newSimilarity = 1;
+        that.newImportance = 1;
 
         socket.emit("applySpellCorrect", JSON.stringify([{
           importance: that.newImportance,
@@ -150,7 +139,7 @@ angular.module('tagrefineryGuiApp')
 
         that.touched = false;
 
-        that.getReplacements();
+        that.getReplacementCount();
       }
     });
 
@@ -164,7 +153,7 @@ angular.module('tagrefineryGuiApp')
 
         that.touched = false;
 
-        that.getReplacements();
+        that.getReplacementCount();
       }
     });
 
@@ -175,144 +164,29 @@ angular.module('tagrefineryGuiApp')
 
       that.touched = false;
 
-      that.getReplacements();
-    };
-
-    that.getReplacements = function()
-    {
-      socket.emit("getReplacements", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
-
-      if(that.showReplacements)
-      {
-        socket.emit("getReplacementData", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
-      }
-    };
-
-    that.show = function() {
-      if (that.showReplacements)
-      {
-        socket.emit("getReplacementData", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
-        document.getElementById("spellCrepl").scrollIntoView()
-      }
-    };
-
-    ////////////////////////////////////////////////
-    // Vocab Grid
-    ////////////////////////////////////////////////
-
-    // Helper functions
-
-    that.scrollToV = function (rowIndex, colIndex) {
-      that.vocabGridApi.core.scrollTo(that.vocabGrid.data[rowIndex], that.vocabGrid.columnDefs[colIndex]);
-      that.vocabGridApi.selection.selectRow(that.vocabGrid.data[rowIndex]);
-    };
-
-    that.getSimWords = function (tag) {
-      socket.emit("getCluster", tag);
-    };
-
-    // Grid
-
-    that.vocabGrid = {
-      enableFiltering: true,
-      showGridFooter: true,
-      enableColumnMenus: false,
-      enableGridMenu: true,
-      fastWatch: true,
-      multiSelect: false,
-      enableRowHeaderSelection: false,
-      enableRowSelection: true,
-      enableFullRowSelection: true,
-      onRegisterApi: function (gridApi) {
-        that.vocabGridApi = gridApi;
-
-        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          that.getSimWords(row.entity.tag);
-        });
-      },
-      columnDefs: [
-        {field: 'tag', minWidth: 100, width: "*"},
-        {field: 'importance',name: 'Word Quality', cellClass: 'current', cellTemplate: 'views/cellImportance.html', width: 100, enableFiltering: false,
-          sort: {
-            direction: uiGridConstants.DESC,
-            priority: 1
-          }
-        }
-      ]
-    };
-
-    ////////////////////////////////////////////////
-    // Similarity Grid
-    ////////////////////////////////////////////////
-
-    // Grid
-
-    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'current\': grid.appScope.isCurrent( row ), \'truth\': grid.appScope.isTruth( row ) }" ui-grid-cell></div>';
-
-    $scope.isCurrent = function(row)
-    {
-      return row.entity.similarity >= that.newSimilarity && row.entity.importance < that.newImportance;
-    };
-
-    $scope.isTruth = function(row)
-    {
-      return row.entity.importance >= that.newImportance;
-    };
-
-    that.simGrid = {
-      multiSelect: false,
-      enableColumnMenus: false,
-      enableFiltering: true,
-      showGridFooter: true,
-      enableGridMenu: true,
-      enableRowHeaderSelection: false,
-      enableRowSelection: true,
-      enableFullRowSelection: true,
-      rowTemplate:rowtemplate,
-      onRegisterApi: function (gridApi) {
-        that.simGridApi = gridApi;
-
-        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          if (row.entity.similarity > 0) {
-            that.newSimilarity = row.entity.similarity;
-          }
-
-          // Tells the grid to redraw after click
-          gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
-        });
-      },
-      columnDefs: [
-        {field: 'tag', minWidth: 100, width: "*"},
-        {field: 'importance',name: 'Word Quality', cellTemplate: 'views/cellImportance.html', width: 100, enableFiltering: false,
-          cellFilter: 'number:6', filters: [
-          {
-            condition: uiGridConstants.filter.GREATER_THAN,
-            placeholder: 'greater than'
-          },
-          {
-            condition: uiGridConstants.filter.LESS_THAN,
-            placeholder: 'less than'
-          }
-          ]
-        },
-        {field: 'similarity', cellTemplate: 'views/cellSimilarity.html', width: 100, enableFiltering: false,
-          sort: {
-            direction: uiGridConstants.DESC,
-            priority: 1
-          }
-        }]
+      that.getReplacementCount();
     };
 
     ////////////////////////////////////////////////
     // Replacement Grid
     ////////////////////////////////////////////////
 
-    // Grid
-    var rowtemplateRepl = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'current\': grid.appScope.isCurrentRepl( row ) }" ui-grid-cell></div>';
+    that.scrollToR = function (rowIndex, colIndex) {
+      that.replGridApi.core.scrollTo(that.replGrid.data[rowIndex], that.replGrid.columnDefs[colIndex]);
+      that.replGridApi.selection.selectRow(that.replGrid.data[rowIndex]);
+    };
 
-    $scope.isCurrentRepl = function(row)
+    // Grid
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'replacement\': grid.appScope.isReplacement( row ), \'truth\': grid.appScope.isTruth( row ) }" ui-grid-cell></div>';
+
+    $scope.isReplacement = function(row)
     {
-      return row.entity.similarity >= that.newSimilarity;
+      return row.entity.similarity >= that.newSimilarity && row.entity.importanceReplacement < that.newImportance;
+    };
+
+    $scope.isTruth = function(row)
+    {
+      return row.entity.importanceReplacement >= that.newImportance;
     };
 
     that.replGrid = {
@@ -325,7 +199,7 @@ angular.module('tagrefineryGuiApp')
       enableRowHeaderSelection: false,
       enableRowSelection: true,
       enableFullRowSelection: true,
-      rowTemplate:rowtemplateRepl,
+      rowTemplate:rowtemplate,
       onRegisterApi: function (gridApi) {
         that.replGridApi = gridApi;
 
@@ -339,26 +213,31 @@ angular.module('tagrefineryGuiApp')
         });
       },
       columnDefs: [
-        {field: 'replacement', displayName: "Low Quality Word", minWidth: 100, width: "*"},
-        {field: 'truth', displayName: "Replaced by higher quality word", minWidth: 100, width: "*"},
-        {field: 'similarity', cellTemplate: 'views/cellSimilarity.html', width: 100, enableFiltering: false,
+        {field: 'replacement', displayName: "Replaced Word", minWidth: 100, width: "*"},
+        {field: 'importanceReplacement',name: 'Lower Word Quality', cellTemplate: 'views/cellImportanceReplacement.html', width: 150, enableFiltering: false},
+        {field: 'tag', displayName: "Higher Quality Word", minWidth: 100, width: "*"},
+        {field: 'importanceTag',name: 'Higher Word Quality', cellTemplate: 'views/cellImportanceTag.html', width: 150, enableFiltering: false},
+        {field: 'similarity', cellTemplate: 'views/cellSimilarity.html', width: 110, enableFiltering: false,
           sort: {
-            direction: uiGridConstants.ASC,
+            direction: uiGridConstants.DESC,
             priority: 1
           }
         }]
     };
 
-    that.openDetails = function()
-    {
-      if(that.showDetails) document.getElementById("spellCdetails").scrollIntoView()
+    that.getReplacementCount = function () {
+      return _.sum(_.filter(that.replGrid.data, function (d) {
+        return d.similarity >= that.newSimilarity && d.importanceReplacement < that.newImportance;
+      }), function () {
+        return 1;
+      });
     };
 
     that.countGroundTruth = function () {
-      return _.sum(_.filter(that.data, function (d) {
-        return d.value >= that.newImportance;
-      }), function (o) {
-        return o.count;
+      return _.sum(_.filter(that.replGrid.data, function (d) {
+        return d.importanceReplacement >= that.newImportance;
+      }), function () {
+        return 1;
       });
     }
 

@@ -29,11 +29,6 @@
   font-weight: bold;
 }
 
-.truth {
-  color: #b10000;
-  font-weight: bold;
-}
-
 .removed {
   opacity: 0.5;
 }
@@ -68,20 +63,79 @@
   shape-rendering: crispEdges;
 }
 
-.truth .importance .leftCell {
-  fill: #700000;
-  shape-rendering: crispEdges;
-}
-
 .current .importance .leftCell {
   fill: #700000;
   shape-rendering: crispEdges;
 }
 
 .importance .bar rect {
+  background-color: rgba(112, 0, 0, 0.51);
+  shape-rendering: crispEdges;
+}
+
+
+/*
+Spell Set
+*/
+
+.importance .right {
+  fill: lightgrey;
+}
+
+.similarity .right {
+  fill: lightgrey;
+}
+
+.importance .left {
+  fill: #700000;
+}
+
+.similarity .left {
+  fill: #333;
+}
+
+.leftlabel {
+  fill: white;
+}
+
+.rightCell {
+  fill: rgba(211, 211, 211, 0.51);
+  shape-rendering: crispEdges;
+}
+
+.replacement .rightCell {
+  fill: lightgrey;
+  shape-rendering: crispEdges;
+}
+
+.similarity .leftCell {
+  fill: rgba(51, 51, 51, 0.5);
+  shape-rendering: crispEdges;
+}
+
+.replacement .similarity .leftCell {
+  fill: #333;
+  shape-rendering: crispEdges;
+}
+
+.replacement .importance .leftCell {
   fill: #700000;
   shape-rendering: crispEdges;
 }
+
+.replacement {
+  font-weight: bold;
+  color: #333;
+}
+
+.truth {
+  background-color: rgba(112, 0, 0, 0.25) !important;
+}
+
+
+/*
+Something else
+*/
 
 .axis path,
 .axis line {
@@ -391,17 +445,6 @@ input.ng-invalid {
   display: inline-block;
 }
 
-.right {
-  fill: lightgrey;
-}
-
-.left {
-  fill: #333;
-}
-
-.leftlabel {
-  fill: white;
-}
 
 .fileUpload {
   position: relative;
