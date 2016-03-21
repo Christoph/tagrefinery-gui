@@ -86,6 +86,21 @@ Activates text wrapping in the header
 }
 
 /*
+Group
+*/
+
+.currentGroup {
+  opacity: 1 !important;
+  fill: #535f6c;
+  font-weight: bold;
+}
+
+.removedGroup {
+  opacity: 0.5;
+  fill: #535f6c;
+}
+
+/*
 Spell Set
 */
 

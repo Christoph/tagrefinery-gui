@@ -13,29 +13,20 @@
   </div>
 </div>
 
-<!--Task content-->
-<div style="margin-right: 30px" id="compF1" ng-if="status.open[0] || (currentStep == 4 && showStep)" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
-     threshold="ctrl.newThreshold" bins="24" svg-height="300" type-label="Group Strength" y-label="Count"></div>
-
-<!--Task Parameters and details-->
 <div class="row taskInner">
-  <div id="compF2" class="col-sm-6" style="text-align: left">
-    <h4>Threshold: {{ctrl.newThreshold | number:4 }}</h4>
-    <h4>Number of accepted multi-word Tags: {{ ctrl.replacements }}</h4>
+  <div class="col-sm-9">
+    <div id="compF1" ng-if="status.open[0] || (currentStep == 4 && showStep)" d3-hist data="ctrl.data" call-back="ctrl.getThreshold(threshold)"
+         threshold="ctrl.newThreshold" bins="24" svg-height="400" type-label="Group Strength" y-label="Count"></div>
+    <div style="margin-left: 70px">
+      <p>Default Threshold: <strong style="font-size: large">0.100</strong></p>
+      <p>Threshold: <strong style="font-size: large">{{ctrl.newThreshold | number:4 }}</strong></p>
+      <p>Number of accepted multi-word Tags: <strong style="font-size: large">{{ ctrl.replacements }}</strong></p>
+    </div>
   </div>
-  <div id="compF3" class="col-sm-6" style="text-align: right">
-    <button class="btn btn-default" ng-click="ctrl.openDetails()" ng-model="ctrl.showDetails" uib-btn-checkbox
-           btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
-      Inspect Tags
-    </button>
+  <div class="col-sm-3">
+    <div style="height: 500px" ng-if="status.open[0] || (currentStep == 4 && showStep)" id="compFgrid" ui-grid="ctrl.frequentGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
   </div>
 </div>
-
-<!--Task advanced content-->
-<div ng-if="ctrl.showDetails" class="taskInner" >
-  <p style="text-align: left; position: relative;bottom: 2px; margin-bottom: -5px"> <span style="color: #b10000; font-weight: bold">Red</span>: Accepted multi-word Tags </p>
-  <div id="compFgrid" ui-grid="ctrl.frequentGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
-  </div>
 
 <!--Footer -> Apply and Undo -->
 <hr>

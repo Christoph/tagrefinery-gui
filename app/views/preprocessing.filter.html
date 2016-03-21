@@ -28,11 +28,11 @@
 <!--Task Parameters and details-->
 <div class="row taskInner">
   <div id="preF2" class="col-sm-6" style="text-align: left">
-<h4 uib-tooltip="All words below the selected number of occurrences will be removed."><label>
+<p uib-tooltip="All words below the selected number of occurrences will be removed."><label>
   Threshold:
-  <input type="number" min="0" ng-model="ctrl.newOccurrences" style="width: 50px">
-</label> Occurrences</h4>
-    <h4>Number of remaining words: {{ ctrl.newCount() }}</h4>
+  <input type="number" min="0" ng-model="ctrl.newOccurrences" style="width: 50px; font-size: large">
+</label> Occurrences</p>
+    <p>Number of remaining words: <strong style="font-size: large">{{ ctrl.newCount() }}</strong></p>
   </div>
   <div id="preF3" class="col-sm-6" style="text-align: right">
     <button class="btn btn-default" ng-model="ctrl.showDetails" ng-click="ctrl.openGrid()" uib-btn-checkbox

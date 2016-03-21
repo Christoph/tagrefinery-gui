@@ -30,11 +30,11 @@ angular.module('tagrefineryGuiApp')
       $scope.$apply(function () {
         that.newThreshold = threshold;
 
-        if (that.showDetails) {
-          $timeout(function () {
-            that.scrollToF(that.getAboveRow(that.frequentGrid.data, that.newThreshold), 0);
-          })
-        }
+        $timeout(function () {
+          that.scrollToF(that.getAboveRow(that.frequentGrid.data, that.newThreshold), 0);
+        });
+
+        that.frequentGridApi.core.queueGridRefresh();
 
         that.replacements = that.getGroups();
         stats.writeComp("Number of Frequent Groups", that.replacements);
@@ -143,7 +143,7 @@ angular.module('tagrefineryGuiApp')
     };
 
     // Grid
-    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'current\': grid.appScope.isCurrent( row ) }" ui-grid-cell></div>';
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'currentGroup\': grid.appScope.isCurrent( row ) }" ui-grid-cell></div>';
 
     $scope.isCurrent = function(row)
     {
@@ -155,7 +155,7 @@ angular.module('tagrefineryGuiApp')
       enableFiltering: true,
       enableColumnMenus: false,
       enableGridMenu: true,
-      showGridFooter: false,
+      showGridFooter: true,
       fastWatch: true,
       multiSelect: false,
       enableRowHeaderSelection: false,
@@ -167,15 +167,28 @@ angular.module('tagrefineryGuiApp')
         // Set frequent threshold
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
           that.newThreshold = row.entity.strength;
+          that.replacements = that.getGroups();
+
+          gridApi.core.queueGridRefresh();
         });
       },
       columnDefs: [
-        {field: 'group', minWidth: 100, width: "*"},
-        {
-          field: 'strength', displayName: "Group Strength", minWidth: 100, width: "*", cellFilter: 'number:3',
+        {field: 'group', minWidth: 100, width: "*",
+          cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            if (grid.getCellValue(row ,col) < that.newThreshold) {
+              return 'removedGroup';
+            }
+          }
+        },
+        {field: 'strength',name: 'Group Strength', cellTemplate: 'views/cellStrength.html', width: 120, enableFiltering: false,
           sort: {
             direction: uiGridConstants.DESC,
             priority: 1
+          },
+          cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            if (grid.getCellValue(row ,col) < that.newThreshold) {
+              return 'removedGroup';
+            }
           }
         }
       ]
@@ -191,11 +204,6 @@ angular.module('tagrefineryGuiApp')
       }), function (o) {
         return o.count;
       });
-    };
-
-    that.openDetails = function()
-    {
-      if(that.showDetails) document.getElementById("compFgrid").scrollIntoView()
     };
 
   }]);
