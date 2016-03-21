@@ -30,11 +30,9 @@ angular.module('tagrefineryGuiApp')
       $scope.$apply(function () {
         that.newThreshold = threshold;
 
-        if (that.showDetails) {
-          $timeout(function () {
-            that.scrollTo(that.getAboveRow(that.grid.data, that.newThreshold), 0);
-          })
-        }
+        $timeout(function () {
+          that.scrollTo(that.getAboveRow(that.grid.data, that.newThreshold), 0);
+        });
 
         that.touched = true;
         that.count = that.newCount();
@@ -52,7 +50,7 @@ angular.module('tagrefineryGuiApp')
       var index = 0;
 
       for (var i = 0; i < data.length; i++) {
-        if (data[i].importance > threshold) {
+        if (data[i].importance < threshold) {
           if ((threshold - data[i].importance) <= (data[i - 1].importance - threshold)) {
             return i;
           }
@@ -108,7 +106,7 @@ angular.module('tagrefineryGuiApp')
     };
 
     ////////////////////////////////////////////////
-    // requent Grid
+    // Frequent Grid
     ////////////////////////////////////////////////
 
     // Helper
@@ -118,8 +116,15 @@ angular.module('tagrefineryGuiApp')
     };
 
     // Grid
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'currentGroup\': grid.appScope.isCurrent( row ) }" ui-grid-cell></div>';
+
+    $scope.isCurrent = function(row)
+    {
+      return row.entity.importance >= that.newThreshold;
+    };
 
     that.grid = {
+      rowTemplate: rowtemplate,
       enableFiltering: true,
       enableColumnMenus: false,
       enableGridMenu: true,
@@ -139,8 +144,7 @@ angular.module('tagrefineryGuiApp')
       },
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
-        {
-          field: 'importance', minWidth: 100, width: "*", cellFilter: 'number:4',
+        {field: 'strength',name: 'Word Quality', cellTemplate: 'views/cellImportance.html', width: 120, enableFiltering: false,
           sort: {
             direction: uiGridConstants.DESC,
             priority: 1

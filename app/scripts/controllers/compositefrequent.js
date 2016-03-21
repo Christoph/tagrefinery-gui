@@ -34,8 +34,6 @@ angular.module('tagrefineryGuiApp')
           that.scrollToF(that.getAboveRow(that.frequentGrid.data, that.newThreshold), 0);
         });
 
-        that.frequentGridApi.core.queueGridRefresh();
-
         that.replacements = that.getGroups();
         stats.writeComp("Number of Frequent Groups", that.replacements);
 
@@ -168,27 +166,14 @@ angular.module('tagrefineryGuiApp')
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
           that.newThreshold = row.entity.strength;
           that.replacements = that.getGroups();
-
-          gridApi.core.queueGridRefresh();
         });
       },
       columnDefs: [
-        {field: 'group', minWidth: 100, width: "*",
-          cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
-            if (grid.getCellValue(row ,col) < that.newThreshold) {
-              return 'removedGroup';
-            }
-          }
-        },
+        {field: 'group', minWidth: 100, width: "*"},
         {field: 'strength',name: 'Group Strength', cellTemplate: 'views/cellStrength.html', width: 120, enableFiltering: false,
           sort: {
             direction: uiGridConstants.DESC,
             priority: 1
-          },
-          cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
-            if (grid.getCellValue(row ,col) < that.newThreshold) {
-              return 'removedGroup';
-            }
           }
         }
       ]

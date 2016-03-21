@@ -86,18 +86,47 @@ Activates text wrapping in the header
 }
 
 /*
+Post
+*/
+
+.post .right {
+  fill: lightgrey;
+}
+
+.post .left {
+  fill: #535f6c;
+}
+
+.post .leftCell {
+  fill: rgba(83, 95, 108, 0.51);
+  shape-rendering: crispEdges;
+}
+
+.currentGroup .post .leftCell {
+  fill: #535f6c;
+  shape-rendering: crispEdges;
+}
+
+/*
 Group
 */
 
-.currentGroup {
-  opacity: 1 !important;
-  fill: #535f6c;
-  font-weight: bold;
+.strength .right {
+  fill: lightgrey;
 }
 
-.removedGroup {
-  opacity: 0.5;
+.strength .left {
   fill: #535f6c;
+}
+
+.strength .leftCell {
+  fill: rgba(83, 95, 108, 0.51);
+  shape-rendering: crispEdges;
+}
+
+.currentGroup .strength .leftCell {
+  fill: #535f6c;
+  shape-rendering: crispEdges;
 }
 
 /*

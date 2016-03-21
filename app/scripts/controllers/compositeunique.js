@@ -35,8 +35,6 @@ angular.module('tagrefineryGuiApp')
           that.scrollToU(that.getAboveRow(that.uniqueGrid.data, that.newThreshold), 0);
         });
 
-        that.uniqueGridApi.core.queueGridRefresh();
-
         that.replacements = that.getGroups();
         stats.writeComp("Number of Unique Groups", that.replacements);
 
@@ -173,27 +171,14 @@ angular.module('tagrefineryGuiApp')
           //noinspection JSUnresolvedVariable
           that.newThreshold = row.entity.strength;
           that.replacements = that.getGroups();
-
-          gridApi.core.queueGridRefresh();
         });
       },
       columnDefs: [
-        {field: 'group', minWidth: 100, width: "*",
-          cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
-            if (grid.getCellValue(row ,col) < that.newThreshold) {
-              return 'removedGroup';
-            }
-          }
-        },
+        {field: 'group', minWidth: 100, width: "*"},
         {field: 'strength',name: 'Group Strength', cellTemplate: 'views/cellStrength.html', width: 120, enableFiltering: false,
           sort: {
             direction: uiGridConstants.DESC,
             priority: 1
-          },
-          cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
-            if (grid.getCellValue(row ,col) < that.newThreshold) {
-              return 'removedGroup';
-            }
           }
         }
       ]
