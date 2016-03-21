@@ -8,7 +8,7 @@
             <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
           </div>
           <div ng-if="ctrl.showPrefilter" d3-hist data="ctrl.preData" call-back="ctrl.getPre(threshold)" threshold="ctrl.newPre" is-float="false" from-right="false"
-               bins="18" svg-height="200" type-label="Number of Occurrences" y-label="Number of Words" title="Remove Rare Words"></div>
+               bins="18" svg-height="240" type-label="Number of Occurrences" y-label="Number of Words" title="Remove Rare Words"></div>
         </div>
         <div ng-if="ctrl.preRunning" class="overlay">
           <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
@@ -22,9 +22,9 @@
           <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
         </div>
         <div id="linked4" ng-if="ctrl.linked" d3-hist data="ctrl.compDataF" call-back="ctrl.getCompF(threshold)"
-             threshold="ctrl.newCompF" bins="18" svg-height="200" type-label="Group Strength" y-label="Count" title="Frequent Multiword Groups"></div>
+             threshold="ctrl.newCompF" bins="18" svg-height="240" type-label="Group Strength" y-label="Count" title="Frequent Multiword Groups"></div>
         <div id="linked5" ng-if="ctrl.linked" d3-hist data="ctrl.compDataU" call-back="ctrl.getCompU(threshold)"
-             threshold="ctrl.newCompU" bins="18" svg-height="200" type-label="Group Strength" y-label="Count" title="Unique Multiword Groups"></div>
+             threshold="ctrl.newCompU" bins="18" svg-height="240" type-label="Group Strength" y-label="Count" title="Unique Multiword Groups"></div>
       </div>
     </div>
     <div class="col-sm-4" style="position: relative">
@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="row" style="position: relative">
-        <h5 style="text-align: center">Tags</h5>
+        <h4 style="text-align: center">Tags</h4>
         <div class="row">
           <span class="pull-left" style="margin-left: 15px"><strong style="background-color: rgba(50, 121, 183, 0.2)">Blue:</strong> New Item</span>
           <span class="pull-right" style="margin-right: 15px"><strong style="background-color: rgba(127, 0, 0, 0.3)">Red:</strong> Removed Item</span>
