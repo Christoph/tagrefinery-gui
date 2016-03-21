@@ -33,51 +33,51 @@ angular.module('tagrefineryGuiApp')
 
     stats.writePre = function (key, value) {
       stats.pre[key] = value;
-    }
+    };
 
     stats.writeSpell = function (key, value) {
       stats.spell[key] = value;
-    }
+    };
 
     stats.writeComp = function (key, value) {
       stats.comp[key] = value;
-    }
+    };
 
     stats.writePost = function (key, value) {
       stats.post[key] = value;
-    }
+    };
 
     stats.writeVocab = function (key, value) {
       stats.vocab[key] = value;
-    }
+    };
 
     stats.writeDataset = function (key, value) {
       stats.dataset[key] = value;
-    }
+    };
 
     stats.getPre = function () {
       return stats.pre;
-    }
+    };
 
     stats.getSpell = function () {
       return stats.spell;
-    }
+    };
 
     stats.getComp = function () {
       return stats.comp;
-    }
+    };
 
     stats.getPost = function () {
       return stats.post;
-    }
+    };
 
     stats.getVocab = function () {
       return stats.vocab;
-    }
+    };
 
     stats.getDataset = function () {
       return stats.dataset;
-    }
+    };
 
     return stats;
 

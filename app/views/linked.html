@@ -15,7 +15,7 @@
         </div>
         <div id="linked2" ng-if="ctrl.linked" d3-hist data="ctrl.spellData" threshold="ctrl.newSpellI" bins="18" svg-height="200"
              type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getSpellI(threshold)" title="Improve Tag Quality"></div>
-        <div id="linked3" class="taskInner" d3-slider ng-if="ctrl.linked" value="ctrl.newSpellS" call-back="ctrl.getSlider(value)" domain="ctrl.spellDomain" xlabel="Similarity"></div>
+        <div id="linked3" class="taskInner similarity" d3-slider ng-if="ctrl.linked" value="ctrl.newSpellS" call-back="ctrl.getSlider(value)" domain="ctrl.spellDomain" xlabel="Similarity"></div>
       </div>
       <div style="position: relative">
         <div ng-if="ctrl.spellRunning" class="overlay">
@@ -38,29 +38,37 @@
         <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
       </div>
       <div id="linked6" class="row">
-        <div class="col-sm-4">
-          <h5 style="text-align: center">Preprocessing</h5>
+        <div class="col-sm-3">
+          <h5 style="text-align: center">In</h5>
           <hr>
-          Total Number of Words: <strong>{{ctrl.getPreTotal()}}</strong> <br>
+          Number of Annotated Items: <strong>{{ctrl.datasetCount["After Preprocessing"]}}</strong> <br>
           <br>
-          Number of remaining words: <strong>{{ctrl.getPreCount()}}</strong>
+          Number of Tags: <strong>{{ctrl.vocabCount["After Preprocessing"]}}</strong>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <h5 style="text-align: center">Spell Correct</h5>
           <hr>
-          Number of Correct Words: <strong>{{ctrl.spellTruth}}</strong> <br>
+          Number of Ground Truth Words: <strong>{{ctrl.spellTruth}}</strong> <br>
           <br>
-          Number of Replacements: <strong>{{ctrl.spellRepl}}</strong>
+          Number of Replacements: <strong>{{ctrl.getReplacementCount()}}</strong>
         </div>
-        <div class="col-sm-4">
-          <h5 style="text-align: center">Multiword Tags</h5>
+        <div class="col-sm-3">
+          <h5 style="text-align: center">Multiword</h5>
           <hr>
           Number of Frequent Groups: <strong>{{ctrl.getCompFCount()}}</strong>
           <br>
           Number of Unique Groups: <strong>{{ctrl.getCompUCount()}}</strong>
         </div>
+        <div class="col-sm-3">
+          <h5 style="text-align: center">Out</h5>
+          <hr>
+          Number of Annotated Items: <strong>{{ctrl.datasetCount["After Multiword Tag Detection"]}}</strong> <br>
+          <br>
+          Number of Tags: <strong>{{ctrl.vocabCount["After Multiword Tag Detection"]}}</strong>
+        </div>
       </div>
       <div class="row" style="position: relative">
+        <h5 style="text-align: center">Tags</h5>
         <div id="linked7" style="text-align: left; height: 475px" ng-if="ctrl.linked" ui-grid="ctrl.vocabGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter>
           <div ng-if="ctrl.compRunning" class="overlay" style="text-align: center">
             <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>

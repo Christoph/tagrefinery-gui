@@ -20,7 +20,9 @@ angular.module('tagrefineryGuiApp')
     that.compRunning = false;
 
     that.preFilter = false;
-    $scope.dataBlacklist = [];
+
+    that.vocabCount = stats.getVocab();
+    that.datasetCount = stats.getDataset();
 
     // PRE
     that.preData = [];
@@ -67,7 +69,6 @@ angular.module('tagrefineryGuiApp')
       });
 
       that.getSpellTruth();
-      that.getSpellCount();
       that.applySpell();
     };
 
@@ -76,8 +77,21 @@ angular.module('tagrefineryGuiApp')
         that.newSpellS = value;
       });
 
+      if(that.newSimilarity < 0.5 && !that.twentyfive)
+      {
+        that.getReplacements(0.25);
+        that.twentyfive = true;
+      }
+
+      if(that.newSimilarity < 0.25 && !that.zero)
+      {
+        that.getReplacements(0);
+        that.zero = true;
+      }
+
+      stats.writeSpell("Number of Replacements", that.getReplacementCount());
+
       that.getSpellTruth();
-      that.getSpellCount();
       that.applySpell();
     };
 
@@ -171,13 +185,13 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('importance', function (data) {
       that.spellData = JSON.parse(data);
-      that.getSpellCount();
     });
 
-    socket.on('replacements', function (data) {
-      that.spellRepl = parseInt(data);
+    socket.on('replacementData', function (data) {
+      that.replGrid.data = JSON.parse(data);
 
-      stats.writeSpell("Number of Replacements", that.spellRepl);
+      stats.writeSpell("Number of Replacements", that.getReplacementCount());
+      stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
     });
 
     // COMP
@@ -276,27 +290,55 @@ angular.module('tagrefineryGuiApp')
       ]
     };
 
-    $scope.blacklistGrid = {
-      enableGridMenu: false,
-      showGridFooter: true,
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'replacement\': grid.appScope.isReplacement( row ), \'truth\': grid.appScope.isTruth( row ) }" ui-grid-cell></div>';
+
+    $scope.isReplacement = function(row)
+    {
+      return row.entity.similarity >= that.newSimilarity && row.entity.importanceReplacement < that.newImportance;
+    };
+
+    $scope.isTruth = function(row)
+    {
+      return row.entity.importanceReplacement >= that.newImportance;
+    };
+
+    that.replGrid = {
+      multiSelect: false,
+      rowHeight: 33,
       enableColumnMenus: false,
       enableFiltering: true,
-      data: 'dataBlacklist',
-      importerDataAddCallback: function (grid, newObjects) {
-        $scope.dataBlacklist.length = 0;
-        $scope.dataBlacklist = $scope.dataBlacklist.concat(newObjects);
-        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
-        $scope.gridApi.core.refresh();
-
-        that.applyPreB();
-      },
+      showGridFooter: true,
+      enableGridMenu: true,
+      enableRowHeaderSelection: false,
+      enableRowSelection: true,
+      enableFullRowSelection: true,
+      rowTemplate:rowtemplate,
       onRegisterApi: function (gridApi) {
-        $scope.gridApi = gridApi;
+        that.replGridApi = gridApi;
+
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+          if (row.entity.similarity > 0) {
+            that.newSimilarity = row.entity.similarity;
+          }
+
+          // Tells the grid to redraw after click
+          gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+        });
       },
       columnDefs: [
-        {field: 'word', minWidth: 100, width: "*"}
+        {field: 'replacement', displayName: "Replaced Word", minWidth: 100, width: "*", cellClass: "textRight"},
+        {field: 'importanceReplacement',name: 'Lower Word Quality', cellTemplate: 'views/cellImportanceReplacement.html', width: 120, enableFiltering: false},
+        {field: 'similarity', cellTemplate: 'views/cellSimilarity.html', width: 120, enableFiltering: false,
+          sort: {
+            direction: uiGridConstants.DESC,
+            priority: 1
+          }
+        },
+        {field: 'importanceTag',name: 'Higher Word Quality', cellTemplate: 'views/cellImportanceTag.html', width: 120, enableFiltering: false},
+        {field: 'tag', displayName: "Higher Quality Word", minWidth: 100, width: "*"}
       ]
     };
+
     ////////////////////////////////////////////////
     // Helper
     ////////////////////////////////////////////////
@@ -320,16 +362,12 @@ angular.module('tagrefineryGuiApp')
       socket.emit("selectMode", "guided");
     };
 
-    that.getPreCount = function () {
-      return _.sum(that.preData, function(d) { return d.count; }) - _.sum(_.filter(that.preData, function (d) {
-          return d.value < that.newPre;
-        }), function (o) {
-          return o.count;
-        });
-    };
-
-    that.getPreTotal = function () {
-      return _.sum(that.preData, function(d) { return d.count; });
+    that.getReplacementCount = function () {
+      return _.sum(_.filter(that.replGrid.data, function (d) {
+        return d.similarity >= that.newSpellS && d.importanceReplacement < that.newSpellI;
+      }), function () {
+        return 1;
+      });
     };
 
     that.getSpellTruth = function () {
@@ -338,11 +376,6 @@ angular.module('tagrefineryGuiApp')
         }), function (o) {
           return o.count;
         });
-    };
-
-    that.getSpellCount = function()
-    {
-      socket.emit("getReplacementCount", JSON.stringify([{importance: that.newSpellI, similarity: that.newSpellS}]));
     };
 
     that.getCompFCount = function () {
