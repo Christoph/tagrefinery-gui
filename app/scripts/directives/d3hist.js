@@ -8,7 +8,7 @@
  */
 angular.module('tagrefineryGuiApp')
   .directive('d3Hist', ["d3", "$timeout", function (d3, $timeout) {
-    var basics = function (scope, element) {
+    var basics = function (scope) {
       // Number formating
       scope.formatCount = d3.format(",.0f");
 
