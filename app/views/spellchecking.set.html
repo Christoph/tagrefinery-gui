@@ -41,9 +41,9 @@
 <div class="taskInner row">
   <div class="col-sm-1" style="text-align: right">
     <div id="spellC2">
-      <p>Suggested default threshold: <strong>0.800</strong></p>
-      <p>Current threshold: <strong>{{ ctrl.newImportance | number:4}}</strong></p>
-      <p>Number of ground truth words: <strong>{{ctrl.countGroundTruth() | number:0 }}</strong></p>
+      <p>Suggested default threshold: <strong style="font-size: large">0.800</strong></p>
+      <p>Current threshold: <strong style="font-size: large">{{ ctrl.newImportance | number:4}}</strong></p>
+      <p>Number of ground truth words: <strong style="font-size: large">{{ctrl.countGroundTruth() | number:0 }}</strong></p>
     </div>
   </div>
   <div class="col-sm-10">
@@ -51,9 +51,9 @@
   </div>
   <div class="col-sm-1">
     <div id="spellC3" style="text-align: justify">
-      <p>Suggested default threshold: <strong>0.750</strong></p>
-      <p>Current threshold: <strong>{{ ctrl.newSimilarity | number:4}}</strong></p>
-      <p>Number of replacements: <strong>{{ ctrl.getReplacementCount() }}</strong></p>
+      <p>Suggested default threshold: <strong style="font-size: large">0.750</strong></p>
+      <p>Current threshold: <strong style="font-size: large">{{ ctrl.newSimilarity | number:4}}</strong></p>
+      <p>Number of replacements: <strong style="font-size: large">{{ ctrl.getReplacementCount() }}</strong></p>
     </div>
   </div>
 </div>
