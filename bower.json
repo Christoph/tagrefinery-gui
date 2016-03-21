@@ -39,6 +39,11 @@
       "main": [
         "css/font-awesome.min.css"
       ]
+    },
+    "angular-i18n": {
+      "main": [
+        "angular-locale_en-us.js"
+      ]
     }
   }
 }
