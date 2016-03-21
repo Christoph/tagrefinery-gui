@@ -135,6 +135,11 @@ angular.module('tagrefineryGuiApp')
         });
       };
 
+      scope.updateBins = function()
+      {
+        render(scope);
+      };
+
       scope.make_x_axis = function()
       {
         return d3.svg.axis()

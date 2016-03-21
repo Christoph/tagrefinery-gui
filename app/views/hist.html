@@ -1,4 +1,8 @@
-<button ng-disabled="!isZoomed" style="position:absolute;margin-top:5px;right:50px" class="btn btn-default btn-sm round"
+<label style="font-size: smaller; position: absolute; margin-top: 4px; right: 75px">
+  # bins:
+  <input ng-change="updateBins()" ng-model="binCount" type="number" min="0" style="font-size: smaller; width: 40px">
+</label>
+<button ng-disabled="!isZoomed" style="position:absolute;margin-top:0px;right:30px" class="btn btn-default btn-sm round"
         ng-click="reset()" uib-tooltip="Zoom out">
   <span class="glyphicon glyphicon-zoom-out"></span>
 </button>
