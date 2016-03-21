@@ -89,6 +89,10 @@ Activates text wrapping in the header
 Post
 */
 
+.currentGroup {
+  font-weight: bold;
+}
+
 .post .right {
   fill: lightgrey;
 }
