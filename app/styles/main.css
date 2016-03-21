@@ -86,6 +86,28 @@ Activates text wrapping in the header
 }
 
 /*
+Linked
+*/
+
+.ui-grid-row:nth-child(odd) .newItem {
+  font-weight: bold;
+  background-color: rgba(50, 121, 183, 0.2);
+}
+.ui-grid-row:nth-child(even) .newItem {
+  font-weight: bold;
+  background-color: rgba(51, 110, 171, 0.31);
+}
+
+.ui-grid-row:nth-child(odd) .removedItem {
+  font-weight: bold;
+  background-color: rgba(139, 0, 0, 0.2);
+}
+.ui-grid-row:nth-child(even) .removedItem {
+  font-weight: bold;
+  background-color: rgba(127, 0, 0, 0.3);
+}
+
+/*
 Post
 */
 

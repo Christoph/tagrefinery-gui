@@ -35,6 +35,7 @@ module.exports = function(config) {
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/intro.js/intro.js',
       'bower_components/angular-intro.js/src/angular-intro.js',
+      'bower_components/angular-i18n/angular-locale_en-us.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

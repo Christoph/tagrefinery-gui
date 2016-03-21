@@ -146,9 +146,6 @@ angular.module('tagrefineryGuiApp')
     // PRE
     socket.on('preFilterData', function (data) {
       that.preData = JSON.parse(data);
-
-      that.preRemaining = that.getPreCount();
-      stats.writePre("Number of Filtered Words", that.preRemaining);
     });
 
     socket.on('preFilterParams', function (data) {
@@ -156,16 +153,6 @@ angular.module('tagrefineryGuiApp')
       that.newPre = that.pre;
 
       stats.writePre("Minimum Occurrence", that.newPre);
-    });
-
-    socket.on('preDictionaryParams', function (data) {
-      $scope.dataBlacklist.length = 0;
-
-      _.map(data, function (d) {
-        $scope.dataBlacklist.push({word: d});
-      });
-
-      stats.writePre("Number of blacklisted Words", $scope.dataBlacklist.length);
     });
 
     // SPELL
@@ -189,9 +176,6 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('replacementData', function (data) {
       that.replGrid.data = JSON.parse(data);
-
-      stats.writeSpell("Number of Replacements", that.getReplacementCount());
-      stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
     });
 
     // COMP
@@ -217,8 +201,37 @@ angular.module('tagrefineryGuiApp')
       that.compU = that.newCompU;
     });
 
-    socket.on('postFilterGrid', function (data) {
-      that.vocabGrid.data = JSON.parse(data);
+    that.last = [];
+    that.out = [];
+
+    // OUT
+    socket.on('postFilterGrid', function (json) {
+      var data = JSON.parse(json);
+      that.out.length = 0;
+
+      that.out = _.map(data, function(d) {
+        if(_.find(that.last, { "tag": d.tag }))
+        {
+          _.remove(that.last, { "tag": d.tag });
+          return {tag: d.tag, importance: d.importance, changed: 0}
+        }
+        else
+        {
+          return {tag: d.tag, importance: d.importance, changed: 2}
+        }
+      });
+
+      if(that.last.length > 0)
+      {
+        _.forEach(that.last, function(d) {
+          that.out.push({tag: d.tag, importance: d.importance, changed: 1})
+        });
+      }
+
+      that.last.length = 0;
+
+      that.vocabGrid.data = that.out;
+      that.last = _.cloneDeep(that.out);
     });
 
 
@@ -252,7 +265,20 @@ angular.module('tagrefineryGuiApp')
     // Grids
     ////////////////////////////////////////////////
 
+    var rowtpl = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'newItem\': grid.appScope.isNew( row ), \'removedItem\': grid.appScope.isRemoved( row ) }" ui-grid-cell></div>';
+
+    $scope.isNew = function(row)
+    {
+      return row.entity.changed == 2;
+    };
+
+    $scope.isRemoved = function(row)
+    {
+      return row.entity.changed == 1;
+    };
+
     that.vocabGrid = {
+      rowTemplate: rowtpl,
       enableFiltering: true,
       showGridFooter: true,
       enableColumnMenus: false,
@@ -272,10 +298,6 @@ angular.module('tagrefineryGuiApp')
         {field: 'tag', minWidth: 100, width: "*"},
         {
           field: 'importance', minWidth: 100, width: "*",
-          sort: {
-            direction: uiGridConstants.DESC,
-            priority: 1
-          },
           cellFilter: 'number:6', filters: [
           {
             condition: uiGridConstants.filter.GREATER_THAN,
@@ -286,6 +308,12 @@ angular.module('tagrefineryGuiApp')
             placeholder: 'less than'
           }
         ]
+        },
+        {field: 'changed', displayName: "Tag has Changed", minWidth: 50, width: "*", visible: false,
+          sort: {
+            direction: uiGridConstants.DESC,
+            priority: 1
+          }
         }
       ]
     };
