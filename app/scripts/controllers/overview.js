@@ -161,7 +161,12 @@ angular.module('tagrefineryGuiApp')
       },
       columnDefs: [
         {field: 'tag', minWidth: 100, width: "*"},
-        {field: 'item', displayName: "Item", minWidth: 100, width: "*", grouping: {groupPriority: 0}},
+        {field: 'item', displayName: "Item", minWidth: 100, width: "*", grouping: {groupPriority: 0},
+          sort: {
+            direction: uiGridConstants.ASC,
+            priority: 1
+          }
+        },
         {field: 'weight', displayName: "Weight", minWidth: 50, width: 100}
       ]
     };
