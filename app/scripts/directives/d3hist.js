@@ -8,7 +8,7 @@
  */
 angular.module('tagrefineryGuiApp')
   .directive('d3Hist', ["d3", "$timeout", function (d3, $timeout) {
-    var basics = function (scope) {
+    var basics = function (scope, element) {
       // Number formating
       scope.formatCount = d3.format(",.0f");
 
@@ -137,6 +137,7 @@ angular.module('tagrefineryGuiApp')
 
       scope.updateBins = function()
       {
+        updateDefs(scope);
         render(scope);
       };
 
@@ -400,9 +401,6 @@ angular.module('tagrefineryGuiApp')
 
     var renderLine = function (scope) {
       if (scope.initialized) {
-        scope.bodyG.selectAll(".threshold")
-          .call(scope.bringToFront);
-
         scope.marker.select("line")
           .attr("x1", scope.x(scope.threshold))
           .attr("x2", scope.x(scope.threshold));
@@ -448,6 +446,9 @@ angular.module('tagrefineryGuiApp')
             });
         }
       }
+
+      scope.bodyG.selectAll(".threshold")
+        .call(scope.bringToFront);
     };
 
     var renderBars = function (scope) {
@@ -456,9 +457,6 @@ angular.module('tagrefineryGuiApp')
 
       scope.xAxis
         .scale(scope.x);
-
-      // Update line position
-      renderLine(scope);
 
       // Update Grid
       scope.bodyG.selectAll(".x.gridLine")
@@ -530,6 +528,9 @@ angular.module('tagrefineryGuiApp')
         .data(scope.hist)
         .exit()
         .remove();
+
+      // Update line position
+      renderLine(scope);
 
       // Bring zoom area back to front
       scope.bodyG.selectAll(".zoomArea")
