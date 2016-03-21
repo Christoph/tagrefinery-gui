@@ -19,18 +19,9 @@
 <!--Task content-->
 <div id="postS1" ng-if="status.open[1] || (currentStep == 8 && showStep)" ui-grid="ctrl.edit" ui-grid-edit ui-grid-cellNav ui-grid-exporter class="taskInner"></div>
 <div class="row taskInner" style="margin-top: 10px">
-  <div id="postS2" style="text-align: right">
-    <button class="btn btn-default" ng-model="ctrl.showDetails" ng-click="ctrl.openGrid()" uib-btn-checkbox
-           btn-checkbox-true=true btn-checkbox-false=false uib-tooltip="Show detailed information">
-      Inspect Salvaged Tags
-    </button>
-  </div>
+  <p>Number of Replaced Tags: <strong style="font-size: large">{{ctrl.replaceCount()}}</strong></p>
+  <p>Number of Removed Tags: <strong style="font-size: large">{{ctrl.removeCount()}}</strong></p>
 </div>
-
-<div class="alert alert-info taskInner" style="text-align: center" ng-if="ctrl.salvagingRunning && ctrl.showDetails">
-  <strong>Updating Data ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
-</div>
-<div style="margin-top: 20px" id="postEscroll" ng-if="ctrl.showDetails" ui-grid="ctrl.salvage" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="taskInner"></div>
 
 <!--Footer -> Apply and Undo -->
 <hr>

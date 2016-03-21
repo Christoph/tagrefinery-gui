@@ -92,13 +92,6 @@ angular.module('tagrefineryGuiApp')
       that.salvagingRunning = data == "true";
     });
 
-
-    socket.on('postSalvageData', function (data) {
-      that.salvage.data = JSON.parse(data);
-
-      stats.writePost("Number of Salvaged Tags", that.salvage.data.length);
-    });
-
     that.apply = function () {
       socket.emit("applyPostReplace", JSON.stringify(that.replace));
       socket.emit("applyPostRemove", JSON.stringify(that.remove));
@@ -137,32 +130,6 @@ angular.module('tagrefineryGuiApp')
       that.remove = _.cloneDeep(that.delete);
       that.touched = true;
 
-    };
-
-    ////////////////////////////////////////////////
-    // Salvaging
-    ////////////////////////////////////////////////
-
-    // Grid
-
-    that.salvage = {
-      enableFiltering: true,
-      enableColumnMenus: false,
-      multiSelect: false,
-      showGridFooter: true,
-      enableRowHeaderSelection: false,
-      enableRowSelection: true,
-      enableGridMenu: true,
-      onRegisterApi: function (gridApi) {
-        that.salvageGridApi = gridApi;
-
-        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-        });
-      },
-      columnDefs: [
-        {field: 'truth', displayName: 'Important Tag', minWidth: 100, width: "*"},
-        {field: 'replacement', displayName: 'Salvaged From', minWidth: 100, width: "*"}
-      ]
     };
 
     ////////////////////////////////////////////////
@@ -244,12 +211,14 @@ angular.module('tagrefineryGuiApp')
       ]
     };
 
-    that.openGrid = function()
+    that.replaceCount = function()
     {
-      if(that.showDetails) {
-        socket.emit("computeSalvaging", "");
-        document.getElementById("postEscroll").scrollIntoView()
-      }
+      return Object.keys(that.replace[0]).length;
+    };
+
+    that.removeCount = function()
+    {
+      return Object.keys(that.remove[0]).length;
     };
 
   }]);
