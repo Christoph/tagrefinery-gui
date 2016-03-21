@@ -195,6 +195,10 @@ angular.module('tagrefineryGuiApp')
     that.openGrid = function()
     {
       if(that.showDetails) document.getElementById("preFscroll").scrollIntoView()
+
+      $timeout(function () {
+        that.scrollTo(that.getAboveRow(that.grid.data, that.newOccurrences), 0);
+      })
     };
 
     that.newCount = function () {
