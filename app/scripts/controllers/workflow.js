@@ -200,7 +200,7 @@ angular.module('tagrefineryGuiApp')
     that.restart = function()
     {
       $scope.showStep = false;
-      $scope.currentStep = 0;
+      $scope.currentStep = 1;
 
       that.updateProgress();
     };
