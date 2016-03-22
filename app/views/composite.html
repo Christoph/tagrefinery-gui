@@ -1,6 +1,6 @@
 <div class="scafold">
   <uib-accordion>
-    <uib-accordion-group is-open="status.open[2]" panel-class="panel-primary">
+    <uib-accordion-group is-open="status.open[2]" panel-class="panel-advanced">
       <uib-accordion-heading>
         <div class="descriptionHeaderAdvanced">
           Advanced - Parameters <i class="pull-right glyphicon"
@@ -12,7 +12,7 @@
       <div class="row" ng-controller="CompositeparamsCtrl as ctrl"
            ng-include="'views/composite.params.html'"></div>
     </uib-accordion-group>
-    <uib-accordion-group is-open="status.open[0]" panel-class="panel-info">
+    <uib-accordion-group is-open="status.open[0]" panel-class="panel-simple">
       <uib-accordion-heading>
         <div class="descriptionHeader">
           Find Frequent Multiword Tags <i class="pull-right glyphicon"
@@ -23,7 +23,7 @@
       </uib-accordion-heading>
       <div class="row" ng-controller="CompositefrequentCtrl as ctrl" ng-include="'views/composite.frequent.html'"></div>
     </uib-accordion-group>
-    <uib-accordion-group is-open="status.open[1]" panel-class="panel-info">
+    <uib-accordion-group is-open="status.open[1]" panel-class="panel-simple">
       <uib-accordion-heading>
         <div class="descriptionHeader">
           Find Unique Multiword Tags <i class="pull-right glyphicon"

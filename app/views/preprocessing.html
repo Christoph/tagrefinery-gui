@@ -1,6 +1,6 @@
 <div class="scafold">
   <uib-accordion>
-    <uib-accordion-group is-open="status.open[1]" panel-class="panel-primary">
+    <uib-accordion-group is-open="status.open[1]" panel-class="panel-advanced">
       <uib-accordion-heading>
         <div class="descriptionHeaderAdvanced">
           Advanced - Remove Characters <i class="pull-right glyphicon"
@@ -12,7 +12,7 @@
       <div class="row" ng-controller="PreprocessingremoveCtrl as ctrl"
            ng-include="'views/preprocessing.remove.html'"></div>
     </uib-accordion-group>
-    <uib-accordion-group is-open="status.open[2]" panel-class="panel-primary">
+    <uib-accordion-group is-open="status.open[2]" panel-class="panel-advanced">
       <uib-accordion-heading>
         <div class="descriptionHeaderAdvanced">
           Advanced - Replace Characters <i class="pull-right glyphicon"
@@ -24,7 +24,7 @@
       <div class="row" ng-controller="PreprocessingreplaceCtrl as ctrl"
            ng-include="'views/preprocessing.replace.html'"></div>
     </uib-accordion-group>
-    <uib-accordion-group is-open="status.open[0]" panel-class="panel-info">
+    <uib-accordion-group is-open="status.open[0]" panel-class="panel-simple">
       <uib-accordion-heading>
         <div class="descriptionHeader">
           Filter <i class="pull-right glyphicon"
@@ -37,7 +37,7 @@
       <div class="row" ng-controller="PreprocessingfilterCtrl as ctrl"
            ng-include="'views/preprocessing.filter.html'"></div>
     </uib-accordion-group>
-    <uib-accordion-group is-open="status.open[3]" panel-class="panel-info">
+    <uib-accordion-group is-open="status.open[3]" panel-class="panel-simple">
       <uib-accordion-heading>
         <div class="descriptionHeader">
           Import Blacklist <i class="pull-right glyphicon"
