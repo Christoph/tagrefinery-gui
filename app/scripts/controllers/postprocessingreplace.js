@@ -152,6 +152,7 @@ angular.module('tagrefineryGuiApp')
       enableFiltering: true,
       enableColumnMenus: false,
       enableGridMenu: true,
+      showGridFooter: true,
       enableCellEditOnFocus: true,
       rowTemplate: rowtpl,
       onRegisterApi: function (gridApi) {
