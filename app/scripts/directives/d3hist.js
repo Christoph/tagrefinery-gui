@@ -383,14 +383,14 @@ angular.module('tagrefineryGuiApp')
         .append("line")
         .style("cursor", "ew-resize")
         .attr("stroke", "black")
-        .attr("stroke-width", 5)
+        .attr("stroke-width", 3)
         .attr("y1", 0)
         .attr("y2", scope.quadrantHeight);
 
       scope.marker
         .append("circle")
         .style("cursor", "ew-resize")
-        .attr("r", 10)
+        .attr("r", 8)
         .attr("cy", scope.quadrantHeight/2);
 
       scope.markerArea = scope.bodyG
