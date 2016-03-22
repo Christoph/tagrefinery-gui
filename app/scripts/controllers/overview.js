@@ -27,6 +27,8 @@ angular.module('tagrefineryGuiApp')
     that.compRunning = false;
     that.postRunning = false;
 
+    that.showHistory = false;
+
     ////////////////////////////////////////////////
     // Socket functions
     ////////////////////////////////////////////////
@@ -41,6 +43,9 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('history', function (data) {
       that.history = JSON.parse(data);
+
+      that.showHistory = true;
+      document.getElementById("history").scrollIntoView()
     });
 
     socket.on('outputState', function (data) {

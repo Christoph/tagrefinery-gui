@@ -12,29 +12,30 @@
               <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
             </div>
           </div>
-          <h4>History</h4>
-
-          <div id="result2">
-            <table class="table">
-              <thead>
-              <tr>
-                <th>Raw Tag</th>
-                <th>Preprocess</th>
-                <th>Spellcorrect</th>
-                <th>Multiword</th>
-                <th>Postprocess</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr ng-repeat="x in ctrl.history">
-                <td>{{ x.original }}</td>
-                <td>{{ x.pre }}</td>
-                <td>{{ x.spell }}</td>
-                <td>{{ x.composite }}</td>
-                <td>{{ x.post }}</td>
-              </tr>
-              </tbody>
-            </table>
+          <div ng-show="ctrl.showHistory">
+            <h4 >History</h4>
+            <div id="result2">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>Raw Tag</th>
+                  <th>Preprocess</th>
+                  <th>Spellcorrect</th>
+                  <th>Multiword</th>
+                  <th>Postprocess</th>
+                </tr>
+                </thead>
+                <tbody id="history">
+                <tr ng-repeat="x in ctrl.history">
+                  <td>{{ x.original }}</td>
+                  <td>{{ x.pre }}</td>
+                  <td>{{ x.spell }}</td>
+                  <td>{{ x.composite }}</td>
+                  <td>{{ x.post }}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </uib-tab>
         <uib-tab index="1" heading="Tag View">
