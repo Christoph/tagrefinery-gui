@@ -109,16 +109,24 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("dPreF", function() {
-      if(that.newOccurrences != 0) {
-        that.newOccurrences = 0;
 
-        socket.emit("applyPrefilter", "" + that.newOccurrences);
-        that.occurrences = that.newOccurrences;
+      var total = 0;
+      var counter = that.data.length-1;
 
-        stats.writePre("Occurrence threshold", that.newOccurrences);
-
-        that.touched = false;
+      while(total < 5000)
+      {
+        total += that.data[counter].count;
+        counter--;
       }
+
+      that.newOccurrences = that.data[counter+1].value;
+
+      socket.emit("applyPrefilter", "" + that.newOccurrences);
+      that.occurrences = that.newOccurrences;
+
+      stats.writePre("Occurrence threshold", that.newOccurrences);
+
+      that.touched = false;
     });
 
     $scope.$on("undo", function() {
@@ -145,7 +153,7 @@ angular.module('tagrefineryGuiApp')
     that.scrollTo = function (rowIndex, colIndex) {
       that.gridApi.core.scrollTo(that.grid.data[rowIndex], that.grid.columnDefs[colIndex]);
       that.gridApi.selection.selectRow(that.grid.data[rowIndex]);
-      that.gridApi.selection.uns
+      that.gridApi.selection.unSelectRow(that.grid.data[rowIndex]);
     };
 
     // Grid
@@ -203,12 +211,16 @@ angular.module('tagrefineryGuiApp')
     };
 
     that.newCount = function () {
-      return _.sum(that.data, function(d) { return d.count; }) - _.sum(_.filter(that.data, function (d) {
-        return d.value > that.newOccurrences;
+      return _.sum(_.filter(that.data, function (d) {
+        return d.value <= that.newOccurrences;
       }), function (o) {
         return o.count;
       });
 
+    };
+
+    that.totalCount = function () {
+      return _.sum(that.data, function(d) { return d.count; })
     };
 
   }]);
