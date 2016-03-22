@@ -152,10 +152,10 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("dSpellR", function() {
-      if(that.newSimilarity != 0.75 || that.newImportance != 0.80)
+      if(that.newSimilarity != 0.75 || that.newImportance != 0.70)
       {
         that.newSimilarity = 0.75;
-        that.newImportance = 0.80;
+        that.newImportance = 0.70;
 
         socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
 

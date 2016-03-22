@@ -78,13 +78,31 @@ angular.module('tagrefineryGuiApp')
     {
       $scope.showStep =! $scope.showStep;
 
+      if($scope.currentStep == 0)
+      {
+        $scope.$broadcast("dPreF");
+      }
       if($scope.currentStep == 1)
       {
+        $scope.$broadcast("dPreB");
         socket.emit("getBlacklist", "")
       }
       if($scope.currentStep == 2)
       {
+        $scope.$broadcast("dSpellT");
         socket.emit("getWhitelist", "")
+      }
+      if($scope.currentStep == 3)
+      {
+        $scope.$broadcast("dSpellR");
+      }
+      if($scope.currentStep == 4)
+      {
+        $scope.$broadcast("dCompF");
+      }
+      if($scope.currentStep == 5)
+      {
+        $scope.$broadcast("dCompU");
       }
       if($scope.currentStep == 9)
       {
