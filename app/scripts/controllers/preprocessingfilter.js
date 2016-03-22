@@ -109,17 +109,24 @@ angular.module('tagrefineryGuiApp')
     });
 
     $scope.$on("dPreF", function() {
-
       var total = 0;
       var counter = that.data.length-1;
 
-      while(total < 5000)
+
+      while(total < 5000 && counter >= 0)
       {
         total += that.data[counter].count;
         counter--;
       }
 
-      that.newOccurrences = that.data[counter+1].value;
+      if(counter < 1) {
+        that.newOccurrences = 0;
+      }
+      else
+      {
+        that.newOccurrences = that.data[counter+1].value;
+      }
+
 
       socket.emit("applyPrefilter", "" + that.newOccurrences);
       that.occurrences = that.newOccurrences;
