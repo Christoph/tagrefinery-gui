@@ -7,7 +7,7 @@
             <button class="btn btn-default pull-right" ng-click="ctrl.exportCSV()">Export <i class="fa fa-download"></i></button>
             <p style="text-align: left; position: relative;bottom: -15px; margin-bottom: 0; margin-left: 15px"> <span style="color: #333; background-color: rgba(51, 110, 171, 0.31); font-weight: bold">Blue</span>: Changed Tags </p>
           </div>
-          <div id="result1" style="text-align: left" ui-grid="ctrl.grid" ui-grid-auto-resize ui-grid-selection ui-grid-resize-columns ui-grid-exporter>
+          <div id="result1" style="text-align: left; height: 500px" ui-grid="ctrl.grid" ui-grid-auto-resize ui-grid-selection ui-grid-resize-columns ui-grid-exporter>
             <div ng-if="ctrl.compRunning || ctrl.postRunning" class="overlay" style="text-align: center;">
               <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
             </div>
@@ -38,14 +38,14 @@
           </div>
         </uib-tab>
         <uib-tab index="1" heading="Tag View">
-          <div style="text-align: left" ui-grid="ctrl.vocab" ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter>
+          <div style="text-align: left; height: 500px" ui-grid="ctrl.vocab" ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter>
             <div ng-if="ctrl.compRunning || ctrl.postRunning" class="overlay">
               <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
             </div>
           </div>
         </uib-tab>
         <uib-tab index="2" heading="Item View">
-          <div style="text-align: left" ui-grid="ctrl.group" ui-grid-grouping ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter>
+          <div style="text-align: left; height: 500px" ui-grid="ctrl.group" ui-grid-grouping ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter>
             <div ng-if="ctrl.compRunning || ctrl.postRunning" class="overlay">
               <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
             </div>
