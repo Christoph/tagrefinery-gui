@@ -1,6 +1,6 @@
   <uib-tabset justified="true" active="active" ng-if="ctrl.mode == 'free'">
     <uib-tab index="0" disable="ctrl.disabled[0]" deselect="ctrl.apply()">
-      <uib-tab-heading>
+      <uib-tab-heading style="color: #333">
         <label class="pull-left">1</label> Preprocessing
       </uib-tab-heading>
       <div class="alert alert-info" style="text-align: center" ng-if="ctrl.initRunning">
@@ -13,7 +13,7 @@
     </uib-tab>
 
     <uib-tab index="1" disable="ctrl.disabled[1]" deselect="ctrl.apply()">
-      <uib-tab-heading>
+      <uib-tab-heading style="color: #333">
         <label class="pull-left">2</label> Spell-correct
       </uib-tab-heading>
       <div class="alert alert-info" style="text-align: center" ng-if="ctrl.preRunning">
@@ -26,7 +26,7 @@
     </uib-tab>
 
     <uib-tab index="2" disable="ctrl.disabled[2]" deselect="ctrl.apply()">
-      <uib-tab-heading>
+      <uib-tab-heading style="color: #333">
         <label class="pull-left">3</label> Multiword Tags
       </uib-tab-heading>
       <div class="alert alert-info" style="text-align: center" ng-if="ctrl.spellRunning">
@@ -39,7 +39,7 @@
     </uib-tab>
 
     <uib-tab index="3" disable="ctrl.disabled[3]">
-      <uib-tab-heading>
+      <uib-tab-heading style="color: #333">
         <label class="pull-left">4</label> Polish and Reduce
       </uib-tab-heading>
       <div class="alert alert-info" style="text-align: center" ng-if="ctrl.compRunning">
@@ -55,7 +55,7 @@
       <div class="alert alert-info" style="text-align: center" ng-if="ctrl.postRunning || ctrl.compRunning">
         <strong>Updating Data ... </strong> <br> <div spin-circle style="width: 40px; height: 40px"></div>
       </div>
-      <uib-tab-heading>
+      <uib-tab-heading style="color: #333">
         Result
       </uib-tab-heading>
       <div class="row" ng-controller="OverviewCtrl as ctrl" ng-include="'views/overview.html'"></div>
