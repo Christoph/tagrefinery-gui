@@ -37,7 +37,7 @@ angular.module('tagrefineryGuiApp')
           })
         }
 
-        stats.writePre("Number of Remaining Words", that.newCount());
+        stats.writePre("Number of Filtered Words", that.newCount());
 
         that.touched = true;
       });
@@ -68,7 +68,7 @@ angular.module('tagrefineryGuiApp')
     socket.on('preFilterData', function (data) {
       that.data = JSON.parse(data);
 
-      stats.writePre("Number of Remaining Words", that.newCount());
+      stats.writePre("Number of Filtered Words", that.newCount());
     });
 
     socket.on('preFilterGrid', function (data) {
@@ -145,10 +145,11 @@ angular.module('tagrefineryGuiApp')
     that.scrollTo = function (rowIndex, colIndex) {
       that.gridApi.core.scrollTo(that.grid.data[rowIndex], that.grid.columnDefs[colIndex]);
       that.gridApi.selection.selectRow(that.grid.data[rowIndex]);
+      that.gridApi.selection.uns
     };
 
     // Grid
-    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'removed\': grid.appScope.isRemoved( row ) }" ui-grid-cell></div>';
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'removedItem\': grid.appScope.isRemoved( row ) }" ui-grid-cell></div>';
 
     $scope.isRemoved = function(row)
     {
@@ -203,7 +204,7 @@ angular.module('tagrefineryGuiApp')
 
     that.newCount = function () {
       return _.sum(that.data, function(d) { return d.count; }) - _.sum(_.filter(that.data, function (d) {
-        return d.value <= that.newOccurrences;
+        return d.value > that.newOccurrences;
       }), function (o) {
         return o.count;
       });

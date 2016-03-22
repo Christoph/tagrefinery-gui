@@ -2,7 +2,7 @@
   <uib-progress max="130"><uib-bar ng-repeat="bar in ctrl.progress track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 1">{{bar.text | number: 0}}%</span></uib-bar></uib-progress>
   <div style="position: relative; top: -20px"><span style="position: absolute; left: 35%">Refine Parameters</span><span style="position: absolute; left: 76.6%">|</span><span style="position: absolute; left: 85%">Polish and Reduce</span></div>
   <div id="guided4" style="margin-top: 30px">
-    <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <span uib-tooltip="As example words which occur only once or twice in the dataset."><strong>extremely rare words</strong></span> to reduce computation time?</span>
+    <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <span uib-tooltip="As example words which occur only once or twice in the dataset."><strong>rare words</strong></span> to reduce computation time?</span>
     <span ng-show="currentStep == 1" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Each word in the list will be removed from the dataset"><strong>words to remove</strong></span>?</span>
     <span ng-show="currentStep == 2" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Import your Dictionary with correct words here"><strong>tags</strong></span> as ground truth?</span>
     <span ng-show="currentStep == 3" class="guidedQuestion">Do you want to consolidate <span uib-tooltip="Like - favourite, favorite, favourites or favorites"><strong>word forms</strong></span> and reduce <span class="descMarker" uib-tooltip="Misspelled words like - necesary">spelling errors</span>?</span>
@@ -36,6 +36,7 @@
     <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
   </div>
 
+  <button id="result10" ng-if="currentStep == 6" ng-click="ctrl.runAll()" class="btn secondaryColor" uib-tooltip="CAUTION: This may take a lot of time depending on the dataset!">Run without Prefilter <span class="fa fa-clock-o"></span></button>
   <button id="result6" ng-if="currentStep == 6" ng-click="ctrl.ok()" class="btn secondaryColor">Polish and Reduce <span class="fa fa-flask"></span></button>
 
   <hr>
@@ -102,7 +103,8 @@
       <div class="well well-large center" style="width: 600px">
         <h2>Words</h2>
         <p>We start by separating all tags into single words and assessing the quality of the words. Later, we will reconstruct <span class="descMarker" uib-tooltip="Like: Rock and Roll">multi-word</span> tags.</p>
-        <p>By default, no words will be filtered in this step. Removal of words is strongly recommended if your dataset contains more than 10,000 unique words.</p>
+        <p>By default, no words will be filtered in this step. Removal of words is strongly recommended if your dataset contains more than 6,000 unique words.</p>
+        <p>A dataset with around <strong>5,000 words</strong> takes less than <strong>one minute</strong> to compute. A dataset with around <strong>15,000 words</strong> takes around <strong>5 minutes</strong> to compute.</p>
         <p>One suggestion is to start with a small dataset to find good parameters, and then run the workflow on the complete dataset.</p>
       </div>
     </div>

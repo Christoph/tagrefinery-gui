@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('WorkflowCtrl', ["$scope", "socket", "intros", function ($scope, socket, intros) {
+  .controller('WorkflowCtrl', ["$scope", "socket", "intros", "stats", function ($scope, socket, intros, stats) {
     var that = this;
 
     // State variables
@@ -203,6 +203,17 @@ angular.module('tagrefineryGuiApp')
     {
       // Let the child apply changes
       $scope.$broadcast("apply");
+      socket.emit("computeWorkflow", "");
+    };
+
+    that.runAll = function()
+    {
+      // Reset prefilter
+      socket.emit("applyPrefilter", "" + 0);
+      stats.writePre("Occurrence threshold", 0);
+      stats.writePre("Number of Filtered Words", 0);
+
+      // Run whole workflow
       socket.emit("computeWorkflow", "");
     };
 

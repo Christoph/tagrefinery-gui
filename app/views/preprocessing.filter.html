@@ -30,11 +30,13 @@
 <!--Task Parameters and details-->
 <div class="row taskInner">
   <div id="preF2" class="col-sm-6" style="text-align: left">
-<p uib-tooltip="All words below the selected number of occurrences will be removed."><label>
-  Threshold:
-  <input type="number" min="0" ng-model="ctrl.newOccurrences" style="width: 50px; font-size: large">
-</label> Occurrences</p>
-    <p>Number of remaining words: <strong style="font-size: large">{{ ctrl.newCount() }}</strong></p>
+    <div style="margin-left: 70px">
+      <p uib-tooltip="All words below the selected number of occurrences will be removed."><label>
+        Threshold:
+        <input type="number" min="0" ng-model="ctrl.newOccurrences" style="width: 50px; font-size: large">
+      </label> Occurrences</p>
+      <p>Number of remaining words: <strong style="font-size: large">{{ ctrl.newCount() }}</strong></p>
+    </div>
   </div>
   <div id="preF3" class="col-sm-6" style="text-align: right">
     <button class="btn btn-default" ng-model="ctrl.showDetails" ng-click="ctrl.openGrid()" uib-btn-checkbox
@@ -46,7 +48,7 @@
 
 <!--Task advanced content-->
 <div ng-if="ctrl.showDetails" class="taskInner" >
-  <p style="text-align: left; position: relative;bottom: 2px; margin-bottom: -5px"> <span style="color: #b10000; font-weight: bold">Red</span>: Words which will be removed </p>
+  <p style="text-align: left; position: relative;bottom: 2px; margin-bottom: -5px"> <span style="color: #b10000; font-weight: bold; background-color: rgba(127, 0, 0, 0.3)">Red</span>: Words which will be removed </p>
   <div id="preFscroll" ui-grid="ctrl.grid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
 </div>
 
