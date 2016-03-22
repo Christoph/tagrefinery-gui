@@ -136,7 +136,7 @@ angular.module('tagrefineryGuiApp')
     // Edit
     ////////////////////////////////////////////////
 
-    var rowtpl = '<div ng-class="{\'default\':true,  \'removed\': grid.appScope.isRemoved( row ), \'edited\': grid.appScope.isEdited( row ) }"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div></div>';
+    var rowtpl = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'newItem\': grid.appScope.isEdited( row ), \'removedItem\': grid.appScope.isRemoved( row ) }" ui-grid-cell></div>';
 
     $scope.isRemoved = function(row)
     {

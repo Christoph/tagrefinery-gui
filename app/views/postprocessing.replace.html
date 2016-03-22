@@ -17,6 +17,10 @@
 </div>
 
 <!--Task content-->
+<div class="row" style="margin-left: 70px">
+  <span><strong style="background-color: rgba(50, 121, 183, 0.2)">Blue:</strong> Changed Tag;</span>
+  <span><strong style="background-color: rgba(127, 0, 0, 0.3)">Red:</strong> Removed Tag</span>
+</div>
 <div id="postS1" ng-if="status.open[1] || (currentStep == 8 && showStep)" ui-grid="ctrl.edit" ui-grid-edit ui-grid-cellNav ui-grid-exporter class="taskInner"></div>
 <div class="row taskInner" style="margin-top: 10px">
   <p>Number of Replaced Tags: <strong style="font-size: large">{{ctrl.replaceCount()}}</strong></p>
