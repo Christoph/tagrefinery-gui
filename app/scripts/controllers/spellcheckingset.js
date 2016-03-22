@@ -187,7 +187,7 @@ angular.module('tagrefineryGuiApp')
     };
 
     // Grid
-    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'replacement\': grid.appScope.isReplacement( row ), \'truth\': grid.appScope.isTruth( row ) }" ui-grid-cell></div>';
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'removedItem\': grid.appScope.isReplacement( row ), \'newItem\': grid.appScope.isTruth( row ) }" ui-grid-cell></div>';
 
     $scope.isReplacement = function(row)
     {
