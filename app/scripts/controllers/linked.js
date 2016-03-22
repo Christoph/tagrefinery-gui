@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('LinkedCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", "stats", function ($scope, socket, uiGridConstants, $timeout, stats) {
+  .controller('LinkedCtrl', ["$scope", "socket", "uiGridConstants", "$interval", "stats", function ($scope, socket, uiGridConstants, $interval, stats) {
 
     // Get instance of the class
     var that = this;
@@ -21,8 +21,17 @@ angular.module('tagrefineryGuiApp')
 
     that.preFilter = false;
 
-    that.vocabCount = stats.getVocab();
-    that.datasetCount = stats.getDataset();
+    that.vocabIn = 0;
+    that.datasetIn = 0;
+    that.vocabOut = 0;
+    that.datasetOut = 0;
+
+    that.spellChanged = false;
+    that.compChanged = false;
+    that.vocabInChanged = false;
+    that.datasetInChanged = false;
+    that.vocabOutCHanged = false;
+    that.datasetOutChanged = false;
 
     // PRE
     that.preData = [];
@@ -68,6 +77,8 @@ angular.module('tagrefineryGuiApp')
         that.newSpellI = threshold;
       });
 
+      that.spellChanged = true;
+
       that.getSpellTruth();
       that.applySpell();
     };
@@ -76,6 +87,8 @@ angular.module('tagrefineryGuiApp')
       $scope.$apply(function () {
         that.newSpellS = value;
       });
+
+      that.spellChanged = true;
 
       if(that.newSimilarity < 0.5 && !that.twentyfive)
       {
@@ -103,6 +116,8 @@ angular.module('tagrefineryGuiApp')
         stats.writeComp("Number of Frequent Groups", that.getCompFCount());
       });
 
+      that.compChanged = true;
+
       that.applyCompF();
     };
 
@@ -112,6 +127,8 @@ angular.module('tagrefineryGuiApp')
 
         stats.writeComp("Number of Frequent Groups", that.getCompUCount());
       });
+
+      that.compChanged = true;
 
       that.applyCompU();
     };
@@ -125,6 +142,26 @@ angular.module('tagrefineryGuiApp')
       {
         that.linked = true;
       }
+    });
+
+    socket.on('preVocabSize', function (data) {
+      that.vocabIn = data;
+      that.vocabInChanged = true;
+    });
+
+    socket.on('compVocabSize', function (data) {
+      that.vocabOut = data;
+      that.vocabOutCHanged = true;
+    });
+
+    socket.on('preDataset', function (data) {
+      that.datasetIn = data;
+      that.datasetInChanged = true;
+    });
+
+    socket.on('compDataset', function (data) {
+      that.datasetOut = data;
+      that.datasetOutChanged = true;
     });
 
     socket.on('initRunning', function (data) {
@@ -389,6 +426,23 @@ angular.module('tagrefineryGuiApp')
     {
       socket.emit("selectMode", "guided");
     };
+
+    that.resetHighlight = function()
+    {
+      console.log("tset")
+      that.spellChanged = false;
+      that.compChanged = false;
+      that.vocabInChanged = false;
+      that.datasetInChanged = false;
+      that.vocabOutCHanged = false;
+      that.datasetOutChanged = false;
+    };
+
+    var timer = $interval(that.resetHighlight, 10000);
+
+    $scope.$on("$destroy", function() {
+      $interval.cancel(timer);
+    });
 
     that.getReplacementCount = function () {
       return _.sum(_.filter(that.replGrid.data, function (d) {

@@ -107,6 +107,10 @@ Linked
   background-color: rgba(127, 0, 0, 0.3);
 }
 
+.highlight {
+  background: rgba(50, 121, 183, 0.2);
+}
+
 /*
 Post
 */

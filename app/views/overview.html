@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-8" style="text-align: center">
+  <div class="col-sm-7" style="text-align: center">
     <div class="row taskInner">
       <uib-tabset active="activeJustified" justified="true">
         <uib-tab index="0" heading="Dataset (Tag/Item)">
@@ -54,41 +54,51 @@
       </uib-tabset>
     </div>
   </div>
-  <div id="result3" class="col-sm-4">
+  <div id="result3" class="col-sm-5">
     <h4> Parameters </h4>
-    <table class="table" style="width:95% ">
-      <tbody>
-      <th>Vocab</th>
-      <tr ng-repeat="(key, value) in ctrl.vocabCount">
-        <td>{{ key }}</td>
-        <td style="font-weight: bold">{{ value }}</td>
-      </tr>
-      <th>Dataset</th>
-      <tr ng-repeat="(key, value) in ctrl.datasetCount">
-        <td>{{ key }}</td>
-        <td style="font-weight: bold">{{ value }}</td>
-      </tr>
-      <th>Preprocessing</th>
-      <tr ng-repeat="(key, value) in ctrl.pre">
-        <td>{{ key }}</td>
-        <td style="font-weight: bold">{{ value }}</td>
-      </tr>
-      <th>Spell-correct</th>
-      <tr ng-repeat="(key, value) in ctrl.spell">
-        <td>{{ key }}</td>
-        <td style="font-weight: bold">{{ value }}</td>
-      </tr>
-      <th>Multiword Tags</th>
-      <tr ng-repeat="(key, value) in ctrl.comp">
-        <td>{{ key }}</td>
-        <td style="font-weight: bold">{{ value }}</td>
-      </tr>
-      <th>Finalize</th>
-      <tr ng-repeat="(key, value) in ctrl.post" ng-show="ctrl.state == 'Finalize'">
-        <td>{{ key }}</td>
-        <td style="font-weight: bold">{{ value }}</td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="row">
+      <div class="col-sm-6">
+        <table class="table" style="width:95% ">
+          <tbody>
+          <th>Vocab</th>
+          <tr ng-repeat="(key, value) in ctrl.vocabCount">
+            <td>{{ key }}</td>
+            <td style="font-weight: bold; font-size: medium">{{ value }}</td>
+          </tr>
+          <th>Dataset</th>
+          <tr ng-repeat="(key, value) in ctrl.datasetCount">
+            <td>{{ key }}</td>
+            <td style="font-weight: bold; font-size: medium">{{ value }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-6">
+        <table class="table" style="width:95% ">
+          <tbody>
+          <th>Preprocessing</th>
+          <tr ng-repeat="(key, value) in ctrl.pre">
+            <td>{{ key }}</td>
+            <td style="font-weight: bold; font-size: medium">{{ value }}</td>
+          </tr>
+          <th>Spell-correct</th>
+          <tr ng-repeat="(key, value) in ctrl.spell">
+            <td>{{ key }}</td>
+            <td style="font-weight: bold; font-size: medium">{{ value }}</td>
+          </tr>
+          <th>Multiword Tags</th>
+          <tr ng-repeat="(key, value) in ctrl.comp">
+            <td>{{ key }}</td>
+            <td style="font-weight: bold; font-size: medium">{{ value }}</td>
+          </tr>
+          <th>Finalize</th>
+          <tr ng-repeat="(key, value) in ctrl.post" ng-show="ctrl.state == 'Finalize'">
+            <td>{{ key }}</td>
+            <td style="font-weight: bold; font-size: medium">{{ value }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

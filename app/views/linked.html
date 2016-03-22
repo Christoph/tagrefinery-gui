@@ -29,10 +29,10 @@
     </div>
     <div class="col-sm-4" style="position: relative">
       <div class="row" style="margin-bottom: 2px">
-        <button class="btn btn-group-justified btn-primary" ng-model="ctrl.showPrefilter" uib-btn-checkbox btn-checkbox-true=true btn-checkbox-false=false style="text-align: left">Pre Filter</button>
+        <button class="btn btn-group-justified primaryColor" ng-model="ctrl.showPrefilter" uib-btn-checkbox btn-checkbox-true=true btn-checkbox-false=false style="text-align: left">Pre Filter</button>
       </div>
       <div id="linked8" class="row">
-        <button style="text-align: left" class="btn btn-group-justified btn-info" ng-click="ctrl.goToResult()">Goto Results</button>
+        <button style="text-align: left" class="btn btn-group-justified secondaryColor" ng-click="ctrl.goToResult()">Guided Mode</button>
       </div>
       <div ng-if="ctrl.compRunning" class="overlay">
         <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
@@ -41,30 +41,34 @@
         <div class="col-sm-3">
           <h5 style="text-align: center">In</h5>
           <hr>
-          Number of Annotated Items: <strong>{{ctrl.datasetCount["After Preprocessing"]}}</strong> <br>
+          <p ng-class="{ 'highlight': ctrl.datasetInChanged }">Number of Annotated Items: <strong style="font-size: medium">{{ctrl.datasetIn}}</strong></p> <br>
           <br>
-          Number of Tags: <strong>{{ctrl.vocabCount["After Preprocessing"]}}</strong>
+          <p ng-class="{ 'highlight': ctrl.vocabInChanged }">Number of Tags: <strong style="font-size: medium">{{ctrl.vocabIn}}</strong></p>
         </div>
         <div class="col-sm-3">
           <h5 style="text-align: center">Spell Correct</h5>
           <hr>
-          Number of Ground Truth Words: <strong>{{ctrl.spellTruth}}</strong> <br>
+          <div ng-class="{ 'highlight': ctrl.spellChanged }">
+          Number of Ground Truth Words: <strong style="font-size: medium">{{ctrl.spellTruth}}</strong> <br>
           <br>
-          Number of Replacements: <strong>{{ctrl.getReplacementCount()}}</strong>
+          Number of Replacements: <strong style="font-size: medium">{{ctrl.getReplacementCount()}}</strong>
+          </div>
         </div>
         <div class="col-sm-3">
           <h5 style="text-align: center">Multiword</h5>
           <hr>
-          Number of Frequent Groups: <strong>{{ctrl.getCompFCount()}}</strong> <br>
+          <div ng-class="{ 'highlight': ctrl.compChanged }">
+          Number of Frequent Groups: <strong style="font-size: medium">{{ctrl.getCompFCount()}}</strong> <br>
           <br>
-          Number of Unique Groups: <strong>{{ctrl.getCompUCount()}}</strong>
+          Number of Unique Groups: <strong style="font-size: medium">{{ctrl.getCompUCount()}}</strong>
+          </div>
         </div>
         <div class="col-sm-3">
           <h5 style="text-align: center">Out</h5>
           <hr>
-          Number of Annotated Items: <strong>{{ctrl.datasetCount["After Multiword Tag Detection"]}}</strong> <br>
+          <p ng-class="{ 'highlight': ctrl.datasetOutChanged }">Number of Annotated Items: <strong style="font-size: medium">{{ctrl.datasetOut}}</strong></p> <br>
           <br>
-          Number of Tags: <strong>{{ctrl.vocabCount["After Multiword Tag Detection"]}}</strong>
+          <p ng-class="{ 'highlight': ctrl.vocabOutCHanged }">Number of Tags: <strong style="font-size: medium">{{ctrl.vocabOut}}</strong></p>
         </div>
       </div>
       <div class="row" style="position: relative">
