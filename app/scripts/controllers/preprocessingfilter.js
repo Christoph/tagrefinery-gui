@@ -119,7 +119,7 @@ angular.module('tagrefineryGuiApp')
         counter--;
       }
 
-      if(counter < 1) {
+      if(counter < 1 && total < 5000) {
         that.newOccurrences = 0;
       }
       else
