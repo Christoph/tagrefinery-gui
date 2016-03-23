@@ -145,7 +145,7 @@ angular.module('tagrefineryGuiApp')
     };
 
     // Grid
-    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'currentGroup\': grid.appScope.isCurrent( row ) }" ui-grid-cell></div>';
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'newItem\': grid.appScope.isCurrent( row ) }" ui-grid-cell></div>';
 
     $scope.isCurrent = function(row)
     {
