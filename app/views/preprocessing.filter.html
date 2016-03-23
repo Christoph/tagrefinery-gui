@@ -33,7 +33,7 @@
     <div style="margin-left: 70px">
       <p uib-tooltip="All words below the selected number of occurrences will be removed."><label>
         Threshold:
-        <input type="number" min="0" ng-model="ctrl.newOccurrences" style="width: 50px; font-size: large">
+        <input ng-change="ctrl.touched = true;" type="number" min="0" ng-model="ctrl.newOccurrences" style="width: 50px; font-size: large">
       </label> Occurrences</p>
       <p>Number of removed words: <strong style="font-size: large">{{ ctrl.newCount() }}</strong></p>
       <p>Total number of words: <strong style="font-size: large">{{ ctrl.totalCount() }}</strong></p>
