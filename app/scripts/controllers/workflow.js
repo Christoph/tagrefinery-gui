@@ -21,6 +21,13 @@ angular.module('tagrefineryGuiApp')
 
     that.mode = "";
 
+    that.pre = stats.getPre();
+    that.spell = stats.getSpell();
+    that.comp = stats.getComp();
+    that.post = stats.getPost();
+    that.vocabCount = stats.getVocab();
+    that.datasetCount = stats.getDataset();
+
     $scope.showStep = false;
     $scope.currentStep = 0;
 

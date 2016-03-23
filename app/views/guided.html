@@ -40,6 +40,20 @@
   <button id="result6" ng-if="currentStep == 6" ng-click="ctrl.ok()" class="btn secondaryColor pull-right" style="width: 300px">Polish and Reduce Size <span class="fa fa-flask"></span></button>
 
   <hr>
+  <div class="row">
+    <div ng-if="currentStep == 0 && ctrl.initRunning" class="overlay" style="text-align: center">
+      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+    </div>
+    <div ng-if="currentStep == 3 && ctrl.preRunning" class="overlay" style="text-align: center">
+      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+    </div>
+    <div ng-if="currentStep == 4 && ctrl.spellRunning" class="overlay" style="text-align: center">
+      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+    </div>
+    <div ng-if="currentStep == 5 && ctrl.spellRunning" class="overlay" style="text-align: center">
+      <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
+    </div>
+    <div class="col-sm-11">
   <div>
     <div uib-collapse="!showStep" style="text-align: left" class="guidedInner">
       <div style="position: relative">
@@ -161,6 +175,55 @@
         <h2>Salvage</h2>
         <p>The salvager goes through all the tags that have been previously removed and looks for informative tags within them. </p>
         <p>For instance, if “rock” is in your final dataset and “some weird rock” is not, the salvager will turn the latter into “rock”. By performing this step, the amount of information we have on the items in your library (songs, papers, etc.) can increase significantly.</p>
+      </div>
+    </div>
+  </div>
+    </div>
+    <div class="col-sm-1" style="margin-top: -20px; border-left: 1px solid rgba(51, 51, 51, 0.21); position: relative; height: 70vh">
+      <div uib-collapse="currentStep <= 0" style="margin-top: 25px">
+        <div class="well well-sm sidebar">
+          Remaining Words: <strong>{{ctrl.vocabCount['Original'] - ctrl.pre["Number of Filtered Words"]}}</strong>
+        </div>
+      </div>
+      <div uib-collapse="currentStep <= 1">
+        <div class="well well-sm sidebar">
+          Blacklisted Words: <strong>{{ctrl.pre["Number of blacklisted Words"]}}</strong>
+        </div>
+      </div>
+      <div uib-collapse="currentStep <= 2">
+        <div class="well well-sm sidebar">
+          test message
+        </div>
+      </div>
+      <div uib-collapse="currentStep <= 3">
+        <div class="well well-sm sidebar">
+          test message
+        </div>
+      </div>
+      <div uib-collapse="currentStep <= 4">
+        <div class="well well-sm sidebar">
+          test message
+        </div>
+      </div>
+      <div uib-collapse="currentStep <= 5">
+        <div class="well well-sm sidebar">
+          test message
+        </div>
+      </div>
+      <div uib-collapse="currentStep <= 7">
+        <div class="well well-sm sidebar">
+          test message
+        </div>
+      </div>
+      <div uib-collapse="currentStep <= 8">
+        <div class="well well-sm sidebar">
+          test message
+        </div>
+      </div>
+      <div uib-collapse="currentStep <= 9">
+        <div class="well well-sm sidebar">
+          test message
+        </div>
       </div>
     </div>
   </div>
