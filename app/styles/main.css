@@ -86,25 +86,25 @@ Activates text wrapping in the header
 }
 
 /*
-Linked
+Global
 */
 
 .ui-grid-row:nth-child(odd) .newItem {
   font-weight: bold;
-  background-color: rgba(50, 121, 183, 0.2);
+  background-color: rgba(50, 121, 183, 0.2) !important;
 }
 .ui-grid-row:nth-child(even) .newItem {
   font-weight: bold;
-  background-color: rgba(51, 110, 171, 0.31);
+  background-color: rgba(51, 110, 171, 0.31) !important;
 }
 
 .ui-grid-row:nth-child(odd) .removedItem {
   font-weight: bold;
-  background-color: rgba(139, 0, 0, 0.2);
+  background-color: rgba(139, 0, 0, 0.2) !important;
 }
 .ui-grid-row:nth-child(even) .removedItem {
   font-weight: bold;
-  background-color: rgba(127, 0, 0, 0.3);
+  background-color: rgba(127, 0, 0, 0.3) !important;
 }
 
 .highlight {
