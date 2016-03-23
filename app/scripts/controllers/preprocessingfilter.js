@@ -80,6 +80,7 @@ angular.module('tagrefineryGuiApp')
       that.newOccurrences = that.occurrences;
 
       stats.writePre("Occurrence threshold", that.newOccurrences);
+      stats.writePre("Number of Filtered Words", that.newCount());
     });
 
     $scope.$on("apply", function() {
@@ -89,6 +90,7 @@ angular.module('tagrefineryGuiApp')
         that.occurrences = that.newOccurrences;
 
         stats.writePre("Occurrence threshold", that.newOccurrences);
+        stats.writePre("Number of Filtered Words", that.newCount());
 
         that.touched = false;
       }
@@ -103,6 +105,7 @@ angular.module('tagrefineryGuiApp')
         that.occurrences = that.newOccurrences;
 
         stats.writePre("Occurrence threshold", that.newOccurrences);
+        stats.writePre("Number of Filtered Words", that.newCount());
 
         that.touched = false;
       }
@@ -132,6 +135,7 @@ angular.module('tagrefineryGuiApp')
       that.occurrences = that.newOccurrences;
 
       stats.writePre("Occurrence threshold", that.newOccurrences);
+      stats.writePre("Number of Filtered Words", that.newCount());
 
       that.touched = false;
     });
@@ -148,6 +152,7 @@ angular.module('tagrefineryGuiApp')
       that.newOccurrences = that.occurrences;
 
       stats.writePre("Occurrence threshold", that.newOccurrences);
+      stats.writePre("Number of Filtered Words", that.newCount());
 
       that.touched = false;
     };
