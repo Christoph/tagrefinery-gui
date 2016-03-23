@@ -192,37 +192,41 @@
       </div>
       <div uib-collapse="currentStep <= 2">
         <div class="well well-sm sidebar">
-          test message
+          Ground Truth Words: <strong>{{ctrl.spell["Number of Dictionary Words"]}}</strong>
         </div>
       </div>
       <div uib-collapse="currentStep <= 3">
         <div class="well well-sm sidebar">
-          test message
+          Replacements: <strong>{{ctrl.spell["Number of Replacements"]}}</strong>
         </div>
       </div>
       <div uib-collapse="currentStep <= 4">
         <div class="well well-sm sidebar">
-          test message
+          Frequent Groups: <strong>{{ctrl.comp["Number of Frequent Groups"]}}</strong>
         </div>
       </div>
       <div uib-collapse="currentStep <= 5">
         <div class="well well-sm sidebar">
-          test message
+          Unique Groups: <strong>{{ctrl.comp["Number of Unique Groups"]}}</strong>
         </div>
       </div>
       <div uib-collapse="currentStep <= 7">
         <div class="well well-sm sidebar">
-          test message
+          Important Tags: <strong>{{ctrl.post["Number of Important Tags"]}}</strong>
         </div>
       </div>
       <div uib-collapse="currentStep <= 8">
         <div class="well well-sm sidebar">
-          test message
+          Replaced Tags: <strong>{{ctrl.post["Replaced Tags"]}}</strong>
+          <br>
+          Removed Tags: <strong>{{ctrl.post["Removed Tags"]}}</strong>
         </div>
       </div>
       <div uib-collapse="currentStep <= 9">
         <div class="well well-sm sidebar">
-          test message
+          Number of Tags: <strong>{{ctrl.vocabCount["Final"]}}</strong>
+          <br>
+          Dataset Size: <strong>{{ctrl.datasetCount["Final"]}}</strong>
         </div>
       </div>
     </div>

@@ -96,6 +96,9 @@ angular.module('tagrefineryGuiApp')
       socket.emit("applyPostReplace", JSON.stringify(that.replace));
       socket.emit("applyPostRemove", JSON.stringify(that.remove));
 
+      stats.writePost("Replaced Tags", that.replaceCount);
+      stats.writePost("Removed Tags", that.removeCount());
+
       socket.emit("applySalvaging", "");
 
       that.replaceOriginal = _.cloneDeep(that.replace);
@@ -108,6 +111,9 @@ angular.module('tagrefineryGuiApp')
         that.undo();
         socket.emit("applyPostReplace", JSON.stringify(that.replace));
         socket.emit("applyPostRemove", JSON.stringify(that.remove));
+
+        stats.writePost("Replaced Tags", that.replaceCount());
+        stats.writePost("Removed Tags", that.removeCount());
       }
     });
 
