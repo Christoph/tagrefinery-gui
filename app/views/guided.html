@@ -1,6 +1,6 @@
 <div class="guidedInner">
-  <uib-progress max="130"><uib-bar ng-repeat="bar in ctrl.progress track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 1">{{bar.text | number: 0}}%</span></uib-bar></uib-progress>
-  <div style="position: relative; top: -20px"><span style="position: absolute; left: 35%">Refine Parameters</span><span style="position: absolute; left: 76.6%">|</span><span style="position: absolute; left: 85%">Polish and Reduce</span></div>
+  <uib-progress max="90"><uib-bar ng-repeat="bar in ctrl.progress track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 1">{{bar.text | number: 0}}%</span></uib-bar></uib-progress>
+  <div style="position: relative; top: -20px"><span style="position: absolute; left: 3%">Pre Filter</span><span style="position: absolute; left: 11%">|</span><span style="position: absolute; left: 35%">Refine Parameters</span><span style="position: absolute; left: 66.5%">|</span><span style="position: absolute; left: 78%">Polish and Reduce</span></div>
   <div id="guided4" style="margin-top: 30px">
     <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <span uib-tooltip="As example words which occur only once or twice in the dataset."><strong>rare words</strong></span> to reduce computation time?</span>
     <span ng-show="currentStep == 1" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Each word in the list will be removed from the dataset"><strong>words to remove</strong></span>?</span>
@@ -36,7 +36,7 @@
     <button id="result5" ng-click="ctrl.goToAdvanced()" class="btn primaryColor">Advanced Mode <span class="fa fa-list-alt"></span></button>
   </div>
 
-  <button id="result10" ng-if="currentStep == 6" ng-click="ctrl.runAll()" class="btn secondaryColor" uib-tooltip="CAUTION: This may take a lot of time depending on the dataset!">Run without Prefilter <span class="fa fa-clock-o"></span></button>
+  <button id="result10" ng-if="currentStep == 6" ng-click="ctrl.runAll()" class="btn secondaryColor" uib-tooltip="CAUTION: This may take a lot of time depending on the dataset!">Run without Pre Filter <span class="fa fa-clock-o"></span></button>
   <button id="result6" ng-if="currentStep == 6" ng-click="ctrl.ok()" class="btn secondaryColor pull-right" style="width: 300px">Polish and Reduce Size <span class="fa fa-flask"></span></button>
 
   <hr>

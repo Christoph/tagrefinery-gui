@@ -25,21 +25,28 @@ angular.module('tagrefineryGuiApp')
     $scope.currentStep = 0;
 
     that.progress = [];
+    that.progress.push({value: 0, text: 0, type: 'warning'});
     that.progress.push({value: 0, text: 0, type: 'success'});
     that.progress.push({value: 0, text: 0, type: 'warning'});
 
     that.updateProgress = function()
     {
-      if($scope.currentStep < 7)
+      if($scope.currentStep <= 1)
       {
-        that.progress[0].value = ($scope.currentStep/6)*100;
-        that.progress[0].text = ($scope.currentStep/6)*100;
+        that.progress[0].value = ($scope.currentStep)*100/10;
+        that.progress[0].text = ($scope.currentStep)*100;
+      }
+
+      if($scope.currentStep < 7 && $scope.currentStep >= 1)
+      {
+        that.progress[1].value = (($scope.currentStep-1))*100/10;
+        that.progress[1].text = (($scope.currentStep-1)/5)*100;
       }
 
       if($scope.currentStep >= 7)
       {
-        that.progress[1].value = ((($scope.currentStep-7)/3)*100)/3;
-        that.progress[1].text = (($scope.currentStep-7)/3)*100;
+        that.progress[2].value = ((($scope.currentStep-7))*100)/10;
+        that.progress[2].text = (($scope.currentStep-7)/3)*100;
       }
     };
 
