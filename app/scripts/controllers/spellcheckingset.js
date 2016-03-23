@@ -48,7 +48,7 @@ angular.module('tagrefineryGuiApp')
         that.touched = true;
       });
 
-      //that.scrollToR(that.getAboveRow(that.replGrid.data, that.newSimilarity),0);
+      that.scrollToR(that.getAboveRow(that.replGrid.data, that.newSimilarity),0);
 
       if(that.newSimilarity < 0.5 && !that.twentyfive)
       {
@@ -213,13 +213,21 @@ angular.module('tagrefineryGuiApp')
       onRegisterApi: function (gridApi) {
         that.replGridApi = gridApi;
 
-        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          if (row.entity.similarity > 0) {
-            that.newSimilarity = row.entity.similarity;
+        gridApi.cellNav.on.navigate(null, function(newRow, oldRow) {
+          if(newRow.col.field == "similarity")
+          {
+            if (newRow.row.entity.similarity > 0) {
+              that.newSimilarity = newRow.row.entity.similarity;
+            }
           }
 
-          // Tells the grid to redraw after click
-          gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+          if(newRow.col.field == "importanceReplacement")
+          {
+            if (newRow.row.entity.importanceReplacement > 0) {
+              that.newImportance = newRow.row.entity.importanceReplacement;
+            }
+          }
+
         });
       },
       columnDefs: [

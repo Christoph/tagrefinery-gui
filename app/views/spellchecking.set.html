@@ -52,7 +52,7 @@
       <span><strong style="background-color: rgba(50, 121, 183, 0.2)">Blue:</strong> Both Words in Ground Truth (no replacement)</span><br>
       <span><strong style="background-color: rgba(127, 0, 0, 0.3)">Red:</strong> Accepted Replacements</span>
     </div>
-    <div ng-if="status.open[1] || (currentStep == 3 && showStep)" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid" style="height: 600px"></div>
+    <div ng-if="status.open[1] || (currentStep == 3 && showStep)" ui-grid="ctrl.replGrid"ui-grid-cellnav ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid" style="height: 600px"></div>
   </div>
   <div class="col-sm-1">
     <div id="spellC3" style="text-align: justify">

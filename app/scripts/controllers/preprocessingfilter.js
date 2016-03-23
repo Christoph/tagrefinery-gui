@@ -131,11 +131,14 @@ angular.module('tagrefineryGuiApp')
       }
 
 
-      socket.emit("applyPrefilter", "" + that.newOccurrences);
-      that.occurrences = that.newOccurrences;
+      if(that.occurrences != that.newOccurrences)
+      {
+        socket.emit("applyPrefilter", "" + that.newOccurrences);
+        that.occurrences = that.newOccurrences;
 
-      stats.writePre("Occurrence threshold", that.newOccurrences);
-      stats.writePre("Number of Filtered Words", that.newCount());
+        stats.writePre("Occurrence threshold", that.newOccurrences);
+        stats.writePre("Number of Filtered Words", that.newCount());
+      }
 
       that.touched = false;
     });
