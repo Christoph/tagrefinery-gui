@@ -29,7 +29,7 @@ angular.module('tagrefineryGuiApp')
     that.datasetCount = stats.getDataset();
 
     $scope.showStep = false;
-    $scope.currentStep = 0;
+    $scope.currentStep = -1;
 
     that.progress = [];
     that.progress.push({value: 0, text: 0, type: 'warning'});
@@ -224,6 +224,11 @@ angular.module('tagrefineryGuiApp')
       // Let the child apply changes
       $scope.$broadcast("apply");
       socket.emit("computeWorkflow", "");
+    };
+
+    that.start = function()
+    {
+      $scope.currentStep = 0;
     };
 
     that.runAll = function()

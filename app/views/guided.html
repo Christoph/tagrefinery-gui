@@ -15,7 +15,11 @@
     <span ng-show="currentStep == 10" class="guidedQuestion">Results</span>
   </div>
   <br>
-  <button ng-if="currentStep > 0 && !(currentStep == 6 || currentStep == 10)" class="btn btn-back" ng-click="ctrl.back()"><i class="fa fa-chevron-left" style="position: relative; top:-2px"></i></button>
+  <div ng-show="currentStep < 0">
+    <button ng-click="ctrl.start()" class="btn primaryColor" style="width: 200px">Start <span class="glyphicon glyphicon-ok"></span></button>
+  </div>
+  <div ng-show="currentStep >= 0">
+  <button ng-if=" !(currentStep == 6 || currentStep == 10)" class="btn btn-back" ng-click="ctrl.back()"><i class="fa fa-chevron-left" style="position: relative; top:-2px"></i></button>
 
   <div class="btn-group" ng-if="currentStep != 6 && currentStep != 10">
     <button ng-if="!showStep" id="guided3" ng-click="ctrl.customize()" class="btn primaryColor" style="width: 150px">Yes <span class="fa fa-gear"></span></button>
@@ -38,8 +42,14 @@
 
   <button id="result10" ng-if="currentStep == 6" ng-click="ctrl.runAll()" class="btn secondaryColor" uib-tooltip="CAUTION: This may take a lot of time depending on the dataset!">Run without Pre Filter <span class="fa fa-clock-o"></span></button>
   <button id="result6" ng-if="currentStep == 6" ng-click="ctrl.ok()" class="btn secondaryColor pull-right" style="width: 300px">Polish and Reduce Size <span class="fa fa-flask"></span></button>
+  </div>
 
   <hr>
+  <div ng-show="currentStep < 0">
+    <img src="workflow.png" style="height: 500px" />
+  </div>
+  <div ng-show="currentStep >= 0">
+
   <div class="row">
     <div ng-if="currentStep == 0 && ctrl.initRunning" class="overlay" style="text-align: center">
       <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
@@ -230,5 +240,6 @@
         </button>
       </div>
     </div>
+  </div>
   </div>
 </div>
