@@ -179,55 +179,55 @@
     </div>
   </div>
     </div>
-    <div class="col-sm-1" style="margin-top: -20px; border-left: 1px solid rgba(51, 51, 51, 0.21); position: relative; height: 70vh">
+    <div class="col-sm-1" style="margin-top: -20px; border-left: 1px solid rgba(51, 51, 51, 0.21); position: relative; height: 72vh">
       <div uib-collapse="currentStep <= 0" style="margin-top: 25px">
-        <div class="well well-sm sidebar">
+        <button ng-click="ctrl.jumpTo(0)" class="well well-sm sidebar">
           Remaining Words: <strong>{{ctrl.vocabCount['Original'] - ctrl.pre["Number of Filtered Words"]}}</strong>
-        </div>
+        </button>
       </div>
       <div uib-collapse="currentStep <= 1">
-        <div class="well well-sm sidebar">
+        <button ng-click="ctrl.jumpTo(1)" class="well well-sm sidebar">
           Blacklisted Words: <strong>{{ctrl.pre["Number of blacklisted Words"]}}</strong>
-        </div>
+        </button>
       </div>
       <div uib-collapse="currentStep <= 2">
-        <div class="well well-sm sidebar">
+        <button ng-click="ctrl.jumpTo(2)" class="well well-sm sidebar">
           Ground Truth Words: <strong>{{ctrl.spell["Number of Dictionary Words"]}}</strong>
-        </div>
+        </button>
       </div>
       <div uib-collapse="currentStep <= 3">
-        <div class="well well-sm sidebar">
+        <button ng-click="ctrl.jumpTo(3)" class="well well-sm sidebar">
           Replacements: <strong>{{ctrl.spell["Number of Replacements"]}}</strong>
-        </div>
+        </button>
       </div>
       <div uib-collapse="currentStep <= 4">
-        <div class="well well-sm sidebar">
+        <button ng-click="ctrl.jumpTo(4)" class="well well-sm sidebar">
           Frequent Groups: <strong>{{ctrl.comp["Number of Frequent Groups"]}}</strong>
-        </div>
+        </button>
       </div>
       <div uib-collapse="currentStep <= 5">
-        <div class="well well-sm sidebar">
+        <button ng-click="ctrl.jumpTo(5)" class="well well-sm sidebar">
           Unique Groups: <strong>{{ctrl.comp["Number of Unique Groups"]}}</strong>
-        </div>
+        </button>
       </div>
       <div uib-collapse="currentStep <= 7">
-        <div class="well well-sm sidebar">
+        <button ng-click="ctrl.jumpTo(7)" class="well well-sm sidebar">
           Important Tags: <strong>{{ctrl.post["Number of Important Tags"]}}</strong>
-        </div>
+        </button>
       </div>
       <div uib-collapse="currentStep <= 8">
-        <div class="well well-sm sidebar">
+        <button ng-click="ctrl.jumpTo(8)" class="well well-sm sidebar">
           Replaced Tags: <strong>{{ctrl.post["Replaced Tags"]}}</strong>
           <br>
           Removed Tags: <strong>{{ctrl.post["Removed Tags"]}}</strong>
-        </div>
+        </button>
       </div>
       <div uib-collapse="currentStep <= 9">
-        <div class="well well-sm sidebar">
+        <button ng-click="ctrl.jumpTo(9)" class="well well-sm sidebar">
           Number of Tags: <strong>{{ctrl.vocabCount["Final"]}}</strong>
           <br>
           Dataset Size: <strong>{{ctrl.datasetCount["Final"]}}</strong>
-        </div>
+        </button>
       </div>
     </div>
   </div>
