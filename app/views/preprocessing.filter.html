@@ -35,7 +35,7 @@
         Threshold:
         <input ng-change="ctrl.touched = true;" type="number" min="0" ng-model="ctrl.newOccurrences" style="width: 50px; font-size: large">
       </label> Occurrences</p>
-      <p>Number of removed words: <strong style="font-size: large">{{ ctrl.newCount() }}</strong></p>
+      <p>Number of remaining words: <strong style="font-size: large">{{ ctrl.totalCount() - ctrl.newCount() }}</strong></p>
       <p>Total number of words: <strong style="font-size: large">{{ ctrl.totalCount() }}</strong></p>
     </div>
   </div>
