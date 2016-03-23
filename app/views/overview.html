@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-7" style="text-align: center">
+  <div ng-class="active == 4 ? 'col-sm-7': 'col-sm-12'" style="text-align: center">
     <div class="row taskInner">
       <uib-tabset active="activeJustified" justified="true">
         <uib-tab index="0" heading="Dataset (Tag/Item)">
@@ -55,7 +55,7 @@
       </uib-tabset>
     </div>
   </div>
-  <div id="result3" class="col-sm-5">
+  <div id="result3" class="col-sm-5" ng-if="active == 4">
     <div class="row">
       <div class="col-sm-6">
         <h4> Dataset Statistics </h4>
