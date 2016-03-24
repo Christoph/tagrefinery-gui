@@ -140,6 +140,8 @@ angular.module('tagrefineryGuiApp')
         // Set frequent threshold
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
           that.newThreshold = row.entity.importance;
+
+          that.count = that.newCount();
         });
       },
       columnDefs: [
