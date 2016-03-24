@@ -3,7 +3,7 @@
   <div style="position: relative; top: -20px"><span style="position: absolute; left: 3%">Pre Filter</span><span style="position: absolute; left: 11%">|</span><span style="position: absolute; left: 35%">Refine Parameters</span><span style="position: absolute; left: 66.5%">|</span><span style="position: absolute; left: 78%">Polish and Reduce Size</span></div>
   <div id="guided4" style="margin-top: 30px">
     <span ng-show="currentStep == -1" class="guidedQuestion">Workflow</span>
-    <span ng-show="currentStep == 0" class="guidedQuestion">Do you want to remove <span uib-tooltip="As example words which occur only once or twice in the dataset."><strong>rare words</strong></span> to reduce computation time?</span>
+    <span ng-show="currentStep == 0" class="guidedQuestion">Pre Filter: Do you want to remove <span uib-tooltip="As example words which occur only once or twice in the dataset."><strong>rare words</strong></span> to reduce computation time?</span>
     <span ng-show="currentStep == 1" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Each word in the list will be removed from the dataset"><strong>words to remove</strong></span>?</span>
     <span ng-show="currentStep == 2" class="guidedQuestion">Do you want to import a list of <span uib-tooltip="Import your Dictionary with correct words here"><strong>tags</strong></span> as ground truth?</span>
     <span ng-show="currentStep == 3" class="guidedQuestion">Do you want to consolidate <span uib-tooltip="Like - favourite, favorite, favourites or favorites"><strong>word forms</strong></span> and reduce <span class="descMarker" uib-tooltip="Misspelled words like - necesary">spelling errors</span>?</span>
@@ -143,7 +143,7 @@
     <div ng-if="currentStep == 2" class="guidedExplanation">
       <div class="well well-large center" style="width: 600px">
         <h2>Dictionary</h2>
-        <p>By default a list of the <span class="descMarker" uib-tooltip="The General Service List is used.">most important words </span> for second language learners will be imported.</p>
+        <p>By default a list of the <span class="descMarker" uib-tooltip="The General Service List is used.">3000 most used words </span>will be imported.</p>
         <p>Here, you can import your own domain specific lists to improve the quality of the spell correction algorithm. For instance, a list of genres for music.</p>
         <p>The lust can contain both single-word and multi-word tags.</p>
       </div>
@@ -193,22 +193,22 @@
     <div class="col-sm-1" style="margin-top: -20px; border-left: 1px solid rgba(51, 51, 51, 0.21); position: relative; height: 72vh">
       <div uib-collapse="currentStep <= 0" style="margin-top: 25px">
         <button ng-click="ctrl.jumpTo(0)" class="well well-sm sidebar">
-          Remaining Words: <strong>{{ctrl.vocabCount['Original'] - ctrl.pre["Number of Filtered Words"]}}</strong>
+          Remaining Words After Pre Filter: <strong>{{ctrl.vocabCount['Original'] - ctrl.pre["Number of Filtered Words"]}}</strong>
         </button>
       </div>
       <div uib-collapse="currentStep <= 1">
         <button ng-click="ctrl.jumpTo(1)" class="well well-sm sidebar">
-          Blacklisted Words: <strong>{{ctrl.pre["Number of blacklisted Words"]}}</strong>
+          Imported Blacklisted Words: <strong>{{ctrl.pre["Number of blacklisted Words"]}}</strong>
         </button>
       </div>
       <div uib-collapse="currentStep <= 2">
         <button ng-click="ctrl.jumpTo(2)" class="well well-sm sidebar">
-          Ground Truth Words: <strong>{{ctrl.spell["Number of Dictionary Words"]}}</strong>
+          Imported Ground Truth Words: <strong>{{ctrl.spell["Number of Dictionary Words"]}}</strong>
         </button>
       </div>
       <div uib-collapse="currentStep <= 3">
         <button ng-click="ctrl.jumpTo(3)" class="well well-sm sidebar">
-          Replacements: <strong>{{ctrl.spell["Number of Replacements"]}}</strong>
+          Number of Replacements in Spell Correction: <strong>{{ctrl.spell["Number of Replacements"]}}</strong>
         </button>
       </div>
       <div uib-collapse="currentStep <= 4">
@@ -223,14 +223,14 @@
       </div>
       <div uib-collapse="currentStep <= 7">
         <button ng-click="ctrl.jumpTo(7)" class="well well-sm sidebar">
-          Important Tags: <strong>{{ctrl.post["Number of Important Tags"]}}</strong>
+          Final Tag Set Size: <strong>{{ctrl.post["Number of Important Tags"]}}</strong>
         </button>
       </div>
       <div uib-collapse="currentStep <= 8">
         <button ng-click="ctrl.jumpTo(8)" class="well well-sm sidebar">
-          Replaced Tags: <strong>{{ctrl.post["Replaced Tags"]}}</strong>
+          Manually Replaced Tags: <strong>{{ctrl.post["Replaced Tags"]}}</strong>
           <br>
-          Removed Tags: <strong>{{ctrl.post["Removed Tags"]}}</strong>
+          Manually Removed Tags: <strong>{{ctrl.post["Removed Tags"]}}</strong>
         </button>
       </div>
       <div uib-collapse="currentStep <= 9">
@@ -240,9 +240,11 @@
       </div>
       <div uib-collapse="currentStep <= 9">
         <button ng-click="ctrl.jumpTo(9)" class="well well-sm sidebar">
-          Final - Tags: <strong>{{ctrl.vocabCount["Final"]}}</strong>
+          Final
           <br>
-          Dataset Size: <strong>{{ctrl.datasetCount["Final"]}}</strong>
+          Size of Tag Set: <strong>{{ctrl.vocabCount["Final"]}}</strong>
+          <br>
+          Number of Tag/Item Pairs: <strong>{{ctrl.datasetCount["Final"]}}</strong>
         </button>
       </div>
     </div>
