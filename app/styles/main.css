@@ -225,6 +225,7 @@ Spell Set
   margin-top: -15px;
   margin-left: -5px;
   margin-right: -20px;
+  width: 110px;
 }
 
 /*
@@ -655,7 +656,7 @@ button.disabled {
 }
 
 .center {
-  margin: auto auto auto 31%;
+  margin: auto auto auto 32%;
   padding: 40px;
 }
 
