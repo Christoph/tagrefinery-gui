@@ -234,8 +234,13 @@
         </button>
       </div>
       <div uib-collapse="currentStep <= 9">
+        <button ng-click="ctrl.jumpTo(8)" class="well well-sm sidebar">
+          Salvaged Tags: <strong>{{ctrl.post["Salvaged Tags"]}}</strong>
+        </button>
+      </div>
+      <div uib-collapse="currentStep <= 9">
         <button ng-click="ctrl.jumpTo(9)" class="well well-sm sidebar">
-          Number of Tags: <strong>{{ctrl.vocabCount["Final"]}}</strong>
+          Final - Tags: <strong>{{ctrl.vocabCount["Final"]}}</strong>
           <br>
           Dataset Size: <strong>{{ctrl.datasetCount["Final"]}}</strong>
         </button>

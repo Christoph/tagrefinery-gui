@@ -22,6 +22,8 @@ angular.module('tagrefineryGuiApp')
     socket.on('compDataset', function (data) { stats.writeDataset("After Multiword Tag Detection", data); });
     socket.on('postDataset', function (data) { stats.writeDataset("Final", data); });
 
+    socket.on('salvageCount', function (data) { stats.writePost("Salvaged Tags", data); });
+
     var stats = {};
 
     stats.vocab = {};
