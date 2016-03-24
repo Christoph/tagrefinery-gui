@@ -19,6 +19,9 @@ angular.module('tagrefineryGuiApp')
     that.compRunning = false;
     that.postRunning = false;
 
+    that.isIntermediate = false;
+    that.isFinal = false;
+
     that.mode = "";
 
     that.pre = stats.getPre();
@@ -167,8 +170,12 @@ angular.module('tagrefineryGuiApp')
 
       that.updateProgress();
 
-      if($scope.currentStep == 6 || $scope.currentStep == 10)
-      {
+      if ($scope.currentStep == 6) {
+        that.isIntermediate = true;
+        $scope.showStep = true;
+        intros.set("result");
+      } else if ($scope.currentStep == 10) {
+        that.isFinal = true;
         $scope.showStep = true;
         intros.set("result");
       }
@@ -285,10 +292,12 @@ angular.module('tagrefineryGuiApp')
 
       if($scope.currentStep == 6)
       {
+        that.isIntermediate = true;
         $scope.showStep = true;
       }
       if($scope.currentStep == 10)
       {
+        that.isFinal = true;
         $scope.showStep = true;
       }
 
@@ -335,10 +344,12 @@ angular.module('tagrefineryGuiApp')
 
       if($scope.currentStep == 6)
       {
+        that.isIntermediate = true;
         $scope.showStep = true;
       }
       if($scope.currentStep == 10)
       {
+        that.isFinal = true;
         $scope.showStep = true;
       }
 
