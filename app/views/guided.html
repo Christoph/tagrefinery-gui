@@ -208,6 +208,11 @@
       </div>
       <div uib-collapse="currentStep <= 3 && !ctrl.isIntermediate">
         <button ng-click="ctrl.jumpTo(3)" class="well well-sm sidebar">
+          Number of additional Ground Truth Words: <strong>{{ctrl.spell["Number of Additional Ground Truth Words"]}}</strong>
+        </button>
+      </div>
+      <div uib-collapse="currentStep <= 3 && !ctrl.isIntermediate">
+        <button ng-click="ctrl.jumpTo(3)" class="well well-sm sidebar">
           Number of Replacements in Spell Correction: <strong>{{ctrl.spell["Number of Replacements"]}}</strong>
         </button>
       </div>

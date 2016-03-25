@@ -27,6 +27,7 @@ angular.module('tagrefineryGuiApp')
 
     that.twentyfive = false;
     that.zero = false;
+    that.loading = false;
 
     ////////////////////////////////////////////////
     // D3 functions
@@ -37,6 +38,11 @@ angular.module('tagrefineryGuiApp')
         that.newImportance = threshold;
         that.touched = true;
       });
+
+      that.loading = true;
+      that.getReplacements();
+
+      that.scrollToV(that.getAboveRowImportance(that.grid.data, that.newImportance),0);
 
       stats.writeSpell("Number of Replacements", that.getReplacementCount());
       stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
@@ -50,18 +56,6 @@ angular.module('tagrefineryGuiApp')
 
       that.scrollToR(that.getAboveRow(that.replGrid.data, that.newSimilarity),0);
 
-      if(that.newSimilarity < 0.5 && !that.twentyfive)
-      {
-        that.getReplacements(0.25);
-        that.twentyfive = true;
-      }
-
-      if(that.newSimilarity < 0.25 && !that.zero)
-      {
-        that.getReplacements(0);
-        that.zero = true;
-      }
-
       stats.writeSpell("Number of Replacements", that.getReplacementCount());
     };
 
@@ -72,6 +66,23 @@ angular.module('tagrefineryGuiApp')
       for (var i = 0; i < data.length; i++) {
         if (data[i].similarity <= threshold) {
           if ((threshold - data[i].similarity) <= (data[i - 1].similarity - threshold)) {
+            return i;
+          }
+          else {
+            return i - 1;
+          }
+        }
+      }
+
+      return index;
+    };
+
+    that.getAboveRowImportance = function (data, threshold) {
+      var index = 0;
+
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].importance <= threshold) {
+          if ((threshold - data[i].importance) <= (data[i - 1].importance - threshold)) {
             return i;
           }
           else {
@@ -100,14 +111,16 @@ angular.module('tagrefineryGuiApp')
     socket.on('replacementData', function (data) {
       that.replGrid.data = JSON.parse(data);
 
+      that.loading = false;
+
       stats.writeSpell("Number of Replacements", that.getReplacementCount());
-      stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
     });
 
-    that.getReplacements = function(sim)
-    {
-      socket.emit("getReplacements", sim);
-    };
+    socket.on('spellVocab', function (data) {
+      that.grid.data = JSON.parse(data);
+
+      stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
+    });
 
     $scope.$on("apply", function() {
       if(that.touched)
@@ -147,7 +160,8 @@ angular.module('tagrefineryGuiApp')
 
         that.touched = false;
 
-        that.getReplacementCount();
+        stats.writeSpell("Number of Replacements", that.getReplacementCount());
+        stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
       }
     });
 
@@ -177,6 +191,11 @@ angular.module('tagrefineryGuiApp')
       stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
     };
 
+    that.getReplacements = _.debounce(function() {
+      socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
+      socket.emit("getReplacements", 0);
+    }, 1000);
+
     ////////////////////////////////////////////////
     // Replacement Grid
     ////////////////////////////////////////////////
@@ -187,16 +206,11 @@ angular.module('tagrefineryGuiApp')
     };
 
     // Grid
-    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'removedItem\': grid.appScope.isReplacement( row ), \'newItem\': grid.appScope.isTruth( row ) }" ui-grid-cell></div>';
+    var rowtemplate = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'removedItem\': grid.appScope.isReplacement( row ) }" ui-grid-cell></div>';
 
     $scope.isReplacement = function(row)
     {
-      return row.entity.similarity >= that.newSimilarity && row.entity.importanceReplacement < that.newImportance;
-    };
-
-    $scope.isTruth = function(row)
-    {
-      return row.entity.importanceReplacement >= that.newImportance;
+      return row.entity.similarity >= that.newSimilarity;
     };
 
     that.replGrid = {
@@ -213,26 +227,16 @@ angular.module('tagrefineryGuiApp')
       onRegisterApi: function (gridApi) {
         that.replGridApi = gridApi;
 
-        gridApi.cellNav.on.navigate(null, function(newRow, oldRow) {
-          if(newRow.col.field == "similarity")
-          {
-            if (newRow.row.entity.similarity > 0) {
-              that.newSimilarity = newRow.row.entity.similarity;
-            }
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+          that.newThreshold = row.entity.importance;
+          if (row.entity.similarity > 0) {
+            that.newSimilarity = row.entity.similarity;
           }
-
-          if(newRow.col.field == "importanceReplacement")
-          {
-            if (newRow.row.entity.importanceReplacement > 0) {
-              that.newImportance = newRow.row.entity.importanceReplacement;
-            }
-          }
-
         });
       },
       columnDefs: [
         {field: 'replacement', displayName: "Replaced Word", minWidth: 100, width: "*", cellClass: "textRight"},
-        {field: 'importanceReplacement',name: 'Word Quality', cellTemplate: 'views/cellImportanceReplacement.html', width: 120, enableFiltering: false},
+        {field: 'importanceReplacement',name: 'Word Quality', cellTemplate: 'views/cellImportanceReplacement.html', width: 120, enableFiltering: false, visible: false},
         {field: 'similarity', cellTemplate: 'views/cellSimilarity.html', width: 120, enableFiltering: false,
           sort: {
             direction: uiGridConstants.DESC,
@@ -244,17 +248,61 @@ angular.module('tagrefineryGuiApp')
       ]
     };
 
+    var rowtpl = '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader,  \'newItem\': grid.appScope.isTruth( row ) }" ui-grid-cell></div>';
+
+    $scope.isTruth = function(row)
+    {
+      return row.entity.importance >= that.newImportance;
+    };
+
+    that.scrollToV = function (rowIndex, colIndex) {
+      that.gridApi.core.scrollTo(that.grid.data[rowIndex], that.grid.columnDefs[colIndex]);
+      that.gridApi.selection.selectRow(that.grid.data[rowIndex]);
+    };
+
+    that.grid = {
+      rowTemplate: rowtpl,
+      enableFiltering: true,
+      enableColumnMenus: false,
+      enableGridMenu: true,
+      showGridFooter: true,
+      fastWatch: true,
+      multiSelect: false,
+      enableRowHeaderSelection: false,
+      enableRowSelection: true,
+      onRegisterApi: function (gridApi) {
+        that.gridApi = gridApi;
+
+        // Set frequent threshold
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+          that.newImportance = row.entity.importance;
+
+          that.loading = true;
+          that.getReplacements();
+        });
+      },
+      columnDefs: [
+        {field: 'tag', minWidth: 100, width: "*"},
+        {field: 'importance',name: 'Word Quality', cellTemplate: 'views/cellImportance.html', width: 120, enableFiltering: false,
+          sort: {
+            direction: uiGridConstants.DESC,
+            priority: 1
+          }
+        }
+      ]
+    };
+
     that.getReplacementCount = function () {
       return _.sum(_.filter(that.replGrid.data, function (d) {
-        return d.similarity >= that.newSimilarity && d.importanceReplacement < that.newImportance;
+        return d.similarity >= that.newSimilarity;
       }), function () {
         return 1;
       });
     };
 
     that.countGroundTruth = function () {
-      return _.sum(_.filter(that.replGrid.data, function (d) {
-        return d.importanceReplacement >= that.newImportance;
+      return _.sum(_.filter(that.grid.data, function (d) {
+        return d.importance >= that.newImportance;
       }), function () {
         return 1;
       });
