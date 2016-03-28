@@ -111,8 +111,8 @@ angular.module('tagrefineryGuiApp')
     });
 
     socket.on('spellExclude', function (data) {
-      that.exclude = data;
-      that.newExclude = data;
+      that.exclude = _.clone(data);
+      that.newExclude = _.clone(data);
     });
 
     socket.on('replacementData', function (data) {
@@ -145,7 +145,7 @@ angular.module('tagrefineryGuiApp')
       {
         that.similarity = that.newSimilarity;
         that.importance = that.newImportance;
-        that.exclude = that.newExclude;
+        that.exclude = _.clone(that.newExclude);
 
         socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
         socket.emit("applySpellExclude", JSON.stringify(that.newExclude));
@@ -200,7 +200,7 @@ angular.module('tagrefineryGuiApp')
     {
       that.newSimilarity = that.similarity;
       that.newImportance = that.importance;
-      that.newExclude = that.exclude;
+      that.newExclude = _.clone(that.exclude);
 
       that.touched = false;
 
