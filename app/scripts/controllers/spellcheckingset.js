@@ -16,6 +16,8 @@ angular.module('tagrefineryGuiApp')
     that.newImportance = 0;
     that.similarity = 0;
     that.newSimilarity = 0;
+    that.exclude = [];
+    that.newExclude = [];
 
     that.touched = false;
 
@@ -108,8 +110,24 @@ angular.module('tagrefineryGuiApp')
       that.newSimilarity = that.similarity;
     });
 
+    socket.on('spellExclude', function (data) {
+      that.exclude = data;
+      that.newExclude = data;
+    });
+
     socket.on('replacementData', function (data) {
-      that.replGrid.data = JSON.parse(data);
+      var temp = JSON.parse(data);
+
+      that.replGrid.data = _.map(temp, function(d) {
+        if(_.find(that.newExclude, function(o) { return o == d.replacement; }))
+        {
+          return {exclude: true, replacement: d.replacement, importanceReplacement: d.importanceReplacement, similarity: d.similarity, importanceTag: d.importanceTag, tag: d.tag}
+        }
+        else
+        {
+          return {exclude: false, replacement: d.replacement, importanceReplacement: d.importanceReplacement, similarity: d.similarity, importanceTag: d.importanceTag, tag: d.tag}
+        }
+      });
 
       that.loading = false;
 
@@ -127,12 +145,10 @@ angular.module('tagrefineryGuiApp')
       {
         that.similarity = that.newSimilarity;
         that.importance = that.newImportance;
+        that.exclude = that.newExclude;
 
         socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
-
-        if (that.showDetails) {
-          that.simGridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
-        }
+        socket.emit("applySpellExclude", JSON.stringify(that.newExclude));
 
         that.touched = false;
 
@@ -184,8 +200,11 @@ angular.module('tagrefineryGuiApp')
     {
       that.newSimilarity = that.similarity;
       that.newImportance = that.importance;
+      that.newExclude = that.exclude;
 
       that.touched = false;
+
+      that.getReplacements();
 
       stats.writeSpell("Number of Replacements", that.getReplacementCount());
       stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
@@ -195,6 +214,20 @@ angular.module('tagrefineryGuiApp')
       socket.emit("applySpellCorrect", JSON.stringify([{importance: that.newImportance, similarity: that.newSimilarity}]));
       socket.emit("getReplacements", 0);
     }, 1000);
+
+    that.updateExclude = function(row)
+    {
+      if(_.find(that.newExclude, function(o) { return o == row.replacement; })) {
+        _.remove(that.newExclude, function(o) {
+          return o == row.replacement;
+        })
+      }
+      else {
+        that.newExclude.push(row.replacement);
+      }
+
+      that.touched = true;
+    };
 
     ////////////////////////////////////////////////
     // Replacement Grid
@@ -210,7 +243,7 @@ angular.module('tagrefineryGuiApp')
 
     $scope.isReplacement = function(row)
     {
-      return row.entity.similarity >= that.newSimilarity;
+      return row.entity.similarity >= that.newSimilarity && row.entity.exclude == false;
     };
 
     that.replGrid = {
@@ -227,14 +260,19 @@ angular.module('tagrefineryGuiApp')
       onRegisterApi: function (gridApi) {
         that.replGridApi = gridApi;
 
-        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-          that.newThreshold = row.entity.importance;
-          if (row.entity.similarity > 0) {
-            that.newSimilarity = row.entity.similarity;
+        gridApi.cellNav.on.navigate(null, function(newRow, oldRow) {
+          if(newRow.col.field == "similarity" || newRow.col.field == "replacement" || newRow.col.field == "tag")
+          {
+            if (newRow.row.entity.similarity > 0) {
+              that.newSimilarity = newRow.row.entity.similarity;
+
+              that.touched = true;
+            }
           }
         });
       },
       columnDefs: [
+        {field: 'exclude', displayName: 'Exclude', minWidth: 100, width: 75, type:'boolean', enableCellEdit: false, cellTemplate: '<div class="ui-grid-cell-contents" style="text-align: center"><input type="checkbox" ng-change="grid.appScope.ctrl.updateExclude(row.entity)" ng-model="row.entity.exclude" style="font-size: xx-large; margin: 0"></div>'},
         {field: 'replacement', displayName: "Replaced Word", minWidth: 100, width: "*", cellClass: "textRight"},
         {field: 'importanceReplacement',name: 'Word Quality', cellTemplate: 'views/cellImportanceReplacement.html', width: 120, enableFiltering: false, visible: false},
         {field: 'similarity', cellTemplate: 'views/cellSimilarity.html', width: 120, enableFiltering: false,
@@ -279,6 +317,8 @@ angular.module('tagrefineryGuiApp')
 
           that.loading = true;
           that.getReplacements();
+
+          that.touched = true;
         });
       },
       columnDefs: [
@@ -294,7 +334,7 @@ angular.module('tagrefineryGuiApp')
 
     that.getReplacementCount = function () {
       return _.sum(_.filter(that.replGrid.data, function (d) {
-        return d.similarity >= that.newSimilarity;
+        return d.similarity >= that.newSimilarity && d.exclude == false;
       }), function () {
         return 1;
       });

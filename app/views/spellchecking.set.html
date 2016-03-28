@@ -60,7 +60,7 @@
         <div class="row" style="margin-left: 0px">
           <span><strong style="background-color: rgba(127, 0, 0, 0.3)">Red:</strong> Accepted Replacements</span> <span class="pull-right" style="margin-right: 15px">Click the bars to set the corresponding threshold.</span>
         </div>
-        <div ng-if="status.open[1] || (currentStep == 3 && showStep)" ui-grid="ctrl.replGrid" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid" style="height: 600px">
+        <div ng-if="status.open[1] || (currentStep == 3 && showStep)" ui-grid="ctrl.replGrid" ui-grid-cellnav ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid" style="height: 600px">
           <div ng-if="ctrl.loading" class="overlay" style="text-align: center">
             <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
           </div>
