@@ -149,6 +149,15 @@ angular.module('tagrefineryGuiApp')
 
     };
 
+    that.updateRemove = function(row)
+    {
+      if(!(row.tag in that.remove[0])) {
+        if(row.remove == true) that.remove[0][row.tag] = true;
+
+        //socket.emit("applyPostRemove", JSON.stringify(that.remove));
+      }
+    };
+
     ////////////////////////////////////////////////
     // Edit
     ////////////////////////////////////////////////
@@ -197,12 +206,6 @@ angular.module('tagrefineryGuiApp')
                 //socket.emit("applyPostReplace", JSON.stringify(that.replace));
               }
             }
-
-            if(colDef.name == 'remove' && !(rowEntity.tag in that.remove[0])) {
-              if(newValue == true) that.remove[0][rowEntity.tag] = true;
-
-              //socket.emit("applyPostRemove", JSON.stringify(that.remove));
-            }
           }
 
           if(oldValue)
@@ -212,12 +215,6 @@ angular.module('tagrefineryGuiApp')
 
               //socket.emit("applyPostReplace", JSON.stringify(that.replace));
             }
-
-            if(colDef.name == 'remove') {
-              delete that.remove[0][rowEntity.tag];
-
-              //socket.emit("applyPostRemove", JSON.stringify(that.remove));
-            }
           }
         })
 
@@ -225,7 +222,7 @@ angular.module('tagrefineryGuiApp')
       columnDefs: [
         {field: 'tag', displayName: 'Tag', minWidth: 100, width: "*", enableCellEdit: false },
         {field: 'replace', displayName: 'Replace By', minWidth: 100, width: "*"},
-        {field: 'remove', displayName: 'Remove', minWidth: 100, width: "*", type:'boolean'}
+        {field: 'remove', displayName: 'Remove', minWidth: 100, width: 75, type:'boolean', enableCellEdit: false, cellTemplate: '<div class="ui-grid-cell-contents" style="text-align: center"><input type="checkbox" ng-change="grid.appScope.ctrl.updateRemove(row.entity)" ng-model="row.entity.remove" style="font-size: xx-large; margin: 0"></div>'}
       ]
     };
 
