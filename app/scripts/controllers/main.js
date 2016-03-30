@@ -190,9 +190,9 @@ angular.module('tagrefineryGuiApp')
         $scope.gridApi = gridApi;
       },
       columnDefs: [
-        {field: 'tag', minWidth: 100, width: "*"},
-        {field: 'item', minWidth: 100, width: "*"},
-        {field: 'weight', minWidth: 100, width: "*"}
+        {field: 'tag', minWidth: 100, width: "*", headerTooltip: "The tag itself composed of one or multiple words."},
+        {field: 'item', minWidth: 100, width: "*", headerTooltip: "The item where the tag is attached to."},
+        {field: 'weight', minWidth: 100, width: "*", headerTooltip: "The weight should be a positive number and allows you to use meta information corresponding to this tag/item pair. If no meta information is available, use 1 in all rows."}
       ]
     };
 
