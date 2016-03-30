@@ -19,7 +19,7 @@ angular.module('tagrefineryGuiApp')
         width = scope.width - 40;
         heigth = scope.heigth - 20;
 
-        formatCount = d3.format(",.3f");
+        formatCount = d3.format(",.2f");
 
         drag = d3.behavior.drag()
           .on("drag", dragMove)

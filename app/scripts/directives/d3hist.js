@@ -14,7 +14,7 @@ angular.module('tagrefineryGuiApp')
 
       if(scope.isFloat)
       {
-        scope.formatMarker = d3.format(",.3f");
+        scope.formatMarker = d3.format(",.2f");
         scope.formatTicks = d3.format(",.2f");
       }
       else
