@@ -14,8 +14,8 @@
           <div class="overlayInner" spin-rect style="width: 80px; height: 80px"></div>
         </div>
         <div id="linked2" ng-if="ctrl.linked" d3-hist data="ctrl.spellData" threshold="ctrl.newSpellI" bins="18" svg-height="200"
-             type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getSpellI(threshold)" title="Improve Tag Quality"></div>
-        <div id="linked3" class="taskInner similarity" d3-slider ng-if="ctrl.linked" value="ctrl.newSpellS" call-back="ctrl.getSlider(value)" domain="ctrl.spellDomain" xlabel="Similarity"></div>
+             type-label="Word Quality" y-label="Number of Words" call-back="ctrl.getSpellI(threshold)" title="Word quality threshold for spell-correction"></div>
+        <div id="linked3" class="taskInner similarity" d3-slider ng-if="ctrl.linked" value="ctrl.newSpellS" call-back="ctrl.getSlider(value)" domain="ctrl.spellDomain" xlabel="Similarity threshold for spell-correction"></div>
       </div>
       <div style="position: relative">
         <div ng-if="ctrl.spellRunning" class="overlay">
@@ -65,7 +65,7 @@
           <hr>
           <p ng-class="{ 'highlight': ctrl.datasetOutChanged }">Number of Annotated Items: <strong style="font-size: medium">{{ctrl.datasetOut}}</strong></p> <br>
           <br>
-          <p ng-class="{ 'highlight': ctrl.vocabOutCHanged }">Number of Tags: <strong style="font-size: medium">{{ctrl.vocabOut}}</strong></p>
+          <p ng-class="{ 'highlight': ctrl.vocabOutCHanged }">Number of Tags before final filtering: <strong style="font-size: medium">{{ctrl.vocabOut}}</strong></p>
         </div>
       </div>
       <div class="row" style="position: relative">
