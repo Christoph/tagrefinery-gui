@@ -209,6 +209,10 @@ angular.module('tagrefineryGuiApp')
         scope.name = attrs.name || "slider";
         scope.data = 0;
 
+        element.on('$destroy', function() {
+          d3.selectAll('svg').remove();
+        });
+
         $timeout(function () {
           ctrl.init(element, scope);
 

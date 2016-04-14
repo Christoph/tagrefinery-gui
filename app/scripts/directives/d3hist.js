@@ -589,6 +589,10 @@ angular.module('tagrefineryGuiApp')
         scope.isZoomed = false;
         scope.threshold = 0;
 
+        element.on('$destroy', function() {
+          d3.selectAll('svg').remove();
+        });
+
         // Rendering
         $timeout(function () {
           // Listeners

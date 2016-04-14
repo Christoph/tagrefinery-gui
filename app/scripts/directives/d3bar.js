@@ -90,6 +90,10 @@ angular.module('tagrefineryGuiApp')
         scope.height = parseInt(attrs.height) || 20;
         scope.width = parseInt(attrs.width) || 100;
 
+        element.on('$destroy', function() {
+          d3.selectAll('svg').remove();
+        });
+
         $timeout(function () {
           ctrl.init(element, scope);
 
