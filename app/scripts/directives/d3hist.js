@@ -267,7 +267,7 @@ angular.module('tagrefineryGuiApp')
         .attr("height", scope.height)
         .attr("width", '100%')
         .style("background-color", "white")
-        .attr("class", "chart");
+        .attr("class", "hist");
 
       // title
       scope.svg.append("text")
@@ -589,8 +589,8 @@ angular.module('tagrefineryGuiApp')
         scope.isZoomed = false;
         scope.threshold = 0;
 
-        element.on('$destroy', function() {
-          d3.selectAll('svg').remove();
+        scope.$on("$destroy", function() {
+          element.select(".hist").remove();
         });
 
         // Rendering

@@ -20,6 +20,7 @@ angular.module('tagrefineryGuiApp')
         height = scope.height ;
 
         svg = d3.select(element[0]).append("svg")
+          .attr("class", "gridbar")
           .attr("width", width)
           .attr("height", height);
 
@@ -90,8 +91,8 @@ angular.module('tagrefineryGuiApp')
         scope.height = parseInt(attrs.height) || 20;
         scope.width = parseInt(attrs.width) || 100;
 
-        element.on('$destroy', function() {
-          d3.selectAll('svg').remove();
+        scope.$on("$destroy", function() {
+          element.select(".gridbar").remove();
         });
 
         $timeout(function () {

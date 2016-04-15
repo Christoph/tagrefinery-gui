@@ -74,6 +74,7 @@ angular.module('tagrefineryGuiApp')
         }
 
         svg = d3.select(element[0]).append("svg")
+          .attr("class", "slider")
           .attr("width", scope.width)
           .attr("height", scope.heigth + 25);
 
@@ -209,8 +210,8 @@ angular.module('tagrefineryGuiApp')
         scope.name = attrs.name || "slider";
         scope.data = 0;
 
-        element.on('$destroy', function() {
-          d3.selectAll('svg').remove();
+        scope.$on("$destroy", function() {
+          element.select(".slider").remove();
         });
 
         $timeout(function () {
