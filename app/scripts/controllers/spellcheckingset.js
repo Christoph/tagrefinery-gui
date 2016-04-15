@@ -65,13 +65,15 @@ angular.module('tagrefineryGuiApp')
     that.getAboveRow = function (data, threshold) {
       var index = 0;
 
-      for (var i = 0; i < data.length; i++) {
-        if (data[i].similarity <= threshold) {
-          if ((threshold - data[i].similarity) <= (data[i - 1].similarity - threshold)) {
-            return i;
-          }
-          else {
-            return i - 1;
+      if(data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].similarity <= threshold) {
+            if ((threshold - data[i].similarity) <= (data[i - 1].similarity - threshold)) {
+              return i;
+            }
+            else {
+              return i - 1;
+            }
           }
         }
       }
