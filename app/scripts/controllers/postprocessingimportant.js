@@ -87,16 +87,21 @@ angular.module('tagrefineryGuiApp')
       that.apply();
     }, 1500);
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       if(that.touched)
       {
         that.apply();
       }
     });
 
-    $scope.$on("noPostI", function() {
+    that.noWatch = $scope.$on("noPostI", function() {
       that.newThreshold = 0;
       that.apply();
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
+      that.noWatch();
     });
 
     that.apply = function()

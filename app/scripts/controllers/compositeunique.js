@@ -84,7 +84,7 @@ angular.module('tagrefineryGuiApp')
       that.threshold = that.newThreshold;
     });
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       if(that.touched)
       {
         socket.emit("applyUniqueThreshold", "" + that.newThreshold);
@@ -93,7 +93,7 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("noCompU", function() {
+    that.noWatch = $scope.$on("noCompU", function() {
       if(that.newThreshold != 1.5)
       {
         that.newThreshold = 1.5;
@@ -104,7 +104,7 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("dCompU", function() {
+    that.defaultWatch = $scope.$on("dCompU", function() {
       if(that.newThreshold != 0.9)
       {
         that.newThreshold = 0.9;
@@ -119,11 +119,18 @@ angular.module('tagrefineryGuiApp')
       socket.emit("applyUniqueThreshold", "" + that.newThreshold);
     }, 1000);
 
-    $scope.$on("undo", function() {
+    that.undoWatch = $scope.$on("undo", function() {
       if(that.touched)
       {
         that.undo();
       }
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
+      that.noWatch();
+      that.defaultWatch();
+      that.undoWatch();
     });
 
     that.undo = function ()

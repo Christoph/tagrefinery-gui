@@ -26,13 +26,17 @@ angular.module('tagrefineryGuiApp')
       that.newRemove = that.remove;
     });
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       if(that.params.$dirty)
       {
         socket.emit("applyPreRemoveCharacters", that.newRemove);
 
         that.params.$setPristine();
       }
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
     });
 
     that.undo = function()

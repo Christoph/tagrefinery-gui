@@ -39,13 +39,17 @@ angular.module('tagrefineryGuiApp')
       that.newMinOcc = data;
     });
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       if(that.params.$dirty)
       {
         socket.emit("applyCompositeParams", JSON.stringify([{maxGroupSize: that.newMaxGroupSize, minOcc: that.newMinOcc, split: that.newSplit}]));
 
         that.params.$setPristine();
       }
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
     });
 
     that.undo = function()

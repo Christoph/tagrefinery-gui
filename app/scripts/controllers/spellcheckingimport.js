@@ -31,7 +31,7 @@ angular.module('tagrefineryGuiApp')
       stats.writeSpell("Number of Dictionary Words", $scope.dataS.length);
     });
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       if(that.touched)
       {
         socket.emit("applySpellImportedData", JSON.stringify($scope.dataS));
@@ -42,7 +42,7 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("noSpellT", function() {
+     that.noWatch = $scope.$on("noSpellT", function() {
       if($scope.dataS.length != 0) {
         that.clear();
 
@@ -54,7 +54,7 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("dSpellT", function() {
+    that.defaultWatch = $scope.$on("dSpellT", function() {
       that.clear();
 
       _.map(that.default.split(","), function (d) {
@@ -66,6 +66,12 @@ angular.module('tagrefineryGuiApp')
       stats.writeSpell("Number of Dictionary Words", $scope.dataS.length);
 
       that.touched = false;
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
+      that.noWatch();
+      that.defaultWatch();
     });
 
     that.clear = function()

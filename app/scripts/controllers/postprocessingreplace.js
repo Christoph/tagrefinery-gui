@@ -105,7 +105,7 @@ angular.module('tagrefineryGuiApp')
       that.removeOriginal = _.clone(that.remove);
     };
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       socket.emit("applyPostReplace", JSON.stringify(that.replace));
       socket.emit("applyPostRemove", JSON.stringify(that.remove));
 
@@ -116,7 +116,7 @@ angular.module('tagrefineryGuiApp')
       that.removeOriginal = _.clone(that.remove);
     });
 
-    $scope.$on("undo", function() {
+    that.undoWatch = $scope.$on("undo", function() {
       if(that.touched)
       {
         that.undo();
@@ -128,8 +128,14 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("postSalvage", function() {
+    that.salvageWatch = $scope.$on("postSalvage", function() {
       that.apply();
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
+      that.undoWatch();
+      that.salvageWatch();
     });
 
     that.undo = function()

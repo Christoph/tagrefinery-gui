@@ -83,7 +83,7 @@ angular.module('tagrefineryGuiApp')
       stats.writePre("Number of Filtered Words", that.newCount());
     });
 
-    $scope.$on("apply", function() {
+    that. applyWatch = $scope.$on("apply", function() {
       if(that.touched)
       {
         socket.emit("applyPrefilter", "" + that.newOccurrences);
@@ -96,7 +96,7 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("noPreF", function() {
+    that.noWatch = $scope.$on("noPreF", function() {
       if(that.newOccurrences != 0)
       {
         that.newOccurrences = 0;
@@ -111,7 +111,7 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("dPreF", function() {
+    that.defaultWatch = $scope.$on("dPreF", function() {
       var total = 0;
       var counter = that.data.length-1;
 
@@ -143,11 +143,18 @@ angular.module('tagrefineryGuiApp')
       that.touched = false;
     });
 
-    $scope.$on("undo", function() {
+    that.undoWatch = $scope.$on("undo", function() {
       if(that.touched)
       {
         that.undo();
       }
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
+      that.noWatch();
+      that.defaultWatch();
+      that.undoWatch();
     });
 
     that.undo = function()

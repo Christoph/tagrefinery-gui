@@ -39,13 +39,17 @@ angular.module('tagrefineryGuiApp')
       that.newMinWordLength = data;
     });
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       if(that.params.$dirty)
       {
         socket.emit("applyPostParams", JSON.stringify([{minWordLength: that.newMinWordLength, useAll: that.newUseAllWords, split: that.newSplit}]));
 
         that.params.$setPristine();
       }
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
     });
 
     that.undo = function()

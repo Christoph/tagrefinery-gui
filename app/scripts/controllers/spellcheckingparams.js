@@ -25,13 +25,17 @@ angular.module('tagrefineryGuiApp')
       that.newMinWordSize = that.minWordSize;
     });
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       if(that.params.$dirty)
       {
         socket.emit("applySpellMinWordSize", that.newMinWordSize);
 
         that.params.$setPristine();
       }
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
     });
 
     that.undo = function()

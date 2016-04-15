@@ -142,7 +142,7 @@ angular.module('tagrefineryGuiApp')
       stats.writeSpell("Number of Additional Ground Truth Words", that.countGroundTruth());
     });
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       if(that.touched)
       {
         that.similarity = that.newSimilarity;
@@ -159,14 +159,14 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("undo", function() {
+    that.undoWatch = $scope.$on("undo", function() {
       if(that.touched)
       {
         that.undo();
       }
     });
 
-    $scope.$on("noSpellR", function() {
+    that.noWatch = $scope.$on("noSpellR", function() {
       if(that.newSimilarity != 1 || that.newImportance != 1) {
         that.newSimilarity = 1;
         that.newImportance = 1;
@@ -183,7 +183,7 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("dSpellR", function() {
+    that.defaultWatch = $scope.$on("dSpellR", function() {
       if(that.newSimilarity != 0.58 || that.newImportance != 0.70)
       {
         that.newSimilarity = 0.58;
@@ -196,6 +196,13 @@ angular.module('tagrefineryGuiApp')
 
         that.touched = false;
       }
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
+      that.noWatch();
+      that.defaultWatch();
+      that.undoWatch();
     });
 
     that.undo = function()

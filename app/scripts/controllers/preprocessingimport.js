@@ -31,7 +31,7 @@ angular.module('tagrefineryGuiApp')
       stats.writePre("Number of blacklisted Words", $scope.dataP.length);
     });
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       if(that.touched)
       {
         socket.emit("applyPreImportedData", JSON.stringify($scope.dataP));
@@ -42,7 +42,7 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("noPreB", function() {
+    that.noWatch = $scope.$on("noPreB", function() {
       if($scope.dataP.length != 0)
       {
         that.clear();
@@ -55,7 +55,7 @@ angular.module('tagrefineryGuiApp')
       }
     });
 
-    $scope.$on("dPreB", function() {
+    that.defaultWatch = $scope.$on("dPreB", function() {
       that.clear();
 
       _.map(that.default.split(","), function (d) {
@@ -67,6 +67,12 @@ angular.module('tagrefineryGuiApp')
       stats.writePre("Number of blacklisted Words", $scope.dataP.length);
 
       that.touched = false;
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
+      that.noWatch();
+      that.defaultWatch();
     });
 
     that.clear = function()

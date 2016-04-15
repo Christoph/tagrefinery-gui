@@ -80,12 +80,16 @@ angular.module('tagrefineryGuiApp')
       })
     });
 
-    $scope.$on("apply", function() {
+    that.applyWatch = $scope.$on("apply", function() {
       if(that.touched)
       {
         socket.emit("applyPreReplaceCharacters", JSON.stringify(that.out));
 
         that.touched = false;
       }
+    });
+
+    $scope.$on('$destroy', function() {
+      that.applyWatch();
     });
   }]);
