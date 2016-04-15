@@ -211,6 +211,7 @@ angular.module('tagrefineryGuiApp')
         scope.data = 0;
 
         scope.$on("$destroy", function() {
+          element.off();
           element.select(".slider").remove();
         });
 

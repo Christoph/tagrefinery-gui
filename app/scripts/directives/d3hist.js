@@ -590,6 +590,7 @@ angular.module('tagrefineryGuiApp')
         scope.threshold = 0;
 
         scope.$on("$destroy", function() {
+          element.off();
           element.select(".hist").remove();
         });
 
