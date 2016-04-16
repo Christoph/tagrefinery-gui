@@ -30,7 +30,7 @@ angular.module('tagrefineryGuiApp')
       $scope.$apply(function () {
         that.newThreshold = threshold;
 
-        $timeout(function () {
+        that.timer = $timeout(function () {
           that.scrollTo(that.getAboveRow(that.grid.data, that.newThreshold), 0);
         });
 
@@ -102,6 +102,8 @@ angular.module('tagrefineryGuiApp')
     $scope.$on('$destroy', function() {
       that.applyWatch();
       that.noWatch();
+
+      $timeout.cancel(that.timer);
     });
 
     that.apply = function()

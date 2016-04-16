@@ -32,7 +32,7 @@ angular.module('tagrefineryGuiApp')
         that.newOccurrences = occurrences;
 
         if (that.showDetails) {
-          $timeout(function () {
+          that.timer1 = $timeout(function () {
             that.scrollTo(that.getAboveRow(that.grid.data, that.newOccurrences), 0);
           })
         }
@@ -155,6 +155,9 @@ angular.module('tagrefineryGuiApp')
       that.noWatch();
       that.defaultWatch();
       that.undoWatch();
+
+      $timeout.cancel(that.timer1);
+      $timeout.cancel(that.timer2);
     });
 
     that.undo = function()
@@ -227,7 +230,7 @@ angular.module('tagrefineryGuiApp')
     {
       if(that.showDetails) document.getElementById("preFscroll").scrollIntoView()
 
-      $timeout(function () {
+      that.timer2 = $timeout(function () {
         that.scrollTo(that.getAboveRow(that.grid.data, that.newOccurrences), 0);
       })
     };

@@ -41,7 +41,7 @@ angular.module('tagrefineryGuiApp')
     that.touched = false;
     that.mode = "";
 
-    $timeout(function() {
+    that.timer = $timeout(function() {
       $scope.introCurrent = that.intro;
     }, 1);
 
@@ -49,6 +49,10 @@ angular.module('tagrefineryGuiApp')
 
     // Imported data
     $scope.dataI = [];
+
+    $scope.$on("$destroy", function() {
+      $timeout.cancel(that.timer);
+    });
 
     ////////////////////////////////////////////////
     // Socket
@@ -245,6 +249,7 @@ angular.module('tagrefineryGuiApp')
     // Guide
     ////////////////////////////////////////////////
 
+    /*
     $scope.$watch("state", function(newVals) {
       if(newVals)
       {
@@ -252,5 +257,6 @@ angular.module('tagrefineryGuiApp')
         $scope.introCurrent = newVals.current;
       }
     },1);
+    */
 
   }]);

@@ -31,7 +31,7 @@ angular.module('tagrefineryGuiApp')
       $scope.$apply(function () {
         that.newThreshold = threshold;
 
-        $timeout(function () {
+        that.timer = $timeout(function () {
           that.scrollToU(that.getAboveRow(that.uniqueGrid.data, that.newThreshold), 0);
         });
 
@@ -131,6 +131,8 @@ angular.module('tagrefineryGuiApp')
       that.noWatch();
       that.defaultWatch();
       that.undoWatch();
+
+      $timeout.cancel(that.timer);
     });
 
     that.undo = function ()
