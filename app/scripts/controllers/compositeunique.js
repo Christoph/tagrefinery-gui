@@ -133,6 +133,10 @@ angular.module('tagrefineryGuiApp')
       that.undoWatch();
 
       $timeout.cancel(that.timer);
+
+      socket.removeAllListeners('uniqueData');
+      socket.removeAllListeners('uniqueGroups');
+      socket.removeAllListeners('compUniqueParams');
     });
 
     that.undo = function ()

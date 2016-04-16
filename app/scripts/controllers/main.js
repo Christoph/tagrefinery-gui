@@ -52,6 +52,14 @@ angular.module('tagrefineryGuiApp')
 
     $scope.$on("$destroy", function() {
       $timeout.cancel(that.timer);
+
+      socket.removeAllListeners('mainData');
+      socket.removeAllListeners('isRunning');
+      socket.removeAllListeners('dataLoaded');
+      socket.removeAllListeners('selectedMode');
+      socket.removeAllListeners('connect');
+      socket.removeAllListeners('disconnect');
+      socket.removeAllListeners('connect_error');
     });
 
     ////////////////////////////////////////////////

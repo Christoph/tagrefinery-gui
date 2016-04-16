@@ -158,6 +158,10 @@ angular.module('tagrefineryGuiApp')
 
       $timeout.cancel(that.timer1);
       $timeout.cancel(that.timer2);
+
+      socket.removeAllListeners('preFilterData');
+      socket.removeAllListeners('preFilterGrid');
+      socket.removeAllListeners('preFilterParams');
     });
 
     that.undo = function()

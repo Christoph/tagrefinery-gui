@@ -271,6 +271,28 @@ angular.module('tagrefineryGuiApp')
       that.last = _.cloneDeep(that.out);
     });
 
+    $scope.$on('$destroy', function() {
+      socket.removeAllListeners('selectedMode');
+      socket.removeAllListeners('preVocabSize');
+      socket.removeAllListeners('compVocabSize');
+      socket.removeAllListeners('preDataset');
+      socket.removeAllListeners('compDataset');
+      socket.removeAllListeners('initRunning');
+      socket.removeAllListeners('computePre');
+      socket.removeAllListeners('computeSpell');
+      socket.removeAllListeners('computeComp');
+      socket.removeAllListeners('preFilterData');
+      socket.removeAllListeners('preFilterParams');
+      socket.removeAllListeners('spellImportance');
+      socket.removeAllListeners('spellSimilarity');
+      socket.removeAllListeners('importance');
+      socket.removeAllListeners('replacementData');
+      socket.removeAllListeners('frequentData');
+      socket.removeAllListeners('compFrequentParams');
+      socket.removeAllListeners('uniqueData');
+      socket.removeAllListeners('compUniqueParams');
+      socket.removeAllListeners('postFilterGrid');
+    });
 
     // APPLY
     that.applyPre = _.debounce(function() {

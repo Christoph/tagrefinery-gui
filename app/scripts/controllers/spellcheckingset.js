@@ -203,6 +203,12 @@ angular.module('tagrefineryGuiApp')
       that.noWatch();
       that.defaultWatch();
       that.undoWatch();
+
+      socket.removeAllListeners('spellImportance');
+      socket.removeAllListeners('spellSimilarity');
+      socket.removeAllListeners('spellExclude');
+      socket.removeAllListeners('replacementData');
+      socket.removeAllListeners('spellVocab');
     });
 
     that.undo = function()

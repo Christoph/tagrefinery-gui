@@ -36,6 +36,8 @@ angular.module('tagrefineryGuiApp')
 
     $scope.$on('$destroy', function() {
       that.applyWatch();
+
+      socket.removeAllListeners('spellMinWordSize');
     });
 
     that.undo = function()

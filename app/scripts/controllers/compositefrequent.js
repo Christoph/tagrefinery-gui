@@ -130,6 +130,10 @@ angular.module('tagrefineryGuiApp')
       that.undoWatch();
 
       $timeout.cancel(that.timer);
+
+      socket.removeAllListeners('frequentData');
+      socket.removeAllListeners('frequentGroups');
+      socket.removeAllListeners('compFrequentParams');
     });
 
     that.undo = function ()

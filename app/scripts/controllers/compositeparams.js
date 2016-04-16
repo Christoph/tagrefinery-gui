@@ -50,6 +50,10 @@ angular.module('tagrefineryGuiApp')
 
     $scope.$on('$destroy', function() {
       that.applyWatch();
+
+      socket.removeAllListeners('compSizeParams');
+      socket.removeAllListeners('compSplitParams');
+      socket.removeAllListeners('compOccParams');
     });
 
     that.undo = function()

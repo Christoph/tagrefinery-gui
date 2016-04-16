@@ -37,6 +37,8 @@ angular.module('tagrefineryGuiApp')
 
     $scope.$on('$destroy', function() {
       that.applyWatch();
+
+      socket.removeAllListeners('preRemoveParams');
     });
 
     that.undo = function()

@@ -104,6 +104,10 @@ angular.module('tagrefineryGuiApp')
       that.noWatch();
 
       $timeout.cancel(that.timer);
+
+      socket.removeAllListeners('postFilterData');
+      socket.removeAllListeners('postFilterGrid');
+      socket.removeAllListeners('postFilterParams');
     });
 
     that.apply = function()

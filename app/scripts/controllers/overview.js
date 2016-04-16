@@ -69,6 +69,15 @@ angular.module('tagrefineryGuiApp')
       socket.emit("getHistory", JSON.stringify([{tag: tag, item: item}]))
     };
 
+    $scope.$on('$destroy', function() {
+      socket.removeAllListeners('output');
+      socket.removeAllListeners('history');
+      socket.removeAllListeners('outputState');
+      socket.removeAllListeners('computeComp');
+      socket.removeAllListeners('computePost');
+      socket.removeAllListeners('resultVocab');
+    });
+
     that.loadStats = function()
     {
       that.pre = stats.getPre();

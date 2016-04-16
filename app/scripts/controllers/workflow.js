@@ -95,6 +95,15 @@ angular.module('tagrefineryGuiApp')
       that.postRunning = data == "started"
     });
 
+    $scope.$on('$destroy', function() {
+      socket.removeAllListeners('selectedMode');
+      socket.removeAllListeners('initRunning');
+      socket.removeAllListeners('computePre');
+      socket.removeAllListeners('computeSpell');
+      socket.removeAllListeners('computeComp');
+      socket.removeAllListeners('computePost');
+    });
+
     // Choose value
     that.customize = function()
     {

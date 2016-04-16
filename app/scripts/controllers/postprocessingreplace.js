@@ -136,6 +136,12 @@ angular.module('tagrefineryGuiApp')
       that.applyWatch();
       that.undoWatch();
       that.salvageWatch();
+
+      socket.removeAllListeners('postImportantWords');
+      socket.removeAllListeners('postReplaceParams');
+      socket.removeAllListeners('postRemoveParams');
+      socket.removeAllListeners('computePost');
+      socket.removeAllListeners('postSalvaging');
     });
 
     that.undo = function()

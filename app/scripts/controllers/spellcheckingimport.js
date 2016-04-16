@@ -72,6 +72,8 @@ angular.module('tagrefineryGuiApp')
       that.applyWatch();
       that.noWatch();
       that.defaultWatch();
+
+      socket.removeAllListeners('spellDictionaryParams');
     });
 
     that.clear = function()
