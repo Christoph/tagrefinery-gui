@@ -93,9 +93,10 @@ angular.module('tagrefineryGuiApp')
 
         scope.$on("$destroy", function() {
           element.select(".gridbar").remove();
+          $timeout.cancel(scope.timer);
         });
 
-        $timeout(function () {
+        scope.timer = $timeout(function () {
           ctrl.init(element, scope);
 
           // Listeners

@@ -592,10 +592,11 @@ angular.module('tagrefineryGuiApp')
         scope.$on("$destroy", function() {
           element.off();
           element.select(".hist").remove();
+          $timeout.cancel(scope.timer);
         });
 
         // Rendering
-        $timeout(function () {
+        scope.timer = $timeout(function () {
           // Listeners
           // Watch for resize event
           scope.$watch(function () {

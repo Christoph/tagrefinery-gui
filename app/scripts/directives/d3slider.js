@@ -213,9 +213,10 @@ angular.module('tagrefineryGuiApp')
         scope.$on("$destroy", function() {
           element.off();
           element.select(".slider").remove();
+          $timeout.cancel(scope.timer);
         });
 
-        $timeout(function () {
+        scope.timer = $timeout(function () {
           ctrl.init(element, scope);
 
           // Listeners
