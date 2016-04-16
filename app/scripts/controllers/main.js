@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", "intros", "$timeout", function ($scope, socket, uiGridConstants, intros, $timeout) {
+  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", function ($scope, socket, uiGridConstants, $timeout) {
     var that = this;
 
     that.intro = {
@@ -45,8 +45,6 @@ angular.module('tagrefineryGuiApp')
       $scope.introCurrent = that.intro;
     }, 1);
 
-    $scope.state = intros.state;
-
     // Imported data
     $scope.dataI = [];
 
@@ -77,11 +75,6 @@ angular.module('tagrefineryGuiApp')
 
     socket.on('isRunning', function (data) {
       that.running = data == "true";
-
-      if(that.running == true)
-      {
-        intros.set("running");
-      }
     });
 
     socket.on('dataLoaded', function (data) {
@@ -96,20 +89,12 @@ angular.module('tagrefineryGuiApp')
     that.goToImport = function()
     {
       that.showImport = true;
-      intros.set("import");
     };
 
     that.goToStart = function()
     {
       that.showWorkflow = false;
       that.showImport = false;
-      if(that.running){
-        intros.set("running");
-      }
-      else
-      {
-        intros.set("initial");
-      }
     };
 
     that.reconnectToWorkflow = function()
@@ -117,7 +102,6 @@ angular.module('tagrefineryGuiApp')
       that.showWorkflow = true;
 
       socket.emit("selectMode", "reconnect");
-      intros.set("guided");
     };
 
     that.showLinkedView = function()
@@ -141,7 +125,6 @@ angular.module('tagrefineryGuiApp')
       that.running = true;
 
       socket.emit("selectMode", "guided");
-      intros.set("guided");
     };
 
     ////////////////////////////////////////////////

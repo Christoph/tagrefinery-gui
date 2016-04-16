@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('WorkflowCtrl', ["$scope", "socket", "intros", "stats", function ($scope, socket, intros, stats) {
+  .controller('WorkflowCtrl', ["$scope", "socket", "stats", function ($scope, socket, stats) {
     var that = this;
 
     // State variables
@@ -125,68 +125,21 @@ angular.module('tagrefineryGuiApp')
 
         that.updateProgress();
       }
-
-      if($scope.showStep)
-      {
-        if($scope.currentStep == 0)
-        {
-          intros.set("preFilter");
-        }
-        if($scope.currentStep == 1)
-        {
-          intros.set("preBlacklist");
-        }
-        if($scope.currentStep == 2)
-        {
-          intros.set("spellTruth");
-        }
-        if($scope.currentStep == 3)
-        {
-          intros.set("spellCorrect");
-        }
-        if($scope.currentStep == 4)
-        {
-          intros.set("compF");
-        }
-        if($scope.currentStep == 5)
-        {
-          intros.set("compU");
-        }
-        if($scope.currentStep == 7)
-        {
-          intros.set("postF");
-        }
-        if($scope.currentStep == 8)
-        {
-          intros.set("postR");
-        }
-        if($scope.currentStep == 9)
-        {
-          intros.set("postS");
-        }
-      }
-      else
-      {
-        intros.set("guided");
-      }
     };
 
     that.ok = function()
     {
       $scope.showStep = false;
       $scope.currentStep++;
-      intros.set("guided");
 
       that.updateProgress();
 
       if ($scope.currentStep == 6) {
         that.isIntermediate = true;
         $scope.showStep = true;
-        intros.set("result");
       } else if ($scope.currentStep == 10) {
         that.isFinal = true;
         $scope.showStep = true;
-        intros.set("result");
       }
 
       that.apply();
@@ -197,7 +150,6 @@ angular.module('tagrefineryGuiApp')
     {
       $scope.showStep = false;
       $scope.currentStep--;
-      intros.set("guided");
 
       that.updateProgress();
 
@@ -225,13 +177,11 @@ angular.module('tagrefineryGuiApp')
 
     that.goToAdvanced = function()
     {
-      intros.set("advanced");
       socket.emit("selectMode", "free");
     };
 
     that.goToLinked = function()
     {
-      intros.set("linked");
       socket.emit("selectMode", "linked");
     };
 
@@ -295,7 +245,6 @@ angular.module('tagrefineryGuiApp')
 
       $scope.showStep = false;
       $scope.currentStep++;
-      intros.set("guided");
 
       that.updateProgress();
 
@@ -347,7 +296,6 @@ angular.module('tagrefineryGuiApp')
 
       $scope.showStep = false;
       $scope.currentStep++;
-      intros.set("guided");
 
       that.updateProgress();
 

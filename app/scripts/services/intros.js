@@ -487,6 +487,7 @@ angular.module('tagrefineryGuiApp')
       skipLabel: 'Exit',
       doneLabel: 'Done'
     };
+
     return {
       state: state,
       set: function(page)
@@ -494,4 +495,5 @@ angular.module('tagrefineryGuiApp')
         state.current = that.list[page];
       }
     }
+
   });
