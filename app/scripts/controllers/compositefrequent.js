@@ -134,6 +134,8 @@ angular.module('tagrefineryGuiApp')
       socket.removeAllListeners('frequentData');
       socket.removeAllListeners('frequentGroups');
       socket.removeAllListeners('compFrequentParams');
+
+      that.frequentGrid.data.length = 0;
     });
 
     that.undo = function ()

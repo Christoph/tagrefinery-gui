@@ -58,6 +58,8 @@ angular.module('tagrefineryGuiApp')
       socket.removeAllListeners('connect');
       socket.removeAllListeners('disconnect');
       socket.removeAllListeners('connect_error');
+
+      $scope.gridOptions.data.length = 0;
     });
 
     ////////////////////////////////////////////////

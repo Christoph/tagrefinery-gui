@@ -108,6 +108,8 @@ angular.module('tagrefineryGuiApp')
       socket.removeAllListeners('postFilterData');
       socket.removeAllListeners('postFilterGrid');
       socket.removeAllListeners('postFilterParams');
+
+      that.grid.data.length = 0;
     });
 
     that.apply = function()

@@ -75,6 +75,8 @@ angular.module('tagrefineryGuiApp')
       that.defaultWatch();
 
       socket.removeAllListeners('preDictionaryParams');
+
+      $scope.dataP.length = 0;
     });
 
     that.clear = function()

@@ -292,6 +292,9 @@ angular.module('tagrefineryGuiApp')
       socket.removeAllListeners('uniqueData');
       socket.removeAllListeners('compUniqueParams');
       socket.removeAllListeners('postFilterGrid');
+
+      that.vocabGrid.data.length = 0;
+      that.replGrid.data.length = 0;
     });
 
     // APPLY

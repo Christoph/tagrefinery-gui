@@ -162,6 +162,8 @@ angular.module('tagrefineryGuiApp')
       socket.removeAllListeners('preFilterData');
       socket.removeAllListeners('preFilterGrid');
       socket.removeAllListeners('preFilterParams');
+
+      that.grid.data.length = 0;
     });
 
     that.undo = function()

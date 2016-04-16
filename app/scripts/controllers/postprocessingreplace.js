@@ -142,6 +142,8 @@ angular.module('tagrefineryGuiApp')
       socket.removeAllListeners('postRemoveParams');
       socket.removeAllListeners('computePost');
       socket.removeAllListeners('postSalvaging');
+
+      that.edit.data.length = 0;
     });
 
     that.undo = function()

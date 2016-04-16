@@ -209,6 +209,9 @@ angular.module('tagrefineryGuiApp')
       socket.removeAllListeners('spellExclude');
       socket.removeAllListeners('replacementData');
       socket.removeAllListeners('spellVocab');
+
+      that.grid.data.length = 0;
+      that.replGrid.data.lenth = 0;
     });
 
     that.undo = function()

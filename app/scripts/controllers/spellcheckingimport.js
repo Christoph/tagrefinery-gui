@@ -74,6 +74,8 @@ angular.module('tagrefineryGuiApp')
       that.defaultWatch();
 
       socket.removeAllListeners('spellDictionaryParams');
+
+      $scope.dataS.length = 0;
     });
 
     that.clear = function()

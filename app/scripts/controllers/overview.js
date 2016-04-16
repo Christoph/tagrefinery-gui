@@ -76,6 +76,10 @@ angular.module('tagrefineryGuiApp')
       socket.removeAllListeners('computeComp');
       socket.removeAllListeners('computePost');
       socket.removeAllListeners('resultVocab');
+
+      that.grid.data.length = 0;
+      that.vocab.data.length = 0;
+      that.group.data.length = 0;
     });
 
     that.loadStats = function()

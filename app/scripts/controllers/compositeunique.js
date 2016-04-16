@@ -137,6 +137,8 @@ angular.module('tagrefineryGuiApp')
       socket.removeAllListeners('uniqueData');
       socket.removeAllListeners('uniqueGroups');
       socket.removeAllListeners('compUniqueParams');
+
+      that.uniqueGrid.data.length = 0;
     });
 
     that.undo = function ()
