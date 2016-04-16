@@ -15,9 +15,14 @@ angular.module('tagrefineryGuiApp')
       },
       templateUrl: 'views/upload.html',
       link: function (scope) {
+
+        scope.$on("$destroy", function() {
+          $timeout.cancel(scope.timer);
+        });
+
         // Rendering
-        $timeout(function () {
-          var handleFileSelect = function( event ){
+        scope.timer = $timeout(function () {
+          scope.handleFileSelect = function( event ){
             var target = event.srcElement || event.target;
 
             if (target && target.files && target.files.length === 1) {
@@ -28,12 +33,12 @@ angular.module('tagrefineryGuiApp')
             }
           };
 
-          var fileChooser = document.querySelectorAll('.upload');
+          scope.fileChooser = document.querySelectorAll('.upload');
 
-          if ( fileChooser.length !== 1 ){
+          if ( scope.fileChooser.length !== 1 ){
             console.log('Found > 1 or < 1 file choosers within the menu item, error, cannot continue');
           } else {
-            fileChooser[0].addEventListener('change', handleFileSelect, false);
+            scope.fileChooser[0].addEventListener('change', scope.handleFileSelect, false);
           }
         }, 100);
       }
