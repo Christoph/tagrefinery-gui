@@ -14,7 +14,7 @@ angular.module('tagrefineryGuiApp')
       ioSocket: io.connect('http://localhost:9092', {
       reconnection: true,
       timeout: 10000,
-      'reconnectionAttempts': 10
+      'reconnectionAttempts': 100
       })
     })
   }]);
