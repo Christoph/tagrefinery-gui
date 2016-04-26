@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name tagrefineryGuiApp.controller:OverviewCtrl
+ * @name tagrefineryGuiApp.config: Routes
  * @description
  * # OverviewCtrl
  * Controller of the tagrefineryGuiApp
@@ -10,7 +10,13 @@
 angular.module('tagrefineryGuiApp')
   .config(["$stateProvider", function ($stateProvider) {
     $stateProvider
-      .state('index', {
+      .state("index", {
+        abstract: true,
+        url: "",
+        templateUrl: "views/disconnected.html",
+        controller: "MainCtrl as ctrl"
+      })
+      .state('index.main', {
         url: "",
         templateUrl: "views/start.html",
         controller: "StartCtrl as ctrl",
@@ -21,9 +27,9 @@ angular.module('tagrefineryGuiApp')
 
         }
       })
-      .state('import', {
+      .state('index.import', {
         url: "/import",
         templateUrl: "views/import.html",
-        controller: "MainCtrl as ctrl"
+        controller: "ImportCtrl as ctrl"
       })
   }]);
