@@ -1,7 +1,7 @@
-<div style="text-align: center; margin: 15% auto">
-    <h1 style="font-size: 50px">TagRefinery</h1>
-    <div class="alert alert-warning">
-      <h3>Disconnected</h3>
-    </div>
-    <button class="btn btn-primary btn-lg" ng-click="ctrl.reconnect()"> Reconnect </button>
+<div ng-if='!ctrl.connectionStatus' class="disconnectBackground">
+  <h1 class="disconnectTitle">Disconnected</h1>
+  <div class="centerTotal">
+    <div class='overlayInner' spin-circle style='width: 300px; height: 300px'></div>
+  </div>
 </div>
+<ui-view> Test </ui-view>
