@@ -31,10 +31,21 @@ angular.module('tagrefineryGuiApp')
       calls("isRunning"),
       calls("isLoaded")
     ]).then(function(results){
+
+      // Removes the socket listeners
+      socket.removeAllListeners('isRunning');
+      socket.removeAllListeners('isLoaded');
+
+      // Returns the data
         return {
           running: results[0],
           loaded: results[1]
         };
+    },function() {
+      console.log("No start view data.");
+
+      socket.removeAllListeners('isRunning');
+      socket.removeAllListeners('isLoaded');
     });
 
   }]);
