@@ -15,8 +15,7 @@
     <button id="update1" style="width: 200px" uib-tooltip="Reconnect to the active Season" ng-if="ctrl.running" class="btn btn-lg primaryColor" ng-click="ctrl.reconnectToWorkflow()">Reconnect <span class="fa fa-refresh"></span></button>
   </div>
   <div class="row" style="margin-top: 2px">
-    <button uib-tooltip="Update csv file" id="update2" ng-if="ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()"><span class="fa fa-chevron-left"></span> Back to Import</button>
-    <button uib-tooltip="Import csv file" id="start1" ng-if="!ctrl.dataLoaded" class="btn secondaryColor" ng-click="ctrl.goToImport()">Import Data <span class="fa fa-upload"></span></button>
+    <button uib-tooltip="Import csv file" id="start1" class="btn secondaryColor" ui-sref="import">Import/Update Data <span class="fa fa-upload"></span></button>
 
     <span style="font-size: medium"> Status:</span>
     <span style="font-size: xx-large; vertical-align: middle" ng-if="ctrl.dataLoaded"><span class=" glyphicon glyphicon-ok-circle"></span></span>

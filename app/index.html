@@ -27,7 +27,9 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<div ng-controller="MainCtrl as ctrl" ng-include="'views/main.html'"></div>
+<div ui-view>
+  Loading
+</div>
 
 <!-- build:js(.) scripts/vendor.js -->
 <script src="bower_components/socket.io/socket.io.js"></script>
@@ -53,6 +55,11 @@
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
+<script src="scripts/routes.js"></script>
+<script src="scripts/controllers/start.js"></script>
+
+<script src="scripts/services/startInitData.js"></script>
+
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/services/d3.js"></script>
 <script src="scripts/services/socket.js"></script>
