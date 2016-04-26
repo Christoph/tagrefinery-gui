@@ -33,17 +33,14 @@ angular.module('tagrefineryGuiApp')
     ////////////////////////////////////////////////
 
     socket.on('connect', function () {
-      console.log("connects")
       that.connectionStatus = true;
     });
 
     socket.on('disconnect', function () {
-      console.log("disconnects")
       that.connectionStatus = false;
     });
 
     socket.on('connect_error', function () {
-      console.log("disconnects")
       that.connectionStatus = false;
     });
 

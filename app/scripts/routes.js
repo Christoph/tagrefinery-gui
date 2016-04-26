@@ -8,7 +8,12 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .config(["$stateProvider", function ($stateProvider) {
+  .config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider
+      .when("","/main")
+      .otherwise("/main");
+
     $stateProvider
       .state("index", {
         abstract: true,
@@ -17,7 +22,7 @@ angular.module('tagrefineryGuiApp')
         controller: "MainCtrl as ctrl"
       })
       .state('index.main', {
-        url: "",
+        url: "/main",
         templateUrl: "views/start.html",
         controller: "StartCtrl as ctrl",
         resolve: {
