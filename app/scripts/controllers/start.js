@@ -11,8 +11,6 @@ angular.module('tagrefineryGuiApp')
   .controller('StartCtrl', ["$scope", "initialData", function ($scope, initialData) {
     var that = this;
 
-    console.log(initialData)
-
     that.running = initialData.running;
     that.dataLoaded = initialData.loaded;
 

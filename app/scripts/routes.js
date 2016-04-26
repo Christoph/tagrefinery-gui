@@ -15,13 +15,7 @@ angular.module('tagrefineryGuiApp')
       .otherwise("/main");
 
     $stateProvider
-      .state("index", {
-        abstract: true,
-        url: "",
-        templateUrl: "views/disconnected.html",
-        controller: "MainCtrl as ctrl"
-      })
-      .state('index.main', {
+      .state('main', {
         url: "/main",
         templateUrl: "views/start.html",
         controller: "StartCtrl as ctrl",
@@ -32,7 +26,7 @@ angular.module('tagrefineryGuiApp')
 
         }
       })
-      .state('index.import', {
+      .state('import', {
         url: "/import",
         templateUrl: "views/import.html",
         controller: "ImportCtrl as ctrl"

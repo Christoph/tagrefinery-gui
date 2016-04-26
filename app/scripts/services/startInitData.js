@@ -42,7 +42,7 @@ angular.module('tagrefineryGuiApp')
           loaded: results[1]
         };
     },function() {
-      console.log("No start view data.");
+      console.log("No data.");
 
       socket.removeAllListeners('isRunning');
       socket.removeAllListeners('isLoaded');

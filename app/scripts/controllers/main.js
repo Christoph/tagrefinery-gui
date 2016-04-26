@@ -8,7 +8,7 @@
  * Controller of the tagrefineryGuiApp
  */
 angular.module('tagrefineryGuiApp')
-  .controller('MainCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", function ($scope, socket, uiGridConstants, $timeout) {
+  .controller('MainCtrl', ["$scope", "socket", "$rootScope", "$timeout", function ($scope, socket, $rootScope, $timeout) {
     var that = this;
 
     that.connectionStatus = false;
@@ -22,11 +22,6 @@ angular.module('tagrefineryGuiApp')
       socket.removeAllListeners('disconnect');
       socket.removeAllListeners('connect_error');
     });
-
-    ////////////////////////////////////////////////
-    // Socket
-    ////////////////////////////////////////////////
-
 
     ////////////////////////////////////////////////
     // Global

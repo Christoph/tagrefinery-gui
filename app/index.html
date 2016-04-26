@@ -27,11 +27,19 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<div ui-view>
+<div ng-controller="MainCtrl as ctrl">
   <div ng-if='!ctrl.connectionStatus' class="disconnectBackground">
     <h1 class="disconnectTitle">Disconnected</h1>
     <div class="centerTotal">
       <div class='overlayInner' spin-circle style='width: 300px; height: 300px'></div>
+    </div>
+  </div>
+  <div ui-view>
+    <div class="disconnectBackground">
+      <h1 class="disconnectTitle">Disconnected</h1>
+      <div class="centerTotal">
+        <div class='overlayInner' spin-circle style='width: 300px; height: 300px'></div>
+      </div>
     </div>
   </div>
 </div>
