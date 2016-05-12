@@ -11,25 +11,6 @@ angular.module('tagrefineryGuiApp')
   .controller('ImportCtrl', ["$scope", "socket", "uiGridConstants", "$timeout", function ($scope, socket, uiGridConstants, $timeout) {
     var that = this;
 
-    that.intro = {
-      overlayOpacity: 0.3,
-      steps:[
-        {
-          intro: "<h3>Welcome! </h3><br>" +
-          "If you need help in any of the pages start the introduction for the page by clicking <i class='fa fa-film'></i> in the right upper corner of the screen.",
-          position: 'top-center'
-        }
-      ],
-      showStepNumbers: false,
-      showBullets: true,
-      exitOnOverlayClick: true,
-      exitOnEsc: true,
-      nextLabel: '<strong>Next</strong>',
-      prevLabel: 'Previous',
-      skipLabel: 'Exit',
-      doneLabel: 'Done'
-    };
-
     // State variables
     that.connectionStatus = false;
     that.dataLoaded = false;

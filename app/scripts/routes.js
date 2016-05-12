@@ -23,12 +23,16 @@ angular.module('tagrefineryGuiApp')
           initialData: function(startInitData) {
             return startInitData;
           }
-
         }
       })
       .state('import', {
         url: "/import",
         templateUrl: "views/import.html",
-        controller: "ImportCtrl as ctrl"
+        controller: "ImportCtrl as ctrl",
+        resolve: {
+          initialData: function(startImportData) {
+            return startImportData;
+          }
+        }
       })
   }]);
