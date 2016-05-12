@@ -31,7 +31,7 @@ angular.module('tagrefineryGuiApp')
         controller: "ImportCtrl as ctrl",
         resolve: {
           initialData: function(startImportData) {
-            return startImportData;
+            return startImportData.get();
           }
         }
       })
