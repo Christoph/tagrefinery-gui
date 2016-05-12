@@ -20,8 +20,8 @@ angular.module('tagrefineryGuiApp')
         templateUrl: "views/start.html",
         controller: "StartCtrl as ctrl",
         resolve: {
-          initialData: function(startInitData) {
-            return startInitData;
+          initialData: function(fetchData) {
+            return fetchData.get(["Running","Loaded"]);
           }
         }
       })
@@ -30,8 +30,8 @@ angular.module('tagrefineryGuiApp')
         templateUrl: "views/import.html",
         controller: "ImportCtrl as ctrl",
         resolve: {
-          initialData: function(startImportData) {
-            return startImportData.get();
+          initialData: function(fetchData) {
+            return fetchData.get(["StartImportData","Loaded"]);
           }
         }
       })

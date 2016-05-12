@@ -11,9 +11,11 @@ angular.module('tagrefineryGuiApp')
   .controller('StartCtrl', ["$scope", "initialData", function ($scope, initialData) {
     var that = this;
 
-    that.running = initialData.running;
-    that.dataLoaded = initialData.loaded;
+    // Get resolved data
+    that.running = initialData.Running;
+    that.dataLoaded = initialData.Loaded;
 
+    // Cleanup
     $scope.$on("$destroy", function() {
       console.log("ctrl destroy")
     })

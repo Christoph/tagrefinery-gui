@@ -12,15 +12,14 @@ angular.module('tagrefineryGuiApp')
     var that = this;
 
     // Get resolved data
-    $scope.dataI = JSON.parse(initialData.data);
-    that.dataLoaded = initialData.loaded;
-
-    console.log($scope.dataI.length)
+    $scope.dataI = JSON.parse(initialData.StartImportData);
+    that.dataLoaded = initialData.Loaded;
 
     // State variables
     that.dataChanged = false;
     that.touched = false;
 
+    // Cleanup
     $scope.$on("$destroy", function() {
       console.log("import destroy")
 
